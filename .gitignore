@@ -1,6 +1,9 @@
 *.class
 *.log
 
+bin/
+libexec/
+logs/
 # sbt specific
 .cache
 .history

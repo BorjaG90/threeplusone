@@ -6,12 +6,15 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 pipelineStages := Seq(digest)
 
 libraryDependencies ++= Seq(
-  jdbc,
   cache,
-  ws
+  ws,
+  "mysql" % "mysql-connector-java" % "5.1.40",
+  "com.typesafe.play" %% "play-slick" % "2.0.0",
+  "com.typesafe.play" %% "play-slick-evolutions" % "2.0.0"
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 
+routesGenerator := InjectedRoutesGenerator
 
 fork in run := true

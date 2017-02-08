@@ -1,4 +1,4 @@
-@()
+@(countries : Seq[model.Country])
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -7,6 +7,24 @@
            href="@routes.Assets.versioned("images/favicon.png")">
     </head>
     <body>
-        <h1>Hola Mundo</h1>
+        <h1>Paises</h1>
+        <div>
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Abreviatura</th>
+                </tr>
+                @for(country <- countries){
+                <tr>
+                    <td>@country.id</td>
+                    <td>@country.name</td>
+                    <td>@country.abbreviation</td>
+                </tr>
+                }
+
+            </table>
+        </div>
+
     </body>
 </html>

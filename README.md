@@ -9,6 +9,6 @@ Raúl Marticorena
 
 ## Versiones y Plugins usados
 
-Play 2.5
+Play 2.5.10
 Scala 2.11.8
 sbt 0.13.12
