@@ -1,0 +1,17 @@
+@(title: String)(content: Html)
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>@title</title>
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+    </head>
+    <body>
+	    <div>
+			<label><h1>ThreePlusOne</h1></label>
+		</div>
+		<h3><a href="@routes.LeagueController.home">Ligas</a></h3>
+		@content
+    </body>
+</html>

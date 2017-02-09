@@ -1,6 +1,6 @@
 # threeplusone schema
 # --- !Downs
-delete from countries;
+delete from countries if exists;
 
 # --- !Ups
 # --- Countries

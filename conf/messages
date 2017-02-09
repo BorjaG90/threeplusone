@@ -1,0 +1,10 @@
+# App name
+app.name = ThreePlusOne
+
+#Title
+
+league.title = Ligas
+
+# Flash Scope
+flash.success = success
+flash.error = error
