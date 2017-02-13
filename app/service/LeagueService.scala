@@ -12,11 +12,15 @@ object LeagueService {
     Leagues.add(league)
   }
 
-  def delete(id: Long): Future[Int] = {
+  def delete(id: Option[Long]): Future[Int] = {
     Leagues.delete(id)
   }
 
   def list: Future[Seq[(League, String)]] = {
     Leagues.list
+  }
+
+  def getLeague(id: Long): Future[Option[League]] = {
+    Leagues.get(id)
   }
 }

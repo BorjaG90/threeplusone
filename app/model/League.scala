@@ -12,7 +12,7 @@ import slick.driver.JdbcProfile
 import slick.driver.MySQLDriver.api._
 import scala.concurrent.ExecutionContext.Implicits.global
 
-case class League(id: Long, name: String, abbreviation: Option[String] = None, division: String, id_country: Option[Long] = Some(1L))
+case class League(id: Option[Long] = None, name: String, abbreviation: Option[String] = None, division: String, id_country: Option[Long] = Some(1L))
 class LeagueTable(tag:Tag) extends Table[League](tag, "leagues") {
   val countriesTable = TableQuery[CountryTable]
   def id = column[Long]("id", O.PrimaryKey,O.AutoInc)
@@ -21,12 +21,12 @@ class LeagueTable(tag:Tag) extends Table[League](tag, "leagues") {
   def division = column[String]("division")
   def id_country = column[Long]("id_country")
   def league_country_fk = foreignKey("league_country_fk", id_country, countriesTable)(_.id)
-  override def * =(id, name, abbreviation.?, division, id_country.?) <> (League.tupled, League.unapply _)
+  override def * =(id.?, name, abbreviation.?, division, id_country.?) <> (League.tupled, League.unapply _)
 }
 object LeagueForm {
   val form = Form(
     mapping(
-      "id" -> longNumber,
+      "id" -> optional(longNumber),
       "name" -> nonEmptyText,
       "abbreviation" -> optional(nonEmptyText),
       "division" -> nonEmptyText,
@@ -42,8 +42,14 @@ object Leagues {
       case ex : Exception => ex.getCause.getMessage
     }
   }
-  def delete(id: Long): Future[Int] = {
+  def get(id: Long): Future[Option[League]] = {
+    dbConfig.db.run(leaguesTable.filter(_.id === id).result.headOption)
+  }
+  def delete(id: Option[Long]): Future[Int] = {
     dbConfig.db.run(leaguesTable.filter(_.id === id).delete)
+  }
+  def count: Future[Int] = {
+    dbConfig.db.run(leaguesTable.length.result)
   }
   def list: Future[Seq[(League,String)]] ={
     dbConfig.db.run {

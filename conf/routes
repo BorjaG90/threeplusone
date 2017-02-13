@@ -7,4 +7,4 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 #League
 GET     /league                       controllers.LeagueController.home
 POST    /league/add                      controllers.LeagueController.add
-GET     /league/delete/:id                 controllers.LeagueController.delete(id: Long)
+GET     /league/delete/:id                 controllers.LeagueController.delete(id: Option[Long])
