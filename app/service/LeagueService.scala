@@ -1,26 +1,17 @@
 package service
 
 /**
-  * Created by borja on 9/02/17.
+  * Created by borja on 14/02/17.
   */
-import model.{League,Leagues}
+import com.google.inject.ImplementedBy
+import model.League
+
 import scala.concurrent.Future
 
-object LeagueService {
-
-  def add(league: League): Future[String] = {
-    Leagues.add(league)
-  }
-
-  def delete(id: Option[Long]): Future[Int] = {
-    Leagues.delete(id)
-  }
-
-  def list: Future[Seq[(League, String)]] = {
-    Leagues.list
-  }
-
-  def getLeague(id: Long): Future[Option[League]] = {
-    Leagues.get(id)
-  }
+@ImplementedBy(classOf[LeagueServiceImpl])
+trait LeagueService {
+  def add(league: League): Future[String]
+  def delete(id: Option[Long]): Future[Int]
+  def list: Future[Seq[(League, String)]]
+  def getLeague(id: Long): Future[Option[League]]
 }
