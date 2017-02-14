@@ -18,7 +18,7 @@ class LeagueController @Inject()(val messagesApi: MessagesApi)extends Controller
     CountryService.list flatMap { countries =>
       LeagueService.list map {
         leagues =>
-          Ok(views.html.league(LeagueForm.form,leagues,countries))
+          Ok(views.html.league(LeagueForm.form,leagues,countries.sortBy(_.name)))
       }
     }
   }
