@@ -1,31 +1,43 @@
 package service
 
 /**
-  * Created by borja on 9/02/17.
+  * Created by Borja Gete on 9/02/17.
   */
 import javax.inject.Inject
 import com.google.inject.Singleton
 import dao.LeagueDAO
-import model.League
+import model.{League,Page}
 
 import scala.concurrent.Future
 
 @Singleton
 class LeagueServiceImpl @Inject()(leagueDAO: LeagueDAO)extends LeagueService{
 
-  def add(league: League): Future[String] = {
+  override def add(league: League): Future[String] = {
     leagueDAO.add(league)
   }
 
-  def delete(id: Option[Long]): Future[Int] = {
+  override def update(id: Long, league: League): Future[Int] = {
+    leagueDAO.update(id, league)
+  }
+
+  override def delete(id: Option[Long]): Future[Int] = {
     leagueDAO.delete(id)
   }
 
-  def list: Future[Seq[(League, String)]] = {
+  /*def list: Future[Seq[(League, String)]] = {
     leagueDAO.list
+  }*/
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[League]] ={
+    leagueDAO.list(page,pageSize,orderBy,filter)
   }
-
-  def getLeague(id: Long): Future[Option[League]] = {
+  override def count: Future[Int] = {
+    leagueDAO.count
+  }
+  override def find(id: Long): Future[League] = {
+    leagueDAO.findById(id)
+  }
+  def get(id: Long): Future[Option[League]] = {
     leagueDAO.get(id)
   }
 }

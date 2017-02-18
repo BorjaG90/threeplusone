@@ -1,15 +1,17 @@
 package dao
 
-/**
-  * Created by borja on 14/02/17.
-  */
-
 import com.google.inject.ImplementedBy
 import model.Country
 
 import scala.concurrent.Future
 
+/**
+  * Created by Borja Gete on 14/02/17.
+  */
+
 @ImplementedBy(classOf[CountryDAOImpl])
 trait CountryDAO {
   def list:Future[Seq[Country]]
+  def findById(id: Long): Future[Country]
+  def count: Future[Int]
 }

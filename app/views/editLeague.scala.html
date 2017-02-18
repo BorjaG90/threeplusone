@@ -1,0 +1,55 @@
+@(id: Long, leagueForm: Form[model.League], countries: Seq[model.Country])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("league.title")){
+
+<form id="league-data-form" role="form" action=	@routes.LeagueController.update(id) method="post" autocomplete="off">
+    <fieldset >
+        <label>Ligas</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Nombre</th>
+                <th>División</th>
+                <th>País</th>
+            </tr>
+            <tr>
+                <td>
+                    @defining(leagueForm("name").value){ nameValue=>
+                    <input type="text" id="name" name="name" value=@nameValue placeholder="Nombre" required>
+                    }
+                </td>
+                <td align="center">
+                    @defining(leagueForm("division").value){ divisionValue=>
+                    <input type="text" id="division" name="division"  value=@divisionValue required>
+                    }
+                </td>
+                <td>
+                    @defining(leagueForm("id_country").value) { countryValue=>
+                    <select id="id_country" name="id_country">
+                        @for(country <- countries){
+                        @if("Some(" + country.id + ")" == countryValue.toString){
+                        <option selected="selected" value=@country.id>@country.name</option>
+                        }else{
+                        <option value=@country.id>@country.name</option>
+                        }
+                        }
+                    </select>
+                    }
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div>
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Liga</button> o
+            <a href=@routes.LeagueController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+
+@form(routes.LeagueController.delete(Some(id)), 'class -> "topRight") {
+<input type="submit" value="Eliminar Liga" class="btn danger">
+}
+
+}

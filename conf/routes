@@ -5,6 +5,10 @@ GET     /                           controllers.Application.index
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
 #League
-GET     /league                       controllers.LeagueController.home
-POST    /league/add                      controllers.LeagueController.add
+GET     /league                       controllers.LeagueController.index
+GET     /leagues                        controllers.LeagueController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /league/new                   controllers.LeagueController.add
+POST    /leagues                       controllers.LeagueController.save
+GET     /league/:id                   controllers.LeagueController.edit(id: Long)
+POST    /league/:id                     controllers.LeagueController.update(id: Long)
 GET     /league/delete/:id                 controllers.LeagueController.delete(id: Option[Long])

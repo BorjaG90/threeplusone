@@ -1,7 +1,7 @@
 package model
 
 /**
-  * Created by borja on 9/02/17.
+  * Created by Borja Gete on 9/02/17.
   */
 import play.api.data.Form
 import play.api.data.Forms._
