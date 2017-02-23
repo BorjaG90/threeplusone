@@ -1,4 +1,4 @@
-@(currentPage : model.Page[model.League], currentOrderBy: Int, currentFilter: String)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+@(currentPage : model.Page[(model.League,model.Country)], currentOrderBy: Int, currentFilter: String, countryService: service.CountryService)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 
 @****************************************
 * Helper generating navigation links *
@@ -34,15 +34,15 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <th>Liga</th>
         <th>Abreviatura</th>
         <th>División</th>
-        <!--<th>Pais</th> -->
+        <th>Pais</th>
     </tr>
-    @for(league <- currentPage.items){
+    @for((league,country) <- currentPage.items){
     <tr>
         <td>@league.id</td>
         <td><a href="@routes.LeagueController.edit(league.id.get)">@league.name</a></td>
         <td>@league.abbreviation</td>
         <td>@league.division</td>
-
+        <td>@country.name</td>
         <td><a href="@routes.LeagueController.delete(league.id)">Borrar</a></td>
     </tr>
     }

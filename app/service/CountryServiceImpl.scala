@@ -11,8 +11,8 @@ import scala.concurrent.Future
   */
 @Singleton
 class CountryServiceImpl @Inject()(countryDAO: CountryDAO)extends CountryService{
-  override def find(id: Long): Future[Country] = {
-    countryDAO.findById(id)
+  override def find(id: Option[Long]): Future[Country] = {
+    countryDAO.findById(id.getOrElse(0L))
   }
   override def list: Future[Seq[Country]] = {
     countryDAO.list

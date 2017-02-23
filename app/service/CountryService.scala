@@ -10,7 +10,7 @@ import scala.concurrent.Future
 
 @ImplementedBy(classOf[CountryServiceImpl])
 trait CountryService {
-  def find(id: Long): Future[Country]
+  def find(id: Option[Long]): Future[Country]
   def list: Future[Seq[Country]]
   def count: Future[Int]
 }

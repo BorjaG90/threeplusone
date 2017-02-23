@@ -6,7 +6,7 @@ package service
 import javax.inject.Inject
 import com.google.inject.Singleton
 import dao.LeagueDAO
-import model.{League,Page}
+import model.{League,Page,Country}
 
 import scala.concurrent.Future
 
@@ -28,7 +28,7 @@ class LeagueServiceImpl @Inject()(leagueDAO: LeagueDAO)extends LeagueService{
   /*def list: Future[Seq[(League, String)]] = {
     leagueDAO.list
   }*/
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[League]] ={
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[(League,Country)]] ={
     leagueDAO.list(page,pageSize,orderBy,filter)
   }
   override def count: Future[Int] = {

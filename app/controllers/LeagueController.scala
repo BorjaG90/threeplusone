@@ -29,7 +29,7 @@ class LeagueController @Inject()(val messagesApi: MessagesApi, leagueService: Le
   }*/
   def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
     leagueService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
-      Ok(html.listLeague(pageEmp, orderBy, filter))
+      Ok(html.listLeague(pageEmp, orderBy, filter, countryService))
     }.recover {
       case ex: TimeoutException =>
         Logger.error("Error listando ligas")

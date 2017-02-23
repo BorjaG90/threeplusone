@@ -2,7 +2,7 @@ package dao
 
 import javax.inject.Inject
 
-import model.{League,LeagueTable,Page}
+import model.{League,LeagueTable,Page,Country}
 import play.api.db.slick.DatabaseConfigProvider
 import slick.driver.JdbcProfile
 
@@ -56,14 +56,14 @@ class LeagueDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProv
       } yield (league, country.name)).result
     }
   }*/
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[League]] = {
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[(League,Country)]] = {
     val offset = pageSize * page
     val query =
       (for {
         league <- leagues if league.name.toLowerCase like filter.toLowerCase
         country <- league.league_country_fk
       //} yield (league,country)).drop(offset).take(pageSize)
-      } yield league).drop(offset).take(pageSize)
+      } yield (league,country)).drop(offset).take(pageSize)
     val totalRows = count(filter)
     val result = db.run(query.result)
 
