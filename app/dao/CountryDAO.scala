@@ -1,9 +1,9 @@
 package dao
 
 import com.google.inject.ImplementedBy
-import model.Country
-
 import scala.concurrent.Future
+import model.Country
+import impl.CountryDAOImpl
 
 /**
   * Created by Borja Gete on 14/02/17.

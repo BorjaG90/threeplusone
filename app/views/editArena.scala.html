@@ -1,0 +1,55 @@
+@(id: Long, arenaForm: Form[model.Arena], countries: Seq[model.Country])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("arena.title")){
+
+<form id="arena-data-form" role="form" action=@routes.ArenaController.update(id) method="post" autocomplete="off">
+    <fieldset >
+        <label>Estadios</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>País</th>
+            </tr>
+            <tr>
+                <td>
+                    @defining(arenaForm("name").value){ nameValue=>
+                    <input type="text" id="name" name="name" value="@nameValue" placeholder="Nombre" required>
+                    }
+                </td>
+                <td align="center">
+                    @defining(arenaForm("direction").value){ directionValue=>
+                    <input type="text" id="direction" name="direction"  value="@directionValue">
+                    }
+                </td>
+                <td>
+                    @defining(arenaForm("id_country").value) { countryValue=>
+                    <select id="id_country" name="id_country">
+                        @for(country <- countries){
+                        @if("Some(" + country.id + ")" == countryValue.toString){
+                        <option selected="selected" value="@country.id">@country.name</option>
+                        }else{
+                        <option value="@country.id">@country.name</option>
+                        }
+                        }
+                    </select>
+                    }
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div>
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Estadio</button> o
+            <a href=@routes.ArenaController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+
+@form(routes.ArenaController.delete(Some(id)), 'class -> "topRight") {
+<input type="submit" value="Eliminar Estadio" class="btn danger">
+}
+
+}

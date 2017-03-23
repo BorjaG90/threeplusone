@@ -1,4 +1,4 @@
-package model
+package util
 
 /**
   * Created by Borja Gete on 18/02/17.

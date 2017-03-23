@@ -17,6 +17,6 @@ libraryDependencies ++= Seq(
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 
 routesGenerator := InjectedRoutesGenerator
-routesImport += "extension.Binders._"
+routesImport += "util.Binders._"
 
 fork in run := true

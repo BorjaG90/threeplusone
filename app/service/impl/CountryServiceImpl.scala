@@ -1,11 +1,13 @@
-package service
+package service.impl
 
 import javax.inject.Inject
 import com.google.inject.Singleton
+import scala.concurrent.Future
 import dao.CountryDAO
 import model.Country
+import service.CountryService
 
-import scala.concurrent.Future
+
 /**
   * Created by Borja Gete on 14/02/17.
   */

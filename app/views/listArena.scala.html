@@ -1,15 +1,15 @@
-@(currentPage : model.Page[(model.League,model.Country)], currentOrderBy: Int, currentFilter: String)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+@(currentPage : util.Page[(model.Arena,model.Country)], currentOrderBy: Int, currentFilter: String)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 
 @****************************************
 * Helper generating navigation links *
 ****************************************@
 @link(newPage: Int, newOrderBy: Option[Int] = None) = @{
-routes.LeagueController.list(newPage, newOrderBy.map { orderBy =>
+routes.ArenaController.list(newPage, newOrderBy.map { orderBy =>
 if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
 }.getOrElse(currentOrderBy), currentFilter)
 }
 
-@main(Messages("league.title")){
+@main(Messages("arena.title")){
 @request.flash.get(messages("flash.success")).map { msg =>
 <div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
     <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
@@ -22,28 +22,24 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
 }
 <div id="actions">
 
-    @helper.form(action=routes.LeagueController.list()) { <input type="search"
-                                                                 id="searchbox" name="f" value="@currentFilter"
-                                                                 placeholder="Filtrar por nombre de Liga"> <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
-                                                                                                                  } <a class="btn success" id="add" href="@routes.LeagueController.add()">Añadir Liga</a>
+    @helper.form(action=routes.ArenaController.list()) { <input type="search"
+                                                                      id="searchbox" name="f" value="@currentFilter"
+                                                                      placeholder="Filtrar por nombre de Estadio"> <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
+    } <a class="btn success" id="add" href="@routes.ArenaController.add()">Añadir Estadio</a>
 
 </div>
 <table class="table table-striped">
     <tr>
-        <th>ID</th>
-        <th>Liga</th>
-        <th>Abreviatura</th>
-        <th>División</th>
+        <th>Nombre</th>
+        <th>Dirección</th>
         <th>Pais</th>
     </tr>
-    @for((league,country) <- currentPage.items){
+    @for((arena,country) <- currentPage.items){
     <tr>
-        <td>@league.id</td>
-        <td><a href="@routes.LeagueController.edit(league.id.get)">@league.name</a></td>
-        <td>@league.abbreviation</td>
-        <td>@league.division</td>
+        <td><a href="@routes.ArenaController.edit(arena.id.get)">@arena.name</a></td>
+        <td>@arena.direction</td>
         <td>@country.name</td>
-        <td><a href="@routes.LeagueController.delete(league.id)">Borrar</a></td>
+        <td><a href="@routes.ArenaController.delete(arena.id)">Borrar</a></td>
     </tr>
     }
 </table>

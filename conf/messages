@@ -2,8 +2,9 @@
 app.name = ThreePlusOne
 
 #Title
-
-league.title = Ligas
+competition.title = Competición
+season.title = Temporadas
+arena.title = Estadios
 
 # Flash Scope
 flash.success = success
