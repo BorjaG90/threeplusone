@@ -3,33 +3,28 @@
 @import helper._
 
 @main(Messages("competition.title")){
-
 <form id="competition-data-form" role="form" action=@routes.CompetitionController.update(id) method="post" autocomplete="off">
     <fieldset >
-        <label>Competiciones</label>
+        <label>Editar Competición</label>
         <br/>
         <table align="center">
             <tr>
-                <th><a href=@routes.SeasonController.add() class="btn">+</a> Temporada</th>
+                <th>Temporada <a href=@routes.SeasonController.add() class="btn">+</a></th>
                 <th>Nombre</th>
                 <th>Abreviatura</th>
                 <th>División</th>
                 <th>País</th>
-                <th>Descripción</th>
-                <th>Tipo</th>
-                <th>Inicio</th>
-                <th>Fin</th>
             </tr>
             <tr>
                 <td>
                     @defining(competitionForm("id_season").value) { seasonValue=>
                     <select id="id_season" name="id_season">
                         @for(season <- seasons){
-                        @if("Some(" + season.id + ")" == seasonValue.toString){
+                            @if("Some(" + season.id + ")" == seasonValue.toString){
                         <option selected="selected" value="@season.id">@season.year</option>
-                        }else{
+                            }else{
                         <option value="@season.id">@season.year</option>
-                        }
+                            }
                         }
                     </select>
                     }
@@ -62,6 +57,15 @@
                     </select>
                     }
                 </td>
+            </tr>
+            <tr>
+                <th>Descripción</th>
+                <th>Tipo</th>
+                <th>Inicio</th>
+                <th>Fin</th>
+            </tr>
+
+            <tr>
                 <td align="center">
                     @defining(competitionForm("description").value){ descriptionValue=>
                     <input type="text" id="description" name="description"  value="@descriptionValue">

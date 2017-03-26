@@ -17,15 +17,17 @@
 			<label><h1>ThreePlusOne System.</h1></label>
 		</div>
 		<div id="kobe">
-		<h2>Entrenamientos</h2>
+            <h2>Entrenamientos</h2>
+            <a href="@routes.UnitController.index">Unidades</a>
+            <a href="@routes.TypeExerciseController.index">Tipos</a>
+            <a href="@routes.CategoryController.index">Categorias</a>
+            <a href="@routes.EnviromentController.index">Entornos</a>
 		</div>
 		<div id="mcgrady">
-		<h2>Partidos</h2>
-		<h3>
-		<a href="@routes.SeasonController.index">Temporadas</a>
-		<a href="@routes.CompetitionController.index">Competiciones</a>
-		<a href="@routes.ArenaController.index">Estadios</a>
-		</h3>
+            <h2>Partidos</h2>
+            <a href="@routes.SeasonController.index">Temporadas</a>
+            <a href="@routes.CompetitionController.index">Competiciones</a>
+            <a href="@routes.ArenaController.index">Estadios</a>
 		</div>
 		@content
     </body>

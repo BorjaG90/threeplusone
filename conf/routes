@@ -3,7 +3,7 @@ GET     /                           controllers.Application.index
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
-
+#McGrady
 #Season
 GET     /season                       controllers.SeasonController.index
 GET     /seasons                        controllers.SeasonController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
@@ -31,3 +31,39 @@ GET     /competition/:id                   controllers.CompetitionController.edi
 POST    /competition/:id                     controllers.CompetitionController.update(id: Long)
 GET     /competition/delete/:id                 controllers.CompetitionController.delete(id: Option[Long])
 
+#Kobe
+#Unit
+GET     /unit                       controllers.UnitController.index
+GET     /units                        controllers.UnitController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /unit/new                   controllers.UnitController.add
+POST    /units                       controllers.UnitController.save
+GET     /unit/:id                   controllers.UnitController.edit(id: Long)
+POST    /unit/:id                     controllers.UnitController.update(id: Long)
+GET     /unit/delete/:id                 controllers.UnitController.delete(id: Option[Long])
+
+#TypeExercise
+GET     /type                       controllers.TypeExerciseController.index
+GET     /types                        controllers.TypeExerciseController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /type/new                   controllers.TypeExerciseController.add
+POST    /types                       controllers.TypeExerciseController.save
+GET     /type/:id                   controllers.TypeExerciseController.edit(id: Long)
+POST    /type/:id                     controllers.TypeExerciseController.update(id: Long)
+GET     /type/delete/:id                 controllers.TypeExerciseController.delete(id: Option[Long])
+
+#Enviroment
+GET     /enviroment                       controllers.EnviromentController.index
+GET     /enviroments                        controllers.EnviromentController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /enviroment/new                   controllers.EnviromentController.add
+POST    /enviroments                       controllers.EnviromentController.save
+GET     /enviroment/:id                   controllers.EnviromentController.edit(id: Long)
+POST    /enviroment/:id                     controllers.EnviromentController.update(id: Long)
+GET     /enviroment/delete/:id                 controllers.EnviromentController.delete(id: Option[Long])
+
+#Category
+GET     /category                       controllers.CategoryController.index
+GET     /categorys                        controllers.CategoryController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /category/new                   controllers.CategoryController.add
+POST    /categorys                       controllers.CategoryController.save
+GET     /category/:id                   controllers.CategoryController.edit(id: Long)
+POST    /category/:id                     controllers.CategoryController.update(id: Long)
+GET     /category/delete/:id                 controllers.CategoryController.delete(id: Option[Long])

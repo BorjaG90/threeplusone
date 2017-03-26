@@ -10,7 +10,7 @@ import java.util.Date
 import java.sql.{ Date => SqlDate }
 
 case class Arena(id: Option[Long], name: String, direction: Option[String] = None,id_country: Option[Long] = Some(1L)
-                 , creationDate: Date, modifiedDate: Option[Date] = Some(new java.util.Date(0)), isDeleted: String
+                 , creationDate: Date, modifiedDate: Option[Date] = Some(new java.util.Date(0))
                 )
 
 class ArenaTable(tag:Tag) extends Table[Arena](tag, "arenas") {
@@ -24,12 +24,11 @@ class ArenaTable(tag:Tag) extends Table[Arena](tag, "arenas") {
   def id_country = column[Long]("id_country")
   def creationDate = column[Date]("creation_date")
   def modifiedDate = column[Date]("modified_date")
-  def isDeleted = column[String]("is_deleted")
 
   def arena_country_fk = foreignKey("arena_country_fk", id_country, countriesTable)(_.id)
 
   override def * =(id.?, name, direction.?, id_country.?
-    , creationDate, modifiedDate.?, isDeleted
+    , creationDate, modifiedDate.?
   ) <> (Arena.tupled, Arena.unapply _)
 }
 object ArenaForm {
@@ -41,7 +40,6 @@ object ArenaForm {
       ,"id_country" -> optional(longNumber)
       ,"creation_date" -> default(date("yyyy-MM-dd"), new java.util.Date)
       ,"modified_date" -> optional(default(date("yyyy-MM-dd"), new java.util.Date))
-      ,"is_deleted"-> default(nonEmptyText,"F")
     )(Arena.apply)(Arena.unapply)
   )
 }

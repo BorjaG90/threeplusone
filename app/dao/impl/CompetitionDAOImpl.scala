@@ -48,14 +48,6 @@ class CompetitionDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfi
     db.run(competitions.length.result)
   }
 
-  /*override def list: Future[Seq[(Competition,String)]] ={
-    db.run {
-      (for {
-        competition <- competitions
-        country <- competition.competition_country_fk
-      } yield (competition, country.name)).result
-    }
-  }*/
   override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[(Competition,Country,Season)]] = {
     val offset = pageSize * page
     val query =

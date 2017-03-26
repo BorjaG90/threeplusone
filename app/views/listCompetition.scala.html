@@ -1,4 +1,4 @@
-@(currentPage : util.Page[(model.Competition,model.Country,model.Season)], currentOrderBy: Int, currentFilter: String)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+@(currentPage : util.Page[(model.Competition,model.Country,model.Season)], currentOrderBy: Int, currentFilter: String,sf: java.text.SimpleDateFormat)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 
 @****************************************
 * Helper generating navigation links *
@@ -28,18 +28,29 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
                                                                                                                   } <a class="btn success" id="add" href="@routes.CompetitionController.add()">Añadir Competicion</a>
 
 </div>
+<script>
+function myFunction() {
+    var txt;
+    var r = confirm("Esta seguro?");
+    if (r == true) {
+        txt = "You pressed OK!";
+    } else {
+        txt = "You pressed Cancel!";
+    }
+}
+</script>
 <table class="table table-striped">
     <tr>
-        <th>Temporada</th>
-        <th>Competición</th>
-        <th>Pais</th>
-        <th>Abreviatura</th>
-        <th>División</th>
-        <th>Descripción</th>
+        <th>Temp</th>
+        <th></th>
+        <th>País</th>
+        <th>Abrev</th>
+        <th>Div</th>
         <th>Tipo</th>
-        <th>Fecha Inicio</th>
-        <th>Fecha Fin</th>
-            </tr>
+        <th>Inicio</th>
+        <th>Fin</th>
+        <th>Descripción</th>
+    </tr>
     @for((competition,country,season) <- currentPage.items){
     <tr>
         <td><a href="@routes.SeasonController.edit(season.id.get)">@season.year</a></td>
@@ -47,10 +58,14 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <td>@country.name</td>
         <td>@competition.abbreviation</td>
         <td>@competition.division</td>
-        <td>@competition.description</td>
         <td>@competition.typeCompetition</td>
-        <td>@competition.initDate</td>
-        <td>@competition.endDate</td>
+        @if(competition.initDate != None){
+        <td>@sf.format(competition.initDate.get)</td>
+        }else{<td></td>}
+        @if(competition.endDate != None){
+        <td>@sf.format(competition.endDate.get)</td>
+        }else{<td></td>}
+        <td>@competition.description</td>
         <td><a href="@routes.CompetitionController.delete(competition.id)">Borrar</a></td>
     </tr>
     }

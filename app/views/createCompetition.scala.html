@@ -13,10 +13,9 @@
     <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
 </div>
 }
-<h1>Añadir Competición</h1>
 <form id="competition-data-form" role="form" action=@routes.CompetitionController.save() method="post" autocomplete="off">
     <fieldset >
-        <label>Competición</label>
+        <label>Añadir Competición</label>
         <br/>
         <table align="center">
             <tr>
@@ -25,10 +24,6 @@
                 <th>Abreviatura</th>
                 <th>División</th>
                 <th>País</th>
-                <th>Descripción</th>
-                <th>Tipo</th>
-                <th>Inicio</th>
-                <th>Fin</th>
             </tr>
             <tr>
                 <td>
@@ -54,6 +49,15 @@
                         }
                     </select>
                 </td>
+            </tr>
+            <tr>
+                <th>Descripción</th>
+                <th>Tipo</th>
+                <th>Inicio</th>
+                <th>Fin</th>
+            </tr>
+
+            <tr>
                 <td align="center">
                     <input type="text" id="description" name="description" value="" placeholder="Descripción">
                 </td>
@@ -61,10 +65,10 @@
                     <input type="text" id="type" name="type" value="" placeholder="Tipo" required>
                 </td>
                 <td align="center">
-                    <input type="text" id="init_date" name="init_date" value="" placeholder="Fecha Inicio">
+                    <input type="date" id="init_date" name="init_date" step="1" min="2000-01-01" max="2050-12-31" value="2016-09-01">
                 </td>
                 <td align="center">
-                    <input type="text" id="end_date" name="end_date" value="" placeholder="Fecha Fin">
+                    <input type="date" id="end_date" name="end_date" step="1" min="2000-01-01" max="2050-12-31" value="2017-06-30">
                 </td>
             </tr>
         </table>

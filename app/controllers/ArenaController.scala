@@ -1,14 +1,14 @@
 package controllers
 
 /**
-  * Created by Borja Gete on 9/02/17.
+  * Created by Borja Gete on 23/03/17.
   */
 
 import com.google.inject.Inject
 import model.{Arena, ArenaForm, Country}
 import play.api._
 import play.api.mvc._
-import service.{ArenaService, CountryService, SeasonService}
+import service.{ArenaService, CountryService}
 import scala.concurrent.Future
 import play.api.i18n.{MessagesApi, Messages, I18nSupport}
 import scala.concurrent.ExecutionContext.Implicits._
@@ -64,7 +64,7 @@ class ArenaController @Inject()(val messagesApi: MessagesApi,
       data => {
         arenaService.find(id).flatMap { oldArena =>
           val newArena = Arena(Some(0L), data.name, data.direction, data.id_country
-            , oldArena.creationDate, Some(new java.util.Date()), "F"
+            , oldArena.creationDate, Some(new java.util.Date())
           )
           val futureArenaUpdate = arenaService.update(id, newArena.copy(id = Some(id)))
           futureArenaUpdate.map { result =>
@@ -85,7 +85,7 @@ class ArenaController @Inject()(val messagesApi: MessagesApi,
         BadRequest(html.createArena(formWithErrors, Seq.empty[Country]))),
       data => {
         val newArena = Arena(Some(0L), data.name, data.direction, data.id_country
-          , new java.util.Date(), Some(new java.util.Date(0)), "F"
+          , new java.util.Date(), Some(new java.util.Date(0))
         )
         val futureArenaInsert = arenaService.add(newArena)
         futureArenaInsert.map { result =>

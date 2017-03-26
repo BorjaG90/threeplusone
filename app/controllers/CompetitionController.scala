@@ -14,7 +14,7 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits._
 import views._
 import java.util.concurrent.TimeoutException
-
+import java.text.SimpleDateFormat
 import scala.collection.mutable.ArrayBuffer
 
 class CompetitionController @Inject()(val messagesApi: MessagesApi,
@@ -29,14 +29,9 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi,
     home
   }
 
-  /*def list: Action[AnyContent] = Action.async { implicit request =>
-    service.list map { pageEmp =>
-      Ok(html.listCompetition(pageEmp))
-    }
-  }*/
   def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
     competitionService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
-      Ok(html.listCompetition(pageEmp, orderBy, filter))
+      Ok(html.listCompetition(pageEmp, orderBy, filter,new SimpleDateFormat("dd/MM/yyyy")))
     }.recover {
       case ex: TimeoutException =>
         Logger.error("Error listando competiciones")
@@ -46,20 +41,8 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi,
 
   def add: Action[AnyContent] = Action.async { implicit request =>
     seasonService.listSimple flatMap { seasons =>
-      val years = new ArrayBuffer[String]()
-      for (a <- 2000 to 2050) {
-        years += a.toString
-        for (season <- seasons) {
-          if (years.contains(season.year)) {
-            years -= season.year
-          }
-        }
-      }
-      val y = collection.Seq[String](years: _*)
       countryService.list map { countries =>
-        Ok(html.createCompetition(CompetitionForm.form
-          , countries.sortBy(_.name)
-          , seasons.sortBy(_.year))
+        Ok(html.createCompetition(CompetitionForm.form, countries.sortBy(_.name), seasons.sortBy(_.year))
         )
       }
     }
@@ -67,16 +50,6 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi,
 
   def edit(id: Long): Action[AnyContent] = Action.async { implicit request =>
     seasonService.listSimple flatMap { seasons =>
-      val years = new ArrayBuffer[String]()
-      for (a <- 2000 to 2050) {
-        years += a.toString
-        for (season <- seasons) {
-          if (years.contains(season.year)) {
-            years -= season.year
-          }
-        }
-      }
-      val y = collection.Seq[String](years: _*)
       countryService.list flatMap { countries =>
         competitionService.find(id).map { competition =>
           Ok(html.editCompetition(id, CompetitionForm.form.fill(
@@ -98,7 +71,7 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi,
         competitionService.find(id).flatMap { oldCompetition =>
           val newCompetition = Competition(Some(0L), data.id_season, data.name, data.abbreviation, data.division
             , data.id_country, data.description, data.typeCompetition, data.initDate, data.endDate
-            , oldCompetition.creationDate, Some(new java.util.Date()), "F"
+            , oldCompetition.creationDate, Some(new java.util.Date())
           )
           val futureCompetitionUpdate = competitionService.update(id, newCompetition.copy(id = Some(id)))
           futureCompetitionUpdate.map { result =>
@@ -118,10 +91,9 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi,
       formWithErrors => Future.successful(
         BadRequest(html.createCompetition(formWithErrors, Seq.empty[Country], Seq.empty[Season]))),
       data => {
-
         val newCompetition = Competition(Some(0L), data.id_season, data.name, data.abbreviation, data.division
           , data.id_country, data.description, data.typeCompetition, data.initDate, data.endDate
-          , new java.util.Date(), Some(new java.util.Date(0)), "F"
+          , new java.util.Date(), Some(new java.util.Date(0))
         )
         val futureCompetitionInsert = competitionService.add(newCompetition)
         futureCompetitionInsert.map { result =>

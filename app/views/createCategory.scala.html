@@ -1,0 +1,46 @@
+@(arenaForm: Form[model.Category])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("arena.title")){
+@request.flash.get(messages("flash.success")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
+</div>
+}
+@request.flash.get(messages("flash.error")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
+</div>
+}
+<h1>Añadir Categoría</h1>
+<form id="arena-data-form" role="form" action=@routes.CategoryController.save() method="post" autocomplete="off">
+    <fieldset >
+        <label>Categoría</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Notas</th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" id="name" name="name" value="" placeholder="Nombre" required>
+                </td>
+                <td align="center">
+                    <input type="text" id="description" name="description" value="" placeholder="Descripción">
+                </td>
+                <td align="center">
+                    <input type="text" id="notes" name="notes" value="" placeholder="Notas">
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div class="form-actions controls ynt-btn-xlarge">
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
+            <a href=@routes.CategoryController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+}

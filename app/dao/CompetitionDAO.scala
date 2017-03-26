@@ -14,7 +14,6 @@ trait CompetitionDAO {
   def add(competition: Competition): Future[String]
   def update(id: Long, competition: Competition): Future[Int]
   def delete(id: Option[Long]):Future[Int]
-  //def list: Future[Seq[(Competition,String)]]
   def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page[(Competition,Country,Season)]]
   def findById(id: Long): Future[Competition]
   def get(id: Long): Future[Option[Competition]]

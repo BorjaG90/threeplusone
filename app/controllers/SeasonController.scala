@@ -40,34 +40,34 @@ class SeasonController @Inject()(val messagesApi: MessagesApi,
 
   def add: Action[AnyContent] = Action.async { implicit request =>
     seasonService.listSimple map { seasons =>
-      val years= new ArrayBuffer[String]()
+      val allYears= new ArrayBuffer[String]()
       for(a <- 2000 to 2050){
-        years += a.toString
+        allYears += a.toString
         for(season <- seasons){
-          if(years.contains(season.year)){
-           years -= season.year
+          if(allYears.contains(season.year)){
+           allYears -= season.year
           }
         }
       }
-      val y=collection.Seq[String](years:_*)
-      Ok(html.createSeason(SeasonForm.form, y))
+      val years=collection.Seq[String](allYears:_*)
+      Ok(html.createSeason(SeasonForm.form, years))
     }
   }
 
   def edit(id: Long): Action[AnyContent] = Action.async { implicit request =>
     seasonService.listSimple flatMap { seasons =>
-      val years = new ArrayBuffer[String]()
+      val allYears = new ArrayBuffer[String]()
       for (a <- 2000 to 2050) {
-        years += a.toString
+        allYears += a.toString
         for (season <- seasons) {
-          if (years.contains(season.year)) {
-            years -= season.year
+          if (allYears.contains(season.year)) {
+            allYears -= season.year
           }
         }
       }
-      val y = collection.Seq[String](years: _*)
+      val years = collection.Seq[String](allYears: _*)
       seasonService.find(id).map { season =>
-        Ok(html.editSeason(id, SeasonForm.form.fill(season), y))
+        Ok(html.editSeason(id, SeasonForm.form.fill(season), years))
       }.recover {
         case ex: TimeoutException =>
           Logger.error("Error editando una temporada")
@@ -82,7 +82,7 @@ class SeasonController @Inject()(val messagesApi: MessagesApi,
       data => {
         seasonService.find(id).flatMap { oldSeason =>
           val newSeason = Season(Some(0L), data.year, data.description
-            , oldSeason.creationDate, Some(new java.util.Date()), "F"
+            , oldSeason.creationDate, Some(new java.util.Date())
           )
           val futureSeasonUpdate = seasonService.update(id, newSeason.copy(id = Some(id)))
           futureSeasonUpdate.map { result =>
@@ -102,7 +102,7 @@ class SeasonController @Inject()(val messagesApi: MessagesApi,
       formWithErrors => Future.successful(BadRequest(html.createSeason(formWithErrors,Seq.empty[String]))),
       data => {
         val newSeason = Season(Some(0L), data.year, data.description
-          , new java.util.Date(), Some(new java.util.Date(0)), "F"
+          , new java.util.Date(), Some(new java.util.Date(0))
         )
         val futureSeasonInsert = seasonService.add(newSeason)
         futureSeasonInsert.map { result => home.flashing("success" -> "La Temporada %s ha sido creada".format(newSeason.year))

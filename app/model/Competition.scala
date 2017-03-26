@@ -22,7 +22,6 @@ case class Competition(id: Option[Long] = None
                        ,endDate: Option[Date] = Some(new java.util.Date(0))
                        ,creationDate: Date
                        ,modifiedDate: Option[Date] = Some(new java.util.Date(0))
-                       ,isDeleted: String
 )
 
 class CompetitionTable(tag: Tag) extends Table[Competition](tag, "competitions") {
@@ -43,7 +42,6 @@ class CompetitionTable(tag: Tag) extends Table[Competition](tag, "competitions")
   def endDate = column[Date]("end_date")
   def creationDate = column[Date]("creation_date")
   def modifiedDate = column[Date]("modified_date")
-  def isDeleted = column[String]("is_deleted")
 
   def competition_country_fk = foreignKey("competition_country_fk", id_country, countriesTable)(_.id)
   def competition_season_fk = foreignKey("competition_season_fk", id_season, seasonsTable)(_.id)
@@ -51,7 +49,7 @@ class CompetitionTable(tag: Tag) extends Table[Competition](tag, "competitions")
   override def * = (id.?, id_season, name, abbreviation.?, division.?, id_country.?,
     description.?, typeCompetition
     , initDate.?, endDate.?
-    , creationDate, modifiedDate.?, isDeleted
+    , creationDate, modifiedDate.?
   ) <> (Competition.tupled, Competition.unapply _)
 }
 
@@ -70,7 +68,6 @@ object CompetitionForm {
       ,"end_date" -> optional(default(date("yyyy-MM-dd"), new java.util.Date))
       ,"creation_date" -> default(date("yyyy-MM-dd"), new java.util.Date)
       ,"modified_date" -> optional(default(date("yyyy-MM-dd"), new java.util.Date))
-      ,"is_deleted"-> default(nonEmptyText,"F")
     )(Competition.apply)(Competition.unapply)
   )
 }

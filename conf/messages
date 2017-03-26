@@ -5,6 +5,10 @@ app.name = ThreePlusOne
 competition.title = Competición
 season.title = Temporadas
 arena.title = Estadios
+unit.title = Unidades
+type.title = Tipos
+enviroment.title = Entornos
+category.title = Categorías
 
 # Flash Scope
 flash.success = success
