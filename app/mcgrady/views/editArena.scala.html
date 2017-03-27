@@ -1,0 +1,54 @@
+@(id: Long, arenaForm: Form[mcgrady.model.Arena], countries: Seq[mcgrady.model.Country])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("arena.title")){
+
+<form id="arena-data-form" role="form" action=@mcgrady.controllers.routes.ArenaController.update(id) method="post" autocomplete="off">
+    <fieldset >
+        <label>Estadios</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Tipo</th>
+            </tr>
+            <tr>
+                <td>
+                    @defining(arenaForm("name").value){ nameValue=>
+                    <input type="text" id="name" name="name" value="@nameValue" placeholder="Nombre" required>
+                    }
+                </td>
+                <td align="center">
+                    @defining(arenaForm("direction").value){ directionValue=>
+                    <input type="text" id="direction" name="direction"  value="@directionValue">
+                    }
+                </td>
+                <td>
+                    @defining(arenaForm("id_country").value) { countryValue=>
+                    @for(country <- countries){
+                    @if("Some(" + country.id + ")" == countryValue.toString){
+                    <option selected="selected" value="@country.id">@country.name</option>
+                    }else{
+                    <option value="@country.id">@country.name</option>
+                    }
+                    }
+                    </select>
+                    }
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div>
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Estadio</button> o
+            <a href=@mcgrady.controllers.routes.ArenaController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+
+@form(mcgrady.controllers.routes.ArenaController.delete(Some(id)), 'class -> "topRight") {
+<input type="submit" value="Eliminar Estadio" class="btn danger">
+}
+
+}

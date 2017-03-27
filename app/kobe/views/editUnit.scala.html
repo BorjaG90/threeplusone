@@ -1,0 +1,54 @@
+@(id: Long, unitForm: Form[kobe.model.Unit])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("unit.title")){
+
+<form id="unit-data-form" role="form" action=@kobe.controllers.routes.UnitController.update(id) method="post" autocomplete="off">
+    <fieldset>
+        <label>Unidads</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Tipo</th>
+            </tr>
+            <tr>
+                <td>
+                    @defining(unitForm("name").value){ nameValue=>
+                    <input type="text" id="name" name="name" value="@nameValue" placeholder="Nombre" required>
+                    }
+                </td>
+                <td align="center">
+                    @defining(unitForm("description").value){ descriptionValue=>
+                    <input type="text" id="description" name="description" value="@descriptionValue">
+                    }
+                </td>
+                <td>
+                    @defining(unitForm("type").value) { typeValue=>
+                    @if("D" == typeValue.toString){
+                    <input type="radio" id="type" name="type" value="D" checked>Decimal<br>
+                    <input type="radio" id="type" name="type" value="T">Tiempo<br>
+                    }else{
+                    <input type="radio" id="type" name="type" value="D">Decimal<br>
+                    <input type="radio" id="type" name="type" value="T" checked>Tiempo<br>
+                    }
+                    }
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div>
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Unidad</button>
+            o
+            <a href=@kobe.controllers.routes.UnitController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+
+@form(kobe.controllers.routes.UnitController.delete(Some(id)), 'class -> "topRight") {
+<input type="submit" value="Eliminar Unidad" class="btn danger">
+}
+
+}

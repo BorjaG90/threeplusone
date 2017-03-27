@@ -1,0 +1,60 @@
+@(currentPage : util.Page[kobe.model.TypeExercise], currentOrderBy: Int, currentFilter: String)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@****************************************
+* Helper generating navigation links *
+****************************************@
+@link(newPage: Int, newOrderBy: Option[Int] = None) = @{
+kobe.controllers.routes.TypeExerciseController.list(newPage, newOrderBy.map { orderBy =>
+if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
+}.getOrElse(currentOrderBy), currentFilter)
+}
+
+@main(Messages("typeExercise.title")){
+@request.flash.get(messages("flash.success")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
+</div>
+}
+@request.flash.get(messages("flash.error")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
+</div>
+}
+<div id="actions">
+
+    @helper.form(action=kobe.controllers.routes.TypeExerciseController.list()) { <input type="search"
+                                                               id="searchbox" name="f" value="@currentFilter"
+                                                               placeholder="Filtrar por nombre de Tipo"> <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
+    } <a class="btn success" id="add" href="@kobe.controllers.routes.TypeExerciseController.add()">Añadir Tipo</a>
+
+</div>
+<table class="table table-striped">
+    <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Notas</th>
+    </tr>
+    @for(typeExercise <- currentPage.items){
+    <tr>
+        <td><a href="@kobe.controllers.routes.TypeExerciseController.edit(typeExercise.id.get)">@typeExercise.name</a></td>
+        <td>@typeExercise.description</td>
+        <td>@typeExercise.notes</td>
+        <td><a href="@kobe.controllers.routes.TypeExerciseController.delete(typeExercise.id)">Borrar</a></td>
+    </tr>
+    }
+</table>
+<div id="pagination" class="pagination">
+    <ul>
+        @currentPage.prev.map { page =>
+        <li class="prev"><a href="@link(page)">&larr; Anterior</a></li>
+        }.getOrElse {
+        <li class="prev disabled"><a>&larr; Anterior</a></li> }
+        <li class="current"><a>Mostrando del @(currentPage.offset + 1)
+            al @(currentPage.offset + currentPage.items.size) de @currentPage.total</a></li>
+        @currentPage.next.map { page =>
+        <li class="next"><a href="@link(page)">Siguiente &rarr;</a></li>
+        }.getOrElse {
+        <li class="next disabled"><a>Siguiente &rarr;</a></li> }
+    </ul>
+</div>
+}

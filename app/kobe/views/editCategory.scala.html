@@ -1,0 +1,48 @@
+@(id: Long, categoryForm: Form[kobe.model.Category])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("category.title")){
+
+<form id="category-data-form" role="form" action=@kobe.controllers.routes.CategoryController.update(id) method="post" autocomplete="off">
+    <fieldset>
+        <label>Categorías</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Notas</th>
+            </tr>
+            <tr>
+                <td>
+                    @defining(categoryForm("name").value){ nameValue=>
+                    <input type="text" id="name" name="name" value="@nameValue" placeholder="Nombre" required>
+                    }
+                </td>
+                <td align="center">
+                    @defining(categoryForm("description").value){ descriptionValue=>
+                    <input type="text" id="description" name="description" value="@descriptionValue">
+                    }
+                </td>
+                <td align="center">
+                    @defining(categoryForm("notes").value){ notesValue=>
+                    <input type="text" id="notes" name="notes" value="@notesValue">
+                    }
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div>
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Categoría</button>
+            o
+            <a href=@kobe.controllers.routes.CategoryController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+
+@form(kobe.controllers.routes.CategoryController.delete(Some(id)), 'class -> "topRight") {
+<input type="submit" value="Eliminar Categoría" class="btn danger">
+}
+
+}
