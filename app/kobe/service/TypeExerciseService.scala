@@ -1,9 +1,9 @@
 package kobe.service
 
-import com.google.inject.ImplementedBy
 import scala.concurrent.Future
-import kobe.model.TypeExercise
+import com.google.inject.ImplementedBy
 import util.Page
+import kobe.model.TypeExercise
 import impl.TypeExerciseServiceImpl
 
 /**

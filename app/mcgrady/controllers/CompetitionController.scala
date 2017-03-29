@@ -1,17 +1,18 @@
 package mcgrady.controllers
 
-import com.google.inject.Inject
-import mcgrady.model.{Competition, CompetitionForm, Country, Season}
-import play.api._
-import play.api.mvc._
-import mcgrady.service.{CompetitionService, CountryService, SeasonService}
-import play.api.i18n.{MessagesApi, Messages, I18nSupport}
+import scala.collection.mutable.ArrayBuffer
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits._
-import mcgrady.views._
+import play.api.libs.concurrent.Execution.Implicits._
+import play.api._
+import play.api.mvc._
+import play.api.i18n.{MessagesApi, Messages, I18nSupport}
 import java.util.concurrent.TimeoutException
 import java.text.SimpleDateFormat
-import scala.collection.mutable.ArrayBuffer
+import com.google.inject.Inject
+import mcgrady.model.{Competition, CompetitionForm, Country, Season}
+import mcgrady.service.{CompetitionService, CountryService, SeasonService}
+import mcgrady.views._
 
 /**
   * Created by Borja Gete on 9/02/17.

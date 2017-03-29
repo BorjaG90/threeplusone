@@ -1,11 +1,11 @@
 package mcgrady.service.impl
 
-import javax.inject.Inject
 import scala.concurrent.Future
+import javax.inject.Inject
 import com.google.inject.Singleton
+import util.Page
 import mcgrady.dao.SeasonDAO
 import mcgrady.model.Season
-import util.Page
 import mcgrady.service.SeasonService
 
 /**

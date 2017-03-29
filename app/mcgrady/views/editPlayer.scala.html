@@ -1,0 +1,72 @@
+@(id: Long, playerForm: Form[mcgrady.model.Player])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("player.title")){
+
+<form id="player-data-form" role="form" action=@mcgrady.controllers.routes.PlayerController.update(id) method="post" autocomplete="off">
+    <fieldset>
+        <label>Jugadores</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Apodo</th>
+                <th>Número</th>
+                <th>Altura</th>
+                <th>Peso</th>
+                <th>Descripción</th>
+            </tr>
+            <tr>
+                <td>
+                    @defining(playerForm("first_name").value){ firstNameValue=>
+                    <input type="text" id="first_name" name="first_name" value="@firstNameValue" placeholder="Nombre">
+                    }
+                </td>
+                <td>
+                    @defining(playerForm("last_name").value){ lastNameValue=>
+                    <input type="text" id="last_name" name="last_name" value="@lastNameValue" placeholder="Apellido" required>
+                    }
+                </td>
+                <td>
+                    @defining(playerForm("nick_name").value){ nickNameValue=>
+                    <input type="text" id="nick_name" name="nick_name" value="@nickNameValue" placeholder="Apodo">
+                    }
+                </td>
+                <td>
+                    @defining(playerForm("number").value){ numberValue=>
+                    <input type="text" id="number" name="number" value="@numberValue" placeholder="Número">
+                    }
+                </td>
+                <td>
+                    @defining(playerForm("height").value){ heightValue=>
+                    <input type="text" id="height" name="height" value="@heightValue" placeholder="Altura">
+                    }
+                </td>
+                <td>
+                    @defining(playerForm("weight").value){ weightValue=>
+                    <input type="text" id="weight" name="weight" value="@weightValue" placeholder="Peso">
+                    }
+                </td>
+                <td align="center">
+                    @defining(playerForm("description").value){ descriptionValue=>
+                    <input type="text" id="description" name="description" value="@descriptionValue">
+                    }
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div>
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Jugador</button>
+            o
+            <a href=@mcgrady.controllers.routes.PlayerController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+
+@form(mcgrady.controllers.routes.PlayerController.delete(Some(id)), 'class -> "topRight") {
+<input type="submit" value="Eliminar Jugador" class="btn danger">
+}
+
+}

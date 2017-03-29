@@ -1,11 +1,11 @@
 package kobe.service.impl
 
-import javax.inject.Inject
 import scala.concurrent.Future
 import com.google.inject.Singleton
-import kobe.dao.UnitDAO
-import kobe.model.Unit
+import javax.inject.Inject
 import util.Page
+import kobe.model.Unit
+import kobe.dao.UnitDAO
 import kobe.service.UnitService
 
 /**

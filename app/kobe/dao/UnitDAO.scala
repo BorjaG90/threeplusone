@@ -1,10 +1,10 @@
 package kobe.dao
 
-import com.google.inject.ImplementedBy
 import scala.concurrent.Future
+import com.google.inject.ImplementedBy
+import util.Page
 import kobe.model.Unit
 import impl.UnitDAOImpl
-import util.Page
 
 /**
   * Created by Borja Gete on 25/03/17.

@@ -5,6 +5,7 @@ package mcgrady.model
   */
 import play.api.data._
 import play.api.data.Forms._
+import play.api.data.format.Formats._
 import slick.driver.MySQLDriver.api._
 import java.util.Date
 import java.sql.{ Date => SqlDate }
@@ -34,10 +35,10 @@ class ArenaTable(tag:Tag) extends Table[Arena](tag, "arenas") {
 object ArenaForm {
   val form = Form(
     mapping(
-      "id" -> optional(longNumber)
-      ,"name" -> nonEmptyText
-      ,"direction" -> optional(nonEmptyText)
-      ,"id_country" -> optional(longNumber)
+      "id" -> optional(of[Long])
+      ,"name" -> of[String]
+      ,"direction" -> optional(of[String])
+      ,"id_country" -> optional(of[Long])
       ,"creation_date" -> default(date("yyyy-MM-dd"), new java.util.Date)
       ,"modified_date" -> optional(default(date("yyyy-MM-dd"), new java.util.Date))
     )(Arena.apply)(Arena.unapply)

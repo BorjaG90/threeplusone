@@ -1,0 +1,56 @@
+@(id: Long, groupForm: Form[mcgrady.model.Group],competitions: Seq[mcgrady.model.Competition])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("group.title")){
+
+<form id="group-data-form" role="form" action=@mcgrady.controllers.routes.GroupController.update(id) method="post" autocomplete="off">
+    <fieldset>
+        <label>Grupos</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Nombre</th>
+                <th>Competición</th>
+                <th>Notas</th>
+            </tr>
+            <tr>
+                <td>
+                    @defining(groupForm("first_name").value){ firstNameValue=>
+                    <input type="text" id="first_name" name="first_name" value="@firstNameValue" placeholder="Nombre">
+                    }
+                </td>
+                <td>
+                    @defining(groupForm("id_competition").value) { competitionValue=>
+                    @for(competition <- competitions){
+                    @if("Some(" + competition.id + ")" == competitionValue.toString){
+                    <option selected="selected" value="@competition.id">@competition.name</option>
+                    }else{
+                    <option value="@competition.id">@competition.name</option>
+                    }
+                    }
+                    </select>
+                    }
+                </td>
+                
+                <td align="center">
+                    @defining(groupForm("notes").value){ notesValue=>
+                    <input type="text" id="notes" name="notes" value="@notesValue">
+                    }
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div>
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Grupo</button>
+            o
+            <a href=@mcgrady.controllers.routes.GroupController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+
+@form(mcgrady.controllers.routes.GroupController.delete(Some(id)), 'class -> "topRight") {
+<input type="submit" value="Eliminar Grupo" class="btn danger">
+}
+
+}

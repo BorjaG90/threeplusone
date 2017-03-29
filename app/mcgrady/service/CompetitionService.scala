@@ -1,9 +1,9 @@
 package mcgrady.service
 
-import com.google.inject.ImplementedBy
 import scala.concurrent.Future
-import mcgrady.model.{Competition,Country,Season}
+import com.google.inject.ImplementedBy
 import util.Page
+import mcgrady.model.{Competition,Country,Season}
 import impl.CompetitionServiceImpl
 
 /**
@@ -15,7 +15,7 @@ trait CompetitionService {
   def add(competition: Competition): Future[String]
   def update(id: Long, competition: Competition): Future[Int]
   def delete(id: Option[Long]): Future[Int]
-  //def list: Future[Seq[(Competition, String)]]
+  def listSimple: Future[Seq[Competition]]
   def list(page: Int, pageSize:Int, orderBy: Int, filter: String):Future[Page[(Competition,Country,Season)]]
   def count: Future[Int]
   def find(id: Long): Future[Competition]

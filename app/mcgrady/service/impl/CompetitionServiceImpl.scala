@@ -1,11 +1,11 @@
 package mcgrady.service.impl
 
+import scala.concurrent.Future
 import javax.inject.Inject
 import com.google.inject.Singleton
-import scala.concurrent.Future
+import util.Page
 import mcgrady.dao.CompetitionDAO
 import mcgrady.model.{Competition,Country,Season}
-import util.Page
 import mcgrady.service.CompetitionService
 
 /**
@@ -27,6 +27,9 @@ class CompetitionServiceImpl @Inject()(competitionDAO: CompetitionDAO)extends Co
     competitionDAO.delete(id)
   }
 
+  def listSimple: Future[Seq[Competition]] = {
+    competitionDAO.listSimple
+  }
   override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[(Competition,Country,Season)]] ={
     competitionDAO.list(page,pageSize,orderBy,filter)
   }

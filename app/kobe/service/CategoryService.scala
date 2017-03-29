@@ -1,9 +1,9 @@
 package kobe.service
 
-import com.google.inject.ImplementedBy
 import scala.concurrent.Future
-import kobe.model.Category
+import com.google.inject.ImplementedBy
 import util.Page
+import kobe.model.Category
 import impl.CategoryServiceImpl
 
 /**

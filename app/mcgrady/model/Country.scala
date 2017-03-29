@@ -1,10 +1,12 @@
 package mcgrady.model
 
+import slick.driver.MySQLDriver.api._
+
 /**
   * Created by Borja Gete on 8/02/17.
   */
 
-import slick.driver.MySQLDriver.api._
+
 
 case class Country(id: Long, name: String, abbreviation: String)
 

@@ -1,10 +1,10 @@
 package mcgrady.dao
 
-import com.google.inject.ImplementedBy
 import scala.concurrent.Future
+import com.google.inject.ImplementedBy
+import util.Page
 import mcgrady.model.{Arena,Country}
 import impl.ArenaDAOImpl
-import util.Page
 
 /**
   * Created by Borja Gete on 23/03/17.

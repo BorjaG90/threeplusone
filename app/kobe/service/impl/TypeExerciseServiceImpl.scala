@@ -1,11 +1,11 @@
 package kobe.service.impl
 
-import javax.inject.Inject
 import scala.concurrent.Future
 import com.google.inject.Singleton
-import kobe.dao.TypeExerciseDAO
-import kobe.model.TypeExercise
+import javax.inject.Inject
 import util.Page
+import kobe.model.TypeExercise
+import kobe.dao.TypeExerciseDAO
 import kobe.service.TypeExerciseService
 
 /**

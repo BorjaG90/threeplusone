@@ -1,7 +1,7 @@
 package mcgrady.dao
 
-import com.google.inject.ImplementedBy
 import scala.concurrent.Future
+import com.google.inject.ImplementedBy
 import mcgrady.model.Country
 import impl.CountryDAOImpl
 

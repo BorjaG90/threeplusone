@@ -1,0 +1,53 @@
+@(id: Long, teamForm: Form[mcgrady.model.Team], countries: Seq[mcgrady.model.Country])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("team.title")){
+
+<form id="team-data-form" role="form" action=@mcgrady.controllers.routes.TeamController.update(id) method="post" autocomplete="off">
+    <fieldset >
+        <label>Equipos</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Nombre</th>
+                <th>Tipo</th>
+            </tr>
+            <tr>
+                <td>
+                    @defining(teamForm("name").value){ nameValue=>
+                    <input type="text" id="name" name="name" value="@nameValue" placeholder="Nombre" required>
+                    }
+                </td>
+                <td>
+                    @defining(teamForm("abbreviation").value){ abbreviationValue=>
+                    <input type="text" id="abbreviation" name="abbreviation" value="@abbreviationValue" placeholder="Abreviatura" required>
+                    }
+                </td>
+                <td>
+                    @defining(teamForm("id_country").value) { countryValue=>
+                    @for(country <- countries){
+                    @if("Some(" + country.id + ")" == countryValue.toString){
+                    <option selected="selected" value="@country.id">@country.name</option>
+                    }else{
+                    <option value="@country.id">@country.name</option>
+                    }
+                    }
+                    </select>
+                    }
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div>
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Equipo</button> o
+            <a href=@mcgrady.controllers.routes.TeamController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+
+@form(mcgrady.controllers.routes.TeamController.delete(Some(id)), 'class -> "topRight") {
+<input type="submit" value="Eliminar Equipo" class="btn danger">
+}
+
+}

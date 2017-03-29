@@ -1,14 +1,15 @@
 package mcgrady.model
 
-/**
-  * Created by Borja Gete on 9/02/17.
-  */
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.data.format.Formats._
 import slick.driver.MySQLDriver.api._
 import java.util.Date
 import java.sql.{ Date => SqlDate }
 
+/**
+  * Created by Borja Gete on 9/02/17.
+  */
 
 case class Competition(id: Option[Long] = None
                        ,id_season: Long
@@ -56,14 +57,14 @@ class CompetitionTable(tag: Tag) extends Table[Competition](tag, "competitions")
 object CompetitionForm {
   val form = Form(
     mapping(
-      "id" -> optional(longNumber)
-      ,"id_season" -> longNumber
-      ,"name" -> nonEmptyText
-      ,"abbreviation" -> optional(nonEmptyText)
-      ,"division" -> optional(nonEmptyText)
-      ,"id_country" -> optional(longNumber)
-      ,"description" -> optional(nonEmptyText)
-      ,"type" -> default(nonEmptyText,"Liga")
+      "id" -> optional(of[Long])
+      ,"id_season" -> of[Long]
+      ,"name" -> of[String]
+      ,"abbreviation" -> optional(of[String])
+      ,"division" -> optional(of[String])
+      ,"id_country" -> optional(of[Long])
+      ,"description" -> optional(of[String])
+      ,"type" -> default(of[String],"Liga")
       ,"init_date" -> optional(default(date("yyyy-MM-dd"), new java.util.Date))
       ,"end_date" -> optional(default(date("yyyy-MM-dd"), new java.util.Date))
       ,"creation_date" -> default(date("yyyy-MM-dd"), new java.util.Date)

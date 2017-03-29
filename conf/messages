@@ -9,6 +9,9 @@ unit.title = Unidades
 type.title = Tipos
 enviroment.title = Entornos
 category.title = Categorías
+plan.title = Planes
+group.title = Grupos
+subGroup.title = SubGrupos
 
 # Flash Scope
 flash.success = success

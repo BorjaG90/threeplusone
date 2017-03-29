@@ -4,6 +4,7 @@ GET     /                           controllers.Application.index
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 #McGrady
+#Basic Gestion
 #Season
 GET     /season                       mcgrady.controllers.SeasonController.index
 GET     /seasons                        mcgrady.controllers.SeasonController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
@@ -31,7 +32,44 @@ GET     /competition/:id                   mcgrady.controllers.CompetitionContro
 POST    /competition/:id                     mcgrady.controllers.CompetitionController.update(id: Long)
 GET     /competition/delete/:id                 mcgrady.controllers.CompetitionController.delete(id: Option[Long])
 
+#Team
+GET     /team                       mcgrady.controllers.TeamController.index
+GET     /teams                        mcgrady.controllers.TeamController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /team/new                   mcgrady.controllers.TeamController.add
+POST    /teams                       mcgrady.controllers.TeamController.save
+GET     /team/:id                   mcgrady.controllers.TeamController.edit(id: Long)
+POST    /team/:id                     mcgrady.controllers.TeamController.update(id: Long)
+GET     /team/delete/:id                 mcgrady.controllers.TeamController.delete(id: Option[Long])
+
+#Player
+GET     /player                       mcgrady.controllers.PlayerController.index
+GET     /players                        mcgrady.controllers.PlayerController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /player/new                   mcgrady.controllers.PlayerController.add
+POST    /players                       mcgrady.controllers.PlayerController.save
+GET     /player/:id                   mcgrady.controllers.PlayerController.edit(id: Long)
+POST    /player/:id                     mcgrady.controllers.PlayerController.update(id: Long)
+GET     /player/delete/:id                 mcgrady.controllers.PlayerController.delete(id: Option[Long])
+
+#Group
+GET     /group                       mcgrady.controllers.GroupController.index
+GET     /groups                        mcgrady.controllers.GroupController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /group/new                   mcgrady.controllers.GroupController.add
+POST    /groups                       mcgrady.controllers.GroupController.save
+GET     /group/:id                   mcgrady.controllers.GroupController.edit(id: Long)
+POST    /group/:id                     mcgrady.controllers.GroupController.update(id: Long)
+GET     /group/delete/:id                 mcgrady.controllers.GroupController.delete(id: Option[Long])
+
+#SubGroup
+GET     /subGroup                       mcgrady.controllers.SubGroupController.index
+GET     /subGroups                        mcgrady.controllers.SubGroupController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /subGroup/new                   mcgrady.controllers.SubGroupController.add
+POST    /subGroups                       mcgrady.controllers.SubGroupController.save
+GET     /subGroup/:id                   mcgrady.controllers.SubGroupController.edit(id: Long)
+POST    /subGroup/:id                     mcgrady.controllers.SubGroupController.update(id: Long)
+GET     /subGroup/delete/:id                 mcgrady.controllers.SubGroupController.delete(id: Option[Long])
+
 #Kobe
+#Basic Gestion
 #Unit
 GET     /unit                       kobe.controllers.UnitController.index
 GET     /units                        kobe.controllers.UnitController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
@@ -67,3 +105,12 @@ POST    /categorys                       kobe.controllers.CategoryController.sav
 GET     /category/:id                   kobe.controllers.CategoryController.edit(id: Long)
 POST    /category/:id                     kobe.controllers.CategoryController.update(id: Long)
 GET     /category/delete/:id                 kobe.controllers.CategoryController.delete(id: Option[Long])
+
+#Plan
+GET     /plan                       kobe.controllers.PlanController.index
+GET     /plans                        kobe.controllers.PlanController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /plan/new                   kobe.controllers.PlanController.add
+POST    /plans                       kobe.controllers.PlanController.save
+GET     /plan/:id                   kobe.controllers.PlanController.edit(id: Long)
+POST    /plan/:id                     kobe.controllers.PlanController.update(id: Long)
+GET     /plan/delete/:id                 kobe.controllers.PlanController.delete(id: Option[Long])

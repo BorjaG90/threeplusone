@@ -1,13 +1,13 @@
 package kobe.dao.impl
 
-import javax.inject.Inject
-import play.api.db.slick.DatabaseConfigProvider
-import slick.driver.JdbcProfile
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import play.api.db.slick.DatabaseConfigProvider
+import slick.driver.JdbcProfile
+import javax.inject.Inject
+import util.Page
 import kobe.model.{Category, CategoryTable}
 import kobe.dao.CategoryDAO
-import util.Page
 
 /**
   * Created by Borja Gete on 26/03/17.

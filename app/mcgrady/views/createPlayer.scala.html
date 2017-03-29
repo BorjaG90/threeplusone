@@ -1,0 +1,62 @@
+@(playerForm: Form[mcgrady.model.Player])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("player.title")){
+@request.flash.get(messages("flash.success")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
+</div>
+}
+@request.flash.get(messages("flash.error")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
+</div>
+}
+<h1>Añadir Jugador</h1>
+<form id="player-data-form" role="form" action=@mcgrady.controllers.routes.PlayerController.save() method="post" autocomplete="off">
+    <fieldset >
+        <label>Jugador</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Apodo</th>
+                <th>Número</th>
+                <th>Altura</th>
+                <th>Peso</th>
+                <th>Descripción</th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" id="first_name" name="first_name" value="" placeholder="Nombre">
+                </td>
+                <td>
+                    <input type="text" id="last_name" name="last_name" value="" placeholder="Apellido" required>
+                </td>
+                <td>
+                    <input type="text" id="nick_name" name="nick_name" value="" placeholder="Apodo">
+                </td>
+                <td>
+                    <input type="text" id="number" name="number" value="" placeholder="Número">
+                </td>
+                <td>
+                    <input type="text" id="height" name="height" value="" placeholder="Altura">
+                </td>
+                <td>
+                    <input type="text" id="weight" name="weight" value="" placeholder="Peso">
+                </td>
+                <td align="center">
+                    <input type="text" id="description" name="description" value="" placeholder="Descripción">
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div class="form-actions controls ynt-btn-xlarge">
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
+            <a href=@mcgrady.controllers.routes.PlayerController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+}

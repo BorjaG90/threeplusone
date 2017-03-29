@@ -1,12 +1,12 @@
 package mcgrady.dao.impl
 
-import javax.inject.Inject
-import play.api.db.slick.DatabaseConfigProvider
-import slick.driver.JdbcProfile
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
-import mcgrady.model.{Competition,CompetitionTable,Country,Season}
+import play.api.db.slick.DatabaseConfigProvider
+import slick.driver.JdbcProfile
+import javax.inject.Inject
 import util.Page
+import mcgrady.model.{Competition,CompetitionTable,Country,Season}
 import mcgrady.dao.CompetitionDAO
 
 /**
@@ -48,6 +48,10 @@ class CompetitionDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfi
     db.run(competitions.length.result)
   }
 
+  override def listSimple: Future[Seq[Competition]] = {
+    db.run(competitions.result)
+  }
+
   override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[(Competition,Country,Season)]] = {
     val offset = pageSize * page
     val query =
@@ -62,7 +66,7 @@ class CompetitionDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfi
     result flatMap (objects => totalRows map (rows => Page(objects, page, offset, rows)))
   }
 
-  private def count(filter: String): Future[Int] = {
+    private def count(filter: String): Future[Int] = {
     db.run(competitions.filter(_.name.toLowerCase like filter.toLowerCase()).length.result)
   }
 

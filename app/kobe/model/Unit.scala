@@ -2,6 +2,7 @@ package kobe.model
 
 import play.api.data._
 import play.api.data.Forms._
+import play.api.data.format.Formats._
 import slick.driver.MySQLDriver.api._
 import java.util.Date
 import java.sql.{ Date => SqlDate }
@@ -31,10 +32,10 @@ class UnitTable(tag:Tag) extends Table[Unit](tag, "units") {
 object UnitForm {
   val form = Form(
     mapping(
-      "id" -> optional(longNumber)
-      ,"name" -> nonEmptyText
-      ,"description" -> optional(nonEmptyText)
-      ,"type" -> nonEmptyText
+      "id" -> optional(of[Long])
+      ,"name" -> of[String]
+      ,"description" -> optional(of[String])
+      ,"type" -> of[String]
       ,"creation_date" -> default(date("yyyy-MM-dd"), new java.util.Date)
       ,"modified_date" -> optional(default(date("yyyy-MM-dd"), new java.util.Date))
     )(Unit.apply)(Unit.unapply)

@@ -1,0 +1,54 @@
+@(id: Long, planForm: Form[kobe.model.Plan])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("plan.title")){
+
+<form id="plan-data-form" role="form" action=@kobe.controllers.routes.PlanController.update(id) method="post" autocomplete="off">
+    <fieldset>
+        <label>Plans</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Nombre</th>
+                <th>Fecha</th>
+                <th>Descripción</th>
+                <th>Tipo</th>
+            </tr>
+            <tr>
+                <td>
+                    @defining(planForm("name").value){ nameValue=>
+                    <input type="text" id="name" name="name" value="@nameValue" placeholder="Nombre" required>
+                    }
+                </td>
+                <td align="center">
+                    @defining(planForm("date").value){ dateValue=>
+                    <input type="date" id="date" name="date"  value="@dateValue">
+                    }
+                </td>
+                <td align="center">
+                    @defining(planForm("description").value){ descriptionValue=>
+                    <input type="text" id="description" name="description" value="@descriptionValue">
+                    }
+                </td>
+                <td align="center">
+                    @defining(planForm("description").value){ notesValue=>
+                    <input type="text" id="notes" name="notes" value="@notesValue">
+                    }
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div>
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Plan</button>
+            o
+            <a href=@kobe.controllers.routes.PlanController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+
+@form(kobe.controllers.routes.PlanController.delete(Some(id)), 'class -> "topRight") {
+<input type="submit" value="Eliminar Plan" class="btn danger">
+}
+
+}

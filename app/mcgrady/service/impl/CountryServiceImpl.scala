@@ -1,8 +1,8 @@
 package mcgrady.service.impl
 
+import scala.concurrent.Future
 import javax.inject.Inject
 import com.google.inject.Singleton
-import scala.concurrent.Future
 import mcgrady.dao.CountryDAO
 import mcgrady.model.Country
 import mcgrady.service.CountryService

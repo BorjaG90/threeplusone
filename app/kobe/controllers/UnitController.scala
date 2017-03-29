@@ -1,16 +1,16 @@
 package kobe.controllers
 
-import com.google.inject.Inject
-import kobe.model.{Unit, UnitForm}
-import play.api._
-import play.api.mvc._
-import kobe.service.UnitService
 import scala.concurrent.Future
-import play.api.i18n.{MessagesApi, Messages, I18nSupport}
 import scala.concurrent.ExecutionContext.Implicits._
 import play.api.libs.concurrent.Execution.Implicits._
-import kobe.views._
+import play.api._
+import play.api.mvc._
+import play.api.i18n.{MessagesApi, Messages, I18nSupport}
 import java.util.concurrent.TimeoutException
+import com.google.inject.Inject
+import kobe.model.{Unit, UnitForm}
+import kobe.service.UnitService
+import kobe.views._
 
 /**
   * Created by Borja Gete on 25/03/17.
@@ -60,7 +60,7 @@ class UnitController @Inject()(val messagesApi: MessagesApi,
           )
           val futureUnitUpdate = unitService.update(id, newUnit.copy(id = Some(id)))
           futureUnitUpdate.map { result =>
-            home.flashing("success" -> "La unidad %s ha sido actualizado".format(newUnit.name))
+            home.flashing("success" -> "La unidad %s ha sido actualizada".format(newUnit.name))
           }.recover {
             case ex: TimeoutException =>
               Logger.error("Error actualizando una unidad")

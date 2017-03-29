@@ -1,11 +1,12 @@
 package mcgrady.dao.impl
 
-import javax.inject.Inject
+import scala.concurrent.Future
 import play.api.db.slick.DatabaseConfigProvider
 import slick.driver.JdbcProfile
+import javax.inject.Inject
 import mcgrady.model.{Country, CountryTable}
 import mcgrady.dao.CountryDAO
-import scala.concurrent.Future
+
 
 /**
   * Created by Borja Gete on 14/02/17.

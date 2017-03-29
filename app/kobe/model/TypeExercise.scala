@@ -2,6 +2,7 @@ package kobe.model
 
 import play.api.data._
 import play.api.data.Forms._
+import play.api.data.format.Formats._
 import slick.driver.MySQLDriver.api._
 
 /**
@@ -22,10 +23,10 @@ class TypeExerciseTable(tag:Tag) extends Table[TypeExercise](tag, "typeExercises
 object TypeExerciseForm {
   val form = Form(
     mapping(
-      "id" -> optional(longNumber)
-      ,"name" -> nonEmptyText
-      ,"description" -> optional(nonEmptyText)
-      ,"notes" -> optional(nonEmptyText)
+      "id" -> optional(of[Long])
+      ,"name" -> of[String]
+      ,"description" -> optional(of[String])
+      ,"notes" -> optional(of[String])
     )(TypeExercise.apply)(TypeExercise.unapply)
   )
 }

@@ -1,10 +1,10 @@
 package mcgrady.dao
 
-import com.google.inject.ImplementedBy
 import scala.concurrent.Future
+import com.google.inject.ImplementedBy
+import util.Page
 import mcgrady.model.Season
 import impl.SeasonDAOImpl
-import util.Page
 
 /**
   * Created by Borja Gete on 20/03/17.

@@ -1,0 +1,50 @@
+@(groupForm: Form[mcgrady.model.Group],competitions: Seq[mcgrady.model.Competition])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("group.title")){
+@request.flash.get(messages("flash.success")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
+</div>
+}
+@request.flash.get(messages("flash.error")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
+</div>
+}
+<h1>Añadir Grupo</h1>
+<form id="group-data-form" role="form" action=@mcgrady.controllers.routes.GroupController.save() method="post" autocomplete="off">
+    <fieldset >
+        <label>Grupo</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Nombre</th>
+                <th>Competición</th>
+                <th>Notas</th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" id="name" name="name" value="" placeholder="Nombre">
+                </td>
+                <td>
+                    <select id="id_competition" name="id_competition">
+                        @for(competition <- competitions){
+                        <option value="@competition.id">@competition.name</option>
+                        }
+                    </select>
+                </td>
+                <td align="center">
+                    <input type="text" id="notes" name="notes" value="" placeholder="Notas">
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div class="form-actions controls ynt-btn-xlarge">
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
+            <a href=@mcgrady.controllers.routes.GroupController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+}

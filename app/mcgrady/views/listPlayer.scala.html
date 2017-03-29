@@ -1,0 +1,66 @@
+@(currentPage : util.Page[mcgrady.model.Player], currentOrderBy: Int, currentFilter: String)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@****************************************
+* Helper generating navigation links *
+****************************************@
+@link(newPage: Int, newOrderBy: Option[Int] = None) = @{
+mcgrady.controllers.routes.PlayerController.list(newPage, newOrderBy.map { orderBy =>
+if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
+}.getOrElse(currentOrderBy), currentFilter)
+}
+
+@main(Messages("player.title")){
+@request.flash.get(messages("flash.success")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
+</div>
+}
+@request.flash.get(messages("flash.error")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
+</div>
+}
+<div id="actions">
+    @helper.form(action=mcgrady.controllers.routes.PlayerController.list()) {
+    <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por apellido de Jugador">
+    <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
+    } <a class="btn success" id="add" href="@mcgrady.controllers.routes.PlayerController.add()">Añadir Jugador</a>
+</div>
+<table class="table table-striped">
+    <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Apodo</th>
+        <th>Número</th>
+        <th>Altura</th>
+        <th>Peso</th>
+        <th>Descripción</th>
+    </tr>
+    @for(player <- currentPage.items){
+    <tr>
+        <td>@player.firstName</td>
+        <td><a href="@mcgrady.controllers.routes.PlayerController.edit(player.id.get)">@player.lastName</a></td>
+        <td>@player.nickName</td>
+        <td>@player.number</td>
+        <td>@player.height</td>
+        <td>@player.weight</td>
+        <td>@player.description</td>
+        <td><a href="@mcgrady.controllers.routes.PlayerController.delete(player.id)">Borrar</a></td>
+    </tr>
+    }
+</table>
+<div id="pagination" class="pagination">
+    <ul>
+        @currentPage.prev.map { page =>
+        <li class="prev"><a href="@link(page)">&larr; Anterior</a></li>
+        }.getOrElse {
+        <li class="prev disabled"><a>&larr; Anterior</a></li> }
+        <li class="current"><a>Mostrando del @(currentPage.offset + 1)
+            al @(currentPage.offset + currentPage.items.size) de @currentPage.total</a></li>
+        @currentPage.next.map { page =>
+        <li class="next"><a href="@link(page)">Siguiente &rarr;</a></li>
+        }.getOrElse {
+        <li class="next disabled"><a>Siguiente &rarr;</a></li> }
+    </ul>
+</div>
+}

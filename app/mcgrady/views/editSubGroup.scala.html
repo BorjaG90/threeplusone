@@ -1,0 +1,55 @@
+@(id: Long, subGroupForm: Form[mcgrady.model.SubGroup],groups: Seq[mcgrady.model.Group])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("subGroup.title")){
+
+<form id="group-data-form" role="form" action=@mcgrady.controllers.routes.SubGroupController.update(id) method="post" autocomplete="off">
+    <fieldset>
+        <label>SubGrupos</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Nombre</th>
+                <th>Grupo</th>
+                <th>Notas</th>
+            </tr>
+            <tr>
+                <td>
+                    @defining(subGroupForm("name").value){ nameValue=>
+                    <input type="text" id="name" name="name" value="@nameValue" placeholder="Nombre">
+                    }
+                </td>
+                <td>
+                    @defining(subGroupForm("id_group").value) { groupValue=>
+                    @for(group <- groups){
+                    @if("Some(" + group.id + ")" == groupValue.toString){
+                    <option selected="selected" value="@group.id">@group.name</option>
+                    }else{
+                    <option value="@group.id">@group.name</option>
+                    }
+                    }
+                    </select>
+                    }
+                </td>
+                <td align="center">
+                    @defining(subGroupForm("notes").value){ notesValue=>
+                    <input type="text" id="notes" name="notes" value="@notesValue">
+                    }
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div>
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar SubGrupo</button>
+            o
+            <a href=@mcgrady.controllers.routes.SubGroupController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+
+@form(mcgrady.controllers.routes.SubGroupController.delete(Some(id)), 'class -> "topRight") {
+<input type="submit" value="Eliminar SubGrupo" class="btn danger">
+}
+
+}

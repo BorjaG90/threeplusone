@@ -1,9 +1,9 @@
 package mcgrady.service
 
-import com.google.inject.ImplementedBy
 import scala.concurrent.Future
-import mcgrady.model.{Arena,Country}
+import com.google.inject.ImplementedBy
 import util.Page
+import mcgrady.model.{Arena,Country}
 import impl.ArenaServiceImpl
 
 /**
