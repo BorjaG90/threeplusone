@@ -61,7 +61,7 @@ class PlanController @Inject()(val messagesApi: MessagesApi,
           )
           val futurePlanUpdate = planService.update(id, newPlan.copy(id = Some(id)))
           futurePlanUpdate.map { result =>
-            home.flashing("success" -> "La plan %s ha sido actualizado".format(newPlan.name))
+            home.flashing("success" -> "El plan %s ha sido actualizado".format(newPlan.name))
           }.recover {
             case ex: TimeoutException =>
               Logger.error("Error actualizando una plan")
@@ -81,8 +81,7 @@ class PlanController @Inject()(val messagesApi: MessagesApi,
         )
         val futurePlanInsert = planService.add(newPlan)
         futurePlanInsert.map { result =>
-          home.flashing("success" -> "El plan %s ha sido creado".format(
-            newPlan.name))
+          home.flashing("success" -> "El plan %s ha sido creado".format(newPlan.name))
         }.recover {
           case ex: TimeoutException =>
             Logger.error("Error guardando una plan")
@@ -96,7 +95,7 @@ class PlanController @Inject()(val messagesApi: MessagesApi,
     val futurePlanDel = planService.delete(id)
     futurePlanDel.map { result => home.flashing("success" -> "Plan eliminado") }.recover {
       case ex: TimeoutException =>
-        Logger.error("Error borrando una plan")
+        Logger.error("Error borrando un plan")
         InternalServerError(ex.getMessage)
     }
   }

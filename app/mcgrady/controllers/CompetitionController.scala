@@ -32,7 +32,7 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi,
 
   def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
     competitionService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
-      Ok(html.listCompetition(pageEmp, orderBy, filter,new SimpleDateFormat("dd/MM/yyyy")))
+      Ok(html.listCompetition(pageEmp, orderBy, filter, new SimpleDateFormat("dd/MM/yyyy")))
     }.recover {
       case ex: TimeoutException =>
         Logger.error("Error listando competiciones")

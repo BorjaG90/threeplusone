@@ -12,7 +12,7 @@ import impl.TeamServiceImpl
 
 @ImplementedBy(classOf[TeamServiceImpl])
 trait TeamService {
-  def add(competition: Team): Future[String]
+  def add(team: Team): Future[String]
   def update(id: Long, team: Team): Future[Int]
   def delete(id: Option[Long]): Future[Int]
   def listSimple: Future[Seq[Team]]

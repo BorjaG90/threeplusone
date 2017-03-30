@@ -1,0 +1,69 @@
+@(id: Long, contractForm: Form[mcgrady.model.Contract], players: Seq[mcgrady.model.Player], teams: Seq[mcgrady.model.Team])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("contract.title")){
+
+<form id="contract-data-form" role="form" action=@mcgrady.controllers.routes.ContractController.update(id) method="post" autocomplete="off">
+    <fieldset >
+        <label>Contratos</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Jugador</th>
+                <th>Equipo</th>
+                <th>Comienzo</th>
+                <th>Fin</th>
+            </tr>
+            <tr>
+                <td>
+                    @defining(contractForm("idPlayer").value) { playerValue=>
+                    <select id="id_player" name="id_player">
+                    @for(player <- players){
+                    @if("Some(" + player.id + ")" == playerValue.toString){
+                    <option selected="selected" value="@player.id">@player.lastName</option>
+                    }else{
+                    <option value="@player.id">@player.firstName @player.lastName</option>
+                    }
+                    }
+                    </select>
+                    }
+                </td>
+                <td>
+                    @defining(contractForm("idTeam").value) { teamValue=>
+                    <select id="id_team" name="id_team">
+                    @for(team <- teams){
+                    @if("Some(" + team.id + ")" == teamValue.toString){
+                    <option selected="selected" value="@team.id">@team.name</option>
+                    }else{
+                    <option value="@team.id">@team.name</option>
+                    }
+                    }
+                    </select>
+                    }
+                </td>
+                <td align="center">
+                    @defining(contractForm("initDate").value){ initDateValue=>
+                    <input type="date" id="init_date" name="init_date"  value="@initDateValue">
+                    }
+                </td>
+                <td align="center">
+                    @defining(contractForm("endDate").value){ endDateValue=>
+                    <input type="date" id="end_date" name="end_date"  value="@endDateValue">
+                    }
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div>
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Contrato</button> o
+            <a href=@mcgrady.controllers.routes.ContractController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+
+@form(mcgrady.controllers.routes.ContractController.delete(Some(id)), 'class -> "topRight") {
+<input type="submit" value="Eliminar Contrato" class="btn danger">
+}
+
+}

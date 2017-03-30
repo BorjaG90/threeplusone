@@ -1,0 +1,55 @@
+@(id: Long, sessionForm: Form[kobe.model.Session],plans: Seq[kobe.model.Plan])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("session.title")){
+
+<form id="session-data-form" role="form" action=@kobe.controllers.routes.SessionController.update(id) method="post" autocomplete="off">
+    <fieldset>
+        <label>Sesiones</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Nombre</th>
+                <th>Plan</th>
+                <th>Notas</th>
+            </tr>
+            <tr>
+                <td>
+                    @defining(sessionForm("name").value){ nameValue=>
+                    <input type="text" id="name" name="name" value="@nameValue" placeholder="Nombre">
+                    }
+                </td>
+               <td>
+                    @defining(sessionForm("id_plan").value) { planValue=>
+                    @for(plan <- plans){
+                    @if("Some(" + plan.id + ")" == planValue.toString){
+                    <option selected="selected" value="@plan.id">@plan.name</option>
+                    }else{
+                    <option value="@plan.id">@plan.name</option>
+                    }
+                    }
+                    </select>
+                    }
+                </td>
+                <td align="center">
+                    @defining(sessionForm("notes").value){ notesValue=>
+                    <input type="text" id="notes" name="notes" value="@notesValue">
+                    }
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div>
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Sesión</button>
+            o
+            <a href=@kobe.controllers.routes.SessionController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+
+@form(kobe.controllers.routes.SessionController.delete(Some(id)), 'class -> "topRight") {
+<input type="submit" value="Eliminar Sesión" class="btn danger">
+}
+
+}

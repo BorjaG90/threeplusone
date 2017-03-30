@@ -50,6 +50,15 @@ GET     /player/:id                   mcgrady.controllers.PlayerController.edit(
 POST    /player/:id                     mcgrady.controllers.PlayerController.update(id: Long)
 GET     /player/delete/:id                 mcgrady.controllers.PlayerController.delete(id: Option[Long])
 
+#Contract
+GET     /contract                       mcgrady.controllers.ContractController.index
+GET     /contracts                        mcgrady.controllers.ContractController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /contract/new                   mcgrady.controllers.ContractController.add
+POST    /contracts                       mcgrady.controllers.ContractController.save
+GET     /contract/:id                   mcgrady.controllers.ContractController.edit(id: Long)
+POST    /contract/:id                     mcgrady.controllers.ContractController.update(id: Long)
+GET     /contract/delete/:id                 mcgrady.controllers.ContractController.delete(id: Option[Long])
+
 #Group
 GET     /group                       mcgrady.controllers.GroupController.index
 GET     /groups                        mcgrady.controllers.GroupController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
@@ -106,6 +115,15 @@ GET     /category/:id                   kobe.controllers.CategoryController.edit
 POST    /category/:id                     kobe.controllers.CategoryController.update(id: Long)
 GET     /category/delete/:id                 kobe.controllers.CategoryController.delete(id: Option[Long])
 
+#Exercise
+GET     /exercise                       kobe.controllers.ExerciseController.index
+GET     /exercises                        kobe.controllers.ExerciseController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /exercise/new                   kobe.controllers.ExerciseController.add
+POST    /exercises                       kobe.controllers.ExerciseController.save
+GET     /exercise/:id                   kobe.controllers.ExerciseController.edit(id: Long)
+POST    /exercise/:id                     kobe.controllers.ExerciseController.update(id: Long)
+GET     /exercise/delete/:id                 kobe.controllers.ExerciseController.delete(id: Option[Long])
+
 #Plan
 GET     /plan                       kobe.controllers.PlanController.index
 GET     /plans                        kobe.controllers.PlanController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
@@ -114,3 +132,12 @@ POST    /plans                       kobe.controllers.PlanController.save
 GET     /plan/:id                   kobe.controllers.PlanController.edit(id: Long)
 POST    /plan/:id                     kobe.controllers.PlanController.update(id: Long)
 GET     /plan/delete/:id                 kobe.controllers.PlanController.delete(id: Option[Long])
+
+#Session
+GET     /session                       kobe.controllers.SessionController.index
+GET     /sessions                        kobe.controllers.SessionController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /session/new                   kobe.controllers.SessionController.add
+POST    /sessions                       kobe.controllers.SessionController.save
+GET     /session/:id                   kobe.controllers.SessionController.edit(id: Long)
+POST    /session/:id                     kobe.controllers.SessionController.update(id: Long)
+GET     /session/delete/:id                 kobe.controllers.SessionController.delete(id: Option[Long])

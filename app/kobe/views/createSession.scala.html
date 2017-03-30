@@ -1,8 +1,8 @@
-@(teamForm: Form[mcgrady.model.Team], countries: Seq[mcgrady.model.Country])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+@(sessionForm: Form[kobe.model.Session],plans: Seq[kobe.model.Plan])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 
 @import helper._
 
-@main(Messages("team.title")){
+@main(Messages("session.title")){
 @request.flash.get(messages("flash.success")).map { msg =>
 <div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
     <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
@@ -13,37 +13,37 @@
     <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
 </div>
 }
-<h1>Añadir Equipo</h1>
-<form id="team-data-form" role="form" action=@mcgrady.controllers.routes.TeamController.save() method="post" autocomplete="off">
+<h1>Añadir Sesión</h1>
+<form id="session-data-form" role="form" action=@kobe.controllers.routes.SessionController.save() method="post" autocomplete="off">
     <fieldset >
-        <label>Equipo</label>
+        <label>Sesión</label>
         <br/>
         <table align="center">
             <tr>
                 <th>Nombre</th>
-                <th>Abreviatura</th>
-                <th>País</th>
+                <th>Plan</th>
+                <th>Notas</th>
             </tr>
             <tr>
                 <td>
-                    <input type="text" id="name" name="name" value="" placeholder="Nombre" required>
+                    <input type="text" id="name" name="name" value="" placeholder="Nombre">
                 </td>
                 <td>
-                    <input type="text" id="abbreviation" name="abbreviation" value="" placeholder="Abreviatura" required>
-                </td>
-                <td>
-                    <select id="id_country" name="id_country">
-                        @for(country <- countries){
-                        <option value="@country.id">@country.name</option>
+                    <select id="id_plan" name="id_plan">
+                        @for(plan <- plans){
+                        <option value="@plan.id">@plan.name</option>
                         }
                     </select>
+                </td>
+                <td align="center">
+                    <input type="text" id="notes" name="notes" value="" placeholder="Notas">
                 </td>
             </tr>
         </table>
         <br/>
         <div class="form-actions controls ynt-btn-xlarge">
             <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
-            <a href=@mcgrady.controllers.routes.TeamController.list() class="btn">Cancelar</a>
+            <a href=@kobe.controllers.routes.SessionController.list() class="btn">Cancelar</a>
         </div>
     </fieldset>
 </form>

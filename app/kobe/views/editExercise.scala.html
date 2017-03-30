@@ -1,0 +1,83 @@
+@(id: Long, exerciseForm: Form[kobe.model.Exercise], typeExercises: Seq[kobe.model.TypeExercise], categories: Seq[kobe.model.Category], enviroments: Seq[kobe.model.Enviroment])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("exercise.title")){
+
+<form id="exercise-data-form" role="form" action=@kobe.controllers.routes.ExerciseController.update(id) method="post" autocomplete="off">
+    <fieldset >
+        <label>Ejercicios</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Categoría</th>
+                <th>Entorno</th>
+                <th>Notas</th>
+            </tr>
+            <tr>
+                <td align="center">
+                    @defining(exerciseForm("name").value){ nameValue=>
+                    <input type="text" id="name" name="name"  value="@nameValue">
+                    }
+                </td>
+                <td>
+                    @defining(exerciseForm("idTypeExercise").value) { typeExerciseValue=>
+                    <select id="id_typeExercise" name="id_typeExercise">
+                        @for(typeExercise <- typeExercises){
+                        @if("Some(" + typeExercise.id + ")" == typeExerciseValue.toString){
+                        <option selected="selected" value="@typeExercise.id">@typeExercise.name</option>
+                        }else{
+                        <option value="@typeExercise.id">@typeExercise.name</option>
+                        }
+                        }
+                    </select>
+                    }
+                </td>
+                <td>
+                    @defining(exerciseForm("idCategory").value) { categoryValue=>
+                    <select id="id_category" name="id_category">
+                        @for(category <- categories){
+                        @if("Some(" + category.id + ")" == categoryValue.toString){
+                        <option selected="selected" value="@category.id">@category.name</option>
+                        }else{
+                        <option value="@category.id">@category.name</option>
+                        }
+                        }
+                    </select>
+                    }
+                </td>
+                <td>
+                    @defining(exerciseForm("idEnviroment").value) { enviromentValue=>
+                    <select id="id_enviroment" name="id_enviroment">
+                        @for(enviroment <- enviroments){
+                        @if("Some(" + enviroment.id + ")" == enviromentValue.toString){
+                        <option selected="selected" value="@enviroment.id">@enviroment.name</option>
+                        }else{
+                        <option value="@enviroment.id">@enviroment.name</option>
+                        }
+                        }
+                    </select>
+                    }
+                </td>
+                <td align="center">
+                    @defining(exerciseForm("notes").value){ notesValue=>
+                    <input type="text" id="notes" name="notes"  value="@notesValue">
+                    }
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div>
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Ejercicio</button> o
+            <a href=@kobe.controllers.routes.ExerciseController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+
+@form(kobe.controllers.routes.ExerciseController.delete(Some(id)), 'class -> "topRight") {
+<input type="submit" value="Eliminar Ejercicio" class="btn danger">
+}
+
+}

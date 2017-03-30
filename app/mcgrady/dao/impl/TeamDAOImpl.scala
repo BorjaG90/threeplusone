@@ -28,7 +28,7 @@ class TeamDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvid
   }
 
   override def update(id: Long, team: Team): Future[Int] = {
-    db.run(filterQuery(id).update(team))
+    db.run(idQuery(id).update(team))
   }
 
   override def delete(id: Option[Long]): Future[Int] = {
@@ -40,7 +40,7 @@ class TeamDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvid
   }
 
   override def findById(id: Long): Future[Team] ={
-    db.run(filterQuery(id).result.head)
+    db.run(idQuery(id).result.head)
   }
 
   override def count: Future[Int] = {
@@ -66,7 +66,15 @@ class TeamDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvid
     db.run(teams.filter(_.name like filter.toLowerCase).length.result)
   }
 
-  private def filterQuery(id: Long): Query[TeamTable, Team, Seq] = {
+  private def idQuery(id: Long): Query[TeamTable, Team, Seq] = {
     teams.filter(_.id === id)
+  }
+
+  def findTeamsByName(name:String): Future[Seq[Team]] = {
+    db.run(nameQuery(name).result)
+  }
+
+  def nameQuery(name: String): Query[TeamTable, Team, Seq] = {
+    teams.filter(_.name.toLowerCase like name.toLowerCase())
   }
 }

@@ -1,0 +1,66 @@
+@(exerciseForm: Form[kobe.model.Exercise], typeExercises: Seq[kobe.model.TypeExercise], categories: Seq[kobe.model.Category], enviroments: Seq[kobe.model.Enviroment])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("exercise.title")){
+@request.flash.get(messages("flash.success")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
+</div>
+}
+@request.flash.get(messages("flash.error")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
+</div>
+}
+<h1>Añadir Ejercicio</h1>
+<form id="exercise-data-form" role="form" action=@kobe.controllers.routes.ExerciseController.save() method="post" autocomplete="off">
+    <fieldset >
+        <label>Ejercicio</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Categoría</th>
+                <th>Entorno</th>
+                <th>Notas</th>
+            </tr>
+            <tr>
+                <td align="center">
+                    <input type="name" id="name" name="name" value="" placeholder="Nombre" required>
+                </td>
+                <td>
+                    <select id="id_typeExercise" name="id_typeExercise">
+                        @for(typeExercise <- typeExercises){
+                        <option value="@typeExercise.id">@typeExercise.name</option>
+                        }
+                    </select>
+                </td>
+                <td>
+                    <select id="id_category" name="id_category">
+                        @for(category <- categories){
+                        <option value="@category.id">@category.name</option>
+                        }
+                    </select>
+                </td>
+                <td>
+                    <select id="id_enviroment" name="id_enviroment">
+                        @for(enviroment <- enviroments){
+                        <option value="@enviroment.id">@enviroment.name</option>
+                        }
+                    </select>
+                </td>
+                <td align="center">
+                    <input type="notes" id="notes" name="notes" value="" placeholder="Notas">
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div class="form-actions controls ynt-btn-xlarge">
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
+            <a href=@kobe.controllers.routes.ExerciseController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+}
