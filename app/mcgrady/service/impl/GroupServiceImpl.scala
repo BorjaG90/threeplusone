@@ -29,7 +29,7 @@ class GroupServiceImpl @Inject()(groupDAO: GroupDAO)extends GroupService{
   def listSimple: Future[Seq[Group]] = {
     groupDAO.listSimple
   }
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[(Group,Competition)]] ={
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[(Group,Competition,String)]] ={
     groupDAO.list(page,pageSize,orderBy,filter)
   }
   override def count: Future[Int] = {

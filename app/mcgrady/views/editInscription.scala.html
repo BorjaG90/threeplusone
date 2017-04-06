@@ -1,0 +1,72 @@
+@(id: Long, inscriptionForm: Form[mcgrady.model.Inscription],teams: Seq[mcgrady.model.Team],subgroups: Seq[mcgrady.model.SubGroup],arenas: Seq[mcgrady.model.Arena])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("inscription.title")){
+
+<form id="group-data-form" role="form" action=@mcgrady.controllers.routes.InscriptionController.update(id) method="post" autocomplete="off">
+    <fieldset>
+        <label>Inscripciones</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Equipo</th>
+                <th>SubGrupo</th>
+                <th>Arena</th>
+            </tr>
+            <tr>
+                <td>
+                    @defining(inscriptionForm("id_team").value) { teamValue=>
+                    <select id="id_team" name="id_team">
+                        @for(team <- teams){
+                            @if(teamValue != None && team.id.get == teamValue.get.toLong){
+                    <option selected="selected" value="@team.id">@team.name</option>
+                            }else{
+                    <option value="@team.id">@team.name</option>
+                            }
+                        }
+                    </select>
+                    }
+                </td>
+                <td>
+                    @defining(inscriptionForm("id_subgroup").value) { subgroupValue=>
+                    <select id="id_subgroup" name="id_subgroup">
+                        @for(subgroup <- subgroups){
+                            @if(subgroupValue != None && subgroup.id.get == subgroupValue.get.toLong){
+                    <option selected="selected" value="@subgroup.id">@subgroup.name</option>
+                            }else{
+                    <option value="@subgroup.id">@subgroup.name</option>
+                            }
+                        }
+                    </select>
+                    }
+                </td>
+                <td>
+                    @defining(inscriptionForm("id_arena").value) { arenaValue=>
+                    <select id="id_arena" name="id_arena">
+                        @for(arena <- arenas){
+                            @if(arenaValue != None && arena.id.get == arenaValue.get.toLong){
+                    <option selected="selected" value="@arena.id">@arena.name</option>
+                            }else{
+                    <option value="@arena.id">@arena.name</option>
+                            }
+                        }
+                    </select>
+                    }
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div>
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Inscripción</button>
+            o
+            <a href=@mcgrady.controllers.routes.InscriptionController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+
+@form(mcgrady.controllers.routes.InscriptionController.delete(Some(id)), 'class -> "topRight") {
+<input type="submit" value="Eliminar Inscripción" class="btn danger">
+}
+
+}

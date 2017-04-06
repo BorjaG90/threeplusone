@@ -1,0 +1,58 @@
+@(inscriptionForm: Form[mcgrady.model.Inscription],teams: Seq[mcgrady.model.Team],subGroups: Seq[mcgrady.model.SubGroup],arenas: Seq[mcgrady.model.Arena])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("inscription.title")){
+@request.flash.get(messages("flash.success")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
+</div>
+}
+@request.flash.get(messages("flash.error")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
+</div>
+}
+<h1>Añadir Inscripción</h1>
+<form id="inscription-data-form" role="form" action=@mcgrady.controllers.routes.InscriptionController.save() method="post" autocomplete="off">
+    <fieldset >
+        <label>Inscripción</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Equipo</th>
+                <th>SubGrupo</th>
+                <th>Estadio</th>
+            </tr>
+            <tr>
+                <td>
+                    <select id="id_team" name="id_team">
+                        @for(team <- teams){
+                        <option value="@team.id">@team.name</option>
+                        }
+                    </select>
+                </td>
+                <td>
+                    <select id="id_subgroup" name="id_subgroup">
+                        @for(subGroup <- subGroups){
+                        <option value="@subGroup.id">@subGroup.name</option>
+                        }
+                    </select>
+                </td>
+                <td>
+                <select id="id_arena" name="id_arena">
+                    @for(arena <- arenas){
+                    <option value="@arena.id">@arena.name</option>
+                    }
+                </select>
+            </td>
+            </tr>
+        </table>
+        <br/>
+        <div class="form-actions controls ynt-btn-xlarge">
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
+            <a href=@mcgrady.controllers.routes.InscriptionController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+}

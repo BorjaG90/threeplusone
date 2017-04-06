@@ -1,0 +1,75 @@
+@(currentPage : util.Page[(mcgrady.model.Game,mcgrady.model.Inscription,String,mcgrady.model.Inscription,String,mcgrady.model.Player,mcgrady.model.Arena)], currentOrderBy: Int, currentFilter: String, sf: java.text.SimpleDateFormat)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@****************************************
+* Helper generating navigation links *
+****************************************@
+@link(newPage: Int, newOrderBy: Option[Int] = None) = @{
+mcgrady.controllers.routes.GameController.list(newPage, newOrderBy.map { orderBy =>
+if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
+}.getOrElse(currentOrderBy), currentFilter)
+}
+
+@main(Messages("game.title")){
+@request.flash.get(messages("flash.success")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
+</div>
+}
+@request.flash.get(messages("flash.error")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
+</div>
+}
+<div id="actions">
+    @helper.form(action=mcgrady.controllers.routes.GameController.list()) {
+    <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por Equipo">
+    <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
+    } <a class="btn success" id="add" href="@mcgrady.controllers.routes.GameController.add()">Añadir Partido</a>
+</div>
+<table class="table table-striped">
+    <tr>
+        <th>Fecha</th>
+        <th>Anfitrión</th>
+        <th>Visitante</th>
+        <th>Estadio</th>
+        <th>Ganador</th>
+        <th>MVP</th>
+        <th>Descripción</th>
+    </tr>
+    @for((game,home,teamH,visitor,teamV,mvp,arena) <- currentPage.items){
+    <tr>
+        @if(game.dateGame != None){
+        <td>@sf.format(game.dateGame)</td>
+        }else{<td></td>}
+        <td align="right"><a href="@mcgrady.controllers.routes.InscriptionController.edit(home.id.get)">@teamH -</a></td>
+        <td><a href="@mcgrady.controllers.routes.InscriptionController.edit(visitor.id.get)">@teamV</a></td>
+        <td><a href="@mcgrady.controllers.routes.ArenaController.edit(arena.id.get)">@arena.name</a></td>
+        @if(game.winner != None && game.winner.get == "H"){
+        <td>@teamH</td>
+        }else {@if(game.winner != None && game.winner.get == "A"){
+        <td>@teamV</td>
+        }else{
+        <td></td>
+        }}
+        <td><a href="@mcgrady.controllers.routes.PlayerController.edit(mvp.id.get)">@mvp.firstName @mvp.lastName</a></td>
+        <td>@game.description</td>
+        <td><a href="@mcgrady.controllers.routes.GameController.edit(game.id.get)">Modificar</a></td>
+        <td><a href="@mcgrady.controllers.routes.GameController.delete(game.id)">Borrar</a></td>
+    </tr>
+    }
+</table>
+<div id="pagination" class="pagination">
+    <ul>
+        @currentPage.prev.map { page =>
+        <li class="prev"><a href="@link(page)">&larr; Anterior</a></li>
+        }.getOrElse {
+        <li class="prev disabled"><a>&larr; Anterior</a></li> }
+        <li class="current"><a>Mostrando del @(currentPage.offset + 1)
+            al @(currentPage.offset + currentPage.items.size) de @currentPage.total</a></li>
+        @currentPage.next.map { page =>
+        <li class="next"><a href="@link(page)">Siguiente &rarr;</a></li>
+        }.getOrElse {
+        <li class="next disabled"><a>Siguiente &rarr;</a></li> }
+    </ul>
+</div>
+}

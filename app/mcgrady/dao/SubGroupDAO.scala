@@ -16,7 +16,7 @@ trait SubGroupDAO {
   def update(id: Long, subGroup: SubGroup): Future[Int]
   def delete(id: Option[Long]):Future[Int]
   def listSimple:Future[Seq[SubGroup]]
-  def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page[(SubGroup,Group)]]
+  def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page[(SubGroup,Group,String,String)]]
   def findById(id: Long): Future[SubGroup]
   def get(id: Long): Future[Option[SubGroup]]
   def count: Future[Int]

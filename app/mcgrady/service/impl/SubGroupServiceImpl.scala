@@ -29,7 +29,7 @@ class SubGroupServiceImpl @Inject()(subGroupDAO: SubGroupDAO)extends SubGroupSer
   def listSimple: Future[Seq[SubGroup]] = {
     subGroupDAO.listSimple
   }
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[(SubGroup,Group)]] ={
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[(SubGroup,Group,String,String)]] ={
     subGroupDAO.list(page,pageSize,orderBy,filter)
   }
   override def count: Future[Int] = {

@@ -20,6 +20,7 @@ class SubGroupDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPr
   import driver.api._
 
   val subGroups = TableQuery[SubGroupTable]
+  val groups = TableQuery[GroupTable]
 
   override def add(subGroup: SubGroup): Future[String] = {
     db.run(subGroups += subGroup).map(res => "SubGrupo añadido satisfactoriamente").recover {
@@ -49,13 +50,15 @@ class SubGroupDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPr
   override def listSimple: Future[Seq[SubGroup]] = {
     db.run(subGroups.result)
   }
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[(SubGroup,Group)]] = {
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[(SubGroup,Group,String,String)]] = {
     val offset = pageSize * page
     val query =
       (for {
-        subGroup <- subGroups if subGroup.name like filter.toLowerCase
-        group <- subGroup.subGroup_group_fk
-      } yield (subGroup,group)).drop(offset).take(pageSize)
+        (subGroup,group) <- subGroups join groups on (_.idGroup === _.id)
+        competition <- group.group_competition_fk
+        season <- competition.competition_season_fk
+        if subGroup.name like filter.toLowerCase
+      } yield (subGroup,group,season.year, competition.abrv)).drop(offset).take(pageSize)
     val totalRows = count(filter)
     val result = db.run(query.result)
 

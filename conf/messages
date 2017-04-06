@@ -3,14 +3,18 @@ app.name = ThreePlusOne
 
 # Title
 # McGrady
-competition.title = Competición
+competition.title = Competiciones
 season.title = Temporadas
 arena.title = Estadios
-unit.title = Unidades
-type.title = Tipos
+group.title = Grupos
+subGroup.title = SubGrupos
 team.title = Equipos
 player.title = Jugadores
 contract.title = Contratos
+inscription.title = Inscripciones
+game.title = Partidos
+teamStats.title = Estadísticas de Equipos
+playerStats.title = Estadísticas de Jugadores
 
 # Kobe
 enviroment.title = Entornos
@@ -18,8 +22,8 @@ category.title = Categorías
 plan.title = Planes
 exercise.title = Ejercicios
 session.title = Sesiones
-group.title = Grupos
-subGroup.title = SubGrupos
+unit.title = Unidades
+type.title = Tipos
 
 # Flash Scope
 flash.success = success

@@ -1,4 +1,4 @@
-@(groupForm: Form[mcgrady.model.Group],competitions: Seq[mcgrady.model.Competition])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+@(groupForm: Form[mcgrady.model.Group],competitions: Seq[mcgrady.model.Competition],seasons: Seq[mcgrady.model.Season])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 
 @import helper._
 
@@ -31,7 +31,11 @@
                 <td>
                     <select id="id_competition" name="id_competition">
                         @for(competition <- competitions){
-                        <option value="@competition.id">@competition.name</option>
+                        @for(season <- seasons){
+                        @if(season.id.get == competition.id_season){
+                        <option value="@competition.id">@season.year-@competition.name</option>
+                        }
+                        }
                         }
                     </select>
                 </td>

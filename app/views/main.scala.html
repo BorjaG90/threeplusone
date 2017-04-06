@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
     <head>
         <title>@title</title>
         <meta name = "author" content="Borja Gete Ortuñez"</meta>
@@ -16,16 +15,6 @@
 	    <div>
 			<label><h1>ThreePlusOne System.</h1></label>
 		</div>
-		<div id="kobe">
-            <h2>Entrenamientos</h2>
-            <a href="@kobe.controllers.routes.UnitController.index">Unidades</a>
-            <a href="@kobe.controllers.routes.TypeExerciseController.index">Tipos</a>
-            <a href="@kobe.controllers.routes.CategoryController.index">Categorias</a>
-            <a href="@kobe.controllers.routes.EnviromentController.index">Entornos</a>
-            <a href="@kobe.controllers.routes.ExerciseController.index">Ejercicios</a>
-            <a href="@kobe.controllers.routes.PlanController.index">Planes</a>
-            <a href="@kobe.controllers.routes.SessionController.index">Sesiones</a>
-		</div>
 		<div id="mcgrady">
             <h2>Partidos</h2>
             <a href="@mcgrady.controllers.routes.SeasonController.index">Temporadas</a>
@@ -36,7 +25,11 @@
             <a href="@mcgrady.controllers.routes.TeamController.index">Equipos</a>
             <a href="@mcgrady.controllers.routes.PlayerController.index">Jugadores</a>
             <a href="@mcgrady.controllers.routes.ContractController.index">Contratos</a>
-            		</div>
+            <a href="@mcgrady.controllers.routes.InscriptionController.index">Inscripciones</a>
+            <a href="@mcgrady.controllers.routes.GameController.index">Partidos</a>
+            <a href="@mcgrady.controllers.routes.PlayerStatsController.index">Estad. Jugadores</a>
+            <a href="@mcgrady.controllers.routes.TeamStatsController.index">Estad. Equipos</a>
+        </div>
 		@content
     </body>
 </html>

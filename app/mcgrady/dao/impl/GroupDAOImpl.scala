@@ -49,13 +49,14 @@ class GroupDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvi
   override def listSimple: Future[Seq[Group]] = {
     db.run(groups.result)
   }
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[(Group,Competition)]] = {
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[(Group,Competition,String)]] = {
     val offset = pageSize * page
     val query =
       (for {
         group <- groups if group.name like filter.toLowerCase
         competition <- group.group_competition_fk
-      } yield (group,competition)).drop(offset).take(pageSize)
+        season <- competition.competition_season_fk
+      } yield (group,competition,season.year)).drop(offset).take(pageSize)
     val totalRows = count(filter)
     val result = db.run(query.result)
 

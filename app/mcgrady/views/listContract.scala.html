@@ -22,7 +22,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
 }
 <div id="actions">
     @helper.form(action=mcgrady.controllers.routes.ContractController.list()) {
-    <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por nombre de Contrato">
+    <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por Equipo">
     <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
     } <a class="btn success" id="add" href="@mcgrady.controllers.routes.ContractController.add()">Añadir Contrato</a>
 </div>

@@ -16,7 +16,7 @@ trait SubGroupService {
   def update(id: Long, subGroup: SubGroup): Future[Int]
   def delete(id: Option[Long]): Future[Int]
   def listSimple: Future[Seq[SubGroup]]
-  def list(page: Int, pageSize:Int, orderBy: Int, filter: String):Future[Page[(SubGroup,Group)]]
+  def list(page: Int, pageSize:Int, orderBy: Int, filter: String):Future[Page[(SubGroup,Group,String,String)]]
   def count: Future[Int]
   def find(id: Long): Future[SubGroup]
   def get(id: Long): Future[Option[SubGroup]]

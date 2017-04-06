@@ -1,0 +1,130 @@
+@(teamStatsForm: Form[mcgrady.model.TeamStats], games: Seq[mcgrady.model.Game], inscriptions: Seq[mcgrady.model.Inscription],teams: Seq[mcgrady.model.Team], sf: java.text.SimpleDateFormat)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("teamStats.title")){
+@request.flash.get(messages("flash.success")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
+</div>
+}
+@request.flash.get(messages("flash.error")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
+</div>
+}
+<h1>Añadir Estadísticas</h1>
+<form id="teamStats-data-form" role="form" action=@mcgrady.controllers.routes.TeamStatsController.save() method="post" autocomplete="off">
+    <fieldset >
+        <label>Estadísticas</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Partido</th>
+                <th>Equipo</th>
+                <th>Pts</th>
+                <th>Reb Of</th>
+                <th>Reb Def</th>
+                <th>Ass</th>
+                <th>Tap</th>
+                <th>Rob</th>
+                <th>TCA</th>
+                <th>TCI</th>
+                <th>T3A</th>
+                <th>T3I</th>
+                <th>TLA</th>
+                <th>TLI</th>
+                <th>Fal</th>
+                <th>Per</th>
+                <th>Min</th>
+                <th>Tec</th>
+                <th>Flag</th>
+            </tr>
+            <tr>
+                <td>
+                    <select id="id_game" name="id_game">
+                        @for(game <- games){
+                        @for(home <- teams){
+                        @if(game.idHome == home.id.get){
+                        @for(away <- teams){
+                        @if(game.idVisitor == away.id.get){
+                        <option value="@game.id">@sf.format(game.dateGame) - @home.abrv vs @away.abrv</option>
+                        }
+                        }
+                        }
+                        }
+                        }
+                    </select>
+                </td>
+                <td>
+                    <select id="id_inscription" name="id_inscription">
+                        @for(inscription <- inscriptions){
+                        @for(team <- teams){
+                        @if(inscription.idTeam == team.id.get){
+                        <option value="@inscription.id">@team.name</option>
+                        }
+                        }
+                        }
+                    </select>
+                </td>
+                <td>
+                    <input type="text" id="points" name="points" value="" placeholder="Puntos">
+                </td>
+                <td>
+                    <input type="text" id="off_rebounds" name="off_rebounds" value="" placeholder="Reb Ofensivo">
+                </td>
+                <td>
+                    <input type="text" id="def_rebounds" name="def_rebounds" value="" placeholder="Reb Defensivo">
+                </td>
+                <td>
+                    <input type="text" id="assists" name="assists" value="" placeholder="Asistencias">
+                </td>
+                <td>
+                    <input type="text" id="blocks" name="blocks" value="" placeholder="Tapones">
+                </td>
+                <td>
+                    <input type="text" id="steals" name="steals" value="" placeholder="Robos">
+                </td>
+                <td>
+                    <input type="text" id="fg_made" name="fg_made" value="" placeholder="TCampo Conseguido">
+                </td>
+                <td>
+                    <input type="text" id="fg_attemped" name="fg_attemped" value="" placeholder="TCampo Intentado">
+                </td>
+                <td>
+                    <input type="text" id="t3_made" name="t3_made" value="" placeholder="Triple Conseguido">
+                </td>
+                <td>
+                    <input type="text" id="t3_attemped" name="t3_attemped" value="" placeholder="Triple Intentado">
+                </td>
+                <td>
+                    <input type="text" id="ft_made" name="ft_made" value="" placeholder="Libre Intentado">
+                </td>
+                <td>
+                    <input type="text" id="ft_attemped" name="ft_attemped" value="" placeholder="Libre Conseguido">
+                </td>
+                <td>
+                    <input type="text" id="fouls" name="fouls" value="" placeholder="Faltas">
+                </td>
+                <td>
+                    <input type="text" id="turnovers" name="turnovers" value="" placeholder="Perdidas">
+                </td>
+                <td>
+                    <input type="text" id="minutes" name="minutes" value="" placeholder="Minutos">
+                </td>
+                <td>
+                    <input type="text" id="tech_fouls" name="tech_fouls" value="" placeholder="Tecnicas">
+                </td>
+                <td>
+                    <input type="text" id="flag_fouls" name="flag_fouls" value="" placeholder="Flagrantes">
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div class="form-actions controls ynt-btn-xlarge">
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
+            <a href=@mcgrady.controllers.routes.TeamStatsController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+}

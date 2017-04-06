@@ -8,8 +8,8 @@ import play.api.mvc._
 import play.api.i18n.{MessagesApi, Messages, I18nSupport}
 import java.util.concurrent.TimeoutException
 import com.google.inject.Inject
-import mcgrady.model.{Group, GroupForm,Competition}
-import mcgrady.service.{GroupService,CompetitionService}
+import mcgrady.model.{Group, GroupForm,Competition,Season}
+import mcgrady.service.{GroupService,CompetitionService,SeasonService}
 import mcgrady.views._
 
 /**
@@ -19,6 +19,7 @@ import mcgrady.views._
 class GroupController @Inject()(val messagesApi: MessagesApi
                                 , groupService: GroupService
                                 , competitionService: CompetitionService
+                                , seasonService: SeasonService
                                ) extends Controller with I18nSupport {
 
   val home = Redirect(mcgrady.controllers.routes.GroupController.list(0, 2, ""))
@@ -38,26 +39,30 @@ class GroupController @Inject()(val messagesApi: MessagesApi
   }
 
   def add: Action[AnyContent] = Action.async { implicit request =>
-    competitionService.listSimple map { competitions =>
-      Ok(html.createGroup(GroupForm.form, competitions.sortBy(_.name)))
+    seasonService.listSimple flatMap { seasons =>
+      competitionService.listSimple map { competitions =>
+        Ok(html.createGroup(GroupForm.form, competitions.sortBy(_.name), seasons))
+      }
     }
   }
 
   def edit(id: Long): Action[AnyContent] = Action.async { implicit request =>
-    competitionService.listSimple flatMap { competitions =>
-      groupService.find(id).map { group =>
-        Ok(html.editGroup(id, GroupForm.form.fill(group), competitions))
-      }.recover {
-        case ex: TimeoutException =>
-          Logger.error("Error editando un grupo")
-          InternalServerError(ex.getMessage)
+    seasonService.listSimple flatMap { seasons =>
+      competitionService.listSimple flatMap { competitions =>
+        groupService.find(id).map { group =>
+          Ok(html.editGroup(id, GroupForm.form.fill(group), competitions, seasons))
+        }.recover {
+          case ex: TimeoutException =>
+            Logger.error("Error editando un grupo")
+            InternalServerError(ex.getMessage)
+        }
       }
     }
   }
 
   def update(id: Long): Action[AnyContent] = Action.async { implicit request =>
     GroupForm.form.bindFromRequest.fold(
-      formWithErrors => Future.successful(BadRequest(html.editGroup(id, formWithErrors, Seq.empty[Competition]))),
+      formWithErrors => Future.successful(BadRequest(html.editGroup(id, formWithErrors, Seq.empty[Competition], Seq.empty[Season]))),
       data => {
         groupService.find(id).flatMap { oldGroup =>
           val newGroup = Group(Some(0L), data.idCompetition, data.name, data.notes
@@ -78,7 +83,7 @@ class GroupController @Inject()(val messagesApi: MessagesApi
 
   def save: Action[AnyContent] = Action.async { implicit request =>
     GroupForm.form.bindFromRequest.fold(
-      formWithErrors => Future.successful(BadRequest(html.createGroup(formWithErrors, Seq.empty[Competition]))),
+      formWithErrors => Future.successful(BadRequest(html.createGroup(formWithErrors, Seq.empty[Competition], Seq.empty[Season]))),
       data => {
         val newGroup = Group(Some(0L), data.idCompetition, data.name, data.notes
           , new java.util.Date(), Some(new java.util.Date(0))

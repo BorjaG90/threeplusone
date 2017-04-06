@@ -69,18 +69,20 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi,
       formWithErrors => Future.successful(
         BadRequest(html.editCompetition(id, formWithErrors, Seq.empty[Country], Seq.empty[Season]))),
       data => {
-        competitionService.find(id).flatMap { oldCompetition =>
-          val newCompetition = Competition(Some(0L), data.id_season, data.name, data.abbreviation, data.division
-            , data.id_country, data.description, data.typeCompetition, data.initDate, data.endDate
-            , oldCompetition.creationDate, Some(new java.util.Date())
-          )
-          val futureCompetitionUpdate = competitionService.update(id, newCompetition.copy(id = Some(id)))
-          futureCompetitionUpdate.map { result =>
-            home.flashing("success" -> "La Competición %s ha sido actualizada".format(newCompetition.name))
-          }.recover {
-            case ex: TimeoutException =>
-              Logger.error("Error actualizando una competición")
-              InternalServerError(ex.getMessage)
+        seasonService.find(data.id_season).flatMap { season =>
+          competitionService.find(id).flatMap { oldCompetition =>
+            val newCompetition = Competition(Some(0L), data.id_season, data.name, data.abrv, data.division
+              , data.id_country, data.description, data.typeCompetition, data.initDate, data.endDate
+              , oldCompetition.creationDate, Some(new java.util.Date())
+            )
+            val futureCompetitionUpdate = competitionService.update(id, newCompetition.copy(id = Some(id)))
+            futureCompetitionUpdate.map { result =>
+              home.flashing("success" -> "La Competición %s ha sido actualizada".format(newCompetition.name))
+            }.recover {
+              case ex: TimeoutException =>
+                Logger.error("Error actualizando una competición")
+                InternalServerError(ex.getMessage)
+            }
           }
         }
       }
@@ -92,18 +94,20 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi,
       formWithErrors => Future.successful(
         BadRequest(html.createCompetition(formWithErrors, Seq.empty[Country], Seq.empty[Season]))),
       data => {
-        val newCompetition = Competition(Some(0L), data.id_season, data.name, data.abbreviation, data.division
-          , data.id_country, data.description, data.typeCompetition, data.initDate, data.endDate
-          , new java.util.Date(), Some(new java.util.Date(0))
-        )
-        val futureCompetitionInsert = competitionService.add(newCompetition)
-        futureCompetitionInsert.map { result =>
-          home.flashing("success" -> "La Competición %s ha sido creada".format(
-            newCompetition.name))
-        }.recover {
-          case ex: TimeoutException =>
-            Logger.error("Error guardando una competición")
-            InternalServerError(ex.getMessage)
+        seasonService.find(data.id_season).flatMap { season =>
+          val newCompetition = Competition(Some(0L), data.id_season, data.name, data.abrv, data.division
+            , data.id_country, data.description, data.typeCompetition, data.initDate, data.endDate
+            , new java.util.Date(), Some(new java.util.Date(0))
+          )
+          val futureCompetitionInsert = competitionService.add(newCompetition)
+          futureCompetitionInsert.map { result =>
+            home.flashing("success" -> "La Competición %s ha sido creada".format(
+              newCompetition.name))
+          }.recover {
+            case ex: TimeoutException =>
+              Logger.error("Error guardando una competición")
+              InternalServerError(ex.getMessage)
+          }
         }
       }
     )

@@ -20,7 +20,7 @@
                     @defining(competitionForm("id_season").value) { seasonValue=>
                     <select id="id_season" name="id_season">
                         @for(season <- seasons){
-                            @if("Some(" + season.id + ")" == seasonValue.toString){
+                            @if(seasonValue != None && season.id.get == seasonValue.get.toLong){
                         <option selected="selected" value="@season.id">@season.year</option>
                             }else{
                         <option value="@season.id">@season.year</option>
@@ -48,11 +48,11 @@
                     @defining(competitionForm("id_country").value) { countryValue=>
                     <select id="id_country" name="id_country">
                         @for(country <- countries){
-                        @if("Some(" + country.id + ")" == countryValue.toString){
+                            @if(country.id == countryValue.get.toLong){
                         <option selected="selected" value="@country.id">@country.name</option>
-                        }else{
+                            }else{
                         <option value="@country.id">@country.name</option>
-                        }
+                            }
                         }
                     </select>
                     }

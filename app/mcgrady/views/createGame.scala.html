@@ -1,0 +1,87 @@
+@(gameForm: Form[mcgrady.model.Game], players: Seq[mcgrady.model.Player], inscriptions: Seq[mcgrady.model.Inscription], arenas: Seq[mcgrady.model.Arena], teams: Seq[mcgrady.model.Team])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("game.title")){
+@request.flash.get(messages("flash.success")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
+</div>
+}
+@request.flash.get(messages("flash.error")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
+</div>
+}
+<h1>Añadir Partido</h1>
+<form id="game-data-form" role="form" action=@mcgrady.controllers.routes.GameController.save() method="post" autocomplete="off">
+    <fieldset >
+        <label>Partido</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Fecha</th>
+                <th>Anfitrión</th>
+                <th>Visitante</th>
+                <th>Estadio</th>
+                <th>Ganador</th>
+                <th>MVP</th>
+                <th>Descripción</th>
+            </tr>
+            <tr>
+                <td align="center">
+                    <input type="date" id="date" name="date" step="1" min="2000-01-01" max="2050-12-31" value="2017-06-30">
+                </td>
+                <td>
+                    <select id="id_home" name="id_home">
+                        @for(inscription <- inscriptions){
+                        @for(team <- teams){
+                        @if(inscription.idTeam == team.id.get){
+                        <option value="@inscription.id">@team.name</option>
+                        }
+                        }
+                        }
+                    </select>
+                </td>
+                <td>
+                    <select id="id_visitor" name="id_visitor">
+                        @for(inscription <- inscriptions){
+                        @for(team <- teams){
+                        @if(inscription.idTeam == team.id.get){
+                        <option value="@inscription.id">@team.name</option>
+                        }
+                        }
+                        }
+                    </select>
+                </td>
+                <td>
+                    <select id="id_arena" name="id_arena">
+                        @for(arena <- arenas){
+                        <option value="@arena.id">@arena.name</option>
+                        }
+                    </select>
+                </td>
+                <td>
+                    <input type="radio" id="winner1" name="winner" value="H" >Anfitrión<br>
+                    <input type="radio" id="winner2" name="winner" value="A" >Visitante<br>
+                </td>
+                <td>
+                    <select id="mvp" name="mvp">
+                        @for(player <- players){
+                        <option value="@player.id">@player.firstName @player.lastName</option>
+                        }
+                    </select>
+                </td>
+                <td align="center">
+                    <input type="text" id="description" name="description" value="" placeholder="Descripción" >
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div class="form-actions controls ynt-btn-xlarge">
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
+            <a href=@mcgrady.controllers.routes.GameController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+}

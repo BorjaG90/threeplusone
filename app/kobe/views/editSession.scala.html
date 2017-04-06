@@ -22,6 +22,7 @@
                 </td>
                <td>
                     @defining(sessionForm("id_plan").value) { planValue=>
+                   <select id="id_plan" name="id_plan">
                     @for(plan <- plans){
                     @if("Some(" + plan.id + ")" == planValue.toString){
                     <option selected="selected" value="@plan.id">@plan.name</option>

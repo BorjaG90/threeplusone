@@ -1,0 +1,149 @@
+@(id: Long, playerStatsForm: Form[mcgrady.model.PlayerStats], games: Seq[mcgrady.model.Game], players: Seq[mcgrady.model.Player],teams: Seq[mcgrady.model.Team], sf: java.text.SimpleDateFormat)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("playerStats.title")){
+
+<form id="playerStats-data-form" role="form" action=@mcgrady.controllers.routes.PlayerStatsController.update(id) method="post" autocomplete="off">
+    <fieldset >
+        <label>Estadisticas</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Partido</th>
+                <th>Jugador</th>
+                <th>Pts</th>
+                <th>Reb Of</th>
+                <th>Reb Def</th>
+                <th>Ass</th>
+                <th>Tap</th>
+                <th>Rob</th>
+                <th>TCA</th>
+                <th>TCI</th>
+                <th>T3A</th>
+                <th>T3I</th>
+                <th>TLA</th>
+                <th>TLI</th>
+                <th>Fal</th>
+                <th>Per</th>
+                <th>Min</th>
+                <th>Tec</th>
+                <th>Flag</th>
+            </tr>
+            <tr>
+                <td>
+                    @defining(playerStatsForm("id_game").value){ gameValue=>
+                    @for(game <- games){
+                    @if(gameValue.get != None && gameValue.get.toLong == game.id.get){
+                        @for(home <- teams){
+                        @if(game.idHome == home.id.get){
+                        @for(away <- teams){
+                        @if(game.idVisitor == away.id.get){
+                        @sf.format(game.dateGame) <br>
+                        @home.abrv vs @away.abrv
+                        }
+                        }
+                        }
+                        }
+                    }else{
+                        Error
+                    }
+                    }
+                    }
+                </td>
+                <td>
+                    @defining(playerStatsForm("id_player").value) { playerValue=>
+                    <select id="id_player" name="id_player">
+                        @for(player <- players){
+                        @if(playerValue != None && player.id.get == playerValue.get.toLong){
+                        <option selected="selected" value="@player.id">@player.firstName @player.lastName</option>
+                        }else{
+                        <option value="@player.id">@player.firstName @player.lastName</option>
+                        }
+                        }
+                    </select>
+                    }
+                </td>
+                <td>@defining(playerStatsForm("points").value){ pointsValue=>
+                    <input type="text" id="points" name="points" value="@pointsValue" >
+                    }
+                </td>
+                <td>@defining(playerStatsForm("off_rebounds").value){ off_reboundsValue=>
+                    <input type="text" id="off_rebounds" name="off_rebounds" value="@off_reboundsValue" >
+                    }
+                </td>
+                <td>@defining(playerStatsForm("def_rebounds").value){ def_reboundsValue=>
+                    <input type="text" id="def_rebounds" name="def_rebounds" value="@def_reboundsValue" >
+                    }
+                </td>
+                <td>@defining(playerStatsForm("assists").value){ assistsValue=>
+                    <input type="text" id="assists" name="assists" value="@assistsValue" >
+                    }
+                </td>
+                <td>@defining(playerStatsForm("blocks").value){ blocksValue=>
+                    <input type="text" id="blocks" name="blocks" value="@blocksValue" >
+                    }
+                </td>
+                <td>@defining(playerStatsForm("steals").value){ stealsValue=>
+                    <input type="text" id="steals" name="steals" value="@stealsValue" >
+                    }
+                </td>
+                <td>@defining(playerStatsForm("fg_made").value){ fg_madeValue=>
+                    <input type="text" id="fg_made" name="fg_made" value="@fg_madeValue" >
+                    }
+                </td>
+                <td>@defining(playerStatsForm("fg_attemped").value){ fg_attempedValue=>
+                    <input type="text" id="fg_attemped" name="fg_attemped" value="@fg_attempedValue" >
+                    }
+                </td>
+                <td>@defining(playerStatsForm("t3_made").value){ t3_madeValue=>
+                    <input type="text" id="t3_made" name="t3_made" value="@t3_madeValue" >
+                    }
+                </td>
+                <td>@defining(playerStatsForm("t3_attemped").value){ t3_attempedValue=>
+                    <input type="text" id="t3_attemped" name="t3_attemped" value="@t3_attempedValue" >
+                    }
+                </td>
+                <td>@defining(playerStatsForm("ft_made").value){ ft_madeValue=>
+                    <input type="text" id="ft_made" name="ft_made" value="@ft_madeValue" >
+                    }
+                </td>
+                <td>@defining(playerStatsForm("ft_attemped").value){ ft_attempedValue=>
+                    <input type="text" id="ft_attemped" name="ft_attemped" value="@ft_attempedValue" >
+                    }
+                </td>
+                <td>@defining(playerStatsForm("fouls").value){ foulsValue=>
+                    <input type="text" id="fouls" name="fouls" value="@foulsValue" >
+                    }
+                </td>
+                <td>@defining(playerStatsForm("turnovers").value){ turnoversValue=>
+                    <input type="text" id="turnovers" name="turnovers" value="@turnoversValue" >
+                    }
+                </td>
+                <td>@defining(playerStatsForm("minutes").value){ minutesValue=>
+                    <input type="text" id="minutes" name="minutes" value="@minutesValue" >
+                    }
+                </td>
+                <td>@defining(playerStatsForm("tech_fouls").value){ tech_foulsValue=>
+                    <input type="text" id="tech_fouls" name="tech_fouls" value="@tech_foulsValue" >
+                    }
+                </td>
+                <td>@defining(playerStatsForm("flag_fouls").value){ flag_foulsValue=>
+                    <input type="text" id="flag_fouls" name="flag_fouls" value="@flag_foulsValue" >
+                    }
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div>
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Estadisticas</button> o
+            <a href=@mcgrady.controllers.routes.PlayerStatsController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+
+@form(mcgrady.controllers.routes.PlayerStatsController.delete(Some(id)), 'class -> "topRight") {
+<input type="submit" value="Eliminar Estadisticas" class="btn danger">
+}
+
+}

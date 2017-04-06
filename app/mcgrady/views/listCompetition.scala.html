@@ -29,21 +29,20 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
 <table class="table table-striped">
     <tr>
         <th>Temp</th>
-        <th></th>
-        <th>País</th>
+        <th>Nom</th>
         <th>Abrev</th>
         <th>Div</th>
         <th>Tipo</th>
         <th>Inicio</th>
         <th>Fin</th>
+        <th>País</th>
         <th>Descripción</th>
     </tr>
     @for((competition,country,season) <- currentPage.items){
     <tr>
         <td><a href="@mcgrady.controllers.routes.SeasonController.edit(season.id.get)">@season.year</a></td>
         <td><a href="@mcgrady.controllers.routes.CompetitionController.edit(competition.id.get)">@competition.name</a></td>
-        <td>@country.name</td>
-        <td>@competition.abbreviation</td>
+        <td>@competition.abrv</td>
         <td>@competition.division</td>
         <td>@competition.typeCompetition</td>
         @if(competition.initDate != None){
@@ -52,6 +51,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         @if(competition.endDate != None){
         <td>@sf.format(competition.endDate.get)</td>
         }else{<td></td>}
+        <td>@country.name</td>
         <td>@competition.description</td>
         <td><a href="@mcgrady.controllers.routes.CompetitionController.delete(competition.id)">Borrar</a></td>
     </tr>

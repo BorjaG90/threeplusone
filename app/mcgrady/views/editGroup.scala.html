@@ -1,4 +1,4 @@
-@(id: Long, groupForm: Form[mcgrady.model.Group],competitions: Seq[mcgrady.model.Competition])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+@(id: Long, groupForm: Form[mcgrady.model.Group],competitions: Seq[mcgrady.model.Competition],seasons: Seq[mcgrady.model.Season])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 
 @import helper._
 
@@ -22,18 +22,22 @@
                 </td>
                 <td>
                     @defining(groupForm("id_competition").value) { competitionValue=>
-                    @for(competition <- competitions){
-                    @if("Some(" + competition.id + ")" == competitionValue.toString){
-                    <option selected="selected" value="@competition.id">@competition.name</option>
-                    }else{
-                    <option value="@competition.id">@competition.name</option>
-                    }
-                    }
+                    <select id="id_competition" name="id_competition">
+                        @for(competition <- competitions){
+                            @if(competitionValue != None && competition.id.get == competitionValue.get.toLong){
+                        @for(season <- seasons){
+                        @if(season.id == competition.id_season){
+                    <option selected="selected" value="@competition.id">@season.year-@competition.name</option>
+                            }else{
+                    <option value="@competition.id">@season.year-@competition.name</option>
+                            }
+                        }
+                        }
+                        }
                     </select>
                     }
                 </td>
-                
-                <td align="center">
+                <td>
                     @defining(groupForm("notes").value){ notesValue=>
                     <input type="text" id="notes" name="notes" value="@notesValue">
                     }
