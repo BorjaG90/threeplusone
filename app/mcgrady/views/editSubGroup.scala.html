@@ -23,20 +23,20 @@
                 <td>
                     @defining(subGroupForm("id_group").value) { groupValue=>
                     <select id="id_group" name="id_group">
-                        @for(group <- groups){
-                            @if(groupValue != None && group.id.get == groupValue.get.toLong){
-                        @for(competition <- competitions){
-                        @if(competition.id == group.idCompetition){
                         @for(season <- seasons){
-                        @if(season.id == competition.id_season){
-                    <option selected="selected" value="@group.id">@group.name</option>
-                            }else{
-                    <option value="@group.id">@season.year-@competition.name/@group.name</option>
+                            @for(competition <- competitions){
+                                @if(season.id.get == competition.id_season){
+                                    @for(group <- groups){
+                                        @if(competition.id.get == group.idCompetition){
+                                            @if(groupValue != None && group.id.get == groupValue.get.toLong){
+                        <option selected="selected" value="@group.id">@season.year-@competition.abrv/@group.name</option>
+                                            }else{
+                        <option value="@group.id">@season.year-@competition.abrv/@group.name</option>
+                                            }
+                                        }
+                                    }
+                                }
                             }
-                        }
-                        }
-                        }
-                        }
                         }
                     </select>
                     }

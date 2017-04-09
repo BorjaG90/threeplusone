@@ -30,12 +30,12 @@
                 </td>
                 <td>
                     <select id="id_group" name="id_group">
-                        @for(group <- groups){
-                        @for(competition <- competitions){
-                        @if(competition.id.get == group.idCompetition){
                         @for(season <- seasons){
+                        @for(competition <- competitions){
                         @if(season.id.get == competition.id_season){
-                        <option value="@group.id">@season.year-@competition.name/@group.name</option>
+                        @for(group <- groups){
+                        @if(competition.id.get == group.idCompetition){
+                        <option value="@group.id">@season.year-@competition.abrv/@group.name</option>
                         }
                         }
                         }

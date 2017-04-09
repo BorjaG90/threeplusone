@@ -29,7 +29,7 @@ class InscriptionServiceImpl @Inject()(inscriptionDAO: InscriptionDAO)extends In
   def listSimple: Future[Seq[Inscription]] = {
     inscriptionDAO.listSimple
   }
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[(Inscription,Team, SubGroup, Arena)]] ={
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[(Inscription,Team, SubGroup, Arena,String,String,String)]] ={
     inscriptionDAO.list(page,pageSize,orderBy,filter)
   }
   override def count: Future[Int] = {

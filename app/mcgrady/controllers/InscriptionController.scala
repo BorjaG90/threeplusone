@@ -8,8 +8,8 @@ import play.api.mvc._
 import play.api.i18n.{MessagesApi, Messages, I18nSupport}
 import java.util.concurrent.TimeoutException
 import com.google.inject.Inject
-import mcgrady.model.{Inscription, InscriptionForm,Team,SubGroup,Arena}
-import mcgrady.service.{InscriptionService,TeamService,SubGroupService,ArenaService}
+import mcgrady.model._
+import mcgrady.service._
 import mcgrady.views._
 
 /**
@@ -20,6 +20,9 @@ class InscriptionController @Inject()(val messagesApi: MessagesApi
                                       , inscriptionService: InscriptionService
                                       , teamService: TeamService
                                       , subGroupService: SubGroupService
+                                      , groupService: GroupService
+                                      , competitionService: CompetitionService
+                                      , seasonService: SeasonService
                                       , arenaService: ArenaService
                                   ) extends Controller with I18nSupport {
 
@@ -40,25 +43,43 @@ class InscriptionController @Inject()(val messagesApi: MessagesApi
   }
 
   def add: Action[AnyContent] = Action.async { implicit request =>
-    arenaService.listSimple flatMap { arenas =>
-      subGroupService.listSimple flatMap { subgroups =>
-        teamService.listSimple map { teams =>
-          Ok(html.createInscription(InscriptionForm.form, teams.sortBy(_.name), subgroups.sortBy(_.name), arenas.sortBy(_.name)))
+    seasonService.listSimple flatMap { seasons =>
+      competitionService.listSimple flatMap { competitions =>
+        groupService.listSimple flatMap { groups =>
+          arenaService.listSimple flatMap { arenas =>
+            subGroupService.listSimple flatMap { subgroups =>
+              teamService.listSimple map { teams =>
+                Ok(html.createInscription(InscriptionForm.form
+                  , teams.sortBy(_.name), subgroups.sortBy(_.name), arenas.sortBy(_.name)
+                  , groups.sortBy(_.name), competitions.sortBy(_.name), seasons.sortBy(_.year)
+                ))
+              }
+            }
+          }
         }
       }
     }
   }
 
   def edit(id: Long): Action[AnyContent] = Action.async { implicit request =>
-    arenaService.listSimple flatMap { arenas =>
-      subGroupService.listSimple flatMap { subgroups =>
-        teamService.listSimple flatMap { teams =>
-          inscriptionService.find(id).map { inscription =>
-            Ok(html.editInscription(id, InscriptionForm.form.fill(inscription), teams.sortBy(_.name), subgroups.sortBy(_.name), arenas.sortBy(_.name)))
-          }.recover {
-            case ex: TimeoutException =>
-              Logger.error("Error editando un inscripción")
-              InternalServerError(ex.getMessage)
+    seasonService.listSimple flatMap { seasons =>
+      competitionService.listSimple flatMap { competitions =>
+        groupService.listSimple flatMap { groups =>
+          arenaService.listSimple flatMap { arenas =>
+            subGroupService.listSimple flatMap { subgroups =>
+              teamService.listSimple flatMap { teams =>
+                inscriptionService.find(id).map { inscription =>
+                  Ok(html.editInscription(id, InscriptionForm.form.fill(inscription)
+                    , teams.sortBy(_.name), subgroups.sortBy(_.name), arenas.sortBy(_.name)
+                    , groups.sortBy(_.name), competitions.sortBy(_.name), seasons.sortBy(_.year)
+                  ))
+                }.recover {
+                  case ex: TimeoutException =>
+                    Logger.error("Error editando un inscripción")
+                    InternalServerError(ex.getMessage)
+                }
+              }
+            }
           }
         }
       }
@@ -69,6 +90,7 @@ class InscriptionController @Inject()(val messagesApi: MessagesApi
     InscriptionForm.form.bindFromRequest.fold(
       formWithErrors => Future.successful(BadRequest(html.editInscription(
         id, formWithErrors, Seq.empty[Team], Seq.empty[SubGroup], Seq.empty[Arena]
+        , Seq.empty[Group], Seq.empty[Competition], Seq.empty[Season]
       ))),
       data => {
         inscriptionService.find(id).flatMap { oldInscription =>
@@ -92,6 +114,7 @@ class InscriptionController @Inject()(val messagesApi: MessagesApi
     InscriptionForm.form.bindFromRequest.fold(
       formWithErrors => Future.successful(BadRequest(html.createInscription(
         formWithErrors, Seq.empty[Team], Seq.empty[SubGroup], Seq.empty[Arena]
+        , Seq.empty[Group], Seq.empty[Competition], Seq.empty[Season]
       ))),
       data => {
         val newInscription = Inscription(Some(0L), data.idTeam, data.idSubGroup, data.idArena

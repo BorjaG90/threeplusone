@@ -58,8 +58,8 @@
                 </td>
                 <td>
                     <select id="id_inscription" name="id_inscription">
-                        @for(inscription <- inscriptions){
                         @for(team <- teams){
+                        @for(inscription <- inscriptions){
                         @if(inscription.idTeam == team.id.get){
                         <option value="@inscription.id">@team.name</option>
                         }

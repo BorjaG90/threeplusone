@@ -23,14 +23,14 @@
                 <td>
                     @defining(groupForm("id_competition").value) { competitionValue=>
                     <select id="id_competition" name="id_competition">
-                        @for(competition <- competitions){
-                            @if(competitionValue != None && competition.id.get == competitionValue.get.toLong){
                         @for(season <- seasons){
-                        @if(season.id == competition.id_season){
-                    <option selected="selected" value="@competition.id">@season.year-@competition.name</option>
-                            }else{
-                    <option value="@competition.id">@season.year-@competition.name</option>
-                            }
+                        @for(competition <- competitions){
+                        @if(season.id.get == competition.id_season){
+                        @if(competitionValue != None && competition.id.get == competitionValue.get.toLong){
+                    <option selected="selected" value="@competition.id">@season.year-@competition.abrv</option>
+                        }else{
+                    <option value="@competition.id">@season.year-@competition.abrv</option>
+                        }
                         }
                         }
                         }

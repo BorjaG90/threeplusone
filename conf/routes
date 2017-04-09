@@ -112,3 +112,68 @@ POST    /teamStats                       mcgrady.controllers.TeamStatsController
 GET     /teamStat/:id                   mcgrady.controllers.TeamStatsController.edit(id: Long)
 POST    /teamStat/:id                     mcgrady.controllers.TeamStatsController.update(id: Long)
 GET     /teamStat/delete/:id                 mcgrady.controllers.TeamStatsController.delete(id: Option[Long])
+
+#Kobe
+#Basic Gestion
+#Unit
+GET     /unit                       kobe.controllers.UnitController.index
+GET     /units                        kobe.controllers.UnitController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /unit/new                   kobe.controllers.UnitController.add
+POST    /units                       kobe.controllers.UnitController.save
+GET     /unit/:id                   kobe.controllers.UnitController.edit(id: Long)
+POST    /unit/:id                     kobe.controllers.UnitController.update(id: Long)
+GET     /unit/delete/:id                 kobe.controllers.UnitController.delete(id: Option[Long])
+
+#TypeExercise
+GET     /type                       kobe.controllers.TypeExerciseController.index
+GET     /types                        kobe.controllers.TypeExerciseController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /type/new                   kobe.controllers.TypeExerciseController.add
+POST    /types                       kobe.controllers.TypeExerciseController.save
+GET     /type/:id                   kobe.controllers.TypeExerciseController.edit(id: Long)
+POST    /type/:id                     kobe.controllers.TypeExerciseController.update(id: Long)
+GET     /type/delete/:id                 kobe.controllers.TypeExerciseController.delete(id: Option[Long])
+
+#Enviroment
+GET     /enviroment                       kobe.controllers.EnviromentController.index
+GET     /enviroments                        kobe.controllers.EnviromentController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /enviroment/new                   kobe.controllers.EnviromentController.add
+POST    /enviroments                       kobe.controllers.EnviromentController.save
+GET     /enviroment/:id                   kobe.controllers.EnviromentController.edit(id: Long)
+POST    /enviroment/:id                     kobe.controllers.EnviromentController.update(id: Long)
+GET     /enviroment/delete/:id                 kobe.controllers.EnviromentController.delete(id: Option[Long])
+
+#Category
+GET     /category                       kobe.controllers.CategoryController.index
+GET     /categorys                        kobe.controllers.CategoryController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /category/new                   kobe.controllers.CategoryController.add
+POST    /categorys                       kobe.controllers.CategoryController.save
+GET     /category/:id                   kobe.controllers.CategoryController.edit(id: Long)
+POST    /category/:id                     kobe.controllers.CategoryController.update(id: Long)
+GET     /category/delete/:id                 kobe.controllers.CategoryController.delete(id: Option[Long])
+
+#Exercise
+GET     /exercise                       kobe.controllers.ExerciseController.index
+GET     /exercises                        kobe.controllers.ExerciseController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /exercise/new                   kobe.controllers.ExerciseController.add
+POST    /exercises                       kobe.controllers.ExerciseController.save
+GET     /exercise/:id                   kobe.controllers.ExerciseController.edit(id: Long)
+POST    /exercise/:id                     kobe.controllers.ExerciseController.update(id: Long)
+GET     /exercise/delete/:id                 kobe.controllers.ExerciseController.delete(id: Option[Long])
+
+#Plan
+GET     /plan                       kobe.controllers.PlanController.index
+GET     /plans                        kobe.controllers.PlanController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /plan/new                   kobe.controllers.PlanController.add
+POST    /plans                       kobe.controllers.PlanController.save
+GET     /plan/:id                   kobe.controllers.PlanController.edit(id: Long)
+POST    /plan/:id                     kobe.controllers.PlanController.update(id: Long)
+GET     /plan/delete/:id                 kobe.controllers.PlanController.delete(id: Option[Long])
+
+#Session
+GET     /session                       kobe.controllers.SessionController.index
+GET     /sessions                        kobe.controllers.SessionController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /session/new                   kobe.controllers.SessionController.add
+POST    /sessions                       kobe.controllers.SessionController.save
+GET     /session/:id                   kobe.controllers.SessionController.edit(id: Long)
+POST    /session/:id                     kobe.controllers.SessionController.update(id: Long)
+GET     /session/delete/:id                 kobe.controllers.SessionController.delete(id: Option[Long])

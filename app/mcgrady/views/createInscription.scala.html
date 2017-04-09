@@ -1,4 +1,4 @@
-@(inscriptionForm: Form[mcgrady.model.Inscription],teams: Seq[mcgrady.model.Team],subGroups: Seq[mcgrady.model.SubGroup],arenas: Seq[mcgrady.model.Arena])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+@(inscriptionForm: Form[mcgrady.model.Inscription],teams: Seq[mcgrady.model.Team],subGroups: Seq[mcgrady.model.SubGroup],arenas: Seq[mcgrady.model.Arena],groups: Seq[mcgrady.model.Group],competitions: Seq[mcgrady.model.Competition],seasons: Seq[mcgrady.model.Season])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 
 @import helper._
 
@@ -34,8 +34,20 @@
                 </td>
                 <td>
                     <select id="id_subgroup" name="id_subgroup">
-                        @for(subGroup <- subGroups){
-                        <option value="@subGroup.id">@subGroup.name</option>
+                        @for(season <- seasons){
+                            @for(competition <- competitions){
+                                @if(season.id.get == competition.id_season){
+                                    @for(group <- groups){
+                                        @if(competition.id.get == group.idCompetition){
+                                            @for(subGroup <- subGroups){
+                                                @if(group.id.get == subGroup.idGroup){
+                        <option value="@subGroup.id">@season.year-@competition.abrv/@group.name-@subGroup.name</option>
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     </select>
                 </td>

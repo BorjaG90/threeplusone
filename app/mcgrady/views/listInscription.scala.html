@@ -1,4 +1,4 @@
-@(currentPage : util.Page[(mcgrady.model.Inscription,mcgrady.model.Team,mcgrady.model.SubGroup,mcgrady.model.Arena)], currentOrderBy: Int, currentFilter: String)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+@(currentPage : util.Page[(mcgrady.model.Inscription,mcgrady.model.Team,mcgrady.model.SubGroup,mcgrady.model.Arena,String,String,String)], currentOrderBy: Int, currentFilter: String)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 
 @****************************************
 * Helper generating navigation links *
@@ -34,9 +34,9 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <th></th>
         <th></th>
     </tr>
-    @for((inscription, team, subgroup, arena) <- currentPage.items){
+    @for((inscription, team, subgroup, arena, group, competition, season) <- currentPage.items){
     <tr>
-        <td><a href="@mcgrady.controllers.routes.SubGroupController.edit(subgroup.id.get)">@subgroup.name</a></td>
+        <td>@season-@competition/@group-<a href="@mcgrady.controllers.routes.SubGroupController.edit(subgroup.id.get)">@subgroup.name</a></td>
         <td><a href="@mcgrady.controllers.routes.TeamController.edit(team.id.get)">@team.name</a></td>
         <td><a href="@mcgrady.controllers.routes.ArenaController.edit(arena.id.get)">@arena.name</a></td>
         <td><a href="@mcgrady.controllers.routes.InscriptionController.edit(inscription.id.get)">Modificar</a></td>

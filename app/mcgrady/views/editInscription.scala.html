@@ -1,4 +1,4 @@
-@(id: Long, inscriptionForm: Form[mcgrady.model.Inscription],teams: Seq[mcgrady.model.Team],subgroups: Seq[mcgrady.model.SubGroup],arenas: Seq[mcgrady.model.Arena])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+@(id: Long, inscriptionForm: Form[mcgrady.model.Inscription],teams: Seq[mcgrady.model.Team],subgroups: Seq[mcgrady.model.SubGroup],arenas: Seq[mcgrady.model.Arena],groups: Seq[mcgrady.model.Group],competitions: Seq[mcgrady.model.Competition],seasons: Seq[mcgrady.model.Season])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 
 @import helper._
 
@@ -31,11 +31,23 @@
                 <td>
                     @defining(inscriptionForm("id_subgroup").value) { subgroupValue=>
                     <select id="id_subgroup" name="id_subgroup">
-                        @for(subgroup <- subgroups){
-                            @if(subgroupValue != None && subgroup.id.get == subgroupValue.get.toLong){
-                    <option selected="selected" value="@subgroup.id">@subgroup.name</option>
-                            }else{
-                    <option value="@subgroup.id">@subgroup.name</option>
+                        @for(season <- seasons){
+                            @for(competition <- competitions){
+                                @if(season.id.get == competition.id_season){
+                                    @for(group <- groups){
+                                        @if(competition.id.get == group.idCompetition){
+                                            @for(subgroup <- subgroups){
+                                                @if(group.id.get == subgroup.idGroup){
+                                                    @if(subgroupValue != None && subgroup.id.get == subgroupValue.get.toLong){
+                    <option selected="selected" value="@subgroup.id">@season.year-@competition.abrv/@group.name-@subgroup.name</option>
+                                                    }else{
+                    <option value="@subgroup.id">@season.year-@competition.abrv/@group.name-@subgroup.name</option>
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     </select>

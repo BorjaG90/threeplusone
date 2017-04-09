@@ -45,8 +45,6 @@
                         }
                         }
                         }
-                    }else{
-                        Error
                     }
                     }
                     }
@@ -55,15 +53,15 @@
                     @defining(teamStatsForm("id_inscription").value) { inscriptionValue=>
                     <select id="id_inscription" name="id_inscription">
                         @for(inscription <- inscriptions){
-                        @if(inscriptionValue != None && inscription.id.get == inscriptionValue.get.toLong){
-                        @for(team <- teams){
-                        @if(inscription.idTeam == team.id.get){
+                            @for(team <- teams){
+                                @if(inscription.idTeam == team.id.get){
+                                    @if(inscriptionValue != None && inscription.id.get == inscriptionValue.get.toLong){
                         <option selected="selected" value="@inscription.id">@team.name</option>
-                        }else{
+                                    }else{
                         <option value="@inscription.id">@team.name</option>
-                        }
-                        }
-                        }
+                                    }
+                                }
+                            }
                         }
                     </select>
                     }

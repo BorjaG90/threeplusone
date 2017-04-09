@@ -6,7 +6,7 @@ import play.api.db.slick.DatabaseConfigProvider
 import slick.driver.JdbcProfile
 import javax.inject.Inject
 import util.Page
-import mcgrady.model.{Inscription, InscriptionTable, Team, TeamTable, SubGroup, SubGroupTable, Arena, ArenaTable}
+import mcgrady.model._
 import mcgrady.dao.InscriptionDAO
 
 /**
@@ -21,8 +21,11 @@ class InscriptionDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfi
 
   val inscriptions = TableQuery[InscriptionTable]
   val teams = TableQuery[TeamTable]
+  val competitions = TableQuery[CompetitionTable]
+  val groups = TableQuery[GroupTable]
   val subgroups = TableQuery[SubGroupTable]
   val arenas = TableQuery[ArenaTable]
+  val seasons = TableQuery[SeasonTable]
 
   override def add(inscription: Inscription): Future[String] = {
     db.run(inscriptions += inscription).map(res => "Inscripcion añadida satisfactoriamente").recover {
@@ -52,15 +55,18 @@ class InscriptionDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfi
   override def listSimple: Future[Seq[Inscription]] = {
     db.run(inscriptions.result)
   }
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[(Inscription,Team,SubGroup,Arena)]] = {
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[(Inscription,Team,SubGroup,Arena,String,String,String)]] = {
     val offset = pageSize * page
     val query =
       (for {
-        (((inscription,team),subgroup),arena) <- ((inscriptions join teams on (_.idTeam === _.id)
+        ((((((inscription,team),subgroup),arena),group),competition),season) <- (((((inscriptions join teams on (_.idTeam === _.id)
             ) join subgroups on (_._1.idSubGroup === _.id)
           ) join arenas on (_._1._1.idArena === _.id)
+          ) join groups on (_._1._2.idGroup === _.id)
+          ) join competitions on (_._2.idCompetition === _.id)
+          ) join seasons on (_._2.id_season === _.id)
         if team.name like filter.toLowerCase
-      } yield (inscription, team, subgroup, arena)).drop(offset).take(pageSize)
+      } yield (inscription, team, subgroup, arena,group.name,competition.abrv,season.year)).drop(offset).take(pageSize)
     val totalRows = count
     val result = db.run(query.result)
 
