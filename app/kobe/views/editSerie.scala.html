@@ -1,0 +1,64 @@
+@(id: Long, serieForm: Form[kobe.model.Serie],sessions: Seq[kobe.model.Session],exercises: Seq[kobe.model.Exercise],plans: Seq[kobe.model.Plan])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("serie.title")){
+
+<form id="serie-data-form" role="form" action=@kobe.controllers.routes.SerieController.update(id) method="post" autocomplete="off">
+    <fieldset>
+        <label>Series</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Sesión</th>
+                <th>Ejercicio</th>
+                <th>Notas</th>
+            </tr>
+            <tr>
+                <td>
+                    @defining(serieForm("id_session").value) { sessionValue=>
+                    <select id="id_session" name="id_session">
+                        @for(plan <- plans){
+                            @for(session <- sessions){
+                                @if(plan.id.get == session.idPlan){
+                                    @if(session.id.get == sessionValue.toString){
+                        <option selected="selected" value="@session.id">@session.name</option>
+                                    }else{
+                        <option value="@session.id">@session.name</option>
+                                    }
+                                }
+                            }
+                        }
+                    </select>
+                    }
+                </td>
+                <td>
+                    @defining(serieForm("id_exercise").value){ exerciseValue=>
+                    <select id="id_exercise" name="id_exercise">
+                        @for(exercise <- exercises){
+                        <option value="@exercise.id">@exercise.name</option>
+                        }
+                    </select>
+                    }
+                </td>
+                <td align="center">
+                    @defining(serieForm("notes").value){ notesValue=>
+                    <input type="text" id="notes" name="notes" value="@notesValue">
+                    }
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div>
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Serie</button>
+            o
+            <a href=@kobe.controllers.routes.SerieController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+
+@form(kobe.controllers.routes.SerieController.delete(Some(id)), 'class -> "topRight") {
+<input type="submit" value="Eliminar Serie" class="btn danger">
+}
+
+}

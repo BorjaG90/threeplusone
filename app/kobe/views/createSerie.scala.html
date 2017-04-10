@@ -1,0 +1,58 @@
+@(serieForm: Form[kobe.model.Serie],sessions: Seq[kobe.model.Session],exercises: Seq[kobe.model.Exercise],plans: Seq[kobe.model.Plan])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("serie.title")){
+@request.flash.get(messages("flash.success")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
+</div>
+}
+@request.flash.get(messages("flash.error")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
+</div>
+}
+<h1>Añadir Serie</h1>
+<form id="serie-data-form" role="form" action=@kobe.controllers.routes.SerieController.save() method="post" autocomplete="off">
+    <fieldset >
+        <label>Serie</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Sesión</th>
+                <th>Ejercicio</th>
+                <th>Notas</th>
+            </tr>
+            <tr>
+                <td>
+                    <select id="id_session" name="id_session">
+                        @for(plan <- plans){
+                            @for(session <- sessions){
+                                @if(plan.id.get == session.idPlan){
+                        <option value="@session.id">@plan.name>@session.name</option>
+                                }
+                            }
+                        }
+                    </select>
+                </td>
+                <td>
+                    <select id="id_exercise" name="id_exercise">
+                        @for(exercise <- exercises){
+                        <option value="@exercise.id">@exercise.name</option>
+                        }
+                    </select>
+                </td>
+                <td align="center">
+                    <input type="text" id="notes" name="notes" value="" placeholder="Notas">
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div class="form-actions controls ynt-btn-xlarge">
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
+            <a href=@kobe.controllers.routes.SerieController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+}

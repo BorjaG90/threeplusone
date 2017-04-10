@@ -4,7 +4,7 @@ import scala.concurrent.Future
 import com.google.inject.Singleton
 import javax.inject.Inject
 import util.Page
-import kobe.model.{Serie, Session, Exercise}
+import kobe.model.{Serie, Session, Exercise,Plan}
 import kobe.dao.SerieDAO
 import kobe.service.SerieService
 
@@ -29,7 +29,7 @@ class SerieServiceImpl @Inject()(serieDAO: SerieDAO)extends SerieService{
   def listSimple: Future[Seq[Serie]] = {
     serieDAO.listSimple
   }
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[(Serie, Session, Exercise)]] ={
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[(Serie, Session, Exercise,Plan)]] ={
     serieDAO.list(page,pageSize,orderBy,filter)
   }
   override def count: Future[Int] = {

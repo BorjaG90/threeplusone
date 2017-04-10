@@ -6,7 +6,7 @@ import play.api.db.slick.DatabaseConfigProvider
 import slick.driver.JdbcProfile
 import javax.inject.Inject
 import util.Page
-import kobe.model.{Serie, SerieTable, Session, Exercise}
+import kobe.model.{Serie, SerieTable, Session, SessionTable, Exercise, ExerciseTable, Plan, PlanTable}
 import kobe.dao.SerieDAO
 
 /**
@@ -20,6 +20,9 @@ class SerieDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvi
   import driver.api._
 
   val series = TableQuery[SerieTable]
+  val sessions = TableQuery[SessionTable]
+  val plans = TableQuery[PlanTable]
+  val exercises = TableQuery[ExerciseTable]
 
   override def add(serie: kobe.model.Serie): Future[String] = {
     db.run(series += serie).map(res => "Serie añadida satisfactoriamente").recover {
@@ -49,14 +52,15 @@ class SerieDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvi
   override def listSimple: Future[Seq[kobe.model.Serie]] = {
     db.run(series.result)
   }
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[(Serie,kobe.model.Session,Exercise)]] = {
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[(Serie,kobe.model.Session,Exercise,Plan)]] = {
     val offset = pageSize * page
     val query =
       (for {
-        serie <- series
-        session <- serie.serie_session_fk
-        exercise <- serie.serie_exercise_fk
-      } yield (serie,session,exercise)).drop(offset).take(pageSize)
+        ((serie,session),plan) <- (series join sessions on (_.idSession === _.id)
+          ) join plans on (_._2.idPlan === _.id)
+          exercise <- serie.serie_exercise_fk
+        if exercise.name like filter.toLowerCase
+      } yield (serie,session,exercise,plan)).drop(offset).take(pageSize)
     val totalRows = count
     val result = db.run(query.result)
 

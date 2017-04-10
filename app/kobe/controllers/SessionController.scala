@@ -65,7 +65,7 @@ class SessionController @Inject()(val messagesApi: MessagesApi
           )
           val futureSessionUpdate = sessionService.update(id, newSession.copy(id = Some(id)))
           futureSessionUpdate.map { result =>
-            home.flashing("success" -> "La sesion %s ha sido actualizado".format(newSession.name))
+            home.flashing("success" -> "La sesion %s ha sido actualizada".format(newSession.name))
           }.recover {
             case ex: TimeoutException =>
               Logger.error("Error actualizando una sesion")

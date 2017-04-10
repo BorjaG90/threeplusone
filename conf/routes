@@ -177,3 +177,12 @@ POST    /sessions                       kobe.controllers.SessionController.save
 GET     /session/:id                   kobe.controllers.SessionController.edit(id: Long)
 POST    /session/:id                     kobe.controllers.SessionController.update(id: Long)
 GET     /session/delete/:id                 kobe.controllers.SessionController.delete(id: Option[Long])
+
+#Serie
+GET     /serie                       kobe.controllers.SerieController.index
+GET     /series                        kobe.controllers.SerieController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /serie/new                   kobe.controllers.SerieController.add
+POST    /series                       kobe.controllers.SerieController.save
+GET     /serie/:id                   kobe.controllers.SerieController.edit(id: Long)
+POST    /serie/:id                     kobe.controllers.SerieController.update(id: Long)
+GET     /serie/delete/:id                 kobe.controllers.SerieController.delete(id: Option[Long])

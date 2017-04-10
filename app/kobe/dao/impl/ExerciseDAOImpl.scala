@@ -57,13 +57,13 @@ class ExerciseDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPr
     val query =
       (for {
         //exercise <- exercises if exercise.name like filter.toLowerCase
-        (exercise,typeExe) <- filterName(filter) join typeExercises on (_.idTypeExercise === _.id)
+        (exercise,typeExe) <- exercises join typeExercises on (_.idTypeExercise === _.id)
 
         //typeExe <- exercise.exercise_type_fk
         category <- exercise.exercise_category_fk
         enviroment <- exercise.exercise_enviroment_fk
-        //if exercise.name like filter.toLowerCase
-      } yield (exercise,typeExe,category,enviroment)).drop(offset).take(pageSize)
+        if exercise.name.toLowerCase like filter.toLowerCase
+      } yield (exercise, typeExe, category, enviroment)).drop(offset).take(pageSize)
     val totalRows = count(filter)
     val result = db.run(query.result)
 

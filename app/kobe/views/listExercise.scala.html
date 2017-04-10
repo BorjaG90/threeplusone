@@ -34,12 +34,23 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <th>Entorno</th>
         <th>Notas</th>
     </tr>
-    @for((exercise,typeExercise,category,enviroment) <- currentPage.items){
+    @for((exercise,texe,category,enviroment) <- currentPage.items){
     <tr>
         <td><a href="@kobe.controllers.routes.ExerciseController.edit(exercise.id.get)">@exercise.name</a></td>
-        <td><a href="@kobe.controllers.routes.TypeExerciseController.edit(typeExercise.id.get)">@typeExercise.name</a></td>
-        <td><a href="@kobe.controllers.routes.CategoryController.edit(category.id.get)">@category.name</a></td>
+        @if(texe != None){
+        <td><a href="@kobe.controllers.routes.TypeExerciseController.edit(texe.id.get)">@texe.name</a></td>
+        }else{
+        <td>-</td>
+        }
+        @if(category != None){
+        <td><a href="@kobe.controllers.routes.CategoryController.edit(category.id.get)">@category.name</a></td>}else{
+        <td>-</td>
+        }
+        @if(enviroment != None){
         <td><a href="@kobe.controllers.routes.EnviromentController.edit(enviroment.id.get)">@enviroment.name</a></td>
+        }else{
+        <td>-</td>
+        }
         <td>@exercise.notes</td>
         <td><a href="@kobe.controllers.routes.ExerciseController.delete(exercise.id)">Borrar</a></td>
     </tr>

@@ -22,8 +22,9 @@ category.title = Categorías
 plan.title = Planes
 exercise.title = Ejercicios
 session.title = Sesiones
+serie.title = Series
 unit.title = Unidades
-type.title = Tipos
+typeExercise.title = Tipos
 
 # Flash Scope
 flash.success = success
