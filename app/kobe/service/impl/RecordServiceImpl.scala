@@ -4,7 +4,7 @@ import scala.concurrent.Future
 import com.google.inject.Singleton
 import javax.inject.Inject
 import util.Page
-import kobe.model.{Record, Serie, Unit}
+import kobe.model.{Record,Serie,Unit,Exercise}
 import kobe.dao.RecordDAO
 import kobe.service.RecordService
 
@@ -29,7 +29,7 @@ class RecordServiceImpl @Inject()(recordDAO: RecordDAO)extends RecordService{
   def listSimple: Future[Seq[Record]] = {
     recordDAO.listSimple
   }
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[(Record, Serie, Unit)]] ={
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[(Record,Serie,Unit,Exercise)]] ={
     recordDAO.list(page,pageSize,orderBy,filter)
   }
   override def count: Future[Int] = {

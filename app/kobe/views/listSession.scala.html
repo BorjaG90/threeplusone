@@ -37,6 +37,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <td><a href="@kobe.controllers.routes.SessionController.edit(session.id.get)">@session.name</a></td>
         <td>@plan.name</td>
         <td>@session.notes</td>
+        <td><a href="@kobe.controllers.routes.RecordController.addMark(session.id.get)">Añadir Marcas</a></td>
         <td><a href="@kobe.controllers.routes.SessionController.delete(session.id)">Borrar</a></td>
     </tr>
     }

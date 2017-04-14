@@ -23,13 +23,13 @@
                <td>
                     @defining(sessionForm("id_plan").value) { planValue=>
                    <select id="id_plan" name="id_plan">
-                    @for(plan <- plans){
-                    @if("Some(" + plan.id + ")" == planValue.toString){
+                        @for(plan <- plans){
+                            @if(plan.id.get  == planValue.get.toLong){
                     <option selected="selected" value="@plan.id">@plan.name</option>
-                    }else{
+                            }else{
                     <option value="@plan.id">@plan.name</option>
-                    }
-                    }
+                            }
+                        }
                     </select>
                     }
                 </td>

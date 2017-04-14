@@ -186,3 +186,16 @@ POST    /series                       kobe.controllers.SerieController.save
 GET     /serie/:id                   kobe.controllers.SerieController.edit(id: Long)
 POST    /serie/:id                     kobe.controllers.SerieController.update(id: Long)
 GET     /serie/delete/:id                 kobe.controllers.SerieController.delete(id: Option[Long])
+
+#Record
+GET     /record                       kobe.controllers.RecordController.index
+GET     /records                        kobe.controllers.RecordController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /record/delete/:id                 kobe.controllers.RecordController.delete(id: Option[Long])
+GET     /volume/new/:idPlan                   kobe.controllers.RecordController.addVolume(idPlan: Long)
+POST    /volume/new/:idPlan                   kobe.controllers.RecordController.saveVolume(idPlan: Long)
+GET     /volume/:id                   kobe.controllers.RecordController.editVolume(id: Long)
+POST    /volume/:id                     kobe.controllers.RecordController.updateVolume(id: Long)
+GET     /mark/new/:idSession                   kobe.controllers.RecordController.addMark(idSession: Long)
+POST    /mark/new/:idSession                   kobe.controllers.RecordController.saveMark(idSession: Long)
+GET     /mark/:id                   kobe.controllers.RecordController.editMark(id: Long)
+POST    /mark/:id                     kobe.controllers.RecordController.updateMark(id: Long)

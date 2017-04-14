@@ -29,7 +29,7 @@ class PlanController @Inject()(val messagesApi: MessagesApi,
 
   def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
     planService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
-      Ok(html.listPlan(pageEmp, orderBy, filter,new SimpleDateFormat("dd/MM/yyyy")))
+      Ok(html.listPlan(pageEmp, orderBy, filter, new SimpleDateFormat("dd/MM/yyyy")))
     }.recover {
       case ex: TimeoutException =>
         Logger.error("Error listando planes")
@@ -64,7 +64,7 @@ class PlanController @Inject()(val messagesApi: MessagesApi,
             home.flashing("success" -> "El plan %s ha sido actualizado".format(newPlan.name))
           }.recover {
             case ex: TimeoutException =>
-              Logger.error("Error actualizando una plan")
+              Logger.error("Error actualizando un plan")
               InternalServerError(ex.getMessage)
           }
         }
@@ -84,7 +84,7 @@ class PlanController @Inject()(val messagesApi: MessagesApi,
           home.flashing("success" -> "El plan %s ha sido creado".format(newPlan.name))
         }.recover {
           case ex: TimeoutException =>
-            Logger.error("Error guardando una plan")
+            Logger.error("Error guardando un plan")
             InternalServerError(ex.getMessage)
         }
       }

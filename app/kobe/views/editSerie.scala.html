@@ -22,9 +22,9 @@
                             @for(session <- sessions){
                                 @if(plan.id.get == session.idPlan){
                                     @if(session.id.get == sessionValue.toString){
-                        <option selected="selected" value="@session.id">@session.name</option>
+                        <option selected="selected" value="@session.id">@plan.name>@session.name</option>
                                     }else{
-                        <option value="@session.id">@session.name</option>
+                        <option value="@session.id">@plan.name>@session.name</option>
                                     }
                                 }
                             }

@@ -23,10 +23,10 @@
                     }
                 </td>
                 <td>
-                    @defining(exerciseForm("idTypeExercise").value) { typeExerciseValue=>
+                    @defining(exerciseForm("id_type").value) { typeExerciseValue=>
                     <select id="id_type" name="id_type">
                         @for(typeExercise <- typeExercises){
-                        @if(typeExercise.id.get== typeExerciseValue.get.toLong){
+                        @if(typeExercise.id.get == typeExerciseValue.get.toLong){
                         <option selected="selected" value="@typeExercise.id">@typeExercise.name</option>
                         }else{
                         <option value="@typeExercise.id">@typeExercise.name</option>
@@ -36,7 +36,7 @@
                     }
                 </td>
                 <td>
-                    @defining(exerciseForm("idCategory").value) { categoryValue=>
+                    @defining(exerciseForm("id_category").value) { categoryValue=>
                     <select id="id_category" name="id_category">
                         @for(category <- categories){
                         @if(category.id.get == categoryValue.get.toLong){
@@ -49,7 +49,7 @@
                     }
                 </td>
                 <td>
-                    @defining(exerciseForm("idEnviroment").value) { enviromentValue=>
+                    @defining(exerciseForm("id_enviroment").value) { enviromentValue=>
                     <select id="id_enviroment" name="id_enviroment">
                         @for(enviroment <- enviroments){
                         @if(enviroment.id.get == enviromentValue.get.toLong){

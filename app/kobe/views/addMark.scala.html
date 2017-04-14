@@ -1,0 +1,97 @@
+@(recordForm: Form[kobe.model.Record], records: Seq[kobe.model.Record], session: kobe.model.Session, units: Seq[kobe.model.Unit], plans: Seq[kobe.model.Plan], series: Seq[kobe.model.Serie], exercises: Seq[kobe.model.Exercise], sf: java.text.SimpleDateFormat)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("mark.title")){
+@request.flash.get(messages("flash.success")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
+</div>
+}
+@request.flash.get(messages("flash.error")).map { msg =>
+<div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
+</div>
+}
+@for(plan <- plans){
+@if(session.idPlan == plan.id.get){
+<h1>Plan: <i>@plan.name</i></h1>
+<h2>Sesión: <i>@session.name</i></h2>
+@for(serie <- series){
+@if(serie.idSession == session.id.get){
+@for(exercise <- exercises){
+@if(serie.idExercise == exercise.id.get){
+<h3>Serie: <i>@serie.id-@exercise.name</i></h3>
+<table>
+    <tr>
+        <th>Valor</th>
+        <th>Ejecución</th>
+        <th>Notas</th>
+    </tr>
+    @for(mark <- records){
+    @if(mark.idSerie == serie.id.get && mark.typeR.toString == "M"){
+    <tr>
+        <td>@mark.value
+            @for(unit <- units){
+            @if(unit.id.get == mark.idUnit){
+            @unit.name</td>
+        }
+        }
+        @if(mark.exeDate.get != None){
+        <td>@sf.format(mark.exeDate.get)</td>
+        }else{<td></td>}
+        <td>@mark.notes</td>
+        <td><a href="@kobe.controllers.routes.RecordController.editMark(mark.id.get)">Editar</a></td>
+    </tr>
+    }
+    }
+</table>
+<form id="@plan.name-@session.name-@serie.id-data-form" role="form" action=@kobe.controllers.routes.RecordController.saveMark(plan.id.get) method="post" autocomplete="off">
+    <fieldset >
+        <label>Marcas</label>
+        <br/>
+        <table>
+            <tr>
+                <th>Valor</th>
+                <th>Unidad</th>
+                <th>Ejecución</th>
+                <th>Notas</th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" id="value" name="value" value="" placeholder="Valor">
+                </td>
+                <td>
+                    <select id="id_unit" name="id_unit">
+                        @for(unit <- units){
+                        <option value="@unit.id">@unit.name</option>
+                        }
+                    </select>
+                </td>
+                <td align="center">
+                    <input type="date" id="execution_date" name="execution_date" value="2017-06-30">
+                </td>
+                <td>
+                    <input type="text" id="notes" name="notes" value="" placeholder="Notas">
+                </td>
+                <td>
+                    <input type="hidden" id="id_serie" name="id_serie" value="@serie.id">
+                    <input type="hidden" id="type" name="type" value="M">
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <div class="form-actions controls ynt-btn-xlarge">
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button>
+        </div>
+    </fieldset>
+</form>
+}
+}
+}
+}
+
+}
+}
+
+}

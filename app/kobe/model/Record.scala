@@ -11,8 +11,8 @@ import java.sql.{ Date => SqlDate }
   * Created by Borja Gete on 1/04/17.
   */
 
-case class Record(id: Option[Long], idUnit: Long, idSerie: Long, value: Long, notes: Option[String] = None
-                 , creationDate: Date, modifiedDate: Option[Date] = Some(new java.util.Date(0))
+case class Record(id: Option[Long], idUnit: Long, idSerie: Long, value: Long, notes: Option[String] = None, typeR: String
+                  , exeDate: Option[Date] = Some(new java.util.Date(0)), creationDate: Date, modifiedDate: Option[Date] = Some(new java.util.Date(0))
                 )
 
 class RecordTable(tag:Tag) extends Table[Record](tag, "records") {
@@ -26,13 +26,15 @@ class RecordTable(tag:Tag) extends Table[Record](tag, "records") {
   def idSerie = column[Long]("id_serie")
   def value = column[Long]("value")
   def notes = column[String]("notes")
+  def typeR = column[String]("type")
+  def exeDate = column[Date]("execution_date")
   def creationDate = column[Date]("creation_date")
   def modifiedDate = column[Date]("modified_date")
 
   def record_unit_fk = foreignKey("record_unit_fk", idUnit, unitTable)(_.id)
-  def mark_serie_fk = foreignKey("mark_serie_fk", idSerie, serieTable)(_.id)
+  def record_serie_fk = foreignKey("record_serie_fk", idSerie, serieTable)(_.id)
 
-  override def * =(id.?, idUnit, idSerie, value, notes.?
+  override def * =(id.?, idUnit, idSerie, value, notes.?, typeR, exeDate.?
     , creationDate, modifiedDate.?
   ) <>(Record.tupled, Record.unapply)
 }
@@ -44,6 +46,8 @@ object RecordForm {
       ,"id_serie" -> of[Long]
       ,"value" -> of[Long]
       ,"notes" -> optional(of[String])
+      ,"type" -> of[String]
+      ,"execution_date" -> optional(default(date("yyyy-MM-dd"), new java.util.Date))
       ,"creation_date" -> default(date("yyyy-MM-dd"), new java.util.Date)
       ,"modified_date" -> optional(default(date("yyyy-MM-dd"), new java.util.Date))
     )(Record.apply)(Record.unapply)

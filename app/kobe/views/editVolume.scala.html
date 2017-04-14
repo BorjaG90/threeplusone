@@ -1,0 +1,74 @@
+@(id: Long, recordForm: Form[kobe.model.Record],series: Seq[kobe.model.Serie],exercises: Seq[kobe.model.Exercise],sessions: Seq[kobe.model.Session],plans: Seq[kobe.model.Plan],units: Seq[kobe.model.Unit])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+
+@import helper._
+
+@main(Messages("volume.title")){
+
+<form id="record-data-form" role="form" action=@kobe.controllers.routes.RecordController.updateVolume(id) method="post" autocomplete="off">
+    <fieldset>
+        <label>Volumen</label>
+        <br/>
+        <table align="center">
+            <tr>
+                <th>Serie</th>
+                <th>Valor</th>
+                <th>Unidad</th>
+                <th>Notas</th>
+            </tr>
+            <tr>
+                <td>
+                    @defining(recordForm("id_serie").value) { serieValue=>
+                        @for(serie <- series){
+                        @if(serie.id.get == serieValue.get.toLong){
+                        @for(exercise <- exercises){
+                        @if(exercise.id.get == serie.idExercise){
+                        @for(session <- sessions){
+                        @if(session.id.get == serie.idSession){
+                        @for(plan <- plans){
+                        @if(plan.id.get == session.idPlan){
+                            @plan.name>@session.name: @serie.id.get - @exercise.name
+                            <input type="hidden" id="id_serie" name="id_serie" value="@serie.id">
+                        }}}}}}}}
+                    }
+                    <input type="hidden" id="type" name="type" value="V">
+                </td>
+                <td align="center">
+                    @defining(recordForm("value").value){ valueValue=>
+                    <input type="text" id="value" name="value" value="@valueValue">
+                    }
+                </td>
+                <td>
+                    @defining(recordForm("id_unit").value){ unitValue=>
+                    <select id="id_unit" name="id_unit">
+                        @for(unit <- units){
+                        @if(unit.id.get  == unitValue.get.toLong){
+                        <option selected="selected" value="@unit.id">@unit.name</option>
+                        }else{
+                        <option value="@unit.id">@unit.name</option>
+                        }
+                        }
+                    </select>
+                    }
+                </td>
+                <td align="center">
+                    @defining(recordForm("notes").value){ notesValue=>
+                    <input type="text" id="notes" name="notes" value="@notesValue">
+                    }
+                </td>
+
+            </tr>
+        </table>
+        <br/>
+        <div>
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Volúmen</button>
+            o
+            <a href=@kobe.controllers.routes.RecordController.list() class="btn">Cancelar</a>
+        </div>
+    </fieldset>
+</form>
+
+@form(kobe.controllers.routes.RecordController.delete(Some(id)), 'class -> "topRight") {
+<input type="submit" value="Eliminar Volumen" class="btn danger">
+}
+
+}

@@ -22,9 +22,9 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
 }
 <div id="actions">
 
-    @helper.form(action=kobe.controllers.routes.PlanController.list()) { <input type="search"
-                                                                                id="searchbox" name="f" value="@currentFilter"
-                                                                                placeholder="Filtrar por nombre de Plan"> <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
+    @helper.form(action=kobe.controllers.routes.PlanController.list()) {
+    <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por nombre de Plan">
+    <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
     } <a class="btn success" id="add" href="@kobe.controllers.routes.PlanController.add()">Añadir Plan</a>
 
 </div>
@@ -43,6 +43,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         }else{<td></td>}
         <td>@plan.description</td>
         <td>@plan.notes</td>
+        <td><a href="@kobe.controllers.routes.RecordController.addVolume(plan.id.get)">Añadir Volúmenes</a></td>
         <td><a href="@kobe.controllers.routes.PlanController.delete(plan.id)">Borrar</a></td>
     </tr>
     }

@@ -3,7 +3,7 @@ package kobe.service
 import scala.concurrent.Future
 import com.google.inject.ImplementedBy
 import util.Page
-import kobe.model.{Record, Serie, Unit}
+import kobe.model.{Record,Serie,Unit,Exercise}
 import impl.RecordServiceImpl
 
 /**
@@ -12,11 +12,11 @@ import impl.RecordServiceImpl
 
 @ImplementedBy(classOf[RecordServiceImpl])
 trait RecordService {
-  def add(competition: Record): Future[String]
+  def add(record: Record): Future[String]
   def update(id: Long, record: Record): Future[Int]
   def delete(id: Option[Long]): Future[Int]
   def listSimple: Future[Seq[Record]]
-  def list(page: Int, pageSize:Int, orderBy: Int, filter: String):Future[Page[(Record, Serie, Unit)]]
+  def list(page: Int, pageSize:Int, orderBy: Int, filter: String):Future[Page[(Record,Serie,Unit,Exercise)]]
   def count: Future[Int]
   def find(id: Long): Future[Record]
   def get(id: Long): Future[Option[Record]]

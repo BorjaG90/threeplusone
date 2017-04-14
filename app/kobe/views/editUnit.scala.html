@@ -27,13 +27,13 @@
                 </td>
                 <td>
                     @defining(unitForm("type").value) { typeValue=>
-                    @if("D" == typeValue.toString){
+                        @if('D' == typeValue.toString){
                     <input type="radio" id="type" name="type" value="D" checked>Decimal<br>
                     <input type="radio" id="type" name="type" value="T">Tiempo<br>
-                    }else{
+                        }else{
                     <input type="radio" id="type" name="type" value="D">Decimal<br>
                     <input type="radio" id="type" name="type" value="T" checked>Tiempo<br>
-                    }
+                        }
                     }
                 </td>
             </tr>
