@@ -32,7 +32,7 @@ class GameController @Inject()(val messagesApi: MessagesApi
   }
 
   def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
-    gameService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
+    gameService.list(page, 20, orderBy, "%" + filter + "%").map { pageEmp =>
       Ok(html.listGame(pageEmp, orderBy, filter, new SimpleDateFormat("dd/MM/yyyy")))
     }.recover {
       case ex: TimeoutException =>

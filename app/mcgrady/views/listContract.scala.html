@@ -24,7 +24,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     @helper.form(action=mcgrady.controllers.routes.ContractController.list()) {
     <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por Equipo">
     <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
-    } <a class="btn success" id="add" href="@mcgrady.controllers.routes.ContractController.add()">Añadir Contrato</a>
+    } <a class="btn success" id="add" href="@mcgrady.controllers.routes.ContractController.add()"><img src=@routes.Assets.versioned("images/mas.png")></a>
 </div>
 <table class="table table-striped">
     <tr>
@@ -32,6 +32,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <th>Equipo</th>
         <th>Comienzo</th>
         <th>Fin</th>
+        <th></th>
     </tr>
     @for((contract,player,team) <- currentPage.items){
     <tr>
@@ -43,23 +44,28 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         @if(contract.endDate != None){
         <td>@sf.format(contract.endDate.get)</td>
         }else{<td></td>}
-        <td><a href="@mcgrady.controllers.routes.ContractController.edit(contract.id.get)">Modificar</a></td>
-        <td><a href="@mcgrady.controllers.routes.ContractController.delete(contract.id)">Borrar</a></td>
+        <td>
+            <a href="@mcgrady.controllers.routes.ContractController.edit(contract.id.get)">
+                <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar">
+            </a>
+            <a href="@mcgrady.controllers.routes.ContractController.delete(contract.id)">
+                <img src=@routes.Assets.versioned("images/basura.png") alt="Borrar">
+            </a>
+        </td>
     </tr>
     }
 </table>
 <div id="pagination" class="pagination">
-    <ul>
-        @currentPage.prev.map { page =>
-        <li class="prev"><a href="@link(page)">&larr; Anterior</a></li>
-        }.getOrElse {
-        <li class="prev disabled"><a>&larr; Anterior</a></li> }
-        <li class="current"><a>Mostrando del @(currentPage.offset + 1)
-            al @(currentPage.offset + currentPage.items.size) de @currentPage.total</a></li>
-        @currentPage.next.map { page =>
-        <li class="next"><a href="@link(page)">Siguiente &rarr;</a></li>
-        }.getOrElse {
-        <li class="next disabled"><a>Siguiente &rarr;</a></li> }
-    </ul>
+    <a>Mostrando del @(currentPage.offset + 1) al @(currentPage.offset + currentPage.items.size) de @currentPage.total</a></br>
+    @currentPage.prev.map { page =>
+    <a href="@link(page)">
+        <button>Anterior<i class="arrow_left"></i></button>
+    </a>
+    }.getOrElse {|}
+    @currentPage.next.map { page =>
+    <a href="@link(page)">
+        <button>Siguiente<i class="arrow_right"></i></button>
+    </a>
+    }.getOrElse {|}
 </div>
 }

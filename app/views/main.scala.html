@@ -8,40 +8,66 @@
         <meta name = "author" content="Borja Gete Ortuñez"</meta>
         <meta name = "version" content="1.00"</meta>
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/list.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/form.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
         <script src="@routes.Assets.versioned("javascripts/hello.js")" type="text/javascript"></script>
     </head>
     <body>
-	    <div>
-			<label><h1>ThreePlusOne System.</h1></label>
-		</div>
-		<div id="kobe">
-            <h2>Entrenamientos</h2>
-            <a href="@kobe.controllers.routes.UnitController.index">Unidades</a>
-            <a href="@kobe.controllers.routes.TypeExerciseController.index">Tipos</a>
-            <a href="@kobe.controllers.routes.CategoryController.index">Categorias</a>
-            <a href="@kobe.controllers.routes.EnviromentController.index">Entornos</a>
-            <a href="@kobe.controllers.routes.ExerciseController.index">Ejercicios</a>
-            <a href="@kobe.controllers.routes.PlanController.index">Planes</a>
-            <a href="@kobe.controllers.routes.SessionController.index">Sesiones</a>
-            <a href="@kobe.controllers.routes.SerieController.index">Series</a>
-            <a href="@kobe.controllers.routes.RecordController.index">Registros</a>
-		</div>
-		<div id="mcgrady">
-            <h2>Partidos</h2>
-            <a href="@mcgrady.controllers.routes.SeasonController.index">Temporadas</a>
-            <a href="@mcgrady.controllers.routes.CompetitionController.index">Competiciones</a>
-            <a href="@mcgrady.controllers.routes.ArenaController.index">Estadios</a>
-            <a href="@mcgrady.controllers.routes.GroupController.index">Grupos</a>
-            <a href="@mcgrady.controllers.routes.SubGroupController.index">SubGrupos</a>
-            <a href="@mcgrady.controllers.routes.TeamController.index">Equipos</a>
-            <a href="@mcgrady.controllers.routes.PlayerController.index">Jugadores</a>
-            <a href="@mcgrady.controllers.routes.ContractController.index">Contratos</a>
-            <a href="@mcgrady.controllers.routes.InscriptionController.index">Inscripciones</a>
-            <a href="@mcgrady.controllers.routes.GameController.index">Partidos</a>
-            <a href="@mcgrady.controllers.routes.PlayerStatsController.index">Estad. Jugadores</a>
-            <a href="@mcgrady.controllers.routes.TeamStatsController.index">Estad. Equipos</a>
+	    <div id="header">
+			<h1>ThreePlusOne System.</h1>
+            <nav class="nav">
+                <ul>
+                    <li><p>Entrenamientos</p>
+                        <ul>
+                            <li><a href="@kobe.controllers.routes.UnitController.index">Unidades</a></li>
+                            <li><a href="@kobe.controllers.routes.TypeExerciseController.index">Tipos</a></li>
+                            <li><a href="@kobe.controllers.routes.CategoryController.index">Categorias</a></li>
+                            <li><a href="@kobe.controllers.routes.EnviromentController.index">Entornos</a></li>
+                            <li><a href="@kobe.controllers.routes.ExerciseController.index">Ejercicios</a></li>
+                            <li><a href="@kobe.controllers.routes.PlanController.index">Planes</a></li>
+                            <ul>
+                                <li><a href="@kobe.controllers.routes.SessionController.index">Sesiones</a>
+                                    <ul>
+                                        <li><a href="@kobe.controllers.routes.SerieController.index">Series</a>
+                                            <ul>
+                                                <li><a href="@kobe.controllers.routes.RecordController.index">Registros</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </ul>
+                    </li>
+                    <li><p>Partidos</p>
+                        <ul>
+                            <li><a href="@mcgrady.controllers.routes.SeasonController.index">Temporadas</a></li>
+                            <li><a href="@mcgrady.controllers.routes.CompetitionController.index">Competiciones</a>
+                                <ul>
+                                    <li><a href="@mcgrady.controllers.routes.GroupController.index">Grupos</a>
+                                        <ul>
+                                            <li><a href="@mcgrady.controllers.routes.SubGroupController.index">SubGrupos</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a href="@mcgrady.controllers.routes.ArenaController.index">Estadios</a></li>
+                            <li><a href="@mcgrady.controllers.routes.TeamController.index">Equipos</a></li>
+                            <li><a href="@mcgrady.controllers.routes.PlayerController.index">Jugadores</a></li>
+                            <li><a href="@mcgrady.controllers.routes.ContractController.index">Contratos</a></li>
+                            <li><a href="@mcgrady.controllers.routes.InscriptionController.index">Inscripciones</a></li>
+                            <li><a href="@mcgrady.controllers.routes.GameController.index">Partidos</a></li>
+                            <li><a href="@mcgrady.controllers.routes.PlayerStatsController.index">Estad. Jugadores</a></li>
+                            <li><a href="@mcgrady.controllers.routes.TeamStatsController.index">Estad. Equipos</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
         </div>
 		@content
+		<footer>
+		    <div id="contact">Contacto</div>
+		    <div id="ico">Iconos diseñados por<a href="http://www.flaticon.es/autores/madebyoliver" title="Madebyoliver">Madebyoliver</a>desde<a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>con licencia<a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+		</footer>
     </body>
 </html>

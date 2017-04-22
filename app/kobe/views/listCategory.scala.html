@@ -25,7 +25,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     @helper.form(action=kobe.controllers.routes.CategoryController.list()) { <input type="search"
                                                                        id="searchbox" name="f" value="@currentFilter"
                                                                        placeholder="Filtrar por nombre de Categoría"> <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
-    } <a class="btn success" id="add" href="@kobe.controllers.routes.CategoryController.add()">Añadir Categoría</a>
+    } <a class="btn success" id="add" href="@kobe.controllers.routes.CategoryController.add()"><img src=@routes.Assets.versioned("images/mas.png")></a>
 
 </div>
 <table class="table table-striped">
@@ -33,28 +33,32 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <th>Nombre</th>
         <th>Descripción</th>
         <th>Notas</th>
+        <th></th>
     </tr>
     @for(category <- currentPage.items){
     <tr>
         <td><a href="@kobe.controllers.routes.CategoryController.edit(category.id.get)">@category.name</a></td>
         <td>@category.description</td>
         <td>@category.notes</td>
-        <td><a href="@kobe.controllers.routes.CategoryController.delete(category.id)">Borrar</a></td>
+        <td>
+            <a href="@kobe.controllers.routes.CategoryController.delete(category.id)">
+                <img src=@routes.Assets.versioned("images/basura.png") alt="Borrar">
+            </a>
+        </td>
     </tr>
     }
 </table>
 <div id="pagination" class="pagination">
-    <ul>
-        @currentPage.prev.map { page =>
-        <li class="prev"><a href="@link(page)">&larr; Anterior</a></li>
-        }.getOrElse {
-        <li class="prev disabled"><a>&larr; Anterior</a></li> }
-        <li class="current"><a>Mostrando del @(currentPage.offset + 1)
-            al @(currentPage.offset + currentPage.items.size) de @currentPage.total</a></li>
-        @currentPage.next.map { page =>
-        <li class="next"><a href="@link(page)">Siguiente &rarr;</a></li>
-        }.getOrElse {
-        <li class="next disabled"><a>Siguiente &rarr;</a></li> }
-    </ul>
+    <a>Mostrando del @(currentPage.offset + 1) al @(currentPage.offset + currentPage.items.size) de @currentPage.total</a></br>
+    @currentPage.prev.map { page =>
+    <a href="@link(page)">
+        <button>Anterior<i class="arrow_left"></i></button>
+    </a>
+    }.getOrElse {|}
+    @currentPage.next.map { page =>
+    <a href="@link(page)">
+        <button>Siguiente<i class="arrow_right"></i></button>
+    </a>
+    }.getOrElse {|}
 </div>
 }

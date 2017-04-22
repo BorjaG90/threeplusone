@@ -24,12 +24,12 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     @helper.form(action=mcgrady.controllers.routes.CompetitionController.list()) {
     <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por nombre de Competicion">
     <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
-    } <a class="btn success" id="add" href="@mcgrady.controllers.routes.CompetitionController.add()">Añadir Competicion</a>
+    } <a class="btn success" id="add" href="@mcgrady.controllers.routes.CompetitionController.add()"><img src=@routes.Assets.versioned("images/mas.png")></a>
 </div>
 <table class="table table-striped">
     <tr>
         <th>Temp</th>
-        <th>Nom</th>
+        <th>Nombre</th>
         <th>Abrev</th>
         <th>Div</th>
         <th>Tipo</th>
@@ -37,11 +37,12 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <th>Fin</th>
         <th>País</th>
         <th>Descripción</th>
+        <th></th>
     </tr>
     @for((competition,country,season) <- currentPage.items){
     <tr>
-        <td><a href="@mcgrady.controllers.routes.SeasonController.edit(season.id.get)">@season.year</a></td>
-        <td><a href="@mcgrady.controllers.routes.CompetitionController.edit(competition.id.get)">@competition.name</a></td>
+        <td><a class="td_7" href="@mcgrady.controllers.routes.SeasonController.edit(season.id.get)">@season.year</a></td>
+        <td><a class="td_text_large" href="@mcgrady.controllers.routes.CompetitionController.edit(competition.id.get)">@competition.name</a></td>
         <td>@competition.abrv</td>
         <td>@competition.division</td>
         <td>@competition.typeCompetition</td>
@@ -53,22 +54,25 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         }else{<td></td>}
         <td>@country.name</td>
         <td>@competition.description</td>
-        <td><a href="@mcgrady.controllers.routes.CompetitionController.delete(competition.id)">Borrar</a></td>
+        <td>
+            <a href="@mcgrady.controllers.routes.CompetitionController.delete(competition.id)">
+                <img src=@routes.Assets.versioned("images/basura.png") alt="Borrar">
+            </a>
+        </td>
     </tr>
     }
 </table>
 <div id="pagination" class="pagination">
-    <ul>
-        @currentPage.prev.map { page =>
-        <li class="prev"><a href="@link(page)">&larr; Anterior</a></li>
-        }.getOrElse {
-        <li class="prev disabled"><a>&larr; Anterior</a></li> }
-        <li class="current"><a>Mostrando del @(currentPage.offset + 1)
-            al @(currentPage.offset + currentPage.items.size) de @currentPage.total</a></li>
-        @currentPage.next.map { page =>
-        <li class="next"><a href="@link(page)">Siguiente &rarr;</a></li>
-        }.getOrElse {
-        <li class="next disabled"><a>Siguiente &rarr;</a></li> }
-    </ul>
+    <a>Mostrando del @(currentPage.offset + 1) al @(currentPage.offset + currentPage.items.size) de @currentPage.total</a></br>
+    @currentPage.prev.map { page =>
+    <a href="@link(page)">
+        <button>Anterior<i class="arrow_left"></i></button>
+    </a>
+    }.getOrElse {|}
+    @currentPage.next.map { page =>
+    <a href="@link(page)">
+        <button>Siguiente<i class="arrow_right"></i></button>
+    </a>
+    }.getOrElse {|}
 </div>
 }

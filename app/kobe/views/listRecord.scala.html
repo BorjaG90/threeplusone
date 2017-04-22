@@ -26,6 +26,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <th>Ejercicio</th>
         <th>Volumen</th>
         <th>Notas</th>
+        <th></th>
     </tr>
     @for((record,serie,unit,exercise) <- currentPage.items){
     <tr>
@@ -44,24 +45,31 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         @if(record.typeR == 'M'){
 
         }else{
-        <td><a href="@kobe.controllers.routes.RecordController.editVolume(record.id.get)">Editar</a></td>
+        <td>
+            <a href="@kobe.controllers.routes.RecordController.editVolume(record.id.get)">
+                <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar">
+            </a>
+        </td>
         }
-        <td><a href="@kobe.controllers.routes.RecordController.delete(record.id)">Borrar</a></td>
+        <td>
+            <a href="@kobe.controllers.routes.RecordController.delete(record.id)">
+                <img src=@routes.Assets.versioned("images/basura.png") alt="Borrar">
+            </a>
+        </td>
     </tr>
     }
 </table>
 <div id="pagination" class="pagination">
-    <ul>
-        @currentPage.prev.map { page =>
-        <li class="prev"><a href="@link(page)">&larr; Anterior</a></li>
-        }.getOrElse {
-        <li class="prev disabled"><a>&larr; Anterior</a></li> }
-        <li class="current"><a>Mostrando del @(currentPage.offset + 1)
-            al @(currentPage.offset + currentPage.items.size) de @currentPage.total</a></li>
-        @currentPage.next.map { page =>
-        <li class="next"><a href="@link(page)">Siguiente &rarr;</a></li>
-        }.getOrElse {
-        <li class="next disabled"><a>Siguiente &rarr;</a></li> }
-    </ul>
+    <a>Mostrando del @(currentPage.offset + 1) al @(currentPage.offset + currentPage.items.size) de @currentPage.total</a></br>
+    @currentPage.prev.map { page =>
+    <a href="@link(page)">
+        <button>Anterior<i class="arrow_left"></i></button>
+    </a>
+    }.getOrElse {|}
+    @currentPage.next.map { page =>
+    <a href="@link(page)">
+        <button>Siguiente<i class="arrow_right"></i></button>
+    </a>
+    }.getOrElse {|}
 </div>
 }

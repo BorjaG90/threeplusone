@@ -1,0 +1,92 @@
+/*--Form--*/
+.required{ /*campo requerido*/
+    color:#a02506;
+}
+form{
+    font-size:16px;
+    font-family: 'Lato', sans-serif;
+    color:#404040;
+}
+form li{
+    text-align:left;
+    margin-top: 5;
+    margin-left:20%;
+    margin-right:20%;
+}
+/*Form input*/
+form input[type=text], input[type=email]{
+    border-radius: 4px;
+    height:25px;
+    font-size:14px;
+    padding: 8px;
+    margin-left: 4px;
+    border: solid 1px white;
+}
+form input[type=text]:hover, input[type=email]:hover{
+    border-color:#a6a6a6;
+    transition: box-shadow 0.4s, border 0.4s;
+}
+form input[type=text]:focus, input[type=email]:focus{
+    border: solid 1px #707070;
+    box-shadow: 0 0 5px 1px #969696;
+}
+/*Form select*/
+form .field-select{
+    color:#404040;
+    height:25px;
+    font-size:14px;
+    padding: 0 0 0 8;
+    margin-left: 4px;
+    border: solid 1px white;
+    border-radius: 4px;
+}
+form .field-select:hover{
+    border-color:#a6a6a6;
+    transition: box-shadow 0.4s, border 0.4s;
+}
+form .field-select:focus{
+    border: solid 1px #707070;
+    box-shadow: 0 0 5px 1px #969696;
+}
+
+/*Form textarea*/
+form textarea{
+    width:400px;
+    height: 40px;
+    margin:0 0 -4 5;
+    border: solid 1px white;
+    border-radius: 4px;
+    font-family: 'Lato', sans-serif; /*color:#2c3e50;*/
+}
+form textarea:hover{
+    border-color:#a6a6a6;
+    transition: box-shadow 0.4s, border 0.4s;
+}
+form textarea:focus{
+    border: solid 1px #707070;
+    box-shadow: 0 0 5px 1px #969696;
+}
+
+/*Form button*/
+form input[type=button], input[type=submit], input[type=reset]{
+    height:30px;
+    font-size:14px;
+    border-radius:8px;
+    border: solid 1px #4155af;
+    padding:6 10 10 10 ;
+    margin: 10 0 10 0;
+    background-color:#4155af;
+    color:white;
+    cursor:hand;
+}
+form input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover{
+    background-color:#5466b7;
+    transition: background-color 0.3s, border 0.3s;
+    color:white;
+    border-color:#5466b7;
+}
+form input[type=button]:active, input[type=submit]:active, input[type=reset]:active{
+    background-color:#4155af;
+    border-color:#4155af;
+    color:#e6ecff;
+}
