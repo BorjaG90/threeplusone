@@ -1,14 +1,10 @@
 @(id: Long, groupForm: Form[mcgrady.model.Group],competitions: Seq[mcgrady.model.Competition],seasons: Seq[mcgrady.model.Season])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
-
 @import helper._
-
 @main(Messages("group.title")){
-
 <form id="group-data-form" role="form" action=@mcgrady.controllers.routes.GroupController.update(id) method="post" autocomplete="off">
     <fieldset>
-        <label>Grupos</label>
-        <br/>
-        <table align="center">
+        <label>Editando Grupo</label>
+        <table>
             <tr>
                 <th>Nombre</th>
                 <th>Competición</th>

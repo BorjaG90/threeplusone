@@ -1,14 +1,10 @@
 @(id: Long, playerStatsForm: Form[mcgrady.model.PlayerStats], games: Seq[mcgrady.model.Game], players: Seq[mcgrady.model.Player],teams: Seq[mcgrady.model.Team], sf: java.text.SimpleDateFormat)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
-
 @import helper._
-
 @main(Messages("playerStats.title")){
-
 <form id="playerStats-data-form" role="form" action=@mcgrady.controllers.routes.PlayerStatsController.update(id) method="post" autocomplete="off">
     <fieldset >
-        <label>Estadisticas</label>
-        <br/>
-        <table align="center">
+        <label>Editando Estadisticas</label>
+        <table>
             <tr>
                 <th>Partido</th>
                 <th>Jugador</th>

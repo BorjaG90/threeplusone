@@ -1,7 +1,5 @@
 @(recordForm: Form[kobe.model.Record], records: Seq[kobe.model.Record], session: kobe.model.Session, units: Seq[kobe.model.Unit], plans: Seq[kobe.model.Plan], series: Seq[kobe.model.Serie], exercises: Seq[kobe.model.Exercise], sf: java.text.SimpleDateFormat)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
-
 @import helper._
-
 @main(Messages("mark.title")){
 @request.flash.get(messages("flash.success")).map { msg =>
 <div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
@@ -13,15 +11,31 @@
     <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
 </div>
 }
+<div id="throw-exe" class="exe" style="display:none; background-image: url(@routes.Assets.versioned("images/ShotChart3.gif"))">
+    <svg id="throw-exe-svg" width="500" height="900">
+        <defs>
+            <mask id="hole">
+                <rect x="48" width="100%" height="100%" fill="white"/>
+                <circle cx="375" cy="100" r="122" fill="black"/>
+            </mask>
+        </defs>
+        <polygon points="7,215 46,215 46,7 7,7"/>
+        <polygon points="705,7 743,7 743,215 705,215"/>
+        <circle cx="375" cy="100" r="122"/>
+        <circle cx="375" cy="150" r="200" mask="url(#hole)"/>
+    </svg>
+<input type="button" value="Ocultar" onclick="ocultar()">
+</div>
+<div id="content">
 @for(plan <- plans){
 @if(session.idPlan == plan.id.get){
-<h1>Plan: <i>@plan.name</i></h1>
-<h2>Sesión: <i>@session.name</i></h2>
+<h1>Plan: <b>@plan.name</b></h1>
+<h2>Sesión: <b>@session.name</b></h2>
 @for(serie <- series){
 @if(serie.idSession == session.id.get){
 @for(exercise <- exercises){
 @if(serie.idExercise == exercise.id.get){
-<h3>Serie: <i>@serie.id-@exercise.name</i></h3>
+<h3>Serie: <b>@serie.id-@exercise.name</b></h3>
 <table>
     <tr>
         <th>Valor</th>
@@ -46,7 +60,7 @@
     }
     }
 </table>
-<form id="@plan.name-@session.name-@serie.id-data-form" role="form" action=@kobe.controllers.routes.RecordController.saveMark(plan.id.get) method="post" autocomplete="off">
+<form id="@plan.name-@session.name-@serie.id-data-form" role="form" action=@kobe.controllers.routes.RecordController.saveMark(session.id.get) method="post" autocomplete="off">
     <fieldset >
         <label>Marcas</label>
         <br/>
@@ -86,6 +100,8 @@
         </div>
     </fieldset>
 </form>
+<input type="button" value="Mostrar" onclick="mostrar()">
+
 }
 }
 }
@@ -93,5 +109,5 @@
 
 }
 }
-
+</div>
 }

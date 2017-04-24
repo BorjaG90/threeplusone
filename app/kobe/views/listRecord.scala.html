@@ -20,6 +20,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
 </div>
 }
+<h3>Registros</h3>
 <table class="table table-striped">
     <tr>
         <th>Serie</th>
@@ -60,16 +61,13 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     }
 </table>
 <div id="pagination" class="pagination">
-    <a>Mostrando del @(currentPage.offset + 1) al @(currentPage.offset + currentPage.items.size) de @currentPage.total</a></br>
+    <a>Mostrando del @(currentPage.offset + 1) al @(currentPage.offset + currentPage.items.size) de @currentPage.total</a>
+    </br>
     @currentPage.prev.map { page =>
-    <a href="@link(page)">
-        <button>Anterior<i class="arrow_left"></i></button>
-    </a>
+    <a href="@link(page)"><button>Anterior<i class="arrow_left"></i></button></a>
     }.getOrElse {|}
     @currentPage.next.map { page =>
-    <a href="@link(page)">
-        <button>Siguiente<i class="arrow_right"></i></button>
-    </a>
+    <a href="@link(page)"><button>Siguiente<i class="arrow_right"></i></button></a>
     }.getOrElse {|}
 </div>
 }

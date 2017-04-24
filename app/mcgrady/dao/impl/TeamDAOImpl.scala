@@ -55,7 +55,7 @@ class TeamDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvid
       (for {
         team <- teams if team.name like filter.toLowerCase
         country <- team.team_country_fk
-      } yield (team,country)).drop(offset).take(pageSize)
+      } yield (team,country)).sortBy(_._1.name.asc.nullsLast).drop(offset).take(pageSize)
     val totalRows = count(filter)
     val result = db.run(query.result)
 

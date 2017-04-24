@@ -1,14 +1,10 @@
 @(id: Long, contractForm: Form[mcgrady.model.Contract], players: Seq[mcgrady.model.Player], teams: Seq[mcgrady.model.Team])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
-
 @import helper._
-
 @main(Messages("contract.title")){
-
 <form id="contract-data-form" role="form" action=@mcgrady.controllers.routes.ContractController.update(id) method="post" autocomplete="off">
     <fieldset >
-        <label>Contratos</label>
-        <br/>
-        <table align="center">
+        <label>Editando Contratos</label>
+        <table>
             <tr>
                 <th>Jugador</th>
                 <th>Equipo</th>

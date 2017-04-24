@@ -20,3 +20,5 @@ routesGenerator := InjectedRoutesGenerator
 routesImport += "util.Binders._"
 
 fork in run := true
+
+fork in run := true

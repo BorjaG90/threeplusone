@@ -55,6 +55,17 @@ button:hover{
     transition: background-color 0.2s, border 0.2s;
 }
 
+button.btn-add{
+	background-color:#7fff00;
+	color:black;
+}
+button.btn-add:hover{
+    background-color:#5065c4;
+    border-color:#5065c4;
+    color:white;
+    transition: background-color 0.2s, border 0.2s;
+}
+
 i{
     border: solid white;
     border-width: 0 3px 3px 0;
@@ -78,3 +89,23 @@ i{
     transform: rotate(135deg);
     -webkit-transform: rotate(135deg);
 }
+
+ /*Div de acciones como filtrar o nuevo*/
+ .actions{
+ 	text-align: center;
+ 	display: inline-block;
+ }
+ /*Div de alertas*/
+ .alert{
+ 	/*float: right;*/
+ 	position: fixed;
+ 	bottom: 0;
+ 	right: 0;
+ 	text-align: center;
+ 	width: 250px;
+ 	padding: 5px;
+ 	background-color: #0f2c5b;
+ 	color: gold;
+ 	border: solid gold;
+    border-width: 1px 1px 1px 1px;
+ }

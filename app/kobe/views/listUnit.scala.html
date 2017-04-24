@@ -20,13 +20,13 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
 </div>
 }
+<h3>Unidades</h3>
 <div id="actions">
-
     @helper.form(action=kobe.controllers.routes.UnitController.list()) {
     <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por nombre de Unidad">
     <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
-    } <a class="btn success" id="add" href="@kobe.controllers.routes.UnitController.add()"><img src=@routes.Assets.versioned("images/mas.png")></a>
-
+    } <a class="btn success" id="add" href="@kobe.controllers.routes.UnitController.add()">
+    <button type="submit" class="btn-add">Nuevo</button></a>
 </div>
 <table class="table table-striped">
     <tr>
@@ -37,10 +37,11 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     </tr>
     @for(unit <- currentPage.items){
     <tr>
-        <td><a href="@kobe.controllers.routes.UnitController.edit(unit.id.get)">@unit.name</a></td>
+        <td>@unit.name</td>
         <td>@unit.description</td>
         <td>@unit.typeUnit</td>
-        <td>
+        <td><a href="@kobe.controllers.routes.UnitController.edit(unit.id.get)">
+            <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>
             <a href="@kobe.controllers.routes.UnitController.delete(unit.id)">
                 <img src=@routes.Assets.versioned("images/basura.png") alt="Borrar" alt="Borrar">
             </a>

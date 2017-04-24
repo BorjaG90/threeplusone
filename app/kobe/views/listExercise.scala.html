@@ -20,11 +20,13 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
 </div>
 }
+<h3>Ejercicios</h3>
 <div id="actions">
     @helper.form(action=kobe.controllers.routes.ExerciseController.list()) {
     <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por nombre de Ejercicio">
     <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
-    } <a class="btn success" id="add" href="@kobe.controllers.routes.ExerciseController.add()"><img src=@routes.Assets.versioned("images/mas.png")></a>
+    } <a class="btn success" id="add" href="@kobe.controllers.routes.ExerciseController.add()">
+    <button type="submit" class="btn-add">Nuevo</button></a>
 </div>
 <table class="table table-striped">
     <tr>
@@ -37,23 +39,24 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     </tr>
     @for((exercise,texe,category,enviroment) <- currentPage.items){
     <tr>
-        <td><a href="@kobe.controllers.routes.ExerciseController.edit(exercise.id.get)">@exercise.name</a></td>
-        @if(texe != None){
+        <td>@exercise.name</td>
+        @if(texe.id.get != None){
         <td><a href="@kobe.controllers.routes.TypeExerciseController.edit(texe.id.get)">@texe.name</a></td>
         }else{
         <td>-</td>
         }
-        @if(category != None){
+        @if(category.id.get != None){
         <td><a href="@kobe.controllers.routes.CategoryController.edit(category.id.get)">@category.name</a></td>}else{
         <td>-</td>
         }
-        @if(enviroment != None){
+        @if(enviroment.id.get != None){
         <td><a href="@kobe.controllers.routes.EnviromentController.edit(enviroment.id.get)">@enviroment.name</a></td>
         }else{
         <td>-</td>
         }
         <td>@exercise.notes</td>
-        <td>
+        <td><a href="@kobe.controllers.routes.ExerciseController.edit(exercise.id.get)">
+            <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>
             <a href="@kobe.controllers.routes.ExerciseController.delete(exercise.id)">
                 <img src=@routes.Assets.versioned("images/basura.png") alt="Borrar">
             </a>

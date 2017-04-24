@@ -1,7 +1,5 @@
 @(seasonForm: Form[mcgrady.model.Season], years: Seq[String])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
-
 @import helper._
-
 @main(Messages("season.title")){
 @request.flash.get(messages("flash.success")).map { msg =>
 <div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
@@ -13,11 +11,9 @@
     <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
 </div>
 }
-
-<h1>Añadir Temporada</h1>
 <form id="season-data-form" role="form" action=@mcgrady.controllers.routes.SeasonController.save() method="post" autocomplete="off">
     <fieldset >
-        <label>Temporada</label>
+        <label>Nueva Temporada</label>
         <br/>
         <table align="center">
             <tr>
@@ -32,7 +28,7 @@
                         }
                     </select>
                 </td>
-                <td align="center">
+                <td>
                     <input type="text" id="description" name="description" value="" placeholder="Descripción" >
                 </td>
             </tr>

@@ -20,11 +20,13 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
 </div>
 }
+<h3>Series</h3>
 <div id="actions">
     @helper.form(action=kobe.controllers.routes.SerieController.list()) {
     <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por nombre de Serie">
     <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
-    } <a class="btn success" id="add" href="@kobe.controllers.routes.SerieController.add()"><img src=@routes.Assets.versioned("images/mas.png")></a>
+    } <a class="btn success" id="add" href="@kobe.controllers.routes.SerieController.add()">
+    <button type="submit" class="btn-add">Nuevo</button></a>
 </div>
 <table class="table table-striped">
     <tr>
@@ -35,10 +37,13 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     </tr>
     @for((serie,session,exercise,plan) <- currentPage.items){
     <tr>
-        <td>@plan.name><a href="@kobe.controllers.routes.SessionController.edit(session.id.get)">@session.name</a></td>
+        <td>@plan.name>@session.name</td>
         <td><a href="@kobe.controllers.routes.ExerciseController.edit(exercise.id.get)">@exercise.name</a></td>
         <td>@serie.notes</td>
         <td>
+            <a href="@kobe.controllers.routes.RecordController.addVolume(plan.id.get)">
+                <img src=@routes.Assets.versioned("images/add.png") alt="Añadir Volúmen">
+            </a>
             <a href="@kobe.controllers.routes.SerieController.edit(serie.id.get)">
                 <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>
             <a href="@kobe.controllers.routes.SerieController.delete(serie.id)">
@@ -48,16 +53,13 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     }
 </table>
 <div id="pagination" class="pagination">
-    <a>Mostrando del @(currentPage.offset + 1) al @(currentPage.offset + currentPage.items.size) de @currentPage.total</a></br>
+    <a>Mostrando del @(currentPage.offset + 1) al @(currentPage.offset + currentPage.items.size) de @currentPage.total</a>
+    </br>
     @currentPage.prev.map { page =>
-    <a href="@link(page)">
-        <button>Anterior<i class="arrow_left"></i></button>
-    </a>
+    <a href="@link(page)"><button>Anterior<i class="arrow_left"></i></button></a>
     }.getOrElse {|}
     @currentPage.next.map { page =>
-    <a href="@link(page)">
-        <button>Siguiente<i class="arrow_right"></i></button>
-    </a>
+    <a href="@link(page)"><button>Siguiente<i class="arrow_right"></i></button></a>
     }.getOrElse {|}
 </div>
 }

@@ -1,14 +1,11 @@
 @(id: Long, arenaForm: Form[mcgrady.model.Arena], countries: Seq[mcgrady.model.Country])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
-
 @import helper._
-
 @main(Messages("arena.title")){
-
 <form id="arena-data-form" role="form" action=@mcgrady.controllers.routes.ArenaController.update(id) method="post" autocomplete="off">
     <fieldset >
-        <label>Estadios</label>
+        <label>Editando Estadio</label>
         <br/>
-        <table align="center">
+        <table>
             <tr>
                 <th>Nombre</th>
                 <th>Dirección</th>

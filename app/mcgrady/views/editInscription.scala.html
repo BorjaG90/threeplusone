@@ -1,14 +1,10 @@
 @(id: Long, inscriptionForm: Form[mcgrady.model.Inscription],teams: Seq[mcgrady.model.Team],subgroups: Seq[mcgrady.model.SubGroup],arenas: Seq[mcgrady.model.Arena],groups: Seq[mcgrady.model.Group],competitions: Seq[mcgrady.model.Competition],seasons: Seq[mcgrady.model.Season])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
-
 @import helper._
-
 @main(Messages("inscription.title")){
-
 <form id="group-data-form" role="form" action=@mcgrady.controllers.routes.InscriptionController.update(id) method="post" autocomplete="off">
     <fieldset>
-        <label>Inscripciones</label>
-        <br/>
-        <table align="center">
+        <label>Editando Inscripción</label>
+        <table>
             <tr>
                 <th>Equipo</th>
                 <th>SubGrupo</th>

@@ -1,15 +1,14 @@
 @(id: Long, competitionForm: Form[mcgrady.model.Competition], countries: Seq[mcgrady.model.Country], seasons: Seq[mcgrady.model.Season])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
-
 @import helper._
-
 @main(Messages("competition.title")){
 <form id="competition-data-form" role="form" action=@mcgrady.controllers.routes.CompetitionController.update(id) method="post" autocomplete="off">
     <fieldset >
-        <label>Editar Competición</label>
-        <br/>
-        <table align="center">
+        <label>Editando Competición</label>
+        <table>
             <tr>
-                <th>Temporada <a href=@mcgrady.controllers.routes.SeasonController.add() class="btn">+</a></th>
+                <th>Temporada <a href=@mcgrady.controllers.routes.SeasonController.add() class="btn">
+                    <img src=@routes.Assets.versioned("images/mas.png")></a>
+                </th>
                 <th>Nombre</th>
                 <th>Abreviatura</th>
                 <th>División</th>

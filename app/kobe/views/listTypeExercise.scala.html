@@ -20,13 +20,13 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
 </div>
 }
+<h3>Tipos Ejercicios</h3>
 <div id="actions">
-
-    @helper.form(action=kobe.controllers.routes.TypeExerciseController.list()) { <input type="search"
-                                                               id="searchbox" name="f" value="@currentFilter"
-                                                               placeholder="Filtrar por nombre de Tipo"> <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
-    } <a class="btn success" id="add" href="@kobe.controllers.routes.TypeExerciseController.add()"><img src=@routes.Assets.versioned("images/mas.png")></a>
-
+    @helper.form(action=kobe.controllers.routes.TypeExerciseController.list()) {
+    <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por nombre de Tipo">
+    <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
+    } <a class="btn success" id="add" href="@kobe.controllers.routes.TypeExerciseController.add()">
+    <button type="submit" class="btn-add">Nuevo</button></a>
 </div>
 <table class="table table-striped">
     <tr>
@@ -40,7 +40,8 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <td><a href="@kobe.controllers.routes.TypeExerciseController.edit(typeExercise.id.get)">@typeExercise.name</a></td>
         <td>@typeExercise.description</td>
         <td>@typeExercise.notes</td>
-        <td>
+        <td><a href="@kobe.controllers.routes.TypeExerciseController.edit(typeExercise.id.get)">
+            <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>
             <a href="@kobe.controllers.routes.TypeExerciseController.delete(typeExercise.id)">
                 <img src=@routes.Assets.versioned("images/basura.png") alt="Borrar">
             </a>
@@ -49,16 +50,13 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     }
 </table>
 <div id="pagination" class="pagination">
-    <a>Mostrando del @(currentPage.offset + 1) al @(currentPage.offset + currentPage.items.size) de @currentPage.total</a></br>
+    <a>Mostrando del @(currentPage.offset + 1) al @(currentPage.offset + currentPage.items.size) de @currentPage.total</a>
+    </br>
     @currentPage.prev.map { page =>
-    <a href="@link(page)">
-        <button>Anterior<i class="arrow_left"></i></button>
-    </a>
+    <a href="@link(page)"><button>Anterior<i class="arrow_left"></i></button></a>
     }.getOrElse {|}
     @currentPage.next.map { page =>
-    <a href="@link(page)">
-        <button>Siguiente<i class="arrow_right"></i></button>
-    </a>
+    <a href="@link(page)"><button>Siguiente<i class="arrow_right"></i></button></a>
     }.getOrElse {|}
 </div>
 }

@@ -144,9 +144,9 @@ GET     /enviroment/delete/:id                 kobe.controllers.EnviromentContro
 
 #Category
 GET     /category                       kobe.controllers.CategoryController.index
-GET     /categorys                        kobe.controllers.CategoryController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /categories                        kobe.controllers.CategoryController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
 GET     /category/new                   kobe.controllers.CategoryController.add
-POST    /categorys                       kobe.controllers.CategoryController.save
+POST    /categories                       kobe.controllers.CategoryController.save
 GET     /category/:id                   kobe.controllers.CategoryController.edit(id: Long)
 POST    /category/:id                     kobe.controllers.CategoryController.update(id: Long)
 GET     /category/delete/:id                 kobe.controllers.CategoryController.delete(id: Option[Long])

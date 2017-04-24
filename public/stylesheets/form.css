@@ -30,6 +30,9 @@ form input[type=text]:focus, input[type=email]:focus{
     border: solid 1px #707070;
     box-shadow: 0 0 5px 1px #969696;
 }
+fieldset{
+    text-align: center;
+}
 /*Form select*/
 form .field-select{
     color:#404040;
@@ -68,6 +71,9 @@ form textarea:focus{
 }
 
 /*Form button*/
+ input.btn.danger{
+    background-color: red;
+ }
 form input[type=button], input[type=submit], input[type=reset]{
     height:30px;
     font-size:14px;
@@ -90,3 +96,41 @@ form input[type=button]:active, input[type=submit]:active, input[type=reset]:act
     border-color:#4155af;
     color:#e6ecff;
 }
+div#content{
+    display:inline;
+}
+div#throw-exe{
+    border:1px solid #000000;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: -750px;
+    top: -150px;
+    width: 750px;
+}
+svg#throw-exe-svg{
+    /*margin-left: auto;
+    margin-right: auto;*/
+    padding-left: auto;
+    padding-right: auto;
+    width: 750px;
+    height: 750px;
+}
+mask {
+    opacity: 1.0;
+    fill-opacity:1.0;
+}
+svg mask rect{
+    fill:white;
+}
+svg mask circle{
+    fill:black;
+}
+svg polygon, svg circle{
+    stroke: blue;
+    stroke-width:2;
+    opacity: 0.5;
+    fill:white;
+    fill-rule: evenodd;
+}
+

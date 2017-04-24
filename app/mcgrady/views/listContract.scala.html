@@ -20,11 +20,13 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
 </div>
 }
+<h3>Contratos</h3>
 <div id="actions">
     @helper.form(action=mcgrady.controllers.routes.ContractController.list()) {
     <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por Equipo">
     <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
-    } <a class="btn success" id="add" href="@mcgrady.controllers.routes.ContractController.add()"><img src=@routes.Assets.versioned("images/mas.png")></a>
+    } <a class="btn success" id="add" href="@mcgrady.controllers.routes.ContractController.add()">
+    <button type="submit" class="btn-add">Nuevo</button></a>
 </div>
 <table class="table table-striped">
     <tr>
@@ -56,16 +58,13 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     }
 </table>
 <div id="pagination" class="pagination">
-    <a>Mostrando del @(currentPage.offset + 1) al @(currentPage.offset + currentPage.items.size) de @currentPage.total</a></br>
+    <a>Mostrando del @(currentPage.offset + 1) al @(currentPage.offset + currentPage.items.size) de @currentPage.total</a>
+    </br>
     @currentPage.prev.map { page =>
-    <a href="@link(page)">
-        <button>Anterior<i class="arrow_left"></i></button>
-    </a>
+    <a href="@link(page)"><button>Anterior<i class="arrow_left"></i></button></a>
     }.getOrElse {|}
     @currentPage.next.map { page =>
-    <a href="@link(page)">
-        <button>Siguiente<i class="arrow_right"></i></button>
-    </a>
+    <a href="@link(page)"><button>Siguiente<i class="arrow_right"></i></button></a>
     }.getOrElse {|}
 </div>
 }

@@ -1,7 +1,5 @@
 @(playerStatsForm: Form[mcgrady.model.PlayerStats], games: Seq[mcgrady.model.Game], players: Seq[mcgrady.model.Player],teams: Seq[mcgrady.model.Team], sf: java.text.SimpleDateFormat)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
-
 @import helper._
-
 @main(Messages("playerStats.title")){
 @request.flash.get(messages("flash.success")).map { msg =>
 <div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
@@ -13,10 +11,9 @@
     <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
 </div>
 }
-<h1>Añadir Estadísticas</h1>
 <form id="playerStats-data-form" role="form" action=@mcgrady.controllers.routes.PlayerStatsController.save() method="post" autocomplete="off">
     <fieldset >
-        <label>Estadísticas</label>
+        <label>Nueva Línea Estadística</label>
         <br/>
         <table align="center">
             <tr>

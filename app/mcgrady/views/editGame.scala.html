@@ -1,14 +1,10 @@
 @(id: Long, gameForm: Form[mcgrady.model.Game], players: Seq[mcgrady.model.Player], inscriptions: Seq[mcgrady.model.Inscription],arenas: Seq[mcgrady.model.Arena],teams: Seq[mcgrady.model.Team])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
-
 @import helper._
-
 @main(Messages("game.title")){
-
 <form id="game-data-form" role="form" action=@mcgrady.controllers.routes.GameController.update(id) method="post" autocomplete="off">
     <fieldset >
-        <label>Partidos</label>
-        <br/>
-        <table align="center">
+        <label>Editando Partido</label>
+        <table>
             <tr>
                 <th>Fecha</th>
                 <th>Anfitrión</th>

@@ -1,14 +1,10 @@
 @(id: Long, playerForm: Form[mcgrady.model.Player])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
-
 @import helper._
-
 @main(Messages("player.title")){
-
 <form id="player-data-form" role="form" action=@mcgrady.controllers.routes.PlayerController.update(id) method="post" autocomplete="off">
     <fieldset>
-        <label>Jugadores</label>
-        <br/>
-        <table align="center">
+        <label>Editando Jugador</label>
+        <table>
             <tr>
                 <th>Nombre</th>
                 <th>Apellido</th>

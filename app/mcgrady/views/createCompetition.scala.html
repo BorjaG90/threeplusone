@@ -14,12 +14,11 @@
 </div>
 }
 <form id="competition-data-form" role="form" action=@mcgrady.controllers.routes.CompetitionController.save() method="post" autocomplete="off">
-    <fieldset >
-        <label>Añadir Competición</label>
-        <br/>
+    <fieldset>
+        <label>Nueva Competición</label>
         <table align="center">
             <tr>
-                <th><a href=@mcgrady.controllers.routes.SeasonController.add() class="btn">+</a> Temporada</th>
+                <th>Temporada<a href=@mcgrady.controllers.routes.SeasonController.add() class="btn"><img src=@routes.Assets.versioned("images/mas.png")></a></th>
                 <th>Nombre</th>
                 <th>Abreviatura</th>
                 <th>División</th>

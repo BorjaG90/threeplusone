@@ -20,12 +20,13 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
 </div>
 }
+<h3>Categorías</h3>
 <div id="actions">
-
-    @helper.form(action=kobe.controllers.routes.CategoryController.list()) { <input type="search"
-                                                                       id="searchbox" name="f" value="@currentFilter"
-                                                                       placeholder="Filtrar por nombre de Categoría"> <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
-    } <a class="btn success" id="add" href="@kobe.controllers.routes.CategoryController.add()"><img src=@routes.Assets.versioned("images/mas.png")></a>
+    @helper.form(action=kobe.controllers.routes.CategoryController.list()) {
+    <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por nombre de Categoría">
+    <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
+    } <a class="btn success" id="add" href="@kobe.controllers.routes.CategoryController.add()">
+    <button type="submit" class="btn-add">Nuevo</button></a>
 
 </div>
 <table class="table table-striped">
@@ -37,10 +38,11 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     </tr>
     @for(category <- currentPage.items){
     <tr>
-        <td><a href="@kobe.controllers.routes.CategoryController.edit(category.id.get)">@category.name</a></td>
+        <td>@category.name</td>
         <td>@category.description</td>
         <td>@category.notes</td>
-        <td>
+        <td><a href="@kobe.controllers.routes.CategoryController.edit(category.id.get)">
+            <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>
             <a href="@kobe.controllers.routes.CategoryController.delete(category.id)">
                 <img src=@routes.Assets.versioned("images/basura.png") alt="Borrar">
             </a>

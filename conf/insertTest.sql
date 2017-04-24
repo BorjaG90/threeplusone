@@ -29,7 +29,7 @@ INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (22
 INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (23,'Los Ángeles Lakers','LAL',74,0);
 INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (24,'Phoenix Suns','PHO',74,0);
 INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (25,'Sacramento Kings','SAC',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (26,'Dallas Maverics','DAL',74,0);
+INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (26,'Dallas Mavericks','DAL',74,0);
 INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (27,'Houston Rockets','HOU',74,0);
 INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (28,'Memphis Grizzlies','MEM',74,0);
 INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (29,'New Orleans Pelicans','NOP',74,0);
@@ -56,7 +56,7 @@ INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (49
 INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (50,'Crvena Zvezda mts Belgrade','RED',202,0);
 INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (51,'CSKA Moscow','CSK',189,0);
 INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (52,'Darussafaka Dogus Istanbul','DAR',230,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (53,'EA7 Emporio Armani Milan','MIL',1,0);
+INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (53,'EA7 Emporio Armani Milan','MIL',113,0);
 INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (54,'Fenerbahce Istanbul','ULK',230,0);
 INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (55,'Galatasaray Odeabank Istanbul','GAL',230,0);
 INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (56,'Maccabi FOX Tel Aviv','TEL',230,0);
