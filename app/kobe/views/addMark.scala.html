@@ -23,7 +23,7 @@
         <polygon id="right-wing" class="triple" points="700,3 745,3 745,215 700,215"/>
         <circle id="rim" class="zone" cx="375" cy="100" r="122"/>
         <path id="high-post-left" class="zone" d="M 295 5 q -85 105 0 185 L 215 275 L 215 275 q -97 -135 -5 -270 L 295 5 Z"/>
-        <path id="high-post-rigth" class="zone" d="M 455 5 q 85 105 0 185 L 535 275 L 535 275 q 97 -135 5 -270 L 455 5 Z"/>
+        <path id="high-post-right" class="zone" d="M 455 5 q 85 105 0 185 L 535 275 L 535 275 q 97 -135 5 -270 L 455 5 Z"/>
         <path id="high-post-center" class="zone" d="M 535 275 q -165 155 -320 0 L 295 190 q 78 68 160 0" Z/>
         <path id="low-post-center" class="inside" d="M 505 410 q -135 50 -260 0 L 295 335 q 78 33 160 -2 Z"/>
         <path id="low-post-center-left" class="inside" d="M 245 410 q -105 -50 -135 -100 L 190 240 q 30 60 105 95 Z"/>
@@ -33,6 +33,40 @@
         <path id="triple-right" class="triple" d="M 700 215 L 745 215 L 745 700 L 540 700 L 475 420 q 175 -55 225 -205 Z"/>
         <path id="triple-left" class="triple" d="M 5 215 L 5 700 L 215 700 L 275 420 q -175 -55 -225 -205 L 5 215 Z"/>
         <path id="triple-center" class="triple" d="M 275 420 L 215 700 L 540 700 L 475 420 q -100 35 -200 0 Z"/>
+        <div id="shot-chart-div-form">
+            <form id="shot-chart-form">
+                <fieldset>
+                    <input id="left-wing-fgm" type="text" value="" onchange="calculatePercentage('left-wing-fgm','left-wing-fga',30,43,'left-wing')">
+                    <input id="left-wing-fga" type="text" value="" onchange="calculatePercentage('left-wing-fgm','left-wing-fga',30,43,'left-wing')">
+                    <input id="right-wing-fgm" type="text" value="" onchange="calculatePercentage('right-wing-fgm','right-wing-fga',30,43,'right-wing')">
+                    <input id="right-wing-fga" type="text" value="" onchange="calculatePercentage('right-wing-fgm','right-wing-fga',30,43,'right-wing')">
+                    <input id="rim-fgm" type="text" value="" onchange="calculatePercentage('rim-fgm','rim-fga',38,55,'rim')">
+                    <input id="rim-fga" type="text" value="" onchange="calculatePercentage('rim-fgm','rim-fga',38,55,'rim')">
+                    <input id="high-post-left-fgm" type="text" value="" onchange="calculatePercentage('high-post-left-fgm','high-post-left-fga',38,50,'high-post-left')">
+                    <input id="high-post-left-fga" type="text" value="" onchange="calculatePercentage('high-post-left-fgm','high-post-left-fga',38,50,'high-post-left')">
+                    <input id="high-post-right-fgm" type="text" value="" onchange="calculatePercentage('high-post-right-fgm','high-post-right-fga',38,50,'high-post-right')">
+                    <input id="high-post-right-fga" type="text" value="" onchange="calculatePercentage('high-post-right-fgm','high-post-right-fga',38,50,'high-post-right')">
+                    <input id="high-post-center-fgm" type="text" value="" onchange="calculatePercentage('high-post-center-fgm','high-post-center-fga',38,50,'high-post-center')">
+                    <input id="high-post-center-fga" type="text" value="" onchange="calculatePercentage('high-post-center-fgm','high-post-center-fga',38,50,'high-post-center')">
+                    <input id="low-post-left-fgm" type="text" value="" onchange="calculatePercentage('low-post-left-fgm','low-post-left-fga',35,48,'low-post-left')">
+                    <input id="low-post-left-fga" type="text" value="" onchange="calculatePercentage('low-post-left-fgm','low-post-left-fga',35,48,'low-post-left')">
+                    <input id="low-post-center-fgm" type="text" value="" onchange="calculatePercentage('low-post-center-fgm','low-post-center-fga',35,48,'low-post-center')">
+                    <input id="low-post-center-fga" type="text" value="" onchange="calculatePercentage('low-post-center-fgm','low-post-center-fga',35,48,'low-post-center')">
+                    <input id="low-post-center-left-fgm" type="text" value="" onchange="calculatePercentage('low-post-center-left-fgm','low-post-center-left-fga',35,48,'low-post-center-left')">
+                    <input id="low-post-center-left-fga" type="text" value="" onchange="calculatePercentage('low-post-center-left-fgm','low-post-center-left-fga',35,48,'low-post-center-left')">
+                    <input id="low-post-center-right-fgm" type="text" value="" onchange="calculatePercentage('low-post-center-right-fgm','low-post-center-right-fga',35,48,'low-post-center-right')">
+                    <input id="low-post-center-right-fga" type="text" value="" onchange="calculatePercentage('low-post-center-right-fgm','low-post-center-right-fga',35,48,'low-post-center-right')">
+                    <input id="low-post-right-fgm" type="text" value="" onchange="calculatePercentage('low-post-right-fgm','low-post-right-fga',35,48,'low-post-right')">
+                    <input id="low-post-right-fga" type="text" value="" onchange="calculatePercentage('low-post-right-fgm','low-post-right-fga',35,48,'low-post-right')">
+                    <input id="triple-left-fgm" type="text" value="" onchange="calculatePercentage('triple-left-fgm','triple-left-fga',30,43,'triple-left')">
+                    <input id="triple-left-fga" type="text" value="" onchange="calculatePercentage('triple-left-fgm','triple-left-fga',30,43,'triple-left')">
+                    <input id="triple-right-fgm" type="text" value="" onchange="calculatePercentage('triple-right-fgm','triple-right-fga',30,43,'triple-right')">
+                    <input id="triple-right-fga" type="text" value="" onchange="calculatePercentage('triple-right-fgm','triple-right-fga',30,43,'triple-right')">
+                    <input id="triple-center-fgm" type="text" value="" onchange="calculatePercentage('triple-center-fgm','triple-center-fga',30,43,'triple-center')">
+                    <input id="triple-center-fga" type="text" value="" onchange="calculatePercentage('triple-center-fgm','triple-center-fga',30,43,'triple-center')">
+                </fieldset>
+            </form>
+        </div>
     </svg>
 <input type="button" value="Ocultar" onclick="ocultar()">
 </div>

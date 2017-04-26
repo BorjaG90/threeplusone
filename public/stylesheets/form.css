@@ -109,8 +109,6 @@ div#shot-chart{
     width: 750px;
 }
 svg#shot-chart-svg{
-    /*margin-left: auto;
-    margin-right: auto;*/
     padding-left: auto;
     padding-right: auto;
     width: 750px;
@@ -128,31 +126,237 @@ svg mask circle{
 }
 svg polygon{
     opacity: 0.5;
-    fill:white;
     fill-rule: evenodd;
 }
 svg circle{
     opacity: 0.5;
-    fill:lime;
     fill-rule: evenodd;
 }
 svg path{
-    opacity: 0.5;
-    fill:orange;
+    opacity: 0.5;    
     fill-rule: evenodd;
 }
-
+#shot-chart-form input{
+    font-size: 11px;
+    padding: 4px 2px 4px 4px;
+    margin-left:6px;
+    margin-right:4px;
+    width: 20px;
+}
 .zone{
-    stroke: white;
+    stroke: black;
     stroke-width:3;
 }
 .inside{
-    stroke: yellow;
+    stroke: black;
     stroke-width:3;
-    fill: red;
 }
 .triple{
-    stroke: lime;
+    stroke: black;
     stroke-width:5;
-    fill: white;
+}
+.bad-fg{
+    fill:red;
+}
+.good-fg{
+    fill:lime;
+}
+.neutral-fg{
+    fill:none;
+}
+#left-wing-fgm{
+    position:absolute;
+    left: 5px;
+    top: 50px;
+    width: 15px;
+    height: 15px;
+}
+#left-wing-fga{
+    position:absolute;
+    left: 45px;
+    top: 50px;
+    width: 15px;
+    height: 15px;
+}
+#right-wing-fgm{
+    position:absolute;
+    left: 665px;
+    top: 50px;
+    width: 15px;
+    height: 15px;
+}
+#right-wing-fga{
+    position:absolute;
+    left: 705px;
+    top: 50px;
+    width: 15px;
+    height: 15px;
+}
+#rim-fgm{
+    position:absolute;
+    left: 330px;
+    top: 50px;
+    width: 15px;
+    height: 15px;
+}
+#rim-fga{
+    position:absolute;
+    left: 380px;
+    top: 50px;
+    width: 15px;
+    height: 15px;
+}
+#high-post-left-fgm{
+    position:absolute;
+    left: 180px;
+    top: 180px;
+    width: 15px;
+    height: 15px;
+}
+#high-post-left-fga{
+    position:absolute;
+    left: 230px;
+    top: 180px;
+    width: 15px;
+    height: 15px;
+}
+#high-post-right-fgm{
+    position:absolute;
+    left: 475px;
+    top: 180px;
+    width: 15px;
+    height: 15px;
+}
+#high-post-right-fga{
+    position:absolute;
+    left: 525px;
+    top: 180px;
+    width: 15px;
+    height: 15px;
+}
+#high-post-center-fgm{
+    position:absolute;
+    left: 330px;
+    top: 235px;
+    width: 15px;
+    height: 15px;
+}
+#high-post-center-fga{
+    position:absolute;
+    left: 380px;
+    top: 235px;
+    width: 15px;
+    height: 15px;
+}
+#low-post-left-fgm{
+    position:absolute;
+    left: 60px;
+    top: 135px;
+    width: 15px;
+    height: 15px;
+}
+#low-post-left-fga{
+    position:absolute;
+    left: 110px;
+    top: 135px;
+    width: 15px;
+    height: 15px;
+}
+#low-post-center-fgm{
+    position:absolute;
+    left: 330px;
+    top: 380px;
+    width: 15px;
+    height: 15px;
+}
+#low-post-center-fga{
+    position:absolute;
+    left: 380px;
+    top: 380px;
+    width: 15px;
+    height: 15px;
+}
+#low-post-center-left-fgm{
+    position:absolute;
+    left: 160px;
+    top: 300px;
+    width: 15px;
+    height: 15px;
+}
+#low-post-center-left-fga{
+    position:absolute;
+    left: 200px;
+    top: 300px;
+    width: 15px;
+    height: 15px;
+}
+#low-post-center-right-fgm{
+    position:absolute;
+    left: 500px;
+    top: 300px;
+    width: 15px;
+    height: 15px;
+}
+#low-post-center-right-fga{
+    position:absolute;
+    left: 540px;
+    top: 300px;
+    width: 15px;
+    height: 15px;
+}
+#low-post-right-fgm{
+    position:absolute;
+    left: 600px;
+    top: 135px;
+    width: 15px;
+    height: 15px;
+}
+#low-post-right-fga{
+    position:absolute;
+    left: 650px;
+    top: 135px;
+    width: 15px;
+    height: 15px;
+}
+#triple-left-fgm{
+    position:absolute;
+    left: 60px;
+    top: 400px;
+    width: 15px;
+    height: 15px;
+}
+#triple-left-fga{
+    position:absolute;
+    left: 110px;
+    top: 400px;
+    width: 15px;
+    height: 15px;
+}
+#triple-right-fgm{
+    position:absolute;
+    left: 600px;
+    top: 400px;
+    width: 15px;
+    height: 15px;
+}
+#triple-right-fga{
+    position:absolute;
+    left: 650px;
+    top: 400px;
+    width: 15px;
+    height: 15px;
+}
+#triple-center-fgm{
+    position:absolute;
+    left: 330px;
+    top: 450px;
+    width: 15px;
+    height: 15px;
+}
+#triple-center-fga{
+    position:absolute;
+    left: 380px;
+    top: 450px;
+    width: 15px;
+    height: 15px;
 }
