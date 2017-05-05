@@ -28,6 +28,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <th>Volumen</th>
         <th>Notas</th>
         <th></th>
+        <th></th>
     </tr>
     @for((record,serie,unit,exercise) <- currentPage.items){
     <tr>
@@ -48,14 +49,12 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         }else{
         <td>
             <a href="@kobe.controllers.routes.RecordController.editVolume(record.id.get)">
-                <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar">
-            </a>
+                <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>
         </td>
         }
         <td>
             <a href="@kobe.controllers.routes.RecordController.delete(record.id)">
-                <img src=@routes.Assets.versioned("images/basura.png") alt="Borrar">
-            </a>
+                <img src=@routes.Assets.versioned("images/basura.png") alt="Borrar"></a>
         </td>
     </tr>
     }

@@ -15,98 +15,128 @@
     <svg id="shot-chart-svg" width="500" height="900">
         <defs>
             <mask id="hole">
-                <rect x="48" width="100%" height="100%" fill="white"/>
-                <circle cx="375" cy="100" r="122" fill="black"/>
+                <rect x="48" width="100%" height="100%" fill="white"></rect>
+                <circle cx="375" cy="100" r="122" fill="black"></circle>
             </mask>
         </defs>
-        <polygon id="left-wing" class="triple" points="3,215 50,215 50,3 3,3"/>
-        <polygon id="right-wing" class="triple" points="700,3 745,3 745,215 700,215"/>
-        <circle id="rim" class="zone" cx="375" cy="100" r="122"/>
-        <path id="high-post-left" class="zone" d="M 295 5 q -85 105 0 185 L 215 275 L 215 275 q -97 -135 -5 -270 L 295 5 Z"/>
-        <path id="high-post-right" class="zone" d="M 455 5 q 85 105 0 185 L 535 275 L 535 275 q 97 -135 5 -270 L 455 5 Z"/>
-        <path id="high-post-center" class="zone" d="M 535 275 q -165 155 -320 0 L 295 190 q 78 68 160 0" Z/>
-        <path id="low-post-center" class="inside" d="M 505 410 q -135 50 -260 0 L 295 335 q 78 33 160 -2 Z"/>
-        <path id="low-post-center-left" class="inside" d="M 245 410 q -105 -50 -135 -100 L 190 240 q 30 60 105 95 Z"/>
-        <path id="low-post-center-right" class="inside" d="M 505 410 q 105 -50 138 -103 L 560 240 q -30 60 -102 92 Z"/>
-        <path id="low-post-left" class="inside" d="M 190 238 q -60 -120 20 -235 L 50 3 L 50 215 q 5 30 60 95 Z"/>
-        <path id="low-post-right" class="inside" d="M 560 238 q 60 -120 -20 -235 L 700 3 L 700 215 q -5 30 -57 92 Z"/>
-        <path id="triple-right" class="triple" d="M 700 215 L 745 215 L 745 700 L 540 700 L 475 420 q 175 -55 225 -205 Z"/>
-        <path id="triple-left" class="triple" d="M 5 215 L 5 700 L 215 700 L 275 420 q -175 -55 -225 -205 L 5 215 Z"/>
-        <path id="triple-center" class="triple" d="M 275 420 L 215 700 L 540 700 L 475 420 q -100 35 -200 0 Z"/>
-        <div id="shot-chart-div-form">
-            <form id="shot-chart-form">
-                <fieldset>
-                    <input id="left-wing-fgm" type="text" value="" onchange="calculatePercentage('left-wing-fgm','left-wing-fga',30,43,'left-wing')">
-                    <input id="left-wing-fga" type="text" value="" onchange="calculatePercentage('left-wing-fgm','left-wing-fga',30,43,'left-wing')">
-                    <input id="right-wing-fgm" type="text" value="" onchange="calculatePercentage('right-wing-fgm','right-wing-fga',30,43,'right-wing')">
-                    <input id="right-wing-fga" type="text" value="" onchange="calculatePercentage('right-wing-fgm','right-wing-fga',30,43,'right-wing')">
-                    <input id="rim-fgm" type="text" value="" onchange="calculatePercentage('rim-fgm','rim-fga',38,55,'rim')">
-                    <input id="rim-fga" type="text" value="" onchange="calculatePercentage('rim-fgm','rim-fga',38,55,'rim')">
-                    <input id="high-post-left-fgm" type="text" value="" onchange="calculatePercentage('high-post-left-fgm','high-post-left-fga',38,50,'high-post-left')">
-                    <input id="high-post-left-fga" type="text" value="" onchange="calculatePercentage('high-post-left-fgm','high-post-left-fga',38,50,'high-post-left')">
-                    <input id="high-post-right-fgm" type="text" value="" onchange="calculatePercentage('high-post-right-fgm','high-post-right-fga',38,50,'high-post-right')">
-                    <input id="high-post-right-fga" type="text" value="" onchange="calculatePercentage('high-post-right-fgm','high-post-right-fga',38,50,'high-post-right')">
-                    <input id="high-post-center-fgm" type="text" value="" onchange="calculatePercentage('high-post-center-fgm','high-post-center-fga',38,50,'high-post-center')">
-                    <input id="high-post-center-fga" type="text" value="" onchange="calculatePercentage('high-post-center-fgm','high-post-center-fga',38,50,'high-post-center')">
-                    <input id="low-post-left-fgm" type="text" value="" onchange="calculatePercentage('low-post-left-fgm','low-post-left-fga',35,48,'low-post-left')">
-                    <input id="low-post-left-fga" type="text" value="" onchange="calculatePercentage('low-post-left-fgm','low-post-left-fga',35,48,'low-post-left')">
-                    <input id="low-post-center-fgm" type="text" value="" onchange="calculatePercentage('low-post-center-fgm','low-post-center-fga',35,48,'low-post-center')">
-                    <input id="low-post-center-fga" type="text" value="" onchange="calculatePercentage('low-post-center-fgm','low-post-center-fga',35,48,'low-post-center')">
-                    <input id="low-post-center-left-fgm" type="text" value="" onchange="calculatePercentage('low-post-center-left-fgm','low-post-center-left-fga',35,48,'low-post-center-left')">
-                    <input id="low-post-center-left-fga" type="text" value="" onchange="calculatePercentage('low-post-center-left-fgm','low-post-center-left-fga',35,48,'low-post-center-left')">
-                    <input id="low-post-center-right-fgm" type="text" value="" onchange="calculatePercentage('low-post-center-right-fgm','low-post-center-right-fga',35,48,'low-post-center-right')">
-                    <input id="low-post-center-right-fga" type="text" value="" onchange="calculatePercentage('low-post-center-right-fgm','low-post-center-right-fga',35,48,'low-post-center-right')">
-                    <input id="low-post-right-fgm" type="text" value="" onchange="calculatePercentage('low-post-right-fgm','low-post-right-fga',35,48,'low-post-right')">
-                    <input id="low-post-right-fga" type="text" value="" onchange="calculatePercentage('low-post-right-fgm','low-post-right-fga',35,48,'low-post-right')">
-                    <input id="triple-left-fgm" type="text" value="" onchange="calculatePercentage('triple-left-fgm','triple-left-fga',30,43,'triple-left')">
-                    <input id="triple-left-fga" type="text" value="" onchange="calculatePercentage('triple-left-fgm','triple-left-fga',30,43,'triple-left')">
-                    <input id="triple-right-fgm" type="text" value="" onchange="calculatePercentage('triple-right-fgm','triple-right-fga',30,43,'triple-right')">
-                    <input id="triple-right-fga" type="text" value="" onchange="calculatePercentage('triple-right-fgm','triple-right-fga',30,43,'triple-right')">
-                    <input id="triple-center-fgm" type="text" value="" onchange="calculatePercentage('triple-center-fgm','triple-center-fga',30,43,'triple-center')">
-                    <input id="triple-center-fga" type="text" value="" onchange="calculatePercentage('triple-center-fgm','triple-center-fga',30,43,'triple-center')">
-                </fieldset>
-            </form>
-        </div>
+        <polygon id="left-wing" class="triple" points="3,215 50,215 50,3 3,3"></polygon>
+        <polygon id="right-wing" class="triple" points="700,3 745,3 745,215 700,215"></polygon>
+        <circle id="rim" class="zone" cx="375" cy="100" r="122"></circle>
+        <path id="high-post-left" class="zone" d="M 295 5 q -85 105 0 185 L 215 275 L 215 275 q -97 -135 -5 -270 L 295 5 Z"></path>
+        <path id="high-post-right" class="zone" d="M 455 5 q 85 105 0 185 L 535 275 L 535 275 q 97 -135 5 -270 L 455 5 Z"></path>
+        <path id="high-post-center" class="zone" d="M 535 275 q -165 155 -320 0 L 295 190 q 78 68 160 0 Z"></path>
+        <path id="low-post-center" class="inside" d="M 505 410 q -135 50 -260 0 L 295 335 q 78 33 160 -2 Z"></path>
+        <path id="low-post-center-left" class="inside" d="M 245 410 q -105 -50 -135 -100 L 190 240 q 30 60 105 95 Z"></path>
+        <path id="low-post-center-right" class="inside" d="M 505 410 q 105 -50 138 -103 L 560 240 q -30 60 -102 92 Z"></path>
+        <path id="low-post-left" class="inside" d="M 190 238 q -60 -120 20 -235 L 50 3 L 50 215 q 5 30 60 95 Z"></path>
+        <path id="low-post-right" class="inside" d="M 560 238 q 60 -120 -20 -235 L 700 3 L 700 215 q -5 30 -57 92 Z"></path>
+        <path id="triple-right" class="triple" d="M 700 215 L 745 215 L 745 700 L 540 700 L 475 420 q 175 -55 225 -205 Z"></path>
+        <path id="triple-left" class="triple" d="M 5 215 L 5 700 L 215 700 L 275 420 q -175 -55 -225 -205 L 5 215 Z"></path>
+        <path id="triple-center" class="triple" d="M 275 420 L 215 700 L 540 700 L 475 420 q -100 35 -200 0 Z"></path>
     </svg>
-<input type="button" value="Ocultar" onclick="ocultar()">
+    <div id="shot-chart-div-form">
+        <form id="shot-chart-form">
+            <input id="left-wing-fgm" type="text" value="" onchange="calculatePercentage('left-wing-fgm','left-wing-fga',30,43,'left-wing')">
+            <input id="left-wing-fga" type="text" value="" onchange="calculatePercentage('left-wing-fgm','left-wing-fga',30,43,'left-wing')">
+            <input id="right-wing-fgm" type="text" value="" onchange="calculatePercentage('right-wing-fgm','right-wing-fga',30,43,'right-wing')">
+            <input id="right-wing-fga" type="text" value="" onchange="calculatePercentage('right-wing-fgm','right-wing-fga',30,43,'right-wing')">
+            <input id="rim-fgm" type="text" value="" onchange="calculatePercentage('rim-fgm','rim-fga',38,55,'rim')">
+            <input id="rim-fga" type="text" value="" onchange="calculatePercentage('rim-fgm','rim-fga',38,55,'rim')">
+            <input id="high-post-left-fgm" type="text" value="" onchange="calculatePercentage('high-post-left-fgm','high-post-left-fga',38,50,'high-post-left')">
+            <input id="high-post-left-fga" type="text" value="" onchange="calculatePercentage('high-post-left-fgm','high-post-left-fga',38,50,'high-post-left')">
+            <input id="high-post-right-fgm" type="text" value="" onchange="calculatePercentage('high-post-right-fgm','high-post-right-fga',38,50,'high-post-right')">
+            <input id="high-post-right-fga" type="text" value="" onchange="calculatePercentage('high-post-right-fgm','high-post-right-fga',38,50,'high-post-right')">
+            <input id="high-post-center-fgm" type="text" value="" onchange="calculatePercentage('high-post-center-fgm','high-post-center-fga',38,50,'high-post-center')">
+            <input id="high-post-center-fga" type="text" value="" onchange="calculatePercentage('high-post-center-fgm','high-post-center-fga',38,50,'high-post-center')">
+            <input id="low-post-left-fgm" type="text" value="" onchange="calculatePercentage('low-post-left-fgm','low-post-left-fga',35,48,'low-post-left')">
+            <input id="low-post-left-fga" type="text" value="" onchange="calculatePercentage('low-post-left-fgm','low-post-left-fga',35,48,'low-post-left')">
+            <input id="low-post-center-fgm" type="text" value="" onchange="calculatePercentage('low-post-center-fgm','low-post-center-fga',35,48,'low-post-center')">
+            <input id="low-post-center-fga" type="text" value="" onchange="calculatePercentage('low-post-center-fgm','low-post-center-fga',35,48,'low-post-center')">
+            <input id="low-post-center-left-fgm" type="text" value="" onchange="calculatePercentage('low-post-center-left-fgm','low-post-center-left-fga',35,48,'low-post-center-left')">
+            <input id="low-post-center-left-fga" type="text" value="" onchange="calculatePercentage('low-post-center-left-fgm','low-post-center-left-fga',35,48,'low-post-center-left')">
+            <input id="low-post-center-right-fgm" type="text" value="" onchange="calculatePercentage('low-post-center-right-fgm','low-post-center-right-fga',35,48,'low-post-center-right')">
+            <input id="low-post-center-right-fga" type="text" value="" onchange="calculatePercentage('low-post-center-right-fgm','low-post-center-right-fga',35,48,'low-post-center-right')">
+            <input id="low-post-right-fgm" type="text" value="" onchange="calculatePercentage('low-post-right-fgm','low-post-right-fga',35,48,'low-post-right')">
+            <input id="low-post-right-fga" type="text" value="" onchange="calculatePercentage('low-post-right-fgm','low-post-right-fga',35,48,'low-post-right')">
+            <input id="triple-left-fgm" type="text" value="" onchange="calculatePercentage('triple-left-fgm','triple-left-fga',30,43,'triple-left')">
+            <input id="triple-left-fga" type="text" value="" onchange="calculatePercentage('triple-left-fgm','triple-left-fga',30,43,'triple-left')">
+            <input id="triple-right-fgm" type="text" value="" onchange="calculatePercentage('triple-right-fgm','triple-right-fga',30,43,'triple-right')">
+            <input id="triple-right-fga" type="text" value="" onchange="calculatePercentage('triple-right-fgm','triple-right-fga',30,43,'triple-right')">
+            <input id="triple-center-fgm" type="text" value="" onchange="calculatePercentage('triple-center-fgm','triple-center-fga',30,43,'triple-center')">
+            <input id="triple-center-fga" type="text" value="" onchange="calculatePercentage('triple-center-fgm','triple-center-fga',30,43,'triple-center')">
+        </form>
+        <form id="shot-form" role="form" action=@kobe.controllers.routes.RecordController.saveShotChart(session.id.get) method="post" autocomplete="off">
+            <input type="hidden" id="id_serie_shot" name="id_serie" value="">
+            <input id="left-wing-fgm-down" type="text" name="shots[0].value" value="" onchange="setInShotChart('left-wing-fgm')">
+            <input id="left-wing-fga-down" type="text" name="shots[1].value" value="" onchange="setInShotChart('left-wing-fga')">
+            <input id="right-wing-fgm-down" type="text" name="shots[2].value" value="" onchange="setInShotChart('right-wing-fgm')">
+            <input id="right-wing-fga-down" type="text" name="shots[3].value" value="" onchange="setInShotChart('right-wing-fga')">
+            <input id="rim-fgm-down" type="text" name="shots[4].value" value="" onchange="setInShotChart('rim-fgm')">
+            <input id="rim-fga-down" type="text" name="shots[5].value" value="" onchange="setInShotChart('rim-fga')">
+            <input id="high-post-left-fgm-down" type="text" name="shots[6].value" value="" onchange="setInShotChart('high-post-left-fgm')">
+            <input id="high-post-left-fga-down" type="text" name="shots[7].value" value="" onchange="setInShotChart('high-post-left-fga')">
+            <input id="high-post-right-fgm-down" type="text" name="shots[8].value" value="" onchange="setInShotChart('high-post-right-fgm')">
+            <input id="high-post-right-fga-down" type="text" name="shots[9].value" value="" onchange="setInShotChart('high-post-right-fga')">
+            <input id="high-post-center-fgm-down" type="text" name="shots[10].value" value="" onchange="setInShotChart('high-post-center-fgm')">
+            <input id="high-post-center-fga-down" type="text" name="shots[11].value" value="" onchange="setInShotChart('high-post-center-fga')">
+            <input id="low-post-left-fgm-down" type="text" name="shots[12].value" value="" onchange="setInShotChart('low-post-left-fgm')">
+            <input id="low-post-left-fga-down" type="text" name="shots[13].value" value="" onchange="setInShotChart('low-post-left-fga')">
+            <input id="low-post-center-fgm-down" type="text" name="shots[14].value" value="" onchange="setInShotChart('low-post-center-fgm')">
+            <input id="low-post-center-fga-down" type="text" name="shots[15].value" value="" onchange="setInShotChart('low-post-center-fga')">
+            <input id="low-post-center-left-fgm-down" type="text" name="shots[16].value" value="" onchange="setInShotChart('low-post-center-left-fgm')">
+            <input id="low-post-center-left-fga-down" type="text" name="shots[17].value" value="" onchange="setInShotChart('low-post-center-left-fga')">
+            <input id="low-post-center-right-fgm-down" type="text" name="shots[18].value" value="" onchange="setInShotChart('low-post-center-right-fgm')">
+            <input id="low-post-center-right-fga-down" type="text" name="shots[19].value" value="" onchange="setInShotChart('low-post-center-right-fga')">
+            <input id="low-post-right-fgm-down" type="text" name="shots[20].value" value="" onchange="setInShotChart('low-post-right-fgm')">
+            <input id="low-post-right-fga-down" type="text" name="shots[21].value" value="" onchange="setInShotChart('low-post-right-fga')">
+            <input id="triple-left-fgm-down" type="text" name="shots[22].value" value="" onchange="setInShotChart('triple-left-fgm')">
+            <input id="triple-left-fga-down" type="text" name="shots[23].value" value="" onchange="setInShotChart('triple-left-fga')">
+            <input id="triple-right-fgm-down" type="text" name="shots[24].value" value="" onchange="setInShotChart('triple-right-fgm')">
+            <input id="triple-right-fga-down" type="text" name="shots[25].value" value="" onchange="setInShotChart('triple-right-fga')">
+            <input id="triple-center-fgm-down" type="text" name="shots[26].value" value="" onchange="setInShotChart('triple-center-fgm')">
+            <input id="triple-center-fga-down" type="text" name="shots[27].value" value="" onchange="setInShotChart('triple-center-fga')">
+            <br>
+            <button type="submit" class="btn btn-primary ynt-btn-orange">
+                <img src=@routes.Assets.versioned("images/guardarBlanco.png") alt="Guardar"></button>
+        </form>
+        <input type="button" value="Ocultar" onclick="ocultar()">
+    </div>
 </div>
 <div id="content">
+    @session
 @for(plan <- plans){
 @if(session.idPlan == plan.id.get){
 <h1>Plan: <b>@plan.name</b></h1>
 <h2>Sesión: <b>@session.name</b></h2>
-@for(serie <- series){
-@if(serie.idSession == session.id.get){
-@for(exercise <- exercises){
-@if(serie.idExercise == exercise.id.get){
+@for(serie <- series){ @if(serie.idSession == session.id.get){
+@for(exercise <- exercises){ @if(serie.idExercise == exercise.id.get){
 <h3>Serie: <b>@serie.id-@exercise.name</b></h3>
 <table>
     <tr>
         <th>Valor</th>
         <th>Ejecución</th>
         <th>Notas</th>
+        <th></th>
     </tr>
-    @for(mark <- records){
-    @if(mark.idSerie == serie.id.get && mark.typeR.toString == "M"){
+    @for(mark <- records){ @if(mark.idSerie == serie.id.get && mark.typeR.toString == "M"){
     <tr>
         <td>@mark.value
-            @for(unit <- units){
-            @if(unit.id.get == mark.idUnit){
+            @for(unit <- units){ @if(unit.id.get == mark.idUnit){
             @unit.name</td>
-        }
-        }
+        }}
         @if(mark.exeDate.get != None){
         <td>@sf.format(mark.exeDate.get)</td>
         }else{<td></td>}
         <td>@mark.notes</td>
-        <td><a href="@kobe.controllers.routes.RecordController.editMark(mark.id.get)">Editar</a></td>
+        <td><a href="@kobe.controllers.routes.RecordController.editMark(mark.id.get)">
+            <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>
+        </td>
     </tr>
-    }
-    }
+    }}
 </table>
 <form id="@plan.name-@session.name-@serie.id-data-form" role="form" action=@kobe.controllers.routes.RecordController.saveMark(session.id.get) method="post" autocomplete="off">
     <fieldset >
-        <label>Marcas</label>
+        <label>Nueva Marca</label>
         <br/>
         <table>
             <tr>
@@ -121,9 +151,7 @@
                 </td>
                 <td>
                     <select id="id_unit" name="id_unit">
-                        @for(unit <- units){
-                        <option value="@unit.id">@unit.name</option>
-                        }
+                        @for(unit <- units){ <option value="@unit.id">@unit.name</option> }
                     </select>
                 </td>
                 <td align="center">
@@ -144,14 +172,5 @@
         </div>
     </fieldset>
 </form>
-<input type="button" value="Mostrar" onclick="mostrar()">
-
-}
-}
-}
-}
-
-}
-}
-</div>
-}
+<input type="button" value="Mostrar" onclick="mostrar(@serie.id)">}}}}}}
+</div>}

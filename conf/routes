@@ -25,7 +25,7 @@ GET     /arena/delete/:id                 mcgrady.controllers.ArenaController.de
 
 #Competition
 GET     /competition                       mcgrady.controllers.CompetitionController.index
-GET     /competitions                        mcgrady.controllers.CompetitionController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /competitions                        mcgrady.controllers.CompetitionController.list(p:Int ?= 0, s:Int ?= 2, f ?= "", sfil ?= "")
 GET     /competition/new                   mcgrady.controllers.CompetitionController.add
 POST    /competitions                       mcgrady.controllers.CompetitionController.save
 GET     /competition/:id                   mcgrady.controllers.CompetitionController.edit(id: Long)
@@ -197,5 +197,6 @@ GET     /volume/:id                   kobe.controllers.RecordController.editVolu
 POST    /volume/:id                     kobe.controllers.RecordController.updateVolume(id: Long)
 GET     /mark/new/:idSession                   kobe.controllers.RecordController.addMark(idSession: Long)
 POST    /mark/new/:idSession                   kobe.controllers.RecordController.saveMark(idSession: Long)
+POST    /mark/new/-:idSession                   kobe.controllers.RecordController.saveShotChart(idSession: Long)
 GET     /mark/:id                   kobe.controllers.RecordController.editMark(id: Long)
 POST    /mark/:id                     kobe.controllers.RecordController.updateMark(id: Long)

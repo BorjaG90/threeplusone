@@ -42,13 +42,15 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     @for(player <- currentPage.items){
     <tr>
         <td>@player.firstName</td>
-        <td><a href="@mcgrady.controllers.routes.PlayerController.edit(player.id.get)">@player.lastName</a></td>
+        <td>@player.lastName</td>
         <td>@player.nickName</td>
         <td>@player.number</td>
         <td>@player.height</td>
         <td>@player.weight</td>
         <td>@player.description</td>
         <td>
+            <a href="@mcgrady.controllers.routes.PlayerController.edit(player.id.get)">
+                <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>
             <a href="@mcgrady.controllers.routes.PlayerController.delete(player.id)">
                 <img src=@routes.Assets.versioned("images/basura.png") alt="Borrar">
             </a>

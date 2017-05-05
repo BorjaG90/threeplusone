@@ -38,13 +38,14 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     </tr>
     @for((arena,country) <- currentPage.items){
     <tr>
-        <td><a href="@mcgrady.controllers.routes.ArenaController.edit(arena.id.get)">@arena.name</a></td>
+        <td>@arena.name</td>
         <td>@arena.direction</td>
         <td>@country.name</td>
         <td>
+            <a href="@mcgrady.controllers.routes.ArenaController.edit(arena.id.get)">
+                <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>
             <a href="@mcgrady.controllers.routes.ArenaController.delete(arena.id)">
-                <img src=@routes.Assets.versioned("images/basura.png") alt="Borrar">
-            </a>
+                <img src=@routes.Assets.versioned("images/basura.png") alt="Borrar"></a>
         </td>
     </tr>
     }

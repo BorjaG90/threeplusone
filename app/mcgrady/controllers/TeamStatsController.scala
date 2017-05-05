@@ -18,11 +18,11 @@ import mcgrady.views._
   */
 
 class TeamStatsController @Inject()(val messagesApi: MessagesApi
-                                      , teamStatsService: TeamStatsService
-                                      , inscriptionService: InscriptionService
-                                      , gameService: GameService
+                                    , teamStatsService: TeamStatsService
+                                    , inscriptionService: InscriptionService
+                                    , gameService: GameService
                                     , teamService: TeamService
-                                     ) extends Controller with I18nSupport {
+                                   ) extends Controller with I18nSupport {
 
   val home = Redirect(mcgrady.controllers.routes.TeamStatsController.list(0, 2, ""))
 

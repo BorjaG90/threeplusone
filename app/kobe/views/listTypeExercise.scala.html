@@ -37,7 +37,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     </tr>
     @for(typeExercise <- currentPage.items){
     <tr>
-        <td><a href="@kobe.controllers.routes.TypeExerciseController.edit(typeExercise.id.get)">@typeExercise.name</a></td>
+        <td>@typeExercise.name</td>
         <td>@typeExercise.description</td>
         <td>@typeExercise.notes</td>
         <td><a href="@kobe.controllers.routes.TypeExerciseController.edit(typeExercise.id.get)">

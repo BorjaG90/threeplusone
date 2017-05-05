@@ -24,21 +24,28 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi,
                                       seasonService: SeasonService
                                      ) extends Controller with I18nSupport {
 
-  val home = Redirect(mcgrady.controllers.routes.CompetitionController.list(0, 2, ""))
+  val home = Redirect(mcgrady.controllers.routes.CompetitionController.list(0, 2, "", ""))
 
   def index = Action {
     home
   }
 
-  def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
-    competitionService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
-      Ok(html.listCompetition(pageEmp, orderBy, filter, new SimpleDateFormat("dd/MM/yyyy")))
-    }.recover {
-      case ex: TimeoutException =>
-        Logger.error("Error listando competiciones")
-        InternalServerError(ex.getMessage)
+  def list(page: Int, orderBy: Int, filter: String, yFilter:String): Action[AnyContent] = Action.async { implicit request =>
+    competitionService.list(page, 10, orderBy, "%" + filter + "%","%" + yFilter + "%").flatMap { pageEmp =>
+        seasonService.listSimple map { seasons =>
+          val allYears = new ArrayBuffer[String]()
+          for (season <- seasons) {
+              allYears += season.year
+          }
+          val years = collection.Seq[String](allYears: _*)
+          Ok(html.listCompetition(pageEmp, orderBy, filter, new SimpleDateFormat("dd/MM/yyyy"), yFilter, years))
+        }
+      }.recover {
+        case ex: TimeoutException =>
+          Logger.error("Error listando competiciones")
+          InternalServerError(ex.getMessage)
+      }
     }
-  }
 
   def add: Action[AnyContent] = Action.async { implicit request =>
     seasonService.listSimple flatMap { seasons =>

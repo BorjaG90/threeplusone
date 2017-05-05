@@ -26,6 +26,7 @@
     <tr>
         <th>Valor</th>
         <th>Notas</th>
+        <th></th>
     </tr>
     @for(volume <- records){
     @if(volume.idSerie == serie.id.get && volume.typeR == "V"){
@@ -37,7 +38,9 @@
         }
         }
         <td>@volume.notes</td>
-        <td><a href="@kobe.controllers.routes.RecordController.editVolume(volume.id.get)">Editar</a></td>
+        <td><a href="@kobe.controllers.routes.RecordController.editVolume(volume.id.get)">
+            <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>
+        </td>
     </tr>
     }
     }

@@ -11,19 +11,17 @@
                 </th>
                 <th>Nombre</th>
                 <th>Abreviatura</th>
-                <th>División</th>
-                <th>País</th>
             </tr>
             <tr>
                 <td>
                     @defining(competitionForm("id_season").value) { seasonValue=>
                     <select id="id_season" name="id_season">
                         @for(season <- seasons){
-                            @if(seasonValue != None && season.id.get == seasonValue.get.toLong){
+                        @if(seasonValue != None && season.id.get == seasonValue.get.toLong){
                         <option selected="selected" value="@season.id">@season.year</option>
-                            }else{
+                        }else{
                         <option value="@season.id">@season.year</option>
-                            }
+                        }
                         }
                     </select>
                     }
@@ -38,6 +36,13 @@
                     <input type="text" id="abbreviation" name="abbreviation" value="@abbreviationValue" placeholder="Abreviatura" required>
                     }
                 </td>
+            </tr>
+            <tr>
+                <th>División</th>
+                <th>País</th>
+                <th>Descripción</th>
+            </tr>
+            <tr>
                 <td align="center">
                     @defining(competitionForm("division").value){ divisionValue=>
                     <input type="text" id="division" name="division"  value="@divisionValue">
@@ -56,20 +61,18 @@
                     </select>
                     }
                 </td>
-            </tr>
-            <tr>
-                <th>Descripción</th>
-                <th>Tipo</th>
-                <th>Inicio</th>
-                <th>Fin</th>
-            </tr>
-
-            <tr>
                 <td align="center">
                     @defining(competitionForm("description").value){ descriptionValue=>
                     <input type="text" id="description" name="description"  value="@descriptionValue">
                     }
                 </td>
+            </tr>
+            <tr>
+                <th>Tipo</th>
+                <th>Inicio</th>
+                <th>Fin</th>
+            </tr>
+            <tr>
                 <td align="center">
                     @defining(competitionForm("type").value){ typeValue=>
                     <input type="text" id="type" name="type"  value="@typeValue" required>

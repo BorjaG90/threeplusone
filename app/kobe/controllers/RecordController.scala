@@ -32,6 +32,7 @@ class RecordController @Inject()(val messagesApi: MessagesApi
     home
   }
 
+
   def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
     planService.listSimple flatMap { plans =>
       sessionService.listSimple flatMap { sessions =>
@@ -254,7 +255,50 @@ class RecordController @Inject()(val messagesApi: MessagesApi
       )
     }
   }
+  def saveShotChart(id:Long): Action[AnyContent] = Action.async { implicit request =>
+    sessionService.find(id) flatMap { session =>
+      RecordForm.shotChartForm.bindFromRequest.fold( formWithErrors =>
+        Future.successful(BadRequest(html.addMark(RecordForm.form
+          , Seq.empty[Record]
+          , session
+          , Seq.empty[Unit]
+          , Seq.empty[Plan]
+          , Seq.empty[Serie]
+          , Seq.empty[Exercise]
+          , new SimpleDateFormat("dd/MM/yyyy"))))
+        ,chart => {
+          var count = 0;
+          chart.shots.foreach { data =>
+            var idUnit = 9;
+            if(count%2!=0){
+              idUnit = 10
+            }
+            val newRecord = Record(Some(0L), idUnit, chart.idSerie, data.value, Some(""), "M", Some(new java.util.Date())
+              , new java.util.Date(), Some(new java.util.Date(0))
+            )
+            //if(count<27) {
+            val futureRecordInsert = recordService.add(newRecord)
+            count = count +1
+            /*}else if(count=27){
+              val futureRecordInsert = recordService.add(newRecord)
 
+              futureRecordInsert.map { result =>
+                Redirect(kobe.controllers.routes.RecordController.addMark(id)).flashing("success" -> "La marca ha sido creada")
+              }.recover {
+                case ex: TimeoutException =>
+                  Logger.error("Error guardando una marca")
+                  InternalServerError(ex.getMessage)
+                case ex: NoSuchElementException =>
+                  Logger.error("Error guardando una marca")
+                  InternalServerError(ex.getMessage)
+              }
+            }*/
+          }
+          Future.successful(Redirect(kobe.controllers.routes.RecordController.addMark(id)).flashing("success" -> "La marca ha sido creada"))
+        }
+      )
+    }
+  }
   def delete(id: Option[Long]): Action[AnyContent] = Action.async { implicit request =>
     val futureRecordDel = recordService.delete(id)
     futureRecordDel.map { result => home.flashing("success" -> "Registro eliminado") }.recover {

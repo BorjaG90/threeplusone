@@ -30,8 +30,8 @@ class CompetitionServiceImpl @Inject()(competitionDAO: CompetitionDAO)extends Co
   def listSimple: Future[Seq[Competition]] = {
     competitionDAO.listSimple
   }
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[(Competition,Country,Season)]] ={
-    competitionDAO.list(page,pageSize,orderBy,filter)
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String, sFilter: String):Future[Page[(Competition,Country,Season)]] ={
+    competitionDAO.list(page,pageSize,orderBy,filter,sFilter)
   }
   override def count: Future[Int] = {
     competitionDAO.count

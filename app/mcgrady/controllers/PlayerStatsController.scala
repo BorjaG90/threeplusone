@@ -9,8 +9,8 @@ import play.api.i18n.{MessagesApi, Messages, I18nSupport}
 import java.util.concurrent.TimeoutException
 import java.text.SimpleDateFormat
 import com.google.inject.Inject
-import mcgrady.model.{PlayerStats, PlayerStatsForm, Player, Game,Team}
-import mcgrady.service.{PlayerStatsService, PlayerService, GameService,TeamService}
+import mcgrady.model._
+import mcgrady.service._
 import mcgrady.views._
 
 /**
@@ -21,7 +21,8 @@ class PlayerStatsController @Inject()(val messagesApi: MessagesApi
                                       , playerStatsService: PlayerStatsService
                                       , playerService: PlayerService
                                       , gameService: GameService
-                                     , teamService: TeamService
+                                      , teamService: TeamService
+                                      , inscriptionService: InscriptionService
                                      ) extends Controller with I18nSupport {
 
   val home = Redirect(mcgrady.controllers.routes.PlayerStatsController.list(0, 2, ""))
@@ -41,27 +42,31 @@ class PlayerStatsController @Inject()(val messagesApi: MessagesApi
   }
 
   def add: Action[AnyContent] = Action.async { implicit request =>
-    teamService.listSimple flatMap { teams =>
-      gameService.listSimple flatMap { games =>
-        playerService.listSimple map { players =>
-          Ok(html.createPlayerStats(PlayerStatsForm.form, games
-            , players.sortBy(_.lastName),teams, new SimpleDateFormat("dd/MM/yyyy")))
+    inscriptionService.listSimple flatMap { inscriptions =>
+      teamService.listSimple flatMap { teams =>
+        gameService.listSimple flatMap { games =>
+          playerService.listSimple map { players =>
+            Ok(html.createPlayerStats(PlayerStatsForm.form, games
+              , players.sortBy(_.lastName), teams, inscriptions, new SimpleDateFormat("dd/MM/yyyy")))
+          }
         }
       }
     }
   }
 
   def edit(id: Long): Action[AnyContent] = Action.async { implicit request =>
-    teamService.listSimple flatMap { teams =>
-      gameService.listSimple flatMap { games =>
-        playerService.listSimple flatMap { players =>
-          playerStatsService.find(id).map { playerStats =>
-            Ok(html.editPlayerStats(id, PlayerStatsForm.form.fill(playerStats), games
-              , players.sortBy(_.lastName),teams, new SimpleDateFormat("dd/MM/yyyy")))
-          }.recover {
-            case ex: TimeoutException =>
-              Logger.error("Error editando una Línea")
-              InternalServerError(ex.getMessage)
+    inscriptionService.listSimple flatMap { inscriptions =>
+      teamService.listSimple flatMap { teams =>
+        gameService.listSimple flatMap { games =>
+          playerService.listSimple flatMap { players =>
+            playerStatsService.find(id).map { playerStats =>
+              Ok(html.editPlayerStats(id, PlayerStatsForm.form.fill(playerStats), games
+                , players.sortBy(_.lastName), teams, inscriptions,new SimpleDateFormat("dd/MM/yyyy")))
+            }.recover {
+              case ex: TimeoutException =>
+                Logger.error("Error editando una Línea")
+                InternalServerError(ex.getMessage)
+            }
           }
         }
       }
@@ -73,7 +78,8 @@ class PlayerStatsController @Inject()(val messagesApi: MessagesApi
     implicit request =>
       PlayerStatsForm.form.bindFromRequest.fold(
         formWithErrors => Future.successful(
-          BadRequest(html.editPlayerStats(id, formWithErrors, Seq.empty[Game], Seq.empty[Player],Seq.empty[Team], new SimpleDateFormat("dd/MM/yyyy")))),
+          BadRequest(html.editPlayerStats(id, formWithErrors, Seq.empty[Game], Seq.empty[Player]
+            , Seq.empty[Team], Seq.empty[Inscription], new SimpleDateFormat("dd/MM/yyyy")))),
         data => {
           val newPlayerStats = PlayerStats(Some(0L), data.idGame
             , data.idPlayer
@@ -112,7 +118,8 @@ class PlayerStatsController @Inject()(val messagesApi: MessagesApi
     implicit request =>
       PlayerStatsForm.form.bindFromRequest.fold(
         formWithErrors => Future.successful(
-          BadRequest(html.createPlayerStats(formWithErrors, Seq.empty[Game], Seq.empty[Player], Seq.empty[Team], new SimpleDateFormat("dd/MM/yyyy")))),
+          BadRequest(html.createPlayerStats(formWithErrors, Seq.empty[Game], Seq.empty[Player]
+            , Seq.empty[Team], Seq.empty[Inscription], new SimpleDateFormat("dd/MM/yyyy")))),
         data => {
           val newPlayerStats = PlayerStats(Some(0L), data.idGame
             , data.idPlayer

@@ -112,7 +112,7 @@ svg#shot-chart-svg{
     padding-left: auto;
     padding-right: auto;
     width: 750px;
-    height: 750px;
+    height: 710px;
 }
 mask {
     opacity: 1.0;
@@ -136,12 +136,17 @@ svg path{
     opacity: 0.5;    
     fill-rule: evenodd;
 }
-#shot-chart-form input{
+#shot-chart-form input, #shot-form input{
     font-size: 11px;
     padding: 4px 2px 4px 4px;
     margin-left:6px;
     margin-right:4px;
     width: 20px;
+}
+#shot-form{
+    background-color: #0f2c5b;
+    text-align: center;
+    opacity: 0.95;
 }
 .zone{
     stroke: black;

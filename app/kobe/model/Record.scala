@@ -14,6 +14,8 @@ import java.sql.{ Date => SqlDate }
 case class Record(id: Option[Long], idUnit: Long, idSerie: Long, value: Long, notes: Option[String] = None, typeR: String
                   , exeDate: Option[Date] = Some(new java.util.Date(0)), creationDate: Date, modifiedDate: Option[Date] = Some(new java.util.Date(0))
                 )
+case class ShotChart(idSerie: Long,shots: List[Shot])
+case class Shot(id: Option[Long],value: Long)
 
 class RecordTable(tag:Tag) extends Table[Record](tag, "records") {
   implicit val dateColumnType = MappedColumnType.base[Date, Long](d => d.getTime, d => new Date(d))
@@ -51,5 +53,14 @@ object RecordForm {
       ,"creation_date" -> default(date("yyyy-MM-dd"), new java.util.Date)
       ,"modified_date" -> optional(default(date("yyyy-MM-dd"), new java.util.Date))
     )(Record.apply)(Record.unapply)
+  )
+  val shotChartForm = Form(
+    mapping(
+      "id_serie" -> of[Long]
+      ,"shots" -> list(mapping(
+        "id" -> optional(of[Long])
+        ,"value" -> of[Long]
+      )(Shot.apply)(Shot.unapply))
+    )(ShotChart.apply)(ShotChart.unapply)
   )
 }

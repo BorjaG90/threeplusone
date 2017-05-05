@@ -1,4 +1,4 @@
-@(playerStatsForm: Form[mcgrady.model.PlayerStats], games: Seq[mcgrady.model.Game], players: Seq[mcgrady.model.Player],teams: Seq[mcgrady.model.Team], sf: java.text.SimpleDateFormat)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+@(playerStatsForm: Form[mcgrady.model.PlayerStats], games: Seq[mcgrady.model.Game], players: Seq[mcgrady.model.Player],teams: Seq[mcgrady.model.Team],inscriptions: Seq[mcgrady.model.Inscription], sf: java.text.SimpleDateFormat)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 @import helper._
 @main(Messages("playerStats.title")){
 @request.flash.get(messages("flash.success")).map { msg =>
@@ -41,16 +41,12 @@
                 <td>
                     <select id="id_game" name="id_game">
                         @for(game <- games){
-                        @for(home <- teams){
-                        @if(game.idHome == home.id.get){
-                        @for(away <- teams){
-                        @if(game.idVisitor == away.id.get){
+                        @for(homeI <- inscriptions){@if(game.idHome == homeI.id.get){
+                        @for(awayI <- inscriptions){@if(game.idVisitor == awayI.id.get){
+                        @for(home <- teams){@if(homeI.idTeam == home.id.get){
+                        @for(away <- teams){@if(awayI.idTeam == away.id.get){
                         <option value="@game.id">@sf.format(game.dateGame) - @home.abrv vs @away.abrv</option>
-                        }
-                        }
-                        }
-                        }
-                        }
+                        }}}}}}}}}
                     </select>
                 </td>
                 <td>

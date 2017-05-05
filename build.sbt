@@ -19,6 +19,4 @@ resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 routesGenerator := InjectedRoutesGenerator
 routesImport += "util.Binders._"
 
-fork in run := true
-
-fork in run := true
+fork in run := false

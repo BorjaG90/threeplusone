@@ -1,4 +1,4 @@
-@(currentPage : util.Page[(mcgrady.model.Competition,mcgrady.model.Country,mcgrady.model.Season)], currentOrderBy: Int, currentFilter: String, sf: java.text.SimpleDateFormat)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+@(currentPage : util.Page[(mcgrady.model.Competition,mcgrady.model.Country,mcgrady.model.Season)], currentOrderBy: Int, currentFilter: String, sf: java.text.SimpleDateFormat, currentYear: String, years: Seq[String])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 
 @****************************************
 * Helper generating navigation links *
@@ -23,6 +23,17 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
 <h3>Competiciones</h3>
 <div id="actions">
     @helper.form(action=mcgrady.controllers.routes.CompetitionController.list()) {
+    <select id="year" name="sfil">
+        @if(currentYear == "%"){<option value="" selected></option>}else{<option value=""></option>}
+        @for(year <- years){
+        @if(currentYear != "%" && year == currentYear){
+        <option value=@currentYear selected>@currentYear</option>
+        }else{<option value=@year>@year</option>}
+        }
+    </select>
+    <input type="submit" id="searchsubmit-year" value="Filtrar" class="btn primary">
+    }
+    @helper.form(action=mcgrady.controllers.routes.CompetitionController.list()) {
     <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por nombre de Competicion">
     <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
     } <a class="btn success" id="add" href="@mcgrady.controllers.routes.CompetitionController.add()">
@@ -44,7 +55,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     @for((competition,country,season) <- currentPage.items){
     <tr>
         <td><a class="td_7" href="@mcgrady.controllers.routes.SeasonController.edit(season.id.get)">@season.year</a></td>
-        <td><a class="td_text_large" href="@mcgrady.controllers.routes.CompetitionController.edit(competition.id.get)">@competition.name</a></td>
+        <td>@competition.name</td>
         <td>@competition.abrv</td>
         <td>@competition.division</td>
         <td>@competition.typeCompetition</td>
@@ -53,6 +64,8 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <td>@country.name</td>
         <td>@competition.description</td>
         <td>
+            <a href="@mcgrady.controllers.routes.CompetitionController.edit(competition.id.get)">
+                <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>
             <a href="@mcgrady.controllers.routes.CompetitionController.delete(competition.id)">
                 <img src=@routes.Assets.versioned("images/basura.png") alt="Borrar">
             </a>

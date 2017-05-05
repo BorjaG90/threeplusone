@@ -21,8 +21,6 @@
                 <th>Temporada<a href=@mcgrady.controllers.routes.SeasonController.add() class="btn"><img src=@routes.Assets.versioned("images/mas.png")></a></th>
                 <th>Nombre</th>
                 <th>Abreviatura</th>
-                <th>División</th>
-                <th>País</th>
             </tr>
             <tr>
                 <td>
@@ -38,6 +36,14 @@
                 <td>
                     <input type="text" id="abbreviation" name="abbreviation" value="" placeholder="Abreviatura" required>
                 </td>
+
+            </tr>
+            <tr>
+                <th>División</th>
+                <th>País</th>
+                <th>Descripción</th>
+            </tr>
+            <tr>
                 <td align="center">
                     <input type="text" id="division" name="division" value="" placeholder="División">
                 </td>
@@ -48,18 +54,16 @@
                         }
                     </select>
                 </td>
+                <td align="center">
+                    <input type="text" id="description" name="description" value="" placeholder="Descripción">
+                </td>
             </tr>
             <tr>
-                <th>Descripción</th>
                 <th>Tipo</th>
                 <th>Inicio</th>
                 <th>Fin</th>
             </tr>
-
             <tr>
-                <td align="center">
-                    <input type="text" id="description" name="description" value="" placeholder="Descripción">
-                </td>
                 <td align="center">
                     <input type="text" id="type" name="type" value="" placeholder="Tipo" required>
                 </td>

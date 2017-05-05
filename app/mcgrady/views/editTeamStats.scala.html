@@ -31,19 +31,13 @@
                     @defining(teamStatsForm("id_game").value){ gameValue=>
                     @for(game <- games){
                     @if(gameValue.get != None && gameValue.get.toLong == game.id.get){
-                        @for(home <- teams){
-                        @if(game.idHome == home.id.get){
-                        @for(away <- teams){
-                        @if(game.idVisitor == away.id.get){
-                        @sf.format(game.dateGame) <br>
-                        @home.abrv vs @away.abrv
-                        }
-                        }
-                        }
-                        }
-                    }
-                    }
-                    }
+                    @for(homeI <- inscriptions){@if(game.idHome == homeI.id.get){
+                    @for(awayI <- inscriptions){@if(game.idVisitor == awayI.id.get){
+                    @for(home <- teams){@if(homeI.idTeam == home.id.get){
+                    @for(away <- teams){@if(awayI.idTeam == away.id.get){
+                    @sf.format(game.dateGame) <br>
+                    @home.abrv vs @away.abrv
+                    }}}}}}}}}}}
                 </td>
                 <td>
                     @defining(teamStatsForm("id_inscription").value) { inscriptionValue=>
