@@ -197,6 +197,6 @@ GET     /volume/:id                   kobe.controllers.RecordController.editVolu
 POST    /volume/:id                     kobe.controllers.RecordController.updateVolume(id: Long)
 GET     /mark/new/:idSession                   kobe.controllers.RecordController.addMark(idSession: Long)
 POST    /mark/new/:idSession                   kobe.controllers.RecordController.saveMark(idSession: Long)
-POST    /mark/new/-:idSession                   kobe.controllers.RecordController.saveShotChart(idSession: Long)
+POST    /mark/new/:idSession/_                   kobe.controllers.RecordController.saveShotChart(idSession: Long)
 GET     /mark/:id                   kobe.controllers.RecordController.editMark(id: Long)
 POST    /mark/:id                     kobe.controllers.RecordController.updateMark(id: Long)

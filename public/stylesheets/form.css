@@ -136,7 +136,14 @@ svg path{
     opacity: 0.5;    
     fill-rule: evenodd;
 }
-#shot-chart-form input, #shot-form input{
+#shot-chart-form input{
+    font-size: 11px;
+    padding: 4px 2px 4px 4px;
+    margin-left:6px;
+    margin-right:4px;
+    width: 20px;
+}
+#shot-form input{
     font-size: 11px;
     padding: 4px 2px 4px 4px;
     margin-left:6px;
@@ -146,7 +153,9 @@ svg path{
 #shot-form{
     background-color: #0f2c5b;
     text-align: center;
+    color: white;
     opacity: 0.95;
+    text-opacity:1;
 }
 .zone{
     stroke: black;
@@ -211,112 +220,112 @@ svg path{
     width: 15px;
     height: 15px;
 }
-#high-post-left-fgm{
+#low-post-left-fgm{
     position:absolute;
     left: 180px;
     top: 180px;
     width: 15px;
     height: 15px;
 }
-#high-post-left-fga{
+#low-post-left-fga{
     position:absolute;
     left: 230px;
     top: 180px;
     width: 15px;
     height: 15px;
 }
-#high-post-right-fgm{
+#low-post-right-fgm{
     position:absolute;
     left: 475px;
     top: 180px;
     width: 15px;
     height: 15px;
 }
-#high-post-right-fga{
+#low-post-right-fga{
     position:absolute;
     left: 525px;
     top: 180px;
     width: 15px;
     height: 15px;
 }
-#high-post-center-fgm{
+#low-post-fgm{
     position:absolute;
     left: 330px;
     top: 235px;
     width: 15px;
     height: 15px;
 }
-#high-post-center-fga{
+#low-post-fga{
     position:absolute;
     left: 380px;
     top: 235px;
     width: 15px;
     height: 15px;
 }
-#low-post-left-fgm{
+#left-fgm{
     position:absolute;
     left: 60px;
     top: 135px;
     width: 15px;
     height: 15px;
 }
-#low-post-left-fga{
+#left-fga{
     position:absolute;
     left: 110px;
     top: 135px;
     width: 15px;
     height: 15px;
 }
-#low-post-center-fgm{
+#high-post-fgm{
     position:absolute;
     left: 330px;
     top: 380px;
     width: 15px;
     height: 15px;
 }
-#low-post-center-fga{
+#high-post-fga{
     position:absolute;
     left: 380px;
     top: 380px;
     width: 15px;
     height: 15px;
 }
-#low-post-center-left-fgm{
+#high-post-left-fgm{
     position:absolute;
     left: 160px;
     top: 300px;
     width: 15px;
     height: 15px;
 }
-#low-post-center-left-fga{
+#high-post-left-fga{
     position:absolute;
     left: 200px;
     top: 300px;
     width: 15px;
     height: 15px;
 }
-#low-post-center-right-fgm{
+#high-post-right-fgm{
     position:absolute;
     left: 500px;
     top: 300px;
     width: 15px;
     height: 15px;
 }
-#low-post-center-right-fga{
+#high-post-right-fga{
     position:absolute;
     left: 540px;
     top: 300px;
     width: 15px;
     height: 15px;
 }
-#low-post-right-fgm{
+#right-fgm{
     position:absolute;
     left: 600px;
     top: 135px;
     width: 15px;
     height: 15px;
 }
-#low-post-right-fga{
+#right-fga{
     position:absolute;
     left: 650px;
     top: 135px;

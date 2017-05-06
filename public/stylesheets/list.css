@@ -67,6 +67,17 @@ button.btn-add:hover{
     color:white;
     transition: background-color 0.2s, border 0.2s;
 }
+button.btn-cancel{
+	background-color: red;
+	color:black;
+	align:center;
+}
+button.btn-cancel:hover{
+    background-color:#5065c4;
+    border-color:#5065c4;
+    color:white;
+    transition: background-color 0.2s, border 0.2s;
+}
 
 i{
     border: solid white;

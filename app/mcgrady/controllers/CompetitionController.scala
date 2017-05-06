@@ -34,9 +34,7 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi,
     competitionService.list(page, 10, orderBy, "%" + filter + "%","%" + yFilter + "%").flatMap { pageEmp =>
         seasonService.listSimple map { seasons =>
           val allYears = new ArrayBuffer[String]()
-          for (season <- seasons) {
-              allYears += season.year
-          }
+          for (season <- seasons) {allYears += season.year}
           val years = collection.Seq[String](allYears: _*)
           Ok(html.listCompetition(pageEmp, orderBy, filter, new SimpleDateFormat("dd/MM/yyyy"), yFilter, years))
         }

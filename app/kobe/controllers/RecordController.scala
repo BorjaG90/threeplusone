@@ -273,7 +273,7 @@ class RecordController @Inject()(val messagesApi: MessagesApi
             if(count%2!=0){
               idUnit = 10
             }
-            val newRecord = Record(Some(0L), idUnit, chart.idSerie, data.value, Some(""), "M", Some(new java.util.Date())
+            val newRecord = Record(Some(0L), idUnit, chart.idSerie, data.value, data.notes, "M", Some(new java.util.Date())
               , new java.util.Date(), Some(new java.util.Date(0))
             )
             //if(count<27) {
