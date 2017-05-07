@@ -11,30 +11,100 @@
     <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
 </div>
 }
-<div id="shot-chart" class="shot-chart" style="display:none; background-image: url(@routes.Assets.versioned("images/ShotChart3.gif"))">
-    <svg id="shot-chart-svg" width="500" height="900">
-        <defs>
-            <mask id="hole">
-                <rect x="48" width="100%" height="100%" fill="white"></rect>
-                <circle cx="375" cy="100" r="122" fill="black"></circle>
-            </mask>
-        </defs>
-        <polygon id="left-wing" class="triple" points="3,215 50,215 50,3 3,3"></polygon>
-        <polygon id="right-wing" class="triple" points="700,3 745,3 745,215 700,215"></polygon>
-        <circle id="rim" class="zone" cx="375" cy="100" r="122"></circle>
-        <path id="low-post-left" class="zone" d="M 295 5 q -85 105 0 185 L 215 275 L 215 275 q -97 -135 -5 -270 L 295 5 Z"></path>
-        <path id="low-post-right" class="zone" d="M 455 5 q 85 105 0 185 L 535 275 L 535 275 q 97 -135 5 -270 L 455 5 Z"></path>
-        <path id="low-post" class="zone" d="M 535 275 q -165 155 -320 0 L 295 190 q 78 68 160 0 Z"></path>
-        <path id="high-post" class="inside" d="M 505 410 q -135 50 -260 0 L 295 335 q 78 33 160 -2 Z"></path>
-        <path id="high-post-left" class="inside" d="M 245 410 q -105 -50 -135 -100 L 190 240 q 30 60 105 95 Z"></path>
-        <path id="high-post-right" class="inside" d="M 505 410 q 105 -50 138 -103 L 560 240 q -30 60 -102 92 Z"></path>
-        <path id="left" class="inside" d="M 190 238 q -60 -120 20 -235 L 50 3 L 50 215 q 5 30 60 95 Z"></path>
-        <path id="right" class="inside" d="M 560 238 q 60 -120 -20 -235 L 700 3 L 700 215 q -5 30 -57 92 Z"></path>
-        <path id="triple-right" class="triple" d="M 700 215 L 745 215 L 745 700 L 540 700 L 475 420 q 175 -55 225 -205 Z"></path>
-        <path id="triple-left" class="triple" d="M 5 215 L 5 700 L 215 700 L 275 420 q -175 -55 -225 -205 L 5 215 Z"></path>
-        <path id="triple-center" class="triple" d="M 275 420 L 215 700 L 540 700 L 475 420 q -100 35 -200 0 Z"></path>
-    </svg>
-    <div id="shot-chart-div-form">
+<div id="content">
+    @for(plan <- plans){
+    @if(session.idPlan == plan.id.get){
+    <h1>Plan: <b>@plan.name</b></h1>
+    <h2>Sesión: <b>@session.name</b></h2>
+    @for(serie <- series){ @if(serie.idSession == session.id.get){
+    @for(exercise <- exercises){ @if(serie.idExercise == exercise.id.get){
+    <h3>Serie: <b>@serie.id-@exercise.name</b></h3>
+    <table>
+        <tr>
+            <th>Valor</th>
+            <th>Ejecución</th>
+            <th>Notas</th>
+            <th></th>
+        </tr>
+        @for(mark <- records){ @if(mark.idSerie == serie.id.get && mark.typeR.toString == "M"){
+        <tr>
+            <td>@mark.value
+                @for(unit <- units){ @if(unit.id.get == mark.idUnit){
+                @unit.name</td>
+            }}
+            @if(mark.exeDate.get != None){
+            <td>@sf.format(mark.exeDate.get)</td>
+            }else{<td></td>}
+            <td>@mark.notes</td>
+            <td><a href="@kobe.controllers.routes.RecordController.editMark(mark.id.get)">
+                <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>
+            </td>
+        </tr>
+        }}
+    </table>
+    <div class="tab" align="center">
+        <button class="tablinks" onclick="openForm(event, 'General')">General</button>
+        <button class="tablinks" onclick="openForm(event, 'shot-chart')">Lanzamientos</button>
+    </div>
+    <div id="General" class="tabcontent">
+        <form id="@plan.name-@session.name-@serie.id-data-form" role="form" action=@kobe.controllers.routes.RecordController.saveMark(session.id.get) method="post" autocomplete="off">
+            <fieldset >
+                <label>Nueva Marca</label>
+                <br/>
+                <table>
+                    <tr>
+                        <th>Valor</th>
+                        <th>Unidad</th>
+                        <th>Ejecución</th>
+                        <th>Notas</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" id="value" name="value" value="" placeholder="Valor"></td>
+                        <td>
+                            <select id="id_unit" name="id_unit">
+                                @for(unit <- units){ <option value="@unit.id">@unit.name</option> }
+                            </select>
+                        </td>
+                        <td align="center">
+                            <input type="date" id="execution_date" name="execution_date" value="2017-06-30">
+                        </td>
+                        <td><input type="text" id="notes" name="notes" value="" placeholder="Notas"></td>
+                        <td>
+                            <input type="hidden" id="id_serie" name="id_serie" value="@serie.id">
+                            <input type="hidden" id="type" name="type" value="M">
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+                <div class="form-actions controls ynt-btn-xlarge">
+                    <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div id="shot-chart" class="tabcontent"style="display:none;background-image: url(@routes.Assets.versioned("images/ShotChart3.gif"))">
+        <svg id="shot-chart-svg" width="500" height="900">
+            <defs>
+                <mask id="hole">
+                    <rect x="48" width="100%" height="100%" fill="white"></rect>
+                    <circle cx="375" cy="100" r="122" fill="black"></circle>
+                </mask>
+            </defs>
+            <polygon id="left-wing" class="triple" points="3,215 50,215 50,3 3,3"></polygon>
+            <polygon id="right-wing" class="triple" points="700,3 745,3 745,215 700,215"></polygon>
+            <circle id="rim" class="zone" cx="375" cy="100" r="122"></circle>
+            <path id="low-post-left" class="zone" d="M 295 5 q -85 105 0 185 L 215 275 L 215 275 q -97 -135 -5 -270 L 295 5 Z"></path>
+            <path id="low-post-right" class="zone" d="M 455 5 q 85 105 0 185 L 535 275 L 535 275 q 97 -135 5 -270 L 455 5 Z"></path>
+            <path id="low-post" class="zone" d="M 535 275 q -165 155 -320 0 L 295 190 q 78 68 160 0 Z"></path>
+            <path id="high-post" class="inside" d="M 505 410 q -135 50 -260 0 L 295 335 q 78 33 160 -2 Z"></path>
+            <path id="high-post-left" class="inside" d="M 245 410 q -105 -50 -135 -100 L 190 240 q 30 60 105 95 Z"></path>
+            <path id="high-post-right" class="inside" d="M 505 410 q 105 -50 138 -103 L 560 240 q -30 60 -102 92 Z"></path>
+            <path id="left" class="inside" d="M 190 238 q -60 -120 20 -235 L 50 3 L 50 215 q 5 30 60 95 Z"></path>
+            <path id="right" class="inside" d="M 560 238 q 60 -120 -20 -235 L 700 3 L 700 215 q -5 30 -57 92 Z"></path>
+            <path id="triple-right" class="triple" d="M 700 215 L 745 215 L 745 700 L 540 700 L 475 420 q 175 -55 225 -205 Z"></path>
+            <path id="triple-left" class="triple" d="M 5 215 L 5 700 L 215 700 L 275 420 q -175 -55 -225 -205 L 5 215 Z"></path>
+            <path id="triple-center" class="triple" d="M 275 420 L 215 700 L 540 700 L 475 420 q -100 35 -200 0 Z"></path>
+        </svg>
         <form id="shot-chart-form">
             <input id="left-wing-fgm" type="text" value="" onchange="calculatePercentage('left-wing-fgm','left-wing-fga',30,43,'left-wing')">
             <input id="left-wing-fga" type="text" value="" onchange="calculatePercentage('left-wing-fgm','left-wing-fga',30,43,'left-wing')">
@@ -140,79 +210,7 @@
             <br>
             <button type="submit" class="btn btn-primary ynt-btn-orange">
                 <img src=@routes.Assets.versioned("images/guardarBlanco.png") alt="Guardar"></button>
-
+            <button type="button" onclick="mostrar(@serie.id)">Mostrar</button>}}}}}}
         </form>
-        <button style="margin-left:340px" class="btn-cancel" onclick="ocultar()">Cancelar</button>
     </div>
-</div>
-<div id="content">
-@for(plan <- plans){
-@if(session.idPlan == plan.id.get){
-<h1>Plan: <b>@plan.name</b></h1>
-<h2>Sesión: <b>@session.name</b></h2>
-@for(serie <- series){ @if(serie.idSession == session.id.get){
-@for(exercise <- exercises){ @if(serie.idExercise == exercise.id.get){
-<h3>Serie: <b>@serie.id-@exercise.name</b></h3>
-<table>
-    <tr>
-        <th>Valor</th>
-        <th>Ejecución</th>
-        <th>Notas</th>
-        <th></th>
-    </tr>
-    @for(mark <- records){ @if(mark.idSerie == serie.id.get && mark.typeR.toString == "M"){
-    <tr>
-        <td>@mark.value
-            @for(unit <- units){ @if(unit.id.get == mark.idUnit){
-            @unit.name</td>
-        }}
-        @if(mark.exeDate.get != None){
-        <td>@sf.format(mark.exeDate.get)</td>
-        }else{<td></td>}
-        <td>@mark.notes</td>
-        <td><a href="@kobe.controllers.routes.RecordController.editMark(mark.id.get)">
-            <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>
-        </td>
-    </tr>
-    }}
-</table>
-<form id="@plan.name-@session.name-@serie.id-data-form" role="form" action=@kobe.controllers.routes.RecordController.saveMark(session.id.get) method="post" autocomplete="off">
-    <fieldset >
-        <label>Nueva Marca</label>
-        <br/>
-        <table>
-            <tr>
-                <th>Valor</th>
-                <th>Unidad</th>
-                <th>Ejecución</th>
-                <th>Notas</th>
-            </tr>
-            <tr>
-                <td>
-                    <input type="text" id="value" name="value" value="" placeholder="Valor">
-                </td>
-                <td>
-                    <select id="id_unit" name="id_unit">
-                        @for(unit <- units){ <option value="@unit.id">@unit.name</option> }
-                    </select>
-                </td>
-                <td align="center">
-                    <input type="date" id="execution_date" name="execution_date" value="2017-06-30">
-                </td>
-                <td>
-                    <input type="text" id="notes" name="notes" value="" placeholder="Notas">
-                </td>
-                <td>
-                    <input type="hidden" id="id_serie" name="id_serie" value="@serie.id">
-                    <input type="hidden" id="type" name="type" value="M">
-                </td>
-            </tr>
-        </table>
-        <br/>
-        <div class="form-actions controls ynt-btn-xlarge">
-            <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button>
-        </div>
-    </fieldset>
-</form>
-<input type="button" value="Mostrar" onclick="mostrar(@serie.id)">}}}}}}
 </div>}

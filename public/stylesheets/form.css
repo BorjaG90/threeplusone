@@ -104,8 +104,8 @@ div#shot-chart{
     position: relative;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: -750px;
-    top: -150px;
+    /*margin-bottom: -750px;
+    top: -750px;*/
     width: 750px;
 }
 svg#shot-chart-svg{
