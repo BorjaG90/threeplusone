@@ -73,6 +73,20 @@ class InscriptionDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfi
     result flatMap (objects => totalRows map (rows => Page(objects, page, offset, rows)))
   }
 
+  override def listFilterCompetition(filter: Long): Future[Seq[Inscription]] = {
+    val query =
+      (for {
+        ((((((inscription,team),subgroup),arena),group),competition),season) <- (((((inscriptions join teams on (_.idTeam === _.id)
+          ) join subgroups on (_._1.idSubGroup === _.id)
+          ) join arenas on (_._1._1.idArena === _.id)
+          ) join groups on (_._1._2.idGroup === _.id)
+          ) join competitions on (_._2.idCompetition === _.id)
+          ) join seasons on (_._2.id_season === _.id)
+        if (competition.id === filter) || (filter == 0)
+      } yield inscription)
+   db.run(query.result)
+  }
+
   /*private def count(filter: String): Future[Int] = {
     db.run(inscriptions.filter(_.id === filter.toLong).length.result)
   }*/

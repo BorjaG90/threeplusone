@@ -89,7 +89,7 @@ GET     /inscription/delete/:id                 mcgrady.controllers.InscriptionC
 #Game
 GET     /game                       mcgrady.controllers.GameController.index
 GET     /games                        mcgrady.controllers.GameController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
-GET     /game/new                   mcgrady.controllers.GameController.add
+GET     /game/new                   mcgrady.controllers.GameController.add(id:Long)
 POST    /games                       mcgrady.controllers.GameController.save
 GET     /game/:id                   mcgrady.controllers.GameController.edit(id: Long)
 POST    /game/:id                     mcgrady.controllers.GameController.update(id: Long)

@@ -17,6 +17,7 @@ trait InscriptionDAO {
   def delete(id: Option[Long]):Future[Int]
   def listSimple:Future[Seq[Inscription]]
   def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page[(Inscription,Team,SubGroup,Arena,String,String,String)]]
+  def listFilterCompetition(filter: Long): Future[Seq[Inscription]]
   def findById(id: Long): Future[Inscription]
   def get(id: Long): Future[Option[Inscription]]
   def count: Future[Int]

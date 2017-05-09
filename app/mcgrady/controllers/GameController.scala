@@ -5,12 +5,13 @@ import scala.concurrent.ExecutionContext.Implicits._
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api._
 import play.api.mvc._
-import play.api.i18n.{MessagesApi, Messages, I18nSupport}
+import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import java.util.concurrent.TimeoutException
 import java.text.SimpleDateFormat
+
 import com.google.inject.Inject
-import mcgrady.model.{Game, GameForm, Player, Inscription, Arena,Team}
-import mcgrady.service.{GameService, PlayerService, InscriptionService, ArenaService,TeamService}
+import mcgrady.model._
+import mcgrady.service._
 import mcgrady.views._
 
 /**
@@ -23,6 +24,8 @@ class GameController @Inject()(val messagesApi: MessagesApi
                                , inscriptionService: InscriptionService
                                , arenaService: ArenaService
                                , teamService: TeamService
+                              , competitionService: CompetitionService
+                              , seasonService: SeasonService
                               ) extends Controller with I18nSupport {
 
   val home = Redirect(mcgrady.controllers.routes.GameController.list(0, 2, ""))
@@ -41,13 +44,17 @@ class GameController @Inject()(val messagesApi: MessagesApi
     }
   }
 
-  def add: Action[AnyContent] = Action.async { implicit request =>
-    teamService.listSimple flatMap { teams =>
-      arenaService.listSimple flatMap { arenas =>
-        inscriptionService.listSimple flatMap { inscriptions =>
-          playerService.listSimple map { players =>
-            Ok(html.createGame(GameForm.form, players.sortBy(_.lastName)
-              , inscriptions, arenas.sortBy(_.name), teams.sortBy(_.name)))
+  def add(id:Long): Action[AnyContent] = Action.async { implicit request =>
+    seasonService.listSimple flatMap { seasons =>
+      competitionService.listSimple flatMap { competitions =>
+        teamService.listSimple flatMap { teams =>
+          arenaService.listSimple flatMap { arenas =>
+            inscriptionService.listFilterCompetition(id) flatMap { inscriptions =>
+              playerService.listSimple map { players =>
+                Ok(html.createGame(GameForm.form, players.sortBy(_.lastName)
+                  , inscriptions, arenas.sortBy(_.name), teams.sortBy(_.name), id, competitions, seasons))
+              }
+            }
           }
         }
       }
@@ -76,7 +83,8 @@ class GameController @Inject()(val messagesApi: MessagesApi
   def update(id: Long): Action[AnyContent] = Action.async { implicit request =>
     GameForm.form.bindFromRequest.fold(
       formWithErrors => Future.successful(
-        BadRequest(html.editGame(id, formWithErrors, Seq.empty[Player], Seq.empty[Inscription], Seq.empty[Arena], Seq.empty[Team]))),
+        BadRequest(html.editGame(id, formWithErrors, Seq.empty[Player], Seq.empty[Inscription]
+          , Seq.empty[Arena], Seq.empty[Team]))),
       data => {
         gameService.find(id).flatMap { oldGame =>
           val newGame = Game(Some(0L), data.idHome, data.idVisitor, data.dateGame
@@ -99,7 +107,8 @@ class GameController @Inject()(val messagesApi: MessagesApi
   def save: Action[AnyContent] = Action.async { implicit request =>
     GameForm.form.bindFromRequest.fold(
       formWithErrors => Future.successful(
-        BadRequest(html.createGame(formWithErrors, Seq.empty[Player], Seq.empty[Inscription], Seq.empty[Arena], Seq.empty[Team]))),
+        BadRequest(html.createGame(formWithErrors, Seq.empty[Player], Seq.empty[Inscription]
+          , Seq.empty[Arena], Seq.empty[Team], 0, Seq.empty[Competition], Seq.empty[Season]))),
       data => {
         val newGame = Game(Some(0L), data.idHome, data.idVisitor, data.dateGame
           , data.idArena, data.winner, data.mvp, data.description

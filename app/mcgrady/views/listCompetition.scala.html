@@ -51,15 +51,15 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     </tr>
     @for((competition,country,season) <- currentPage.items){
     <tr>
-        <td><a class="td_7" href="@mcgrady.controllers.routes.SeasonController.edit(season.id.get)">@season.year</a></td>
-        <td>@competition.name</td>
-        <td>@competition.abrv</td>
-        <td>@competition.division</td>
-        <td>@competition.typeCompetition</td>
+        @if(season.year != None){<td><a class="td_7" href="@mcgrady.controllers.routes.SeasonController.edit(season.id.get)">@season.year</a></td>}else{<td></td>}
+        @if(competition.name != None){<td>@competition.name</td>}else{<td></td>}
+        @if(competition.abrv != None){<td>@competition.abrv</td>}else{<td></td>}
+        @if(competition.division != None){<td>@competition.division</td>}else{<td></td>}
+        @if(competition.typeCompetition != None){<td>@competition.typeCompetition</td>}else{<td></td>}
         @if(competition.initDate != None){<td>@sf.format(competition.initDate.get)</td>}else{<td></td>}
         @if(competition.endDate != None){<td>@sf.format(competition.endDate.get)</td>}else{<td></td>}
-        <td>@country.name</td>
-        <td>@competition.description</td>
+        @if(country.name != None){<td>@country.name</td>}else{<td></td>}
+        @if(competition.description != None){<td>@competition.description</td>}else{<td></td>}
         <td>
             <a href="@mcgrady.controllers.routes.CompetitionController.edit(competition.id.get)">
                 <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>

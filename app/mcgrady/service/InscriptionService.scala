@@ -17,6 +17,7 @@ trait InscriptionService {
   def delete(id: Option[Long]): Future[Int]
   def listSimple: Future[Seq[Inscription]]
   def list(page: Int, pageSize:Int, orderBy: Int, filter: String):Future[Page[(Inscription, Team, SubGroup, Arena,String,String,String)]]
+  def listFilterCompetition(filter: Long): Future[Seq[Inscription]]
   def count: Future[Int]
   def find(id: Long): Future[Inscription]
   def get(id: Long): Future[Option[Inscription]]

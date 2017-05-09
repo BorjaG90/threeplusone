@@ -25,7 +25,8 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     @helper.form(action=mcgrady.controllers.routes.GameController.list()) {
     <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por Equipo">
     <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
-    } <a class="btn success" id="add" href="@mcgrady.controllers.routes.GameController.add()">
+    }<input type="hidden" name="id" value="1">
+    <a class="btn success" id="add" href="@mcgrady.controllers.routes.GameController.add(1)">
     <button type="submit" class="btn-add">Nuevo</button></a>
 </div>
 <table class="table table-striped">
