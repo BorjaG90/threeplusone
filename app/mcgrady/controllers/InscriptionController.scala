@@ -33,12 +33,16 @@ class InscriptionController @Inject()(val messagesApi: MessagesApi
   }
 
   def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
-    inscriptionService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
-      Ok(html.listInscription(pageEmp, orderBy, filter))
-    }.recover {
-      case ex: TimeoutException =>
-        Logger.error("Error listando inscripciones")
-        InternalServerError(ex.getMessage)
+    subGroupService.listSimple flatMap { subgroups =>
+      groupService.listSimple flatMap { groups =>
+        inscriptionService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
+          Ok(html.listInscription(pageEmp, orderBy, filter, groups, subgroups))
+        }.recover {
+          case ex: TimeoutException =>
+            Logger.error("Error listando inscripciones")
+            InternalServerError(ex.getMessage)
+        }
+      }
     }
   }
 
@@ -94,8 +98,8 @@ class InscriptionController @Inject()(val messagesApi: MessagesApi
       ))),
       data => {
         inscriptionService.find(id).flatMap { oldInscription =>
-          val newInscription = Inscription(Some(0L), data.idTeam, data.idSubGroup, data.idArena
-            , oldInscription.creationDate, Some(new java.util.Date())
+          val newInscription = Inscription(Some(0L), data.idTeam, data.idCompetition,data.idGroup,data.idSubGroup
+            , data.idArena, oldInscription.creationDate, Some(new java.util.Date())
           )
           val futureInscriptionUpdate = inscriptionService.update(id, newInscription.copy(id = Some(id)))
           futureInscriptionUpdate.map { result =>
@@ -117,12 +121,12 @@ class InscriptionController @Inject()(val messagesApi: MessagesApi
         , Seq.empty[Group], Seq.empty[Competition], Seq.empty[Season]
       ))),
       data => {
-        val newInscription = Inscription(Some(0L), data.idTeam, data.idSubGroup, data.idArena
-          , new java.util.Date(), Some(new java.util.Date(0))
+        val newInscription = Inscription(Some(0L), data.idTeam, data.idCompetition,data.idGroup,data.idSubGroup
+          , data.idArena, new java.util.Date(), Some(new java.util.Date(0))
         )
         val futureInscriptionInsert = inscriptionService.add(newInscription)
         futureInscriptionInsert.map { result =>
-          home.flashing("success" -> "La inscripción ha sido creado")
+          home.flashing("success" -> "La inscripción ha sido creada")
         }.recover {
           case ex: TimeoutException =>
             Logger.error("Error guardando una inscripción")

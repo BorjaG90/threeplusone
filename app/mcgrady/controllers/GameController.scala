@@ -61,18 +61,22 @@ class GameController @Inject()(val messagesApi: MessagesApi
     }
   }
 
-  def edit(id: Long): Action[AnyContent] = Action.async { implicit request =>
-    teamService.listSimple flatMap { teams =>
-      arenaService.listSimple flatMap { arenas =>
-        inscriptionService.listSimple flatMap { inscriptions =>
-          playerService.listSimple flatMap { players =>
-            gameService.find(id).map { game =>
-              Ok(html.editGame(id, GameForm.form.fill(game), players.sortBy(_.lastName)
-                , inscriptions, arenas.sortBy(_.name), teams.sortBy(_.name)))
-            }.recover {
-              case ex: TimeoutException =>
-                Logger.error("Error editando un partido")
-                InternalServerError(ex.getMessage)
+  def edit(id: Long, idComp: Long): Action[AnyContent] = Action.async { implicit request =>
+    seasonService.listSimple flatMap { seasons =>
+      competitionService.listSimple flatMap { competitions =>
+        teamService.listSimple flatMap { teams =>
+          arenaService.listSimple flatMap { arenas =>
+            inscriptionService.listFilterCompetition(idComp) flatMap { inscriptions =>
+              playerService.listSimple flatMap { players =>
+                gameService.find(id).map { game =>
+                  Ok(html.editGame(id, GameForm.form.fill(game), players.sortBy(_.lastName)
+                    , inscriptions, arenas.sortBy(_.name), teams.sortBy(_.name), idComp, competitions, seasons))
+                }.recover {
+                  case ex: TimeoutException =>
+                    Logger.error("Error editando un partido")
+                    InternalServerError(ex.getMessage)
+                }
+              }
             }
           }
         }
@@ -84,7 +88,7 @@ class GameController @Inject()(val messagesApi: MessagesApi
     GameForm.form.bindFromRequest.fold(
       formWithErrors => Future.successful(
         BadRequest(html.editGame(id, formWithErrors, Seq.empty[Player], Seq.empty[Inscription]
-          , Seq.empty[Arena], Seq.empty[Team]))),
+          , Seq.empty[Arena], Seq.empty[Team], 0, Seq.empty[Competition], Seq.empty[Season]))),
       data => {
         gameService.find(id).flatMap { oldGame =>
           val newGame = Game(Some(0L), data.idHome, data.idVisitor, data.dateGame

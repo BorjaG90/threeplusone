@@ -67,7 +67,8 @@ class ContractController @Inject()(val messagesApi: MessagesApi
         BadRequest(html.editContract(id, formWithErrors, Seq.empty[Player], Seq.empty[Team]))),
       data => {
         contractService.find(id).flatMap { oldContract =>
-          val newContract = Contract(Some(0L), data.idPlayer, data.idTeam, data.initDate, data.endDate, data.description
+          val newContract = Contract(Some(0L), data.idPlayer, data.idTeam, data.number
+            , data.initDate, data.endDate, data.description
             , oldContract.creationDate, Some(new java.util.Date())
           )
           val futureContractUpdate = contractService.update(id, newContract.copy(id = Some(id)))
@@ -88,7 +89,8 @@ class ContractController @Inject()(val messagesApi: MessagesApi
       formWithErrors => Future.successful(
         BadRequest(html.createContract(formWithErrors, Seq.empty[Player],Seq.empty[Team]))),
       data => {
-        val newContract = Contract(Some(0L), data.idPlayer, data.idTeam, data.initDate, data.endDate, data.description
+        val newContract = Contract(Some(0L), data.idPlayer, data.idTeam, data.number
+          , data.initDate, data.endDate, data.description
           , new java.util.Date(), Some(new java.util.Date(0))
         )
         val futureContractInsert = contractService.add(newContract)

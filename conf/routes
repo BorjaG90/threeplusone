@@ -91,7 +91,7 @@ GET     /game                       mcgrady.controllers.GameController.index
 GET     /games                        mcgrady.controllers.GameController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
 GET     /game/new                   mcgrady.controllers.GameController.add(id:Long)
 POST    /games                       mcgrady.controllers.GameController.save
-GET     /game/:id                   mcgrady.controllers.GameController.edit(id: Long)
+GET     /game/:id                   mcgrady.controllers.GameController.edit(id: Long, idComp: Long)
 POST    /game/:id                     mcgrady.controllers.GameController.update(id: Long)
 GET     /game/delete/:id                 mcgrady.controllers.GameController.delete(id: Option[Long])
 

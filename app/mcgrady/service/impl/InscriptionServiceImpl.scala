@@ -5,7 +5,7 @@ import javax.inject.Inject
 import com.google.inject.Singleton
 import util.Page
 import mcgrady.dao.InscriptionDAO
-import mcgrady.model.{Inscription, Team, SubGroup, Arena}
+import mcgrady.model._
 import mcgrady.service.InscriptionService
 
 /**
@@ -29,7 +29,7 @@ class InscriptionServiceImpl @Inject()(inscriptionDAO: InscriptionDAO)extends In
   def listSimple: Future[Seq[Inscription]] = {
     inscriptionDAO.listSimple
   }
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[(Inscription,Team, SubGroup, Arena,String,String,String)]] ={
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[(Inscription,Team, Arena,Competition,Season)]] ={
     inscriptionDAO.list(page,pageSize,orderBy,filter)
   }
   override def listFilterCompetition(filter: Long): Future[Seq[Inscription]]={

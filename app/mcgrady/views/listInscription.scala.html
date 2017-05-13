@@ -1,4 +1,4 @@
-@(currentPage : util.Page[(mcgrady.model.Inscription,mcgrady.model.Team,mcgrady.model.SubGroup,mcgrady.model.Arena,String,String,String)], currentOrderBy: Int, currentFilter: String)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+@(currentPage : util.Page[(mcgrady.model.Inscription,mcgrady.model.Team,mcgrady.model.Arena,mcgrady.model.Competition,mcgrady.model.Season)], currentOrderBy: Int, currentFilter: String, groups: Seq[mcgrady.model.Group],subgroups: Seq[mcgrady.model.SubGroup])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 
 @****************************************
 * Helper generating navigation links *
@@ -30,14 +30,27 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
 </div>
 <table class="table table-striped">
     <tr>
+        <th>Temporada</th>
         <th>Asignación</th>
         <th>Equipo</th>
         <th>Arena</th>
         <th></th>
     </tr>
-    @for((inscription, team, subgroup, arena, group, competition, season) <- currentPage.items){
+    @for((inscription, team, arena, competition, season) <- currentPage.items){
     <tr>
-        <td>@season-@competition/@group-<a href="@mcgrady.controllers.routes.SubGroupController.edit(subgroup.id.get)">@subgroup.name</a></td>
+        @if(season.id.get == None){
+        <td></td>}else{<td>@season.year</td>}
+        <td>
+            @if(competition.id.get != None){<a href="@mcgrady.controllers.routes.CompetitionController.edit(competition.id.get)">@competition.abrv</a>}else{}
+            @if(inscription.idGroup != None){
+            @for(group <- groups){@if(group.id.get == inscription.idGroup){
+            / <a href="@mcgrady.controllers.routes.GroupController.edit(group.id.get)">@group.name</a>
+            }}}
+            @if(inscription.idSubGroup != None){
+            @for(subgroup <- subgroups){@if(subgroup.id.get == inscription.idSubGroup){
+            - <a href="@mcgrady.controllers.routes.SubGroupController.edit(subgroup.id.get)">@subgroup.name</a>
+            }}}
+        </td>
         <td><a href="@mcgrady.controllers.routes.TeamController.edit(team.id.get)">@team.name</a></td>
         <td><a href="@mcgrady.controllers.routes.ArenaController.edit(arena.id.get)">@arena.name</a></td>
         <td>

@@ -9,10 +9,6 @@
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Apodo</th>
-                <th>Número</th>
-                <th>Altura</th>
-                <th>Peso</th>
-                <th>Descripción</th>
             </tr>
             <tr>
                 <td>
@@ -30,11 +26,14 @@
                     <input type="text" id="nick_name" name="nick_name" value="@nickNameValue" placeholder="Apodo">
                     }
                 </td>
-                <td>
-                    @defining(playerForm("number").value){ numberValue=>
-                    <input type="text" id="number" name="number" value="@numberValue" placeholder="Número">
-                    }
-                </td>
+            </tr>
+            <tr>
+                <th>Altura</th>
+                <th>Peso</th>
+                <th>Descripción</th>
+            </tr>
+
+            <tr>
                 <td>
                     @defining(playerForm("height").value){ heightValue=>
                     <input type="text" id="height" name="height" value="@heightValue" placeholder="Altura">

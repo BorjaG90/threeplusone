@@ -1,6 +1,17 @@
-@(id: Long, gameForm: Form[mcgrady.model.Game], players: Seq[mcgrady.model.Player], inscriptions: Seq[mcgrady.model.Inscription],arenas: Seq[mcgrady.model.Arena],teams: Seq[mcgrady.model.Team])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+@(id: Long, gameForm: Form[mcgrady.model.Game], players: Seq[mcgrady.model.Player], inscriptions: Seq[mcgrady.model.Inscription],arenas: Seq[mcgrady.model.Arena],teams: Seq[mcgrady.model.Team],idComp: Long, competitions: Seq[mcgrady.model.Competition], seasons: Seq[mcgrady.model.Season])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 @import helper._
 @main(Messages("game.title")){
+<div id="actions">
+    @helper.form(action=mcgrady.controllers.routes.GameController.edit(id,idComp)) {
+    Competición:<select id="competition" name="idComp">
+    @for(comp <- competitions){ @if(idComp != "%" && comp.id.get == idComp){
+    <option value=@id selected>@for(season <- seasons){@if(comp.id_season == season.id.get ){@season.year-}}@comp.abrv</option>
+    }else{<option value=@comp.id>@for(season <- seasons){@if(comp.id_season == season.id.get ){@season.year-}}@comp.abrv</option>}
+    }
+    </select>
+    <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
+    }
+</div>
 <form id="game-data-form" role="form" action=@mcgrady.controllers.routes.GameController.update(id) method="post" autocomplete="off">
     <fieldset >
         <label>Editando Partido</label>
@@ -10,38 +21,27 @@
                 <th>Anfitrión</th>
                 <th>Visitante</th>
                 <th>Estadio</th>
-                <th>Ganador</th>
-                <th>MVP</th>
-                <th>Descripción</th>
             </tr>
             <tr>
                 <td align="center">
                     @defining(gameForm("date").value){ dateValue=>
-                        @if(dateValue != None){
+                    @if(dateValue != None){
                     <input type="date" id="date" name="date" step="1" min="2000-01-01" max="2050-12-31" value="@dateValue.get">
-                        }else{
+                    }else{
                     <input type="date" id="date" name="date" step="1" min="2000-01-01" max="2050-12-31" value="">
-                        }
-                    }
+                    }}
                 </td>
                 <td>
                     @defining(gameForm("id_home").value) { homeValue=>
                     <select id="id_home" name="id_home">
                         @for(inscription <- inscriptions){
-                            @if(homeValue != None && inscription.id.get == homeValue.get.toLong){
-                                @for(team <- teams){
-                                    @if(inscription.idTeam == team.id.get){
+                        @if(homeValue != None && inscription.id.get == homeValue.get.toLong){
+                        @for(team <- teams){ @if(inscription.idTeam == team.id.get){
                         <option selected="selected" value="@inscription.id">@team.name</option>
-                                    }
-                                }
-                            }else{
-                                @for(team <- teams){
-                                    @if(inscription.idTeam == team.id.get){
+                        }}}else{
+                        @for(team <- teams){ @if(inscription.idTeam == team.id.get){
                         <option value="@inscription.id">@team.name</option>
-                                    }
-                                }
-                            }
-                        }
+                        }}}}
                     </select>
                     }
                 </td>
@@ -49,20 +49,13 @@
                     @defining(gameForm("id_visitor").value) { visitorValue=>
                     <select id="id_visitor" name="id_visitor">
                         @for(inscription <- inscriptions){
-                            @if(visitorValue != None && inscription.id.get == visitorValue.get.toLong){
-                                @for(team <- teams){
-                                    @if(inscription.idTeam == team.id.get){
+                        @if(visitorValue != None && inscription.id.get == visitorValue.get.toLong){
+                        @for(team <- teams){ @if(inscription.idTeam == team.id.get){
                         <option selected="selected" value="@inscription.id">@team.name</option>
-                                    }
-                                }
-                            }else{
-                                @for(team <- teams){
-                                    @if(inscription.idTeam == team.id.get){
+                        }}}else{
+                        @for(team <- teams){ @if(inscription.idTeam == team.id.get){
                         <option value="@inscription.id">@team.name</option>
-                                    }
-                                }
-                            }
-                        }
+                        }}}}
                     </select>
                     }
                 </td>
@@ -70,15 +63,22 @@
                     @defining(gameForm("id_arena").value) { arenaValue=>
                     <select id="id_arena" name="id_arena">
                         @for(arena <- arenas){
-                            @if(arenaValue != None && arena.id.get == arenaValue.get.toLong){
+                        @if(arenaValue != None && arena.id.get == arenaValue.get.toLong){
                         <option selected="selected" value="@arena.id">@arena.name</option>
-                            }else{
+                        }else{
                         <option value="@arena.id">@arena.name</option>
-                            }
-                        }
+                        }}
                     </select>
                     }
                 </td>
+            </tr>
+            <tr>
+                <th>Ganador</th>
+                <th>MVP</th>
+                <th colspan="2">Descripción</th>
+            </tr>
+
+            <tr>
                 <td>
                     @defining(gameForm("winner").value) { winnerValue=>
                         @if("H" == winnerValue.toString){
@@ -106,7 +106,7 @@
                     </select>
                     }
                 </td>
-                <td align="center">
+                <td colspan="2" align="center">
                     @defining(gameForm("description").value){ descriptionValue=>
                     <input type="text" id="description" name="description" value="@descriptionValue">
                     }

@@ -12,7 +12,7 @@ import java.sql.{ Date => SqlDate }
   */
 
 case class Player(id: Option[Long], firstName: Option[String] = None,lastName: String, nickName: Option[String] = None
-                  , number: Option[Int] = None, height: Option[Float] = None, weight: Option[Float] = None
+                  , height: Option[Float] = None, weight: Option[Float] = None
                   ,description: Option[String] = None
                   , creationDate: Date, modifiedDate: Option[Date] = Some(new java.util.Date(0))
                  )
@@ -24,14 +24,13 @@ class PlayerTable(tag:Tag) extends Table[Player](tag, "players") {
   def firstName = column[String]("first_name")
   def lastName = column[String]("last_name")
   def nickName = column[String]("nick_name")
-  def number = column[Int]("number")
   def height = column[Float]("height")
   def weight = column[Float]("weight")
   def desc = column[String]("description")
   def creationDate = column[Date]("creation_date")
   def modifiedDate = column[Date]("modified_date")
 
-  override def * =(id.?, firstName.?, lastName, nickName.?, number.?, height.?, weight.?, desc.?
+  override def * =(id.?, firstName.?, lastName, nickName.?, height.?, weight.?, desc.?
     , creationDate, modifiedDate.?
   ) <>(Player.tupled, Player.unapply)
 }
@@ -42,7 +41,6 @@ object PlayerForm {
       ,"first_name" -> optional(of[String])
       ,"last_name" -> of[String]
       ,"nick_name" -> optional(of[String])
-      ,"number" -> optional(of[Int])
       ,"height" -> optional(of[Float])
       ,"weight" -> optional(of[Float])
       ,"description" -> optional(of[String])

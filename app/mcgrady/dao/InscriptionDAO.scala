@@ -3,7 +3,7 @@ package mcgrady.dao
 import scala.concurrent.Future
 import com.google.inject.ImplementedBy
 import util.Page
-import mcgrady.model.{Inscription,Team,SubGroup,Arena}
+import mcgrady.model._
 import impl.InscriptionDAOImpl
 
 /**
@@ -16,7 +16,7 @@ trait InscriptionDAO {
   def update(id: Long, inscription: Inscription): Future[Int]
   def delete(id: Option[Long]):Future[Int]
   def listSimple:Future[Seq[Inscription]]
-  def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page[(Inscription,Team,SubGroup,Arena,String,String,String)]]
+  def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page[(Inscription,Team,Arena,Competition,Season)]]
   def listFilterCompetition(filter: Long): Future[Seq[Inscription]]
   def findById(id: Long): Future[Inscription]
   def get(id: Long): Future[Option[Inscription]]

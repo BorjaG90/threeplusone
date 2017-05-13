@@ -55,18 +55,16 @@ class InscriptionDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfi
   override def listSimple: Future[Seq[Inscription]] = {
     db.run(inscriptions.result)
   }
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[(Inscription,Team,SubGroup,Arena,String,String,String)]] = {
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[(Inscription,Team,Arena,Competition,Season)]] = {
     val offset = pageSize * page
     val query =
       (for {
-        ((((((inscription,team),subgroup),arena),group),competition),season) <- (((((inscriptions join teams on (_.idTeam === _.id)
-            ) join subgroups on (_._1.idSubGroup === _.id)
+        ((((inscription,team),competition),arena),season) <- (((inscriptions join teams on (_.idTeam === _.id)
+            ) join competitions on (_._1.idCompetition === _.id)
           ) join arenas on (_._1._1.idArena === _.id)
-          ) join groups on (_._1._2.idGroup === _.id)
-          ) join competitions on (_._2.idCompetition === _.id)
-          ) join seasons on (_._2.id_season === _.id)
+          ) join seasons on (_._1._2.id_season === _.id)
         if team.name like filter.toLowerCase
-      } yield (inscription, team, subgroup, arena,group.name,competition.abrv,season.year)).drop(offset).take(pageSize)
+      } yield (inscription, team, arena, competition, season)).drop(offset).take(pageSize)
     val totalRows = count
     val result = db.run(query.result)
 

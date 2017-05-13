@@ -22,9 +22,7 @@ class PlayerController @Inject()(val messagesApi: MessagesApi,
 
   val home = Redirect(mcgrady.controllers.routes.PlayerController.list(0, 2, ""))
 
-  def index = Action {
-    home
-  }
+  def index = Action { home }
 
   def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
     playerService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
@@ -56,7 +54,7 @@ class PlayerController @Inject()(val messagesApi: MessagesApi,
       data => {
         playerService.find(id).flatMap { oldPlayer =>
           val newPlayer = Player(Some(0L), data.firstName, data.lastName, data.nickName
-            , data.number, data.height, data.weight, data.description
+            , data.height, data.weight, data.description
             , oldPlayer.creationDate, Some(new java.util.Date())
           )
           val futurePlayerUpdate = playerService.update(id, newPlayer.copy(id = Some(id)))
@@ -77,7 +75,7 @@ class PlayerController @Inject()(val messagesApi: MessagesApi,
       formWithErrors => Future.successful(BadRequest(html.createPlayer(formWithErrors))),
       data => {
         val newPlayer = Player(Some(0L), data.firstName, data.lastName, data.nickName
-          , data.number, data.height, data.weight, data.description
+          , data.height, data.weight, data.description
           , new java.util.Date(), Some(new java.util.Date(0))
         )
         val futurePlayerInsert = playerService.add(newPlayer)

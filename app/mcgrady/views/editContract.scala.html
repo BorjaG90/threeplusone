@@ -8,6 +8,7 @@
             <tr>
                 <th>Jugador</th>
                 <th>Equipo</th>
+                <th>Número</th>
                 <th>Comienzo</th>
                 <th>Fin</th>
             </tr>
@@ -47,7 +48,12 @@
                         }
                     }
                 </td>
-                <td align="center">
+                <td>
+                    @defining(contractForm("number").value){ numberValue=>
+                    <input type="text" id="number" name="number" value="@numberValue" placeholder="Número">
+                    }
+                </td>
+                <td>
                     @defining(contractForm("end_date").value){ endDateValue=>
                         @if(endDateValue != None){
                     <input type="date" id="end_date" name="end_date" step="1" min="2000-01-01" max="2050-12-31" value="@endDateValue.get">

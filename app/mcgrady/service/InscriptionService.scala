@@ -3,7 +3,7 @@ package mcgrady.service
 import scala.concurrent.Future
 import com.google.inject.ImplementedBy
 import util.Page
-import mcgrady.model.{Inscription,Team, SubGroup, Arena}
+import mcgrady.model._
 import impl.InscriptionServiceImpl
 
 /**
@@ -16,7 +16,7 @@ trait InscriptionService {
   def update(id: Long, inscription: Inscription): Future[Int]
   def delete(id: Option[Long]): Future[Int]
   def listSimple: Future[Seq[Inscription]]
-  def list(page: Int, pageSize:Int, orderBy: Int, filter: String):Future[Page[(Inscription, Team, SubGroup, Arena,String,String,String)]]
+  def list(page: Int, pageSize:Int, orderBy: Int, filter: String):Future[Page[(Inscription, Team, Arena,Competition,Season)]]
   def listFilterCompetition(filter: Long): Future[Seq[Inscription]]
   def count: Future[Int]
   def find(id: Long): Future[Inscription]

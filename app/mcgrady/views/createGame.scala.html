@@ -16,8 +16,7 @@
 <div id="actions">
     @helper.form(action=mcgrady.controllers.routes.GameController.add(id)) {
     Competición:<select id="competition" name="id">
-        @for(comp <- competitions){
-        @if(id != "%" && comp.id.get == id){
+        @for(comp <- competitions){ @if(id != "%" && comp.id.get == id){
         <option value=@id selected>@for(season <- seasons){@if(comp.id_season == season.id.get ){@season.year-}}@comp.abrv</option>
         }else{<option value=@comp.id>@for(season <- seasons){@if(comp.id_season == season.id.get ){@season.year-}}@comp.abrv</option>}
         }
@@ -35,9 +34,6 @@
                 <th>Anfitrión</th>
                 <th>Visitante</th>
                 <th>Estadio</th>
-                <th>Ganador</th>
-                <th>MVP</th>
-                <th>Descripción</th>
             </tr>
             <tr>
                 <td align="center">
@@ -46,32 +42,31 @@
                 <td>
                     <select id="id_home" name="id_home">
                         @for(inscription <- inscriptions){
-                        @for(team <- teams){
-                        @if(inscription.idTeam == team.id.get){
+                        @for(team <- teams){ @if(inscription.idTeam == team.id.get){
                         <option value="@inscription.id">@team.name</option>
-                        }
-                        }
-                        }
+                        }}}
                     </select>
                 </td>
                 <td>
                     <select id="id_visitor" name="id_visitor">
                         @for(inscription <- inscriptions){
-                        @for(team <- teams){
-                        @if(inscription.idTeam == team.id.get){
+                        @for(team <- teams){ @if(inscription.idTeam == team.id.get){
                         <option value="@inscription.id">@team.name</option>
-                        }
-                        }
-                        }
+                        }}}
                     </select>
                 </td>
                 <td>
                     <select id="id_arena" name="id_arena">
-                        @for(arena <- arenas){
-                        <option value="@arena.id">@arena.name</option>
-                        }
+                        @for(arena <- arenas){<option value="@arena.id">@arena.name</option>}
                     </select>
                 </td>
+            </tr>
+            <tr>
+                <th>Ganador</th>
+                <th>MVP</th>
+                <th colspan="2">Descripción</th>
+            </tr>
+            <tr>
                 <td>
                     <input type="radio" id="winner1" name="winner" value="H" >Anfitrión<br>
                     <input type="radio" id="winner2" name="winner" value="A" >Visitante<br>
@@ -83,7 +78,7 @@
                         }
                     </select>
                 </td>
-                <td align="center">
+                <td  colspan="2" align="center">
                     <input type="text" id="description" name="description" value="" placeholder="Descripción" >
                 </td>
             </tr>

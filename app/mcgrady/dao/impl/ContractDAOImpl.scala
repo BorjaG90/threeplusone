@@ -21,7 +21,7 @@ class ContractDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPr
 
   val contracts = TableQuery[ContractTable]
   val teams = TableQuery[TeamTable]
-  //val tD = mcgrady.dao.impl.TeamDAO
+
   override def add(contract: Contract): Future[String] = {
     db.run(contracts += contract).map(res => "Contrato añadido satisfactoriamente").recover {
       case ex : Exception => ex.getCause.getMessage

@@ -1,193 +1,187 @@
 # Test
 # McGrady
+
 # Season
+Delete from seasons where id = 1;
 INSERT INTO seasons (id,year, creation_date) VALUES (1,'2017', 0);
 
+#Emptys
+INSERT INTO teams (name, abbreviation, creation_date) VALUES (' ',' ',0);
+INSERT INTO arenas(name,creation_date) VALUES (' ',0);
+INSERT INTO competitions (id,id_season,name,abbreviation,division,type,init_date,end_date,creation_date)
+VALUES (1,1,'','','1',' ',1472680800000,1472680800000,0);
+
 # Teams
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (1,'Atlanta Hawks','ATL',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (2,'Charlotte Hornets','CHA',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (3,'Miami Heat','MIA',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (4,'Orlando Magic','ORL',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (5,'Washington Wizards','WAS',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (6,'Boston Celtics', 'BOS',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (7,'Brooklyn Nets', 'BKN',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (8,'New York Knicks', 'NYK',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (9,'Philadelphia 76ers','PHI',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (10,'Toronto Raptors','TOR',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (11,'Chicago Bulls','CHI',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (12,'Cleveland Cavaliers','CLE',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (13,'Detroit Pistons','DET',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (14,'Indiana Pacers','IND',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (15,'Milwaukee Bucks','MIL',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (16,'Denver Nuggets','DEN',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (17,'Minnesota TimberWolves','MIN',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (18,'Oklahoma City Thunder','OKC',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (19,'Portland Trail Blazers','POR',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (20,'Utah Jazz','UTA',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (21,'Golden State Warriors','GSW',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (22,'Los Ángeles Clippers','LAC',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (23,'Los Ángeles Lakers','LAL',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (24,'Phoenix Suns','PHO',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (25,'Sacramento Kings','SAC',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (26,'Dallas Mavericks','DAL',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (27,'Houston Rockets','HOU',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (28,'Memphis Grizzlies','MEM',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (29,'New Orleans Pelicans','NOP',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (30,'San Antonio Spurs','SAS',74,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (31,'Real Madrid Baloncesto','RMB',72,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (32,'Barcelona Lassa','FCB',72,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (33,'Valencia Basket','VAL',72,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (34,'Unicaja Málaga','UNI',72,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (35,'Saski Baskonia','BSK',72,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (36,'IberoStar Tenerife','IBT',72,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (37,'Herbalife Gran Canaria','HGC',72,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (38,'MoraBanc Andorra','MBA',72,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (39,'RETAbet Bilbao Basket','BBB',72,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (40,'Movistar Estudiantes','EST',72,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (41,'UCAM Murcia','UCM',72,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (42,'Montakit Fuenlabrada','FUE',72,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (43,'Rio Natura Monbus Obradoiro','OBR',72,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (44,'Divina Seguros Joventut','JOV',72,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (45,'Basket Zaragoza','BZG',72,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (46,'Real Betis Energía Plus','BET',72,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (47,'ICL Manresa','ICL',72,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (48,'Andalou Efes Istanbul','IST',230,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (49,'Brose Bamberg','BAM',5,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (50,'Crvena Zvezda mts Belgrade','RED',202,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (51,'CSKA Moscow','CSK',189,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (52,'Darussafaka Dogus Istanbul','DAR',230,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (53,'EA7 Emporio Armani Milan','MIL',113,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (54,'Fenerbahce Istanbul','ULK',230,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (55,'Galatasaray Odeabank Istanbul','GAL',230,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (56,'Maccabi FOX Tel Aviv','TEL',230,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (57,'Olympiacos Piraeus','OLY',90,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (58,'Panathinaikos Superfoods Athens','PAN',90,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (59,'Unics Kazan','UNK',189,0);
-INSERT INTO teams (id, name, abbreviation, id_country, creation_date) VALUES (60,'Zalgiris Kaunas','ZAL',130,0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Atlanta Hawks','ATL',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Charlotte Hornets','CHA',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Miami Heat','MIA',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Orlando Magic','ORL',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Washington Wizards','WAS',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Boston Celtics', 'BOS',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Brooklyn Nets', 'BKN',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('New York Knicks', 'NYK',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Philadelphia 76ers','PHI',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Toronto Raptors','TOR',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Chicago Bulls','CHI',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Cleveland Cavaliers','CLE',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Detroit Pistons','DET',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Indiana Pacers','IND',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Milwaukee Bucks','MIL',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Denver Nuggets','DEN',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Minnesota TimberWolves','MIN',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Oklahoma City Thunder','OKC',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Portland Trail Blazers','POR',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Utah Jazz','UTA',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Golden State Warriors','GSW',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Los Ángeles Clippers','LAC',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Los Ángeles Lakers','LAL',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Phoenix Suns','PHO',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Sacramento Kings','SAC',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Dallas Mavericks','DAL',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Houston Rockets','HOU',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Memphis Grizzlies','MEM',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('New Orleans Pelicans','NOP',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('San Antonio Spurs','SAS',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Real Madrid Baloncesto','RMB',(SELECT id FROM countries where name like ('España')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Barcelona Lassa','FCB',(SELECT id FROM countries where name like ('España')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Valencia Basket','VAL',(SELECT id FROM countries where name like ('España')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Unicaja Málaga','UNI',(SELECT id FROM countries where name like ('España')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Saski Baskonia','BSK',(SELECT id FROM countries where name like ('España')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('IberoStar Tenerife','IBT',(SELECT id FROM countries where name like ('España')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Herbalife Gran Canaria','HGC',(SELECT id FROM countries where name like ('España')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('MoraBanc Andorra','MBA',(SELECT id FROM countries where name like ('España')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('RETAbet Bilbao Basket','BBB',(SELECT id FROM countries where name like ('España')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Movistar Estudiantes','EST',(SELECT id FROM countries where name like ('España')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('UCAM Murcia','UCM',(SELECT id FROM countries where name like ('España')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Montakit Fuenlabrada','FUE',(SELECT id FROM countries where name like ('España')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Rio Natura Monbus Obradoiro','OBR',(SELECT id FROM countries where name like ('España')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Divina Seguros Joventut','JOV',(SELECT id FROM countries where name like ('España')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Basket Zaragoza','BZG',(SELECT id FROM countries where name like ('España')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Real Betis Energía Plus','BET',(SELECT id FROM countries where name like ('España')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('ICL Manresa','ICL',(SELECT id FROM countries where name like ('España')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Andalou Efes Istanbul','IST',(SELECT id FROM countries where name like ('Turquía')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Brose Bamberg','BAM',(SELECT id FROM countries where name like ('Alemania')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Crvena Zvezda mts Belgrade','RED',(SELECT id FROM countries where name like ('Serbia')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('CSKA Moscow','CSK',(SELECT id FROM countries where name like ('Rusia')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Darussafaka Dogus Istanbul','DAR',(SELECT id FROM countries where name like ('Turquía')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('EA7 Emporio Armani Milan','MIL',(SELECT id FROM countries where name like ('Italia')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Fenerbahce Istanbul','ULK',(SELECT id FROM countries where name like ('Turquía')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Galatasaray Odeabank Istanbul','GAL',(SELECT id FROM countries where name like ('Turquía')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Maccabi FOX Tel Aviv','TEL',(SELECT id FROM countries where name like ('Turquía')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Olympiacos Piraeus','OLY',(SELECT id FROM countries where name like ('Grecia')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Panathinaikos Superfoods Athens','PAN',(SELECT id FROM countries where name like ('Grecia')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Unics Kazan','UNK',(SELECT id FROM countries where name like ('Rusia')),0);
+INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Zalgiris Kaunas','ZAL',(SELECT id FROM countries where name like ('Lituania')),0);
 
 # Players
-
-INSERT INTO players(id, first_name, last_name, nick_name, number,creation_date) VALUES(1,'Elfrid','Payton','','4',0);
-INSERT INTO players(id, first_name, last_name, nick_name, number,creation_date) VALUES(2,'Aaron','Gordon','','00',0);
-INSERT INTO players(id, first_name, last_name, nick_name, number,creation_date) VALUES(3,'Evan','Fournier','Don´t Google my name','10',0);
-INSERT INTO players(id, first_name, last_name, nick_name, number,creation_date) VALUES(4,'Terrence','Ross','T-Ross','31',0);
-INSERT INTO players(id, first_name, last_name, nick_name, number,creation_date) VALUES(5,'Nikola','Vucevich','Vooch','4',0);
-INSERT INTO players(id, first_name, last_name, nick_name, number,creation_date) VALUES(6,'Sergi','Llull','Mandarinas','23',0);
-INSERT INTO players(id, first_name, last_name, nick_name, number,creation_date) VALUES(7,'Rodolfo','Fernández','Rudy','5',0);
-INSERT INTO players(id, first_name, last_name, nick_name, number,creation_date) VALUES(8,'Luka','Doncic','','7',0);
-INSERT INTO players(id, first_name, last_name, nick_name, number,creation_date) VALUES(9,'Anthony','Randolph','','3',0);
-INSERT INTO players(id, first_name, last_name, nick_name, number,creation_date) VALUES(10,'Gustavo','Ayon','Titán de Nayarit','14',0);
-INSERT INTO players(id, first_name, last_name, nick_name, number,creation_date) VALUES(11,'De´Angelo','Russel','Ice on my Veins','1',0);
-INSERT INTO players(id, first_name, last_name, nick_name, number,creation_date) VALUES(12,'Isaiah','Thomas','Mr 4º Quarter','4',0);
-INSERT INTO players(id, first_name, last_name, nick_name, number,creation_date) VALUES(13,'Juan Carlos','Navarro','La Bomba','11',0);
+INSERT INTO players(first_name, last_name, nick_name, creation_date) VALUES('Elfrid','Payton','',0);
+INSERT INTO players(first_name, last_name, nick_name, creation_date) VALUES('Aaron','Gordon','',0);
+INSERT INTO players(first_name, last_name, nick_name, creation_date) VALUES('Evan','Fournier','Don´t Google my name',0);
+INSERT INTO players(first_name, last_name, nick_name, creation_date) VALUES('Terrence','Ross','T-Ross',0);
+INSERT INTO players(first_name, last_name, nick_name, creation_date) VALUES('Nikola','Vucevich','Vooch',0);
+INSERT INTO players(first_name, last_name, nick_name, creation_date) VALUES('Sergi','Llull','Mandarinas',0);
+INSERT INTO players(first_name, last_name, nick_name, creation_date) VALUES('Rodolfo','Fernández','Rudy',0);
+INSERT INTO players(first_name, last_name, nick_name, creation_date) VALUES('Luka','Doncic','',0);
+INSERT INTO players(first_name, last_name, nick_name, creation_date) VALUES('Anthony','Randolph','',0);
+INSERT INTO players(first_name, last_name, nick_name, creation_date) VALUES('Gustavo','Ayon','Titán de Nayarit',0);
+INSERT INTO players(first_name, last_name, nick_name, creation_date) VALUES('De´Angelo','Russel','Ice on my Veins',0);
+INSERT INTO players(first_name, last_name, nick_name, creation_date) VALUES('Isaiah','Thomas','Mr 4º Quarter',0);
+INSERT INTO players(first_name, last_name, nick_name, creation_date) VALUES('Juan Carlos','Navarro','La Bomba',0);
 
 # Arenas
-INSERT INTO arenas(id,name,id_country,creation_date) VALUES (1,'TD Garden',74,0);
-INSERT INTO arenas(id,name,id_country,creation_date) VALUES (2,'Staples Center',74,0);
-INSERT INTO arenas(id,name,id_country,creation_date) VALUES (3,'Amway Arena',74,0);
-INSERT INTO arenas(id,name,id_country,creation_date) VALUES (4,'Oracle Arena',74,0);
-INSERT INTO arenas(id,name,id_country,creation_date) VALUES (5,'Madison Square Garden',74,0);
-INSERT INTO arenas(id,name,id_country,creation_date) VALUES (6,'Palacio de los Deportes de la Comunidad de Madrid',72,0);
-INSERT INTO arenas(id,name,id_country,creation_date) VALUES (7,'Palau Sant Jordi',72,0);
-INSERT INTO arenas(id,name,id_country,creation_date) VALUES (8,'Martin Carpena',72,0);
+INSERT INTO arenas(name,id_country,creation_date) VALUES ('TD Garden',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO arenas(name,id_country,creation_date) VALUES ('Staples Center',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO arenas(name,id_country,creation_date) VALUES ('Amway Arena',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO arenas(name,id_country,creation_date) VALUES ('Oracle Arena',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO arenas(name,id_country,creation_date) VALUES ('Madison Square Garden',(SELECT id FROM countries where name like ('Estados Unidos')),0);
+INSERT INTO arenas(name,id_country,creation_date) VALUES ('Palacio de los Deportes de la Comunidad de Madrid',(SELECT id FROM countries where name like ('España')),0);
+INSERT INTO arenas(name,id_country,creation_date) VALUES ('Palau Sant Jordi',(SELECT id FROM countries where name like ('España')),0);
+INSERT INTO arenas(name,id_country,creation_date) VALUES ('Martin Carpena',(SELECT id FROM countries where name like ('España')),0);
 
 # Competitions
-INSERT INTO competitions (id,id_season,name,abbreviation,division,id_country,type,init_date,end_date,creation_date) 
-VALUES (1,1,'National Basketball Asociation','NBA','1',74,'Liga',1472680800000,1472680800000,0);
-INSERT INTO competitions (id,id_season,name,abbreviation,division,id_country,type,init_date,end_date,creation_date) 
-VALUES (2,1,'Asociacion Clubs Baloncesto','ACB','1',72,'Liga',1472680800000,1472680800000,0);
-INSERT INTO competitions (id,id_season,name,abbreviation,division,id_country,type,init_date,end_date,creation_date) 
-VALUES (3,1,'Turkish Airlines Euroleague','EUR','1',1,'Liga',1472680800000,1472680800000,0);
+INSERT INTO competitions (id_season,name,abbreviation,division,id_country,type,init_date,end_date,creation_date)
+VALUES ((SELECT id from seasons as s where s.year like '2017'),'National Basketball Asociation','NBA','1',(SELECT id FROM countries where name like ('Estados Unidos')),'Liga',1472680800000,1472680800000,0);
+INSERT INTO competitions (id_season,name,abbreviation,division,id_country,type,init_date,end_date,creation_date)
+VALUES ((SELECT id from seasons as s where s.year like '2017'),'Asociacion Clubs Baloncesto','ACB','1',(SELECT id FROM countries where name like ('España')),'Liga',1472680800000,1472680800000,0);
+INSERT INTO competitions (id_season,name,abbreviation,division,id_country,type,init_date,end_date,creation_date)
+VALUES ((SELECT id from seasons as s where s.year like '2017'),'Turkish Airlines Euroleague','EUR','1',1,'Liga',1472680800000,1472680800000,0);
 
 # Groups
 
-INSERT INTO groups (id,id_competition,name,creation_date) VALUES (1,1,'West',0);
-INSERT INTO groups (id,id_competition,name,creation_date) VALUES (2,1,'East',0);
-INSERT INTO groups (id,id_competition,name,creation_date) VALUES (3,2,'ACB',0);
-INSERT INTO groups (id,id_competition,name,creation_date) VALUES (4,3,'Euroliga',0);
+INSERT INTO groups (id_competition,name,creation_date) VALUES ((SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),'West',0);
+INSERT INTO groups (id_competition,name,creation_date) VALUES ((SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),'East',0);
 
 # SubGroups
-
-INSERT INTO subgroups (id,id_group,name,creation_date) VALUES (1,1,'NorthWest',0);
-INSERT INTO subgroups (id,id_group,name,creation_date) VALUES (2,1,'SouthWest',0);
-INSERT INTO subgroups (id,id_group,name,creation_date) VALUES (3,1,'Pacific',0);
-INSERT INTO subgroups (id,id_group,name,creation_date) VALUES (4,3,'ACB',0);
-INSERT INTO subgroups (id,id_group,name,creation_date) VALUES (5,4,'Euroliga',0);
-INSERT INTO subgroups (id,id_group,name,creation_date) VALUES (6,2,'Atlantic',0);
-INSERT INTO subgroups (id,id_group,name,creation_date) VALUES (7,2,'SouthEast',0);
-INSERT INTO subgroups (id,id_group,name,creation_date) VALUES (8,2,'Central',0);
-
+INSERT INTO subgroups (id_group,name,creation_date) VALUES ((SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),'NorthWest',0);
+INSERT INTO subgroups (id_group,name,creation_date) VALUES ((SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),'SouthWest',0);
+INSERT INTO subgroups (id_group,name,creation_date) VALUES ((SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),'Pacific',0);
+INSERT INTO subgroups (id_group,name,creation_date) VALUES ((SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),'Atlantic',0);
+INSERT INTO subgroups (id_group,name,creation_date) VALUES ((SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),'SouthEast',0);
+INSERT INTO subgroups (id_group,name,creation_date) VALUES ((SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),'Central',0);
 # Inscriptions
+# NBA 2
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Atlanta Hawks'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'SouthEast' and id_group in (SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),1,0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Brooklyn Nets'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'Atlantic' and id_group in (SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),1,0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Boston Celtics'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'Atlantic' and id_group in (SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),(SELECT id from arenas where name like 'TD Garden'),0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Charlotte Hornets'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'SouthEast' and id_group in (SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),1,0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Chicago Bulls'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'Central' and id_group in (SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),1,0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Cleveland Cavaliers'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'Central' and id_group in (SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),1,0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Dallas Mavericks'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'SouthWest' and id_group in (SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),1,0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Denver Nuggets'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'NorthWest' and id_group in (SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),1,0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Detroit Pistons'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'Central' and id_group in (SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),1,0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Golden State Warriors'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'Pacific' and id_group in (SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),(SELECT id from arenas where name like 'Oracle Arena'),0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Houston Rockets'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'SouthWest' and id_group in (SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),1,0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Indiana Pacers'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'Central' and id_group in (SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),1,0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Los Ángeles Clippers'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'Pacific' and id_group in (SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),(SELECT id from arenas where name like 'Staples Center'),0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Los Ángeles Lakers'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'Pacific' and id_group in (SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),(SELECT id from arenas where name like 'Staples Center'),0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Memphis Grizzlies'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'SouthWest' and id_group in (SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),1,0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Miami Heat'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'SouthEast' and id_group in (SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),1,0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Milwaukee Bucks'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'Central' and id_group in (SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),1,0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Minnesota TimberWolves'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'NorthWest' and id_group in (SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),1,0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'New Orleans Pelicans'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'SouthWest' and id_group in (SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),1,0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'New York Knicks'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'Atlantic' and id_group in (SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),(SELECT id from arenas where name like 'Madison Square Garden'),0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Oklahoma City Thunder'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'NorthWest' and id_group in (SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),1,0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Orlando Magic'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'SouthEast' and id_group in (SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),(SELECT id from arenas where name like 'Amway Arena'),0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Philadelphia 76ers'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'Atlantic' and id_group in (SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),1,0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Phoenix Suns'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'Pacific' and id_group in (SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),1,0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Portland Trail Blazers'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'NorthWest' and id_group in (SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),1,0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Sacramento Kings'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'Pacific' and id_group in (SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),1,0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'San Antonio Spurs'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'SouthWest' and id_group in (SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),1,0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Toronto Raptors'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'Atlantic' and id_group in (SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),1,0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Utah Jazz'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'NorthWest' and id_group in (SELECT id from groups where name like 'West' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),1,0);
+INSERT INTO inscriptions (id_team,id_competition,id_group,id_subgroup,id_arena,creation_date) VALUES ((SELECT id FROM teams where name like 'Washington Wizards'),(SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),(SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017'))),(SELECT id FROM subgroups where name like 'SouthEast' and id_group in (SELECT id from groups where name like 'East' and id_competition in (SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')))),1,0);
 
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (1,1,7,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (2,2,7,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (3,3,7,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (4,4,7,3,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (5,5,7,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (6,6,7,1,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (7,7,6,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (8,8,6,5,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (9,9,6,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (10,10,6,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (11,11,6,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (12,12,6,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (13,13,8,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (14,14,8,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (15,15,8,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (16,16,8,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (17,17,8,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (18,18,8,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (19,19,1,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (20,20,1,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (21,21,1,4,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (22,22,1,2,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (23,23,1,2,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (24,24,1,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (25,25,3,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (26,26,3,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (27,27,3,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (28,28,3,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (29,29,3,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (30,30,3,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (31,31,4,6,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (32,32,4,7,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (33,33,4,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (34,34,4,8,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (35,35,4,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (36,36,4,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (37,37,4,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (38,38,4,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (39,39,4,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (40,40,4,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (41,41,4,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (42,42,4,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (43,43,4,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (44,44,4,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (45,45,4,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (46,46,4,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (47,47,4,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (48,48,5,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (49,49,5,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (50,50,5,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (51,51,5,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (52,52,5,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (53,53,5,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (54,54,5,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (55,55,5,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (56,56,5,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (57,57,5,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (58,58,5,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (59,59,5,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (60,60,5,9,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (62,31,5,6,0);
-INSERT INTO inscriptions (id,id_team,id_subgroup,id_arena,creation_date) VALUES (63,32,5,7,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (32,3,6,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (33,3,7,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (34,3,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (35,3,8,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (36,3,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (37,3,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (38,3,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (39,3,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (40,3,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (41,3,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (42,3,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (43,3,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (44,3,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (45,3,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (46,3,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (47,3,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (48,3,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (49,4,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (50,4,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (51,4,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (52,4,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (53,4,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (54,4,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (55,4,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (56,4,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (57,4,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (58,4,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (59,4,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (60,4,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (61,4,9,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (32,4,6,0);
+INSERT INTO inscriptions (id_team,id_competition,id_arena,creation_date) VALUES (33,4,7,0);
 
 #Contracts
-
-
-
-#Emptys
-INSERT INTO teams (id, name, abbreviation, creation_date) VALUES (61,' N#A',' N#A',0);
-INSERT INTO arenas(id,name,creation_date) VALUES (9,' N#A',0);
-INSERT INTO competitions (id,id_season,name,abbreviation,division,type,init_date,end_date,creation_date) 
-VALUES (4,1,' N#A',' N#A','1',' N#A',1472680800000,1472680800000,0);
