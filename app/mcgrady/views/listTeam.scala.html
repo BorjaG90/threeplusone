@@ -1,4 +1,4 @@
-@(currentPage : util.Page[(mcgrady.model.Team,mcgrady.model.Country)], currentOrderBy: Int, currentFilter: String)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+@(currentPage : util.Page[mcgrady.model.Team], currentOrderBy: Int, currentFilter: String, countries: Seq[mcgrady.model.Country])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 
 @****************************************
 * Helper generating navigation links *
@@ -35,11 +35,13 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <th>Pais</th>
         <th></th>
     </tr>
-    @for((team,country) <- currentPage.items){
+    @for(team <- currentPage.items){
     <tr>
         <td>@team.name</td>
         <td>@team.abrv</td>
-        <td>@country.name</td>
+        @if(team.idCountry != None){
+        @for(country <- countries){@if(country.id == team.idCountry.get){
+        <td>@country.name</td>}}}else{<td></td>}
         <td>
             <a href="@mcgrady.controllers.routes.TeamController.edit(team.id.get)">
                 <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>

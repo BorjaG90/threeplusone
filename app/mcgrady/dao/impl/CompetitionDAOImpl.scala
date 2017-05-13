@@ -52,14 +52,13 @@ class CompetitionDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfi
     db.run(competitions.result)
   }
 
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%", sFilter: String = "%"): Future[Page[(Competition,Country,Season)]] = {
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%", sFilter: String = "%"): Future[Page[(Competition,Season)]] = {
     val offset = pageSize * page
     val query =
       (for {
         competition <- competitions if competition.name.toLowerCase like filter.toLowerCase
-        country <- competition.competition_country_fk
-        season <-competition.competition_season_fk if season.year.toLowerCase like sFilter.toLowerCase
-      } yield (competition,country,season)).drop(offset).take(pageSize)
+        season <- competition.competition_season_fk if season.year.toLowerCase like sFilter.toLowerCase
+      } yield (competition,season)).drop(offset).take(pageSize)
     val totalRows = count(filter)
     val result = db.run(query.result)
 

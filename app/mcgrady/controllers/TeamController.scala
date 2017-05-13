@@ -28,12 +28,14 @@ class TeamController @Inject()(val messagesApi: MessagesApi,
   }
 
   def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
-    teamService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
-      Ok(html.listTeam(pageEmp, orderBy, filter))
-    }.recover {
-      case ex: TimeoutException =>
-        Logger.error("Error listando equipos")
-        InternalServerError(ex.getMessage)
+    countryService.list flatMap { countries =>
+      teamService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
+        Ok(html.listTeam(pageEmp, orderBy, filter, countries))
+      }.recover {
+        case ex: TimeoutException =>
+          Logger.error("Error listando equipos")
+          InternalServerError(ex.getMessage)
+      }
     }
   }
 
@@ -61,7 +63,7 @@ class TeamController @Inject()(val messagesApi: MessagesApi,
         BadRequest(html.editTeam(id, formWithErrors, Seq.empty[Country]))),
       data => {
         teamService.find(id).flatMap { oldTeam =>
-          val newTeam = Team(Some(0L), data.name, data.abrv, data.id_country
+          val newTeam = Team(Some(0L), data.name, data.abrv, data.idCountry
             , oldTeam.creationDate, Some(new java.util.Date())
           )
           val futureTeamUpdate = teamService.update(id, newTeam.copy(id = Some(id)))
@@ -82,7 +84,7 @@ class TeamController @Inject()(val messagesApi: MessagesApi,
       formWithErrors => Future.successful(
         BadRequest(html.createTeam(formWithErrors, Seq.empty[Country]))),
       data => {
-        val newTeam = Team(Some(0L), data.name, data.abrv, data.id_country
+        val newTeam = Team(Some(0L), data.name, data.abrv, data.idCountry
           , new java.util.Date(), Some(new java.util.Date(0))
         )
         val futureTeamInsert = teamService.add(newTeam)

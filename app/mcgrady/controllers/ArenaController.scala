@@ -28,12 +28,14 @@ class ArenaController @Inject()(val messagesApi: MessagesApi,
   }
 
   def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
-    arenaService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
-      Ok(html.listArena(pageEmp, orderBy, filter))
-    }.recover {
-      case ex: TimeoutException =>
-        Logger.error("Error listando estadios")
-        InternalServerError(ex.getMessage)
+    countryService.list flatMap { countries =>
+      arenaService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
+        Ok(html.listArena(pageEmp, orderBy, filter,countries))
+      }.recover {
+        case ex: TimeoutException =>
+          Logger.error("Error listando estadios")
+          InternalServerError(ex.getMessage)
+      }
     }
   }
 
@@ -62,7 +64,7 @@ class ArenaController @Inject()(val messagesApi: MessagesApi,
         BadRequest(html.editArena(id, formWithErrors, Seq.empty[Country]))),
       data => {
         arenaService.find(id).flatMap { oldArena =>
-          val newArena = Arena(Some(0L), data.name, data.direction, data.id_country
+          val newArena = Arena(Some(0L), data.name, data.direction, data.idCountry
             , oldArena.creationDate, Some(new java.util.Date())
           )
           val futureArenaUpdate = arenaService.update(id, newArena.copy(id = Some(id)))
@@ -83,7 +85,7 @@ class ArenaController @Inject()(val messagesApi: MessagesApi,
       formWithErrors => Future.successful(
         BadRequest(html.createArena(formWithErrors, Seq.empty[Country]))),
       data => {
-        val newArena = Arena(Some(0L), data.name, data.direction, data.id_country
+        val newArena = Arena(Some(0L), data.name, data.direction, data.idCountry
           , new java.util.Date(), Some(new java.util.Date(0))
         )
         val futureArenaInsert = arenaService.add(newArena)

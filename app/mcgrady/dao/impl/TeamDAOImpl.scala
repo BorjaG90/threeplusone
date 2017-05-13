@@ -49,13 +49,12 @@ class TeamDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvid
   override def listSimple: Future[Seq[Team]] = {
     db.run(teams.result)
   }
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[(Team,Country)]] = {
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[Team]] = {
     val offset = pageSize * page
     val query =
       (for {
         team <- teams if team.name like filter.toLowerCase
-        country <- team.team_country_fk
-      } yield (team,country)).sortBy(_._1.name.asc.nullsLast).drop(offset).take(pageSize)
+      } yield team).sortBy(_.name.asc.nullsLast).drop(offset).take(pageSize)
     val totalRows = count(filter)
     val result = db.run(query.result)
 

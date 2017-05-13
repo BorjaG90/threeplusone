@@ -25,39 +25,39 @@
                 <td>
                     @defining(exerciseForm("id_type").value) { typeExerciseValue=>
                     <select id="id_type" name="id_type">
+                        @if(typeExerciseValue == None){
+                        <option selected="selected" value = ""></option>
+                        }else{ <option value = ""></option> }
                         @for(typeExercise <- typeExercises){
-                        @if(typeExercise.id.get == typeExerciseValue.get.toLong){
+                        @if(typeExerciseValue != None && typeExercise.id.get == typeExerciseValue.get.toLong){
                         <option selected="selected" value="@typeExercise.id">@typeExercise.name</option>
-                        }else{
-                        <option value="@typeExercise.id">@typeExercise.name</option>
-                        }
-                        }
+                        }else{ <option value="@typeExercise.id">@typeExercise.name</option> }}
                     </select>
                     }
                 </td>
                 <td>
                     @defining(exerciseForm("id_category").value) { categoryValue=>
                     <select id="id_category" name="id_category">
+                        @if(categoryValue == None){
+                        <option selected="selected" value = ""></option>
+                        }else{ <option value = ""></option>}
                         @for(category <- categories){
-                        @if(category.id.get == categoryValue.get.toLong){
+                        @if(categoryValue != None && category.id.get == categoryValue.get.toLong){
                         <option selected="selected" value="@category.id">@category.name</option>
-                        }else{
-                        <option value="@category.id">@category.name</option>
-                        }
-                        }
+                        }else{ <option value="@category.id">@category.name</option>}}
                     </select>
                     }
                 </td>
                 <td>
                     @defining(exerciseForm("id_enviroment").value) { enviromentValue=>
                     <select id="id_enviroment" name="id_enviroment">
+                        @if(enviromentValue == None){
+                        <option selected="selected" value = ""></option>
+                        }else{ <option value = ""></option>}
                         @for(enviroment <- enviroments){
-                        @if(enviroment.id.get == enviromentValue.get.toLong){
+                        @if(enviromentValue != None && enviroment.id.get == enviromentValue.get.toLong){
                         <option selected="selected" value="@enviroment.id">@enviroment.name</option>
-                        }else{
-                        <option value="@enviroment.id">@enviroment.name</option>
-                        }
-                        }
+                        }else{ <option value="@enviroment.id">@enviroment.name</option> }}
                     </select>
                     }
                 </td>

@@ -31,11 +31,9 @@
                     <select id="id_competition" name="id_competition">
                         @for(season <- seasons){
                         @for(competition <- competitions){
-                        @if(season.id.get == competition.id_season){
+                        @if(season.id.get == competition.idSeason){
                         <option value="@competition.id">@season.year-@competition.abrv</option>
-                        }
-                        }
-                        }
+                        }}}
                     </select>
                 </td>
                 <td align="center">

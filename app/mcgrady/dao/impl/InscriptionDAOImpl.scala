@@ -62,7 +62,7 @@ class InscriptionDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfi
         ((((inscription,team),competition),arena),season) <- (((inscriptions join teams on (_.idTeam === _.id)
             ) join competitions on (_._1.idCompetition === _.id)
           ) join arenas on (_._1._1.idArena === _.id)
-          ) join seasons on (_._1._2.id_season === _.id)
+          ) join seasons on (_._1._2.idSeason === _.id)
         if team.name like filter.toLowerCase
       } yield (inscription, team, arena, competition, season)).drop(offset).take(pageSize)
     val totalRows = count
@@ -79,7 +79,7 @@ class InscriptionDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfi
           ) join arenas on (_._1._1.idArena === _.id)
           ) join groups on (_._1._2.idGroup === _.id)
           ) join competitions on (_._2.idCompetition === _.id)
-          ) join seasons on (_._2.id_season === _.id)
+          ) join seasons on (_._2.idSeason === _.id)
         if (competition.id === filter) || (filter == 0)
       } yield inscription)
    db.run(query.result)

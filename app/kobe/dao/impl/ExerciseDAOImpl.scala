@@ -52,18 +52,13 @@ class ExerciseDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPr
   override def listSimple: Future[Seq[kobe.model.Exercise]] = {
     db.run(exercises.result)
   }
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[(Exercise,TypeExercise,Category,Enviroment)]] = {
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[Exercise]] = {
     val offset = pageSize * page
     val query =
       (for {
         //exercise <- exercises if exercise.name like filter.toLowerCase
-        (exercise,typeExe) <- exercises join typeExercises on (_.idTypeExercise === _.id)
-
-        //typeExe <- exercise.exercise_type_fk
-        category <- exercise.exercise_category_fk
-        enviroment <- exercise.exercise_enviroment_fk
-        if exercise.name.toLowerCase like filter.toLowerCase
-      } yield (exercise, typeExe, category, enviroment)).drop(offset).take(pageSize)
+        exercise <- exercises if exercise.name.toLowerCase like filter.toLowerCase
+      } yield exercise).drop(offset).take(pageSize)
     val totalRows = count(filter)
     val result = db.run(query.result)
 

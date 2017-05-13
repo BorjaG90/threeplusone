@@ -2,14 +2,8 @@
 # McGrady
 
 # Season
-Delete from seasons where id = 1;
-INSERT INTO seasons (id,year, creation_date) VALUES (1,'2017', 0);
-
-#Emptys
-INSERT INTO teams (name, abbreviation, creation_date) VALUES (' ',' ',0);
-INSERT INTO arenas(name,creation_date) VALUES (' ',0);
-INSERT INTO competitions (id,id_season,name,abbreviation,division,type,init_date,end_date,creation_date)
-VALUES (1,1,'','','1',' ',1472680800000,1472680800000,0);
+Delete from seasons where id > 0;
+INSERT INTO seasons (year, creation_date) VALUES ('2017', 0);
 
 # Teams
 INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Atlanta Hawks','ATL',(SELECT id FROM countries where name like ('Estados Unidos')),0);
@@ -103,11 +97,10 @@ INSERT INTO competitions (id_season,name,abbreviation,division,id_country,type,i
 VALUES ((SELECT id from seasons as s where s.year like '2017'),'National Basketball Asociation','NBA','1',(SELECT id FROM countries where name like ('Estados Unidos')),'Liga',1472680800000,1472680800000,0);
 INSERT INTO competitions (id_season,name,abbreviation,division,id_country,type,init_date,end_date,creation_date)
 VALUES ((SELECT id from seasons as s where s.year like '2017'),'Asociacion Clubs Baloncesto','ACB','1',(SELECT id FROM countries where name like ('España')),'Liga',1472680800000,1472680800000,0);
-INSERT INTO competitions (id_season,name,abbreviation,division,id_country,type,init_date,end_date,creation_date)
-VALUES ((SELECT id from seasons as s where s.year like '2017'),'Turkish Airlines Euroleague','EUR','1',1,'Liga',1472680800000,1472680800000,0);
+INSERT INTO competitions (id_season,name,abbreviation,division,type,init_date,end_date,creation_date)
+VALUES ((SELECT id from seasons as s where s.year like '2017'),'Turkish Airlines Euroleague','EUR','1','Liga',1472680800000,1472680800000,0);
 
 # Groups
-
 INSERT INTO groups (id_competition,name,creation_date) VALUES ((SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),'West',0);
 INSERT INTO groups (id_competition,name,creation_date) VALUES ((SELECT id FROM competitions where abbreviation like 'NBA' and id_season in (SELECT id from seasons as s where s.year like '2017')),'East',0);
 

@@ -16,7 +16,7 @@ trait ExerciseDAO {
   def update(id: Long, exercise: Exercise): Future[Int]
   def delete(id: Option[Long]):Future[Int]
   def listSimple:Future[Seq[Exercise]]
-  def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page[(Exercise,TypeExercise,Category,Enviroment)]]
+  def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page[Exercise]]
   def findById(id: Long): Future[Exercise]
   def get(id: Long): Future[Option[Exercise]]
   def count: Future[Int]

@@ -31,12 +31,15 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi,
   }
 
   def list(page: Int, orderBy: Int, filter: String, yFilter:String): Action[AnyContent] = Action.async { implicit request =>
-    competitionService.list(page, 10, orderBy, "%" + filter + "%","%" + yFilter + "%").flatMap { pageEmp =>
+    countryService.list flatMap { countries =>
+      competitionService.list(page, 10, orderBy, "%" + filter + "%", "%" + yFilter + "%").flatMap { pageEmp =>
         seasonService.listSimple map { seasons =>
           val allYears = new ArrayBuffer[String]()
-          for (season <- seasons) {allYears += season.year}
+          for (season <- seasons) {
+            allYears += season.year
+          }
           val years = collection.Seq[String](allYears: _*)
-          Ok(html.listCompetition(pageEmp, orderBy, filter, new SimpleDateFormat("dd/MM/yyyy"), yFilter, years))
+          Ok(html.listCompetition(pageEmp, orderBy, filter, new SimpleDateFormat("dd/MM/yyyy"), yFilter, years, countries))
         }
       }.recover {
         case ex: TimeoutException =>
@@ -44,6 +47,7 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi,
           InternalServerError(ex.getMessage)
       }
     }
+  }
 
   def add: Action[AnyContent] = Action.async { implicit request =>
     seasonService.listSimple flatMap { seasons =>
@@ -74,10 +78,10 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi,
       formWithErrors => Future.successful(
         BadRequest(html.editCompetition(id, formWithErrors, Seq.empty[Country], Seq.empty[Season]))),
       data => {
-        seasonService.find(data.id_season).flatMap { season =>
+        seasonService.find(data.idSeason).flatMap { season =>
           competitionService.find(id).flatMap { oldCompetition =>
-            val newCompetition = Competition(Some(0L), data.id_season, data.name, data.abrv, data.division
-              , data.id_country, data.description, data.typeCompetition, data.initDate, data.endDate
+            val newCompetition = Competition(Some(0L), data.idSeason, data.name, data.abrv, data.division
+              , data.idCountry, data.description, data.typeCompetition, data.initDate, data.endDate
               , oldCompetition.creationDate, Some(new java.util.Date())
             )
             val futureCompetitionUpdate = competitionService.update(id, newCompetition.copy(id = Some(id)))
@@ -99,9 +103,9 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi,
       formWithErrors => Future.successful(
         BadRequest(html.createCompetition(formWithErrors, Seq.empty[Country], Seq.empty[Season]))),
       data => {
-        seasonService.find(data.id_season).flatMap { season =>
-          val newCompetition = Competition(Some(0L), data.id_season, data.name, data.abrv, data.division
-            , data.id_country, data.description, data.typeCompetition, data.initDate, data.endDate
+        seasonService.find(data.idSeason).flatMap { season =>
+          val newCompetition = Competition(Some(0L), data.idSeason, data.name, data.abrv, data.division
+            , data.idCountry, data.description, data.typeCompetition, data.initDate, data.endDate
             , new java.util.Date(), Some(new java.util.Date(0))
           )
           val futureCompetitionInsert = competitionService.add(newCompetition)

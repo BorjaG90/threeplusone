@@ -1,4 +1,4 @@
-@(currentPage : util.Page[(mcgrady.model.Competition,mcgrady.model.Country,mcgrady.model.Season)], currentOrderBy: Int, currentFilter: String, sf: java.text.SimpleDateFormat, currentYear: String, years: Seq[String])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+@(currentPage : util.Page[(mcgrady.model.Competition,mcgrady.model.Season)], currentOrderBy: Int, currentFilter: String, sf: java.text.SimpleDateFormat, currentYear: String, years: Seq[String], countries: Seq[mcgrady.model.Country])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 
 @****************************************
 * Helper generating navigation links *
@@ -25,11 +25,9 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     @helper.form(action=mcgrady.controllers.routes.CompetitionController.list()) {
     <select id="year" name="sfil">
         @if(currentYear == "%"){<option value="" selected></option>}else{<option value=""></option>}
-        @for(year <- years){
-        @if(currentYear != "%" && year == currentYear){
+        @for(year <- years){ @if(currentYear != "%" && year == currentYear){
         <option value=@currentYear selected>@currentYear</option>
-        }else{<option value=@year>@year</option>}
-        }
+        }else{<option value=@year>@year</option>}}
     </select>
     <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por nombre de Competicion">
     <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
@@ -49,17 +47,19 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <th>Descripción</th>
         <th></th>
     </tr>
-    @for((competition,country,season) <- currentPage.items){
+    @for((competition,season) <- currentPage.items){
     <tr>
         @if(season.year != None){<td><a class="td_7" href="@mcgrady.controllers.routes.SeasonController.edit(season.id.get)">@season.year</a></td>}else{<td></td>}
-        @if(competition.name != None){<td>@competition.name</td>}else{<td></td>}
-        @if(competition.abrv != None){<td>@competition.abrv</td>}else{<td></td>}
-        @if(competition.division != None){<td>@competition.division</td>}else{<td></td>}
-        @if(competition.typeCompetition != None){<td>@competition.typeCompetition</td>}else{<td></td>}
+        <td>@competition.name</td>
+        <td>@competition.abrv</td>
+        <td>@competition.division</td>
+        <td>@competition.typeCompetition</td>
         @if(competition.initDate != None){<td>@sf.format(competition.initDate.get)</td>}else{<td></td>}
         @if(competition.endDate != None){<td>@sf.format(competition.endDate.get)</td>}else{<td></td>}
-        @if(country.name != None){<td>@country.name</td>}else{<td></td>}
-        @if(competition.description != None){<td>@competition.description</td>}else{<td></td>}
+        @if(competition.idCountry != None){
+        @for(country <- countries){@if(country.id == competition.idCountry.get){
+        <td>@country.name</td>}}}else{<td></td>}
+        <td>@competition.description</td>
         <td>
             <a href="@mcgrady.controllers.routes.CompetitionController.edit(competition.id.get)">
                 <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>

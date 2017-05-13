@@ -52,17 +52,16 @@ class GameDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvid
   override def listSimple: Future[Seq[Game]] = {
     db.run(games.result)
   }
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[(Game,Inscription,String,Inscription,String,Player,Arena)]] = {
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[(Game,Inscription,String,Inscription,String)]] = {
     val offset = pageSize * page
     val query =
       (for {
-        ((((game,home),visitor),mvp),arena) <- ((((
-          games join inscriptions on (_.idHome === _.id)) join inscriptions on (_._1.idVisitor === _.id)
-              ) join players on (_._1._1.mvp === _.id)) join arenas on (_._1._1._1.idArena === _.id))
+        ((game,home),visitor) <- (games join inscriptions on (_.idHome === _.id)
+          ) join inscriptions on (_._1.idVisitor === _.id)
         teamHome <- home.inscription_team_fk
         teamVisitor <- visitor.inscription_team_fk
         if teamHome.name like filter.toLowerCase
-      } yield (game, home, teamHome.abrv, visitor, teamVisitor.abrv, mvp, arena)).drop(offset).take(pageSize)
+      } yield (game, home, teamHome.abrv, visitor, teamVisitor.abrv)).drop(offset).take(pageSize)
     val totalRows = count
     val result = db.run(query.result)
 

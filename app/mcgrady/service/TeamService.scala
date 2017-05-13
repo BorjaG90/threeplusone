@@ -16,7 +16,7 @@ trait TeamService {
   def update(id: Long, team: Team): Future[Int]
   def delete(id: Option[Long]): Future[Int]
   def listSimple: Future[Seq[Team]]
-  def list(page: Int, pageSize:Int, orderBy: Int, filter: String):Future[Page[(Team,Country)]]
+  def list(page: Int, pageSize:Int, orderBy: Int, filter: String):Future[Page[Team]]
   def count: Future[Int]
   def find(id: Long): Future[Team]
   def get(id: Long): Future[Option[Team]]

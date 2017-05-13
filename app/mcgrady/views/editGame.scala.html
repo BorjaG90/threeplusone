@@ -5,8 +5,8 @@
     @helper.form(action=mcgrady.controllers.routes.GameController.edit(id,idComp)) {
     Competición:<select id="competition" name="idComp">
     @for(comp <- competitions){ @if(idComp != "%" && comp.id.get == idComp){
-    <option value=@id selected>@for(season <- seasons){@if(comp.id_season == season.id.get ){@season.year-}}@comp.abrv</option>
-    }else{<option value=@comp.id>@for(season <- seasons){@if(comp.id_season == season.id.get ){@season.year-}}@comp.abrv</option>}
+    <option value=@id selected>@for(season <- seasons){@if(comp.idSeason == season.id.get ){@season.year-}}@comp.abrv</option>
+    }else{<option value=@comp.id>@for(season <- seasons){@if(comp.idSeason == season.id.get ){@season.year-}}@comp.abrv</option>}
     }
     </select>
     <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
@@ -28,7 +28,7 @@
                     @if(dateValue != None){
                     <input type="date" id="date" name="date" step="1" min="2000-01-01" max="2050-12-31" value="@dateValue.get">
                     }else{
-                    <input type="date" id="date" name="date" step="1" min="2000-01-01" max="2050-12-31" value="">
+                    <input type="date" id="dateN" name="date" step="1" min="2000-01-01" max="2050-12-31" value="">
                     }}
                 </td>
                 <td>
@@ -62,6 +62,11 @@
                 <td>
                     @defining(gameForm("id_arena").value) { arenaValue=>
                     <select id="id_arena" name="id_arena">
+                        @if(arenaValue == None){
+                        <option selected="selected" value = ""></option>
+                        }else{
+                        <option value = ""></option>
+                        }
                         @for(arena <- arenas){
                         @if(arenaValue != None && arena.id.get == arenaValue.get.toLong){
                         <option selected="selected" value="@arena.id">@arena.name</option>
@@ -96,6 +101,11 @@
                 <td>
                     @defining(gameForm("mvp").value) { playerValue=>
                     <select id="mvp" name="mvp">
+                        @if(playerValue == None){
+                        <option selected="selected" value = ""></option>
+                        }else{
+                        <option value = ""></option>
+                        }
                         @for(player <- players){
                             @if(playerValue != None && player.id.get == playerValue.get.toLong){
                         <option selected="selected" value="@player.id">@player.firstName @player.lastName</option>

@@ -5,7 +5,7 @@ import javax.inject.Inject
 import com.google.inject.Singleton
 import util.Page
 import mcgrady.dao.SubGroupDAO
-import mcgrady.model.{SubGroup,Group}
+import mcgrady.model._
 import mcgrady.service.SubGroupService
 
 /**
@@ -29,7 +29,7 @@ class SubGroupServiceImpl @Inject()(subGroupDAO: SubGroupDAO)extends SubGroupSer
   def listSimple: Future[Seq[SubGroup]] = {
     subGroupDAO.listSimple
   }
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[(SubGroup,Group,String,String)]] ={
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[(SubGroup,Group,Season,Competition)]] ={
     subGroupDAO.list(page,pageSize,orderBy,filter)
   }
   override def count: Future[Int] = {

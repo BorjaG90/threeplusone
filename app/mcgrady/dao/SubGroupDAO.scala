@@ -3,7 +3,7 @@ package mcgrady.dao
 import scala.concurrent.Future
 import com.google.inject.ImplementedBy
 import util.Page
-import mcgrady.model.{SubGroup,Group}
+import mcgrady.model._
 import impl.SubGroupDAOImpl
 
 /**
@@ -16,7 +16,7 @@ trait SubGroupDAO {
   def update(id: Long, subGroup: SubGroup): Future[Int]
   def delete(id: Option[Long]):Future[Int]
   def listSimple:Future[Seq[SubGroup]]
-  def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page[(SubGroup,Group,String,String)]]
+  def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page[(SubGroup,Group,Season,Competition)]]
   def findById(id: Long): Future[SubGroup]
   def get(id: Long): Future[Option[SubGroup]]
   def count: Future[Int]

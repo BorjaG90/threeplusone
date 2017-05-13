@@ -35,12 +35,16 @@ class GameController @Inject()(val messagesApi: MessagesApi
   }
 
   def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
-    gameService.list(page, 20, orderBy, "%" + filter + "%").map { pageEmp =>
-      Ok(html.listGame(pageEmp, orderBy, filter, new SimpleDateFormat("dd/MM/yyyy")))
-    }.recover {
-      case ex: TimeoutException =>
-        Logger.error("Error listando partidos")
-        InternalServerError(ex.getMessage)
+    playerService.listSimple flatMap { players =>
+      arenaService.listSimple flatMap { arenas =>
+        gameService.list(page, 20, orderBy, "%" + filter + "%").map { pageEmp =>
+          Ok(html.listGame(pageEmp, orderBy, filter, new SimpleDateFormat("dd/MM/yyyy"), players, arenas))
+        }.recover {
+          case ex: TimeoutException =>
+            Logger.error("Error listando partidos")
+            InternalServerError(ex.getMessage)
+        }
+      }
     }
   }
 

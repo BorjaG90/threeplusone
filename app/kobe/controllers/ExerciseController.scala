@@ -30,12 +30,18 @@ class ExerciseController @Inject()(val messagesApi: MessagesApi
   }
 
   def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
-    exerciseService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
-      Ok(html.listExercise(pageEmp, orderBy, filter))
-    }.recover {
-      case ex: TimeoutException =>
-        Logger.error("Error listando ejercicios")
-        InternalServerError(ex.getMessage)
+    enviromentService.listSimple flatMap { enviroments =>
+      categoryService.listSimple flatMap { categories =>
+        typeExerciseService.listSimple flatMap { types =>
+          exerciseService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
+            Ok(html.listExercise(pageEmp, orderBy, filter, types, categories, enviroments))
+          }.recover {
+            case ex: TimeoutException =>
+              Logger.error("Error listando ejercicios")
+              InternalServerError(ex.getMessage)
+          }
+        }
+      }
     }
   }
 

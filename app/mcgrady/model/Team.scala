@@ -11,7 +11,7 @@ import java.sql.{ Date => SqlDate }
   * Created by Borja Gete on 27/03/17.
   */
 
-case class Team(id: Option[Long], name: String,abrv: String,id_country: Option[Long] = Some(1L)
+case class Team(id: Option[Long], name: String,abrv: String,idCountry: Option[Long] = None
                  , creationDate: Date, modifiedDate: Option[Date] = Some(new java.util.Date(0))
                 )
 
@@ -23,13 +23,13 @@ class TeamTable(tag:Tag) extends Table[Team](tag, "teams") {
   def id = column[Long]("id", O.PrimaryKey)
   def name = column[String]("name")
   def abrv = column[String]("abbreviation")
-  def id_country = column[Long]("id_country")
+  def idCountry = column[Long]("id_country")
   def creationDate = column[Date]("creation_date")
   def modifiedDate = column[Date]("modified_date")
 
-  def team_country_fk = foreignKey("team_country_fk", id_country, countriesTable)(_.id)
+  def team_country_fk = foreignKey("team_country_fk", idCountry, countriesTable)(_.id)
 
-  override def * =(id.?, name, abrv, id_country.?
+  override def * =(id.?, name, abrv, idCountry.?
     , creationDate, modifiedDate.?
   ) <> (Team.tupled, Team.unapply _)
 }

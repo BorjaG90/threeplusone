@@ -269,30 +269,13 @@ class RecordController @Inject()(val messagesApi: MessagesApi
         ,chart => {
           var count = 0;
           chart.shots.foreach { data =>
-            var idUnit = 9;
-            if(count%2!=0){
-              idUnit = 10
-            }
+            var idUnit = 9
+            if(count%2!=0){ idUnit = 10 }
             val newRecord = Record(Some(0L), idUnit, chart.idSerie, data.value, data.notes, "M", Some(new java.util.Date())
               , new java.util.Date(), Some(new java.util.Date(0))
             )
-            //if(count<27) {
             val futureRecordInsert = recordService.add(newRecord)
             count = count +1
-            /*}else if(count=27){
-              val futureRecordInsert = recordService.add(newRecord)
-
-              futureRecordInsert.map { result =>
-                Redirect(kobe.controllers.routes.RecordController.addMark(id)).flashing("success" -> "La marca ha sido creada")
-              }.recover {
-                case ex: TimeoutException =>
-                  Logger.error("Error guardando una marca")
-                  InternalServerError(ex.getMessage)
-                case ex: NoSuchElementException =>
-                  Logger.error("Error guardando una marca")
-                  InternalServerError(ex.getMessage)
-              }
-            }*/
           }
           Future.successful(Redirect(kobe.controllers.routes.RecordController.addMark(id)).flashing("success" -> "La marca ha sido creada"))
         }

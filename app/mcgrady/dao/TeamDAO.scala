@@ -16,7 +16,7 @@ trait TeamDAO {
   def update(id: Long, team: Team): Future[Int]
   def delete(id: Option[Long]):Future[Int]
   def listSimple:Future[Seq[Team]]
-  def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page[(Team,Country)]]
+  def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page[Team]]
   def findById(id: Long): Future[Team]
   def get(id: Long): Future[Option[Team]]
   def count: Future[Int]

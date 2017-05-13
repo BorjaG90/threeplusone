@@ -16,7 +16,7 @@ trait ExerciseService {
   def update(id: Long, contract: Exercise): Future[Int]
   def delete(id: Option[Long]): Future[Int]
   def listSimple: Future[Seq[Exercise]]
-  def list(page: Int, pageSize:Int, orderBy: Int, filter: String):Future[Page[(Exercise,TypeExercise,Category,Enviroment)]]
+  def list(page: Int, pageSize:Int, orderBy: Int, filter: String):Future[Page[Exercise]]
   def count: Future[Int]
   def find(id: Long): Future[Exercise]
   def get(id: Long): Future[Option[Exercise]]

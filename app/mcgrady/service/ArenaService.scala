@@ -16,7 +16,7 @@ trait ArenaService {
   def update(id: Long, arena: Arena): Future[Int]
   def delete(id: Option[Long]): Future[Int]
   def listSimple: Future[Seq[Arena]]
-  def list(page: Int, pageSize:Int, orderBy: Int, filter: String):Future[Page[(Arena,Country)]]
+  def list(page: Int, pageSize:Int, orderBy: Int, filter: String):Future[Page[Arena]]
   def count: Future[Int]
   def find(id: Long): Future[Arena]
   def get(id: Long): Future[Option[Arena]]

@@ -17,8 +17,8 @@
     @helper.form(action=mcgrady.controllers.routes.GameController.add(id)) {
     Competición:<select id="competition" name="id">
         @for(comp <- competitions){ @if(id != "%" && comp.id.get == id){
-        <option value=@id selected>@for(season <- seasons){@if(comp.id_season == season.id.get ){@season.year-}}@comp.abrv</option>
-        }else{<option value=@comp.id>@for(season <- seasons){@if(comp.id_season == season.id.get ){@season.year-}}@comp.abrv</option>}
+        <option value=@id selected>@for(season <- seasons){@if(comp.idSeason == season.id.get ){@season.year-}}@comp.abrv</option>
+        }else{<option value=@comp.id>@for(season <- seasons){@if(comp.idSeason == season.id.get ){@season.year-}}@comp.abrv</option>}
         }
     </select>
     <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
@@ -57,6 +57,7 @@
                 </td>
                 <td>
                     <select id="id_arena" name="id_arena">
+                        <option value=""></option>
                         @for(arena <- arenas){<option value="@arena.id">@arena.name</option>}
                     </select>
                 </td>
@@ -73,6 +74,7 @@
                 </td>
                 <td>
                     <select id="mvp" name="mvp">
+                        <option value=""></option>
                         @for(player <- players){
                         <option value="@player.id">@player.firstName @player.lastName</option>
                         }

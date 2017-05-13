@@ -29,7 +29,7 @@ class GameServiceImpl @Inject()(gameDAO: GameDAO)extends GameService{
   def listSimple: Future[Seq[Game]] = {
     gameDAO.listSimple
   }
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[(Game, Inscription,String, Inscription,String, Player, Arena)]] ={
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[(Game, Inscription,String, Inscription,String)]] ={
     gameDAO.list(page,pageSize,orderBy,filter)
   }
   override def count: Future[Int] = {

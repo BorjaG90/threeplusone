@@ -16,7 +16,7 @@ trait GameDAO {
   def update(id: Long, inscription: Game): Future[Int]
   def delete(id: Option[Long]):Future[Int]
   def listSimple:Future[Seq[Game]]
-  def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page[(Game, Inscription,String, Inscription,String, Player, Arena)]]
+  def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page[(Game, Inscription,String, Inscription,String)]]
   def findById(id: Long): Future[Game]
   def get(id: Long): Future[Option[Game]]
   def count: Future[Int]

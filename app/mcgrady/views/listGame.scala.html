@@ -1,4 +1,4 @@
-@(currentPage : util.Page[(mcgrady.model.Game,mcgrady.model.Inscription,String,mcgrady.model.Inscription,String,mcgrady.model.Player,mcgrady.model.Arena)], currentOrderBy: Int, currentFilter: String, sf: java.text.SimpleDateFormat)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+@(currentPage : util.Page[(mcgrady.model.Game,mcgrady.model.Inscription,String,mcgrady.model.Inscription,String)], currentOrderBy: Int, currentFilter: String, sf: java.text.SimpleDateFormat,players:Seq[mcgrady.model.Player],arenas:Seq[mcgrady.model.Arena])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 
 @****************************************
 * Helper generating navigation links *
@@ -40,25 +40,33 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <th>Descripción</th>
         <th></th>
     </tr>
-    @for((game,home,teamH,visitor,teamV,mvp,arena) <- currentPage.items){
+    @for((game,home,teamH,visitor,teamV) <- currentPage.items){
     <tr>
-        @if(game.dateGame != None){
-        <td>@sf.format(game.dateGame)</td>
-        }else{<td></td>}
+        <td>@if(game.dateGame != None){
+            @sf.format(game.dateGame)}
+        </td>
         <td align="right"><a href="@mcgrady.controllers.routes.InscriptionController.edit(home.id.get)">@teamH</a></td>
         <td><a href="@mcgrady.controllers.routes.InscriptionController.edit(visitor.id.get)">@teamV</a></td>
-        <td><a href="@mcgrady.controllers.routes.ArenaController.edit(arena.id.get)">@arena.name</a></td>
-        @if(game.winner != None && game.winner.get == "H"){
-        <td>@teamH</td>
-        }else {@if(game.winner != None && game.winner.get == "A"){
-        <td>@teamV</td>
-        }else{
-        <td></td>
-        }}
-        <td><a href="@mcgrady.controllers.routes.PlayerController.edit(mvp.id.get)">@mvp.firstName @mvp.lastName</a></td>
+        <td>
+            @if(game.idArena != None){ @for(arena<-arenas){ @if(arena.id == game.idArena.get){
+            <a href="@mcgrady.controllers.routes.ArenaController.edit(arena.id.get)">@arena.name</a>
+            }}}
+        </td>
+        <td>
+            @if(game.winner != None && game.winner.get == "H"){
+                @teamH
+            }else {@if(game.winner != None && game.winner.get == "A"){
+                @teamV
+            }}
+        </td>
+        <td>
+            @if(game.mvp != None){ @for(mvp<-players){ @if(mvp.id.get == game.mvp){
+            <a href="@mcgrady.controllers.routes.PlayerController.edit(mvp.id.get)">@mvp.firstName @mvp.lastName</a>
+            }}}
+        </td>
         <td>@game.description</td>
         <td>
-            <a href="@mcgrady.controllers.routes.GameController.edit(game.id.get,1)">
+            <a href="@mcgrady.controllers.routes.GameController.edit(game.id.get,home.idCompetition)">
                 <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>
             <a href="@mcgrady.controllers.routes.GameController.delete(game.id)">
                 <img src=@routes.Assets.versioned("images/basura.png") alt="Borrar"></a>

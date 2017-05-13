@@ -49,13 +49,12 @@ class ArenaDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvi
   override def listSimple: Future[Seq[Arena]] = {
     db.run(arenas.result)
   }
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[(Arena,Country)]] = {
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[Arena]] = {
     val offset = pageSize * page
     val query =
       (for {
         arena <- arenas if arena.name like filter.toLowerCase
-        country <- arena.arena_country_fk
-      } yield (arena,country)).drop(offset).take(pageSize)
+      } yield arena).drop(offset).take(pageSize)
     val totalRows = count(filter)
     val result = db.run(query.result)
 

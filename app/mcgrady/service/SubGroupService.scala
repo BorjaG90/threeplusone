@@ -3,7 +3,7 @@ package mcgrady.service
 import scala.concurrent.Future
 import com.google.inject.ImplementedBy
 import util.Page
-import mcgrady.model.{SubGroup,Group}
+import mcgrady.model._
 import impl.SubGroupServiceImpl
 
 /**
@@ -16,7 +16,7 @@ trait SubGroupService {
   def update(id: Long, subGroup: SubGroup): Future[Int]
   def delete(id: Option[Long]): Future[Int]
   def listSimple: Future[Seq[SubGroup]]
-  def list(page: Int, pageSize:Int, orderBy: Int, filter: String):Future[Page[(SubGroup,Group,String,String)]]
+  def list(page: Int, pageSize:Int, orderBy: Int, filter: String):Future[Page[(SubGroup,Group,Season,Competition)]]
   def count: Future[Int]
   def find(id: Long): Future[SubGroup]
   def get(id: Long): Future[Option[SubGroup]]

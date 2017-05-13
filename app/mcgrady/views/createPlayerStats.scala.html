@@ -17,28 +17,12 @@
         <br/>
         <table align="center">
             <tr>
-                <th>Partido</th>
+                <th colspan="2">Partido</th>
                 <th>Jugador</th>
-                <th>Pts</th>
-                <th>Reb Of</th>Linea
-                <th>Reb Def</th>
-                <th>Ass</th>
-                <th>Tap</th>
-                <th>Rob</th>
-                <th>TCA</th>
-                <th>TCI</th>
-                <th>T3A</th>
-                <th>T3I</th>
-                <th>TLA</th>
-                <th>TLI</th>
-                <th>Fal</th>
-                <th>Per</th>
-                <th>Min</th>
-                <th>Tec</th>
-                <th>Flag</th>
+                <th>Minutos</th>
             </tr>
             <tr>
-                <td>
+                <td colspan="2">
                     <select id="id_game" name="id_game">
                         @for(game <- games){
                         @for(homeI <- inscriptions){@if(game.idHome == homeI.id.get){
@@ -56,57 +40,55 @@
                         }
                     </select>
                 </td>
-                <td>
-                    <input type="text" id="points" name="points" value="" placeholder="Puntos">
-                </td>
-                <td>
-                    <input type="text" id="off_rebounds" name="off_rebounds" value="" placeholder="Reb Ofensivo">
-                </td>
-                <td>
-                    <input type="text" id="def_rebounds" name="def_rebounds" value="" placeholder="Reb Defensivo">
-                </td>
-                <td>
-                    <input type="text" id="assists" name="assists" value="" placeholder="Asistencias">
-                </td>
-                <td>
-                    <input type="text" id="blocks" name="blocks" value="" placeholder="Tapones">
-                </td>
-                <td>
-                    <input type="text" id="steals" name="steals" value="" placeholder="Robos">
-                </td>
-                <td>
-                    <input type="text" id="fg_made" name="fg_made" value="" placeholder="TCampo Conseguido">
-                </td>
-                <td>
-                    <input type="text" id="fg_attemped" name="fg_attemped" value="" placeholder="TCampo Intentado">
-                </td>
-                <td>
-                    <input type="text" id="t3_made" name="t3_made" value="" placeholder="Triple Conseguido">
-                </td>
-                <td>
-                    <input type="text" id="t3_attemped" name="t3_attemped" value="" placeholder="Triple Intentado">
-                </td>
-                <td>
-                    <input type="text" id="ft_made" name="ft_made" value="" placeholder="Libre Intentado">
-                </td>
-                <td>
-                    <input type="text" id="ft_attemped" name="ft_attemped" value="" placeholder="Libre Conseguido">
-                </td>
-                <td>
-                    <input type="text" id="fouls" name="fouls" value="" placeholder="Faltas">
-                </td>
-                <td>
-                    <input type="text" id="turnovers" name="turnovers" value="" placeholder="Perdidas">
-                </td>
-                <td>
-                    <input type="text" id="minutes" name="minutes" value="" placeholder="Minutos">
-                </td>
-                <td>
-                    <input type="text" id="tech_fouls" name="tech_fouls" value="" placeholder="Tecnicas">
-                </td>
-                <td>
-                    <input type="text" id="flag_fouls" name="flag_fouls" value="" placeholder="Flagrantes">
-                </td>
+                <td><input type="text" id="minutes" name="minutes" value="" placeholder="Minutos"></td>
+            </tr>
+            <tr>
+                <th>Puntos</th>
+                <th>TC Anotados</th>
+                <th>T3 Anotados</th>
+                <th>TL Anotados</th>
+            </tr>
+            <tr>
+                <td><input type="text" id="points" name="points" value="" placeholder="Puntos"></td>
+                <td><input type="text" id="fg_made" name="fg_made" value="" placeholder="TCampo Conseguidos"></td>
+                <td><input type="text" id="t3_made" name="t3_made" value="" placeholder="Triple Conseguidos"></td>
+                <td><input type="text" id="ft_made" name="ft_made" value="" placeholder="Libre Conseguidos"></td>
+            </tr>
+            <tr>
+                <th>Asistencias</th>
+                <th>TC Intentados</th>
+                <th>T3 Intentados</th>
+                <th>TL Intentados</th>
+            </tr>
+            <tr>
+                <td><input type="text" id="assists" name="assists" value="" placeholder="Asistencias"></td>
+                <td><input type="text" id="fg_attemped" name="fg_attemped" value="" placeholder="TCampo Intentados"></td>
+                <td><input type="text" id="t3_attemped" name="t3_attemped" value="" placeholder="Triple Intentados"></td>
+                <td><input type="text" id="ft_attemped" name="ft_attemped" value="" placeholder="Libre Intentados"></td>
+            </tr>
+            <tr>
+                <th>Reb Ofensivos</th>
+                <th>Reb Defensivos</th>
+                <th>Tapones</th>
+                <th>Robos</th>
+            </tr>
+            <tr>
+                <td><input type="text" id="off_rebounds" name="off_rebounds" value="" placeholder="Reb Ofensivos"></td>
+                <td><input type="text" id="def_rebounds" name="def_rebounds" value="" placeholder="Reb Defensivos"></td>
+                <td><input type="text" id="blocks" name="blocks" value="" placeholder="Tapones"></td>
+                <td><input type="text" id="steals" name="steals" value="" placeholder="Robos"></td>
+            </tr>
+            <tr>
+                <th>Faltas</th>
+                <th>Técnicas</th>
+                <th>Flagrantes</th>
+                <th>Pérdidas</th>
+            </tr>
+            <tr>
+                <td><input type="text" id="fouls" name="fouls" value="" placeholder="Faltas"></td>
+                <td><input type="text" id="tech_fouls" name="tech_fouls" value="" placeholder="Técnicas"></td>
+                <td><input type="text" id="flag_fouls" name="flag_fouls" value="" placeholder="Flagrantes"></td>
+                <td><input type="text" id="turnovers" name="turnovers" value="" placeholder="Pérdidas"></td>
             </tr>
         </table>
         <br/>

@@ -16,7 +16,7 @@ trait ArenaDAO {
   def update(id: Long, arena: Arena): Future[Int]
   def delete(id: Option[Long]):Future[Int]
   def listSimple:Future[Seq[Arena]]
-  def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page[(Arena,Country)]]
+  def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page[Arena]]
   def findById(id: Long): Future[Arena]
   def get(id: Long): Future[Option[Arena]]
   def count: Future[Int]

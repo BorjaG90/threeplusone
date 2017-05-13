@@ -48,7 +48,7 @@
     </div>
     <div id="General" class="tabcontent">
         <form id="@plan.name-@session.name-@serie.id-data-form" role="form" action=@kobe.controllers.routes.RecordController.saveMark(session.id.get) method="post" autocomplete="off">
-            <fieldset >
+            <fieldset>
                 <label>Nueva Marca</label>
                 <br/>
                 <table>
@@ -82,7 +82,7 @@
             </fieldset>
         </form>
     </div>
-    <div id="shot-chart" class="tabcontent"style="display:none;background-image: url(@routes.Assets.versioned("images/ShotChart3.gif"))">
+    <div id="shot-chart" class="tabcontent" style="display:none; background-image: url(@routes.Assets.versioned("images/ShotChart3.gif"))">
         <svg id="shot-chart-svg" width="500" height="900">
             <defs>
                 <mask id="hole">

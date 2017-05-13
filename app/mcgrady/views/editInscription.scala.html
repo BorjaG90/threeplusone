@@ -29,7 +29,7 @@
                     <select id="id_subgroup" name="id_subgroup">
                         @for(season <- seasons){
                             @for(competition <- competitions){
-                                @if(season.id.get == competition.id_season){
+                                @if(season.id.get == competition.idSeason){
                                     @for(group <- groups){
                                         @if(competition.id.get == group.idCompetition){
                                             @for(subgroup <- subgroups){

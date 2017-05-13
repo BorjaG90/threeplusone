@@ -12,11 +12,11 @@ import java.sql.{ Date => SqlDate }
   */
 
 case class Competition(id: Option[Long] = None
-                       ,id_season: Long
+                       ,idSeason: Long
                        ,name: String
                        ,abrv: Option[String] = None
                        ,division: Option[String] = None
-                       ,id_country: Option[Long] = Some(1L)
+                       ,idCountry: Option[Long] = None
                        ,description: Option[String] = None
                        ,typeCompetition: String
                        ,initDate: Option[Date] = Some(new java.util.Date(0))
@@ -32,11 +32,11 @@ class CompetitionTable(tag: Tag) extends Table[Competition](tag, "competitions")
   val seasonsTable = TableQuery[SeasonTable]
 
   def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
-  def id_season = column[Long]("id_season")
+  def idSeason = column[Long]("id_season")
   def name = column[String]("name")
   def abrv = column[String]("abbreviation")
   def division = column[String]("division")
-  def id_country = column[Long]("id_country")
+  def idCountry = column[Long]("id_country")
   def description = column[String]("description")
   def typeCompetition = column[String]("type")
   def initDate = column[Date]("init_date")
@@ -44,10 +44,10 @@ class CompetitionTable(tag: Tag) extends Table[Competition](tag, "competitions")
   def creationDate = column[Date]("creation_date")
   def modifiedDate = column[Date]("modified_date")
 
-  def competition_country_fk = foreignKey("competition_country_fk", id_country, countriesTable)(_.id)
-  def competition_season_fk = foreignKey("competition_season_fk", id_season, seasonsTable)(_.id)
+  def competition_country_fk = foreignKey("competition_country_fk", idCountry, countriesTable)(_.id)
+  def competition_season_fk = foreignKey("competition_season_fk", idSeason, seasonsTable)(_.id)
 
-  override def * = (id.?, id_season, name, abrv.?, division.?, id_country.?,
+  override def * = (id.?, idSeason, name, abrv.?, division.?, idCountry.?,
     description.?, typeCompetition
     , initDate.?, endDate.?
     , creationDate, modifiedDate.?

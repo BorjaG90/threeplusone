@@ -28,7 +28,7 @@ class TeamServiceImpl @Inject()(teamDAO: TeamDAO)extends TeamService{
   def listSimple: Future[Seq[Team]] = {
     teamDAO.listSimple
   }
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[(Team,Country)]] ={
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[Team]] ={
     teamDAO.list(page,pageSize,orderBy,filter)
   }
   override def count: Future[Int] = {

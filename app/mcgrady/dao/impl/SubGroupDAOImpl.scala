@@ -6,7 +6,7 @@ import play.api.db.slick.DatabaseConfigProvider
 import slick.driver.JdbcProfile
 import javax.inject.Inject
 import util.Page
-import mcgrady.model.{SubGroup, SubGroupTable, Group, GroupTable}
+import mcgrady.model._
 import mcgrady.dao.SubGroupDAO
 
 /**
@@ -50,7 +50,7 @@ class SubGroupDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPr
   override def listSimple: Future[Seq[SubGroup]] = {
     db.run(subGroups.result)
   }
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[(SubGroup,Group,String,String)]] = {
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[(SubGroup,Group,Season,Competition)]] = {
     val offset = pageSize * page
     val query =
       (for {
@@ -58,7 +58,7 @@ class SubGroupDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPr
         competition <- group.group_competition_fk
         season <- competition.competition_season_fk
         if subGroup.name like filter.toLowerCase
-      } yield (subGroup,group,season.year, competition.abrv)).drop(offset).take(pageSize)
+      } yield (subGroup, group, season, competition)).drop(offset).take(pageSize)
     val totalRows = count(filter)
     val result = db.run(query.result)
 

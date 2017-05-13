@@ -28,7 +28,7 @@ class ArenaServiceImpl @Inject()(arenaDAO: ArenaDAO)extends ArenaService{
   def listSimple: Future[Seq[Arena]] = {
     arenaDAO.listSimple
   }
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[(Arena,Country)]] ={
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[Arena]] ={
     arenaDAO.list(page,pageSize,orderBy,filter)
   }
   override def count: Future[Int] = {

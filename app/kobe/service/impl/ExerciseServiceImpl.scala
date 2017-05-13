@@ -28,7 +28,7 @@ class ExerciseServiceImpl @Inject()(exerciseDAO: ExerciseDAO)extends ExerciseSer
   def listSimple: Future[Seq[Exercise]] = {
     exerciseDAO.listSimple
   }
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[(Exercise,TypeExercise,Category,Enviroment)]] ={
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[Exercise]] ={
     exerciseDAO.list(page,pageSize,orderBy,filter)
   }
   override def count: Future[Int] = {
