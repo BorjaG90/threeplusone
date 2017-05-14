@@ -1,8 +1,10 @@
+use threeplusone;
+
 # Test
 # McGrady
 
 # Season
-Delete from seasons where id > 0;
+Delete from seasons where id = 1;
 INSERT INTO seasons (year, creation_date) VALUES ('2017', 0);
 
 # Teams

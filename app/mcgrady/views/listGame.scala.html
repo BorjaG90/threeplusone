@@ -53,14 +53,11 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
             }}}
         </td>
         <td>
-            @if(game.winner != None && game.winner.get == "H"){
-                @teamH
-            }else {@if(game.winner != None && game.winner.get == "A"){
-                @teamV
-            }}
+            @if(game.winner != None && game.winner.get == "H"){ @teamH
+            }else {@if(game.winner != None && game.winner.get == "A"){ @teamV }}
         </td>
         <td>
-            @if(game.mvp != None){ @for(mvp<-players){ @if(mvp.id.get == game.mvp){
+            @if(game.mvp != None){ @for(mvp<-players){ @if(mvp.id.get == game.mvp.get){
             <a href="@mcgrady.controllers.routes.PlayerController.edit(mvp.id.get)">@mvp.firstName @mvp.lastName</a>
             }}}
         </td>

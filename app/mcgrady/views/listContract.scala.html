@@ -41,7 +41,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <tr>
         <td><a href="@mcgrady.controllers.routes.PlayerController.edit(player.id.get)">@player.firstName @player.lastName</a></td>
         <td><a href="@mcgrady.controllers.routes.TeamController.edit(team.id.get)">@team.name</a></td>
-        <td>contract.number</td>
+        <td>@contract.number</td>
         @if(contract.initDate != None){
         <td>@sf.format(contract.initDate.get)</td>
         }else{<td></td>}

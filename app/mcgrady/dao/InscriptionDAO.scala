@@ -16,7 +16,7 @@ trait InscriptionDAO {
   def update(id: Long, inscription: Inscription): Future[Int]
   def delete(id: Option[Long]):Future[Int]
   def listSimple:Future[Seq[Inscription]]
-  def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page[(Inscription,Team,Arena,Competition,Season)]]
+  def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page[(Inscription,Team,Competition,Season)]]
   def listFilterCompetition(filter: Long): Future[Seq[Inscription]]
   def findById(id: Long): Future[Inscription]
   def get(id: Long): Future[Option[Inscription]]

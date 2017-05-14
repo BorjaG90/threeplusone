@@ -1,7 +1,7 @@
 @(inscriptionForm: Form[mcgrady.model.Inscription],teams: Seq[mcgrady.model.Team],subGroups: Seq[mcgrady.model.SubGroup],arenas: Seq[mcgrady.model.Arena],groups: Seq[mcgrady.model.Group],competitions: Seq[mcgrady.model.Competition],seasons: Seq[mcgrady.model.Season])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 
 @import helper._
-
+@import java.math.BigInteger; var compCount=0; var groupCount=0
 @main(Messages("inscription.title")){
 @request.flash.get(messages("flash.success")).map { msg =>
 <div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
@@ -20,41 +20,47 @@
         <table align="center">
             <tr>
                 <th>Equipo</th>
-                <th>SubGrupo</th>
+                <th>Asignación</th>
                 <th>Estadio</th>
             </tr>
             <tr>
                 <td>
                     <select id="id_team" name="id_team">
-                        @for(team <- teams){
-                        <option value="@team.id">@team.name</option>
-                        }
+                        @for(team <- teams){ <option value="@team.id">@team.name</option> }
                     </select>
                 </td>
                 <td>
-                    <select id="id_subgroup" name="id_subgroup">
-                        @for(season <- seasons){
-                            @for(competition <- competitions){
-                                @if(season.id.get == competition.idSeason){
-                                    @for(group <- groups){
-                                        @if(competition.id.get == group.idCompetition){
-                                            @for(subGroup <- subGroups){
-                                                @if(group.id.get == subGroup.idGroup){
-                        <option value="@subGroup.id">@season.year-@competition.abrv/@group.name-@subGroup.name</option>
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                    <input type="hidden" id="id_competition" name="id_competition" value="">
+                    <input type="hidden" id="id_group" name="id_group" value="">
+                    <input type="hidden" id="id_subgroup" name="id_subgroup" value="">
+                    @for(competition <- competitions){ @for(season <- seasons){
+                    @if(season.id.get == competition.idSeason){
+                    @for(group <- groups){ @if(competition.id.get == group.idCompetition){
+                    @{groupCount = 0}
+                    @for(subGroup <- subGroups){ @if(group.id.get == subGroup.idGroup){
+                    @{groupCount += 1}
+                    <input type="hidden" id="CS-@subGroup.id" value="@competition.id">
+                    <input type="hidden" id="GS-@subGroup.id" value="@group.id">
+                    }}
+                    @if(groupCount==0){ <input type="hidden" id="CG-@group.id" value="@competition.id"> }}}}}}
+                    <select id="asignation" onchange="inscription()">
+                        <option id="E" value="">-Seleccionar-</option>
+                        @for(competition <- competitions){ @for(season <- seasons){
+                        @if(season.id.get == competition.idSeason){ @{compCount = 0} @for(group <- groups){
+                        @if(competition.id.get == group.idCompetition){ @{compCount += 1} @{groupCount = 0}
+                        @for(subGroup <- subGroups){ @if(group.id.get == subGroup.idGroup){ @{groupCount += 1}
+                        <option id="S-@subGroup.id" value="@subGroup.id">@season.year-@competition.abrv/@group.name-@subGroup.name</option>
+                        }} @if(groupCount==0){
+                        <option id="G-@group.id" value="@group.id">@season.year-@competition.abrv/@group.name</option>
+                        }}}@if(compCount==0){
+                        <option id="C-@competition.id" value="@competition.id">@season.year-@competition.abrv</option>
+                        }}}}
                     </select>
                 </td>
                 <td>
                 <select id="id_arena" name="id_arena">
-                    @for(arena <- arenas){
-                    <option value="@arena.id">@arena.name</option>
-                    }
+                    <option value=""></option>
+                    @for(arena <- arenas){ <option value="@arena.id">@arena.name</option> }
                 </select>
             </td>
             </tr>

@@ -1,4 +1,4 @@
-@(currentPage : util.Page[(mcgrady.model.Inscription,mcgrady.model.Team,mcgrady.model.Arena,mcgrady.model.Competition,mcgrady.model.Season)], currentOrderBy: Int, currentFilter: String, groups: Seq[mcgrady.model.Group],subgroups: Seq[mcgrady.model.SubGroup])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+@(currentPage : util.Page[(mcgrady.model.Inscription,mcgrady.model.Team,mcgrady.model.Competition,mcgrady.model.Season)], currentOrderBy: Int, currentFilter: String, groups: Seq[mcgrady.model.Group],subgroups: Seq[mcgrady.model.SubGroup],arenas: Seq[mcgrady.model.Arena])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 
 @****************************************
 * Helper generating navigation links *
@@ -36,23 +36,26 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <th>Arena</th>
         <th></th>
     </tr>
-    @for((inscription, team, arena, competition, season) <- currentPage.items){
+    @for((inscription, team, competition, season) <- currentPage.items){
     <tr>
         @if(season.id.get == None){
         <td></td>}else{<td>@season.year</td>}
         <td>
-            @if(competition.id.get != None){<a href="@mcgrady.controllers.routes.CompetitionController.edit(competition.id.get)">@competition.abrv</a>}else{}
+            @if(competition.id.get != None){
+            <a href="@mcgrady.controllers.routes.CompetitionController.edit(competition.id.get)">@competition.abrv</a>}
             @if(inscription.idGroup != None){
-            @for(group <- groups){@if(group.id.get == inscription.idGroup){
-            / <a href="@mcgrady.controllers.routes.GroupController.edit(group.id.get)">@group.name</a>
-            }}}
+            @for(group <- groups){@if(group.id.get == inscription.idGroup.get){
+            / <a href="@mcgrady.controllers.routes.GroupController.edit(group.id.get)">@group.name</a>}}}
             @if(inscription.idSubGroup != None){
-            @for(subgroup <- subgroups){@if(subgroup.id.get == inscription.idSubGroup){
-            - <a href="@mcgrady.controllers.routes.SubGroupController.edit(subgroup.id.get)">@subgroup.name</a>
-            }}}
+            @for(subgroup <- subgroups){@if(subgroup.id.get == inscription.idSubGroup.get){
+            - <a href="@mcgrady.controllers.routes.SubGroupController.edit(subgroup.id.get)">@subgroup.name</a>}}}
         </td>
         <td><a href="@mcgrady.controllers.routes.TeamController.edit(team.id.get)">@team.name</a></td>
-        <td><a href="@mcgrady.controllers.routes.ArenaController.edit(arena.id.get)">@arena.name</a></td>
+        <td>
+            @if(inscription.idArena != None){
+            @for(arena <- arenas){ @if(arena.id.get == inscription.idArena.get){
+            <a href="@mcgrady.controllers.routes.ArenaController.edit(arena.id.get)">@arena.name</a>}}}
+        </td>
         <td>
             <a href="@mcgrady.controllers.routes.InscriptionController.edit(inscription.id.get)">
                 <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>
