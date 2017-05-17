@@ -1,15 +1,6 @@
 /**
   * Created by Borja Gete on 24/04/17.
   */
-function mostrar(serieId){
-    document.getElementById('shot-chart').style.display = 'block';
-    document.getElementById('id_serie_shot').value = serieId;
-    document.getElementById('shot-chart').focus;
-}
-
-function ocultar(){
-    document.getElementById('shot-chart').style.display = 'none';}
-
 function calculatePercentage(idMade,idAtt,min,max,idSvg){
     var made = document.getElementById(idMade).value;
     var att = document.getElementById(idAtt).value;
@@ -31,9 +22,10 @@ function setInShotChart(id){
     document.getElementById(id).value=value;
     document.getElementById(id).onchange();
 }
-function openForm(evt, formul) {
+function openForm(evt, formul, serieId) {
     // Declare all variables
     var i, tabcontent, tablinks;
+    document.getElementById('id_serie_shot').value = serieId;
 
     // Get all elements with class="tabcontent" and hide them
     tabcontent = document.getElementsByClassName("tabcontent");

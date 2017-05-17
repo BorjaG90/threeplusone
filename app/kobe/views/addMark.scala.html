@@ -44,7 +44,7 @@
     </table>
     <div class="tab" align="center">
         <button class="tablinks" onclick="openForm(event, 'General')">General</button>
-        <button class="tablinks" onclick="openForm(event, 'shot-chart')">Lanzamientos</button>
+        <button class="tablinks" onclick="openForm(event, 'shot-chart', @serie.id)">Lanzamientos</button>
     </div>
     <div id="General" class="tabcontent">
         <form id="@plan.name-@session.name-@serie.id-data-form" role="form" action=@kobe.controllers.routes.RecordController.saveMark(session.id.get) method="post" autocomplete="off">
@@ -209,8 +209,7 @@
             <input id="triple-right-fga-down" type="text" name="shots[27].value" value="" onchange="setInShotChart('triple-right-fga')">
             <br>
             <button type="submit" class="btn btn-primary ynt-btn-orange">
-                <img src=@routes.Assets.versioned("images/guardarBlanco.png") alt="Guardar"></button>
-            <button type="button" onclick="mostrar(@serie.id)">Mostrar</button>}}}}}}
+                <img src=@routes.Assets.versioned("images/guardarBlanco.png") alt="Guardar"></button>}}}}}}
         </form>
     </div>
 </div>}
