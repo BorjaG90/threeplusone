@@ -5,7 +5,7 @@ import javax.inject.Inject
 import com.google.inject.Singleton
 import util.Page
 import mcgrady.dao.PlayerStatsDAO
-import mcgrady.model.{PlayerStats, Game, Player}
+import mcgrady.model._
 import mcgrady.service.PlayerStatsService
 
 /**
@@ -29,7 +29,7 @@ class PlayerStatsServiceImpl @Inject()(playerStatsDAO: PlayerStatsDAO)extends Pl
   def listSimple: Future[Seq[PlayerStats]] = {
     playerStatsDAO.listSimple
   }
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[(PlayerStats, Game, Player,String,String)]] ={
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String):Future[Page[(PlayerStats, Game, Player,Long, String,String)]] ={
     playerStatsDAO.list(page,pageSize,orderBy,filter)
   }
   override def count: Future[Int] = {

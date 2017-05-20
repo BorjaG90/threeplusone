@@ -268,16 +268,21 @@ class RecordController @Inject()(val messagesApi: MessagesApi
           , new SimpleDateFormat("dd/MM/yyyy"))))
         ,chart => {
           var count = 0;
+          //Recorre el array de anotados/lanzados
           chart.shots.foreach { data =>
-            var idUnit = 9
-            if(count%2!=0){ idUnit = 10 }
-            val newRecord = Record(Some(0L), idUnit, chart.idSerie, data.value, data.notes, "M", Some(new java.util.Date())
-              , new java.util.Date(), Some(new java.util.Date(0))
-            )
-            val futureRecordInsert = recordService.add(newRecord)
+            var idUnit = 10
+            if(data.value != None) {
+              //Si contiene "Intentos" cambia el id de la unidad
+              //IMPORTANTE: Requiere que la BD se cree con los scripts de Evolutions que tienen unidades por defecto
+              if(data.notes.get.toString.contains("Intentos")){ idUnit = 9 }
+              val newRecord = Record(Some(0L), idUnit, chart.idSerie, data.value.get, data.notes, "M", Some(new java.util.Date())
+                , new java.util.Date(), Some(new java.util.Date(0))
+              )
+              val futureRecordInsert = recordService.add(newRecord)
+            }
             count = count +1
           }
-          Future.successful(Redirect(kobe.controllers.routes.RecordController.addMark(id)).flashing("success" -> "La marca ha sido creada"))
+          Future.successful(Redirect(kobe.controllers.routes.RecordController.addMark(id)).flashing("success" -> "Los lanzamientos se han añadido"))
         }
       )
     }

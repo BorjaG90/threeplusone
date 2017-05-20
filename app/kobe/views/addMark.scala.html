@@ -28,13 +28,8 @@
         </tr>
         @for(mark <- records){ @if(mark.idSerie == serie.id.get && mark.typeR.toString == "M"){
         <tr>
-            <td>@mark.value
-                @for(unit <- units){ @if(unit.id.get == mark.idUnit){
-                @unit.name</td>
-            }}
-            @if(mark.exeDate.get != None){
-            <td>@sf.format(mark.exeDate.get)</td>
-            }else{<td></td>}
+            <td>@mark.value @for(unit <- units){ @if(unit.id.get == mark.idUnit){ @unit.name</td> }}
+            <td>@if(mark.exeDate.get != None){ @sf.format(mark.exeDate.get) } </td>
             <td>@mark.notes</td>
             <td><a href="@kobe.controllers.routes.RecordController.editMark(mark.id.get)">
                 <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>

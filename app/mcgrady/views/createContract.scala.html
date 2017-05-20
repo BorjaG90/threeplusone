@@ -28,7 +28,7 @@
             <tr>
                 <td>
                     <select id="id_player" name="id_player">
-                        @for(player <- players){
+                        @for(player <- players.sortBy(x=> x.firstName)){
                         <option value="@player.id">@player.firstName @player.lastName</option>
                         }
                     </select>

@@ -63,10 +63,9 @@ class InscriptionDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfi
             ) join competitions on (_._1.idCompetition === _.id)
           ) join seasons on (_._2.idSeason === _.id)
         if team.name like filter.toLowerCase
-      } yield (inscription, team, competition, season)).drop(offset).take(pageSize)
+      } yield (inscription, team, competition, season)).sortBy(x=> (x._4.year,x._3.abrv,x._2.name)).drop(offset).take(pageSize)
     val totalRows = count
     val result = db.run(query.result)
-
     result flatMap (objects => totalRows map (rows => Page(objects, page, offset, rows)))
   }
 

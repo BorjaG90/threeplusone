@@ -5,9 +5,9 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import play.api.db.slick.DatabaseConfigProvider
 import slick.driver.JdbcProfile
 import javax.inject.Inject
-import  java.util.logging._
+import java.util.logging._
 import util.Page
-import mcgrady.model.{PlayerStats, PlayerStatsTable, Game, GameTable, Player, InscriptionTable, PlayerTable}
+import mcgrady.model._
 import mcgrady.dao.PlayerStatsDAO
 
 /**
@@ -54,7 +54,7 @@ class PlayerStatsDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfi
   override def listSimple: Future[Seq[PlayerStats]] = {
     db.run(playerStats.result)
   }
-  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[(PlayerStats, Game, Player, String, String)]] = {
+  override def list(page: Int, pageSize: Int, orderBy: Int, filter: String = "%"): Future[Page[(PlayerStats, Game, Player, Long, String, String)]] = {
     val offset = pageSize * page
     val query =
       (for {
@@ -65,7 +65,7 @@ class PlayerStatsDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfi
         homeT <- home.inscription_team_fk
         visitorT <- visitor.inscription_team_fk
         if player.lastName like filter.toLowerCase
-      } yield (playerStat, game, player, homeT.abrv, visitorT.abrv)).drop(offset).take(pageSize)
+      } yield (playerStat, game, player, home.idCompetition, homeT.abrv, visitorT.abrv)).drop(offset).take(pageSize)
     val totalRows = count
     val result = db.run(query.result)
 

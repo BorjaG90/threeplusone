@@ -98,9 +98,9 @@ GET     /game/delete/:id                 mcgrady.controllers.GameController.dele
 #PlayerStats
 GET     /playerStat                       mcgrady.controllers.PlayerStatsController.index
 GET     /playerStats                        mcgrady.controllers.PlayerStatsController.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
-GET     /playerStat/new                   mcgrady.controllers.PlayerStatsController.add
+GET     /playerStat/new                   mcgrady.controllers.PlayerStatsController.add(id:Long)
 POST    /playerStats                       mcgrady.controllers.PlayerStatsController.save
-GET     /playerStat/:id                   mcgrady.controllers.PlayerStatsController.edit(id: Long)
+GET     /playerStat/:id                   mcgrady.controllers.PlayerStatsController.edit(id: Long, idComp: Long)
 POST    /playerStat/:id                     mcgrady.controllers.PlayerStatsController.update(id: Long)
 GET     /playerStat/delete/:id                 mcgrady.controllers.PlayerStatsController.delete(id: Option[Long])
 

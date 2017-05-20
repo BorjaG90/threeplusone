@@ -4,7 +4,7 @@
 * Helper generating navigation links *
 ****************************************@
 @link(newPage: Int, newOrderBy: Option[Int] = None) = @{
-kobe.controllers.routes.PlanController.list(newPage, newOrderBy.map { orderBy =>
+kobe.controllers.routes.RecordController.list(newPage, newOrderBy.map { orderBy =>
 if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
 }.getOrElse(currentOrderBy), currentFilter)
 }
@@ -12,14 +12,10 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
 @main(Messages("mark.title")){
 @request.flash.get(messages("flash.success")).map { msg =>
 <div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
-    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
-</div>
-}
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong> </div> }
 @request.flash.get(messages("flash.error")).map { msg =>
 <div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
-    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
-</div>
-}
+    <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong> </div> }
 <h3>Registros</h3>
 <table class="table table-striped">
     <tr>
@@ -27,35 +23,23 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <th>Ejercicio</th>
         <th>Volumen</th>
         <th>Notas</th>
-        <th></th>
-        <th></th>
+        <th></th><th></th>
     </tr>
     @for((record,serie,unit,exercise) <- currentPage.items){
     <tr>
         @for(plan <- plans){
-        @for(session <- sessions){
-        @if(session.idPlan == plan.id.get){
-        @if(serie.idSession == session.id.get){
-        <td>@plan.name>@session.name-<a href="@kobe.controllers.routes.SerieController.edit(serie.id.get)">@serie.id</a></td>
-        }
-        }
-        }
-        }
+        @for(session <- sessions){ @if(session.idPlan == plan.id.get){ @if(serie.idSession == session.id.get){
+        <td>@plan.name>@session.name-
+            <a href="@kobe.controllers.routes.SerieController.edit(serie.id.get)">@serie.id</a></td>
+        }}}}
         <td>@exercise.name</td>
-        <td>@record.value @unit.name</td>
+        <td>@if(record.typeR == "V"){<b>@record.value @unit.name</b>}else{@record.value @unit.name}</td>
         <td>@record.notes</td>
-        @if(record.typeR == 'M'){
-
-        }else{
-        <td>
-            <a href="@kobe.controllers.routes.RecordController.editVolume(record.id.get)">
-                <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>
-        </td>
-        }
-        <td>
-            <a href="@kobe.controllers.routes.RecordController.delete(record.id)">
-                <img src=@routes.Assets.versioned("images/basura.png") alt="Borrar"></a>
-        </td>
+        @if(record.typeR == "M"){ <td></td>}else{
+        <td> <a href="@kobe.controllers.routes.RecordController.editVolume(record.id.get)">
+                <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a> </td> }
+        <td> <a href="@kobe.controllers.routes.RecordController.delete(record.id)">
+                <img src=@routes.Assets.versioned("images/basura.png") alt="Borrar"></a> </td>
     </tr>
     }
 </table>
@@ -63,10 +47,8 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <a>Mostrando del @(currentPage.offset + 1) al @(currentPage.offset + currentPage.items.size) de @currentPage.total</a>
     </br>
     @currentPage.prev.map { page =>
-    <a href="@link(page)"><button>Anterior<i class="arrow_left"></i></button></a>
-    }.getOrElse {|}
+    <a href="@link(page)"><button>Anterior<i class="arrow_left"></i></button></a> }.getOrElse {|}
     @currentPage.next.map { page =>
-    <a href="@link(page)"><button>Siguiente<i class="arrow_right"></i></button></a>
-    }.getOrElse {|}
+    <a href="@link(page)"><button>Siguiente<i class="arrow_right"></i></button></a> }.getOrElse {|}
 </div>
 }

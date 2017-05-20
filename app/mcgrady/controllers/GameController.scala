@@ -21,11 +21,12 @@ import mcgrady.views._
 class GameController @Inject()(val messagesApi: MessagesApi
                                , gameService: GameService
                                , playerService: PlayerService
+                               , contractService: ContractService
                                , inscriptionService: InscriptionService
                                , arenaService: ArenaService
                                , teamService: TeamService
-                              , competitionService: CompetitionService
-                              , seasonService: SeasonService
+                               , competitionService: CompetitionService
+                               , seasonService: SeasonService
                               ) extends Controller with I18nSupport {
 
   val home = Redirect(mcgrady.controllers.routes.GameController.list(0, 2, ""))
@@ -48,15 +49,17 @@ class GameController @Inject()(val messagesApi: MessagesApi
     }
   }
 
-  def add(id:Long): Action[AnyContent] = Action.async { implicit request =>
-    seasonService.listSimple flatMap { seasons =>
-      competitionService.listSimple flatMap { competitions =>
-        teamService.listSimple flatMap { teams =>
-          arenaService.listSimple flatMap { arenas =>
-            inscriptionService.listFilterCompetition(id) flatMap { inscriptions =>
-              playerService.listSimple map { players =>
-                Ok(html.createGame(GameForm.form, players.sortBy(_.lastName)
-                  , inscriptions, arenas.sortBy(_.name), teams.sortBy(_.name), id, competitions, seasons))
+  def add(id: Long): Action[AnyContent] = Action.async { implicit request =>
+    contractService.listSimple flatMap { contracts =>
+      seasonService.listSimple flatMap { seasons =>
+        competitionService.listSimple flatMap { competitions =>
+          teamService.listSimple flatMap { teams =>
+            arenaService.listSimple flatMap { arenas =>
+              inscriptionService.listFilterCompetition(id) flatMap { inscriptions =>
+                playerService.listSimple map { players =>
+                  Ok(html.createGame(GameForm.form, players.sortBy(_.lastName)
+                    , inscriptions, arenas.sortBy(_.name), teams.sortBy(_.name), id, competitions, seasons, contracts))
+                }
               }
             }
           }
@@ -66,19 +69,21 @@ class GameController @Inject()(val messagesApi: MessagesApi
   }
 
   def edit(id: Long, idComp: Long): Action[AnyContent] = Action.async { implicit request =>
-    seasonService.listSimple flatMap { seasons =>
-      competitionService.listSimple flatMap { competitions =>
-        teamService.listSimple flatMap { teams =>
-          arenaService.listSimple flatMap { arenas =>
-            inscriptionService.listFilterCompetition(idComp) flatMap { inscriptions =>
-              playerService.listSimple flatMap { players =>
-                gameService.find(id).map { game =>
-                  Ok(html.editGame(id, GameForm.form.fill(game), players.sortBy(_.lastName)
-                    , inscriptions, arenas.sortBy(_.name), teams.sortBy(_.name), idComp, competitions, seasons))
-                }.recover {
-                  case ex: TimeoutException =>
-                    Logger.error("Error editando un partido")
-                    InternalServerError(ex.getMessage)
+    contractService.listSimple flatMap { contracts =>
+      seasonService.listSimple flatMap { seasons =>
+        competitionService.listSimple flatMap { competitions =>
+          teamService.listSimple flatMap { teams =>
+            arenaService.listSimple flatMap { arenas =>
+              inscriptionService.listFilterCompetition(idComp) flatMap { inscriptions =>
+                playerService.listSimple flatMap { players =>
+                  gameService.find(id).map { game =>
+                    Ok(html.editGame(id, GameForm.form.fill(game), players.sortBy(_.lastName)
+                      , inscriptions, arenas.sortBy(_.name), teams.sortBy(_.name), idComp, competitions, seasons,contracts))
+                  }.recover {
+                    case ex: TimeoutException =>
+                      Logger.error("Error editando un partido")
+                      InternalServerError(ex.getMessage)
+                  }
                 }
               }
             }
@@ -92,7 +97,7 @@ class GameController @Inject()(val messagesApi: MessagesApi
     GameForm.form.bindFromRequest.fold(
       formWithErrors => Future.successful(
         BadRequest(html.editGame(id, formWithErrors, Seq.empty[Player], Seq.empty[Inscription]
-          , Seq.empty[Arena], Seq.empty[Team], 0, Seq.empty[Competition], Seq.empty[Season]))),
+          , Seq.empty[Arena], Seq.empty[Team], 0, Seq.empty[Competition], Seq.empty[Season], Seq.empty[Contract]))),
       data => {
         gameService.find(id).flatMap { oldGame =>
           val newGame = Game(Some(0L), data.idHome, data.idVisitor, data.dateGame
@@ -116,7 +121,7 @@ class GameController @Inject()(val messagesApi: MessagesApi
     GameForm.form.bindFromRequest.fold(
       formWithErrors => Future.successful(
         BadRequest(html.createGame(formWithErrors, Seq.empty[Player], Seq.empty[Inscription]
-          , Seq.empty[Arena], Seq.empty[Team], 0, Seq.empty[Competition], Seq.empty[Season]))),
+          , Seq.empty[Arena], Seq.empty[Team], 0, Seq.empty[Competition], Seq.empty[Season], Seq.empty[Contract]))),
       data => {
         val newGame = Game(Some(0L), data.idHome, data.idVisitor, data.dateGame
           , data.idArena, data.winner, data.mvp, data.description

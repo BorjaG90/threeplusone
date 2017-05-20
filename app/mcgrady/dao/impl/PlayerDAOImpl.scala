@@ -54,7 +54,7 @@ class PlayerDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProv
     val query =
       (for {
         player <- players if player.lastName like filter.toLowerCase
-      } yield player).drop(offset).take(pageSize)
+      } yield player).sortBy(x=> x.firstName).drop(offset).take(pageSize)
     val totalRows = count(filter)
     val result = db.run(query.result)
 
