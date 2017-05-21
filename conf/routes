@@ -41,6 +41,7 @@ POST    /teams                       mcgrady.controllers.TeamController.save
 GET     /team/:id                   mcgrady.controllers.TeamController.edit(id: Long)
 POST    /team/:id                     mcgrady.controllers.TeamController.update(id: Long)
 GET     /team/delete/:id                 mcgrady.controllers.TeamController.delete(id: Option[Long])
+GET     /team/:id/view               mcgrady.controllers.TeamController.view(id:Long)
 
 #Player
 GET     /player                       mcgrady.controllers.PlayerController.index
@@ -50,6 +51,7 @@ POST    /players                       mcgrady.controllers.PlayerController.save
 GET     /player/:id                   mcgrady.controllers.PlayerController.edit(id: Long)
 POST    /player/:id                     mcgrady.controllers.PlayerController.update(id: Long)
 GET     /player/delete/:id                 mcgrady.controllers.PlayerController.delete(id: Option[Long])
+GET     /player/:id/view               mcgrady.controllers.PlayerController.view(id:Long)
 
 #Contract
 GET     /contract                       mcgrady.controllers.ContractController.index

@@ -54,11 +54,11 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <td>@competition.abrv</td>
         <td>@competition.division</td>
         <td>@competition.typeCompetition</td>
-        @if(competition.initDate != None){<td>@sf.format(competition.initDate.get)</td>}else{<td></td>}
-        @if(competition.endDate != None){<td>@sf.format(competition.endDate.get)</td>}else{<td></td>}
-        @if(competition.idCountry != None){
+        <td>@if(competition.initDate != None){@sf.format(competition.initDate.get)}</td>
+        <td>@if(competition.endDate != None){@sf.format(competition.endDate.get)}</td>
+        <td>@if(competition.idCountry != None){
         @for(country <- countries){@if(country.id == competition.idCountry.get){
-        <td>@country.name</td>}}}else{<td></td>}
+        @country.name}}}</td>
         <td>@competition.description</td>
         <td>
             <a href="@mcgrady.controllers.routes.CompetitionController.view(competition.id.get)">

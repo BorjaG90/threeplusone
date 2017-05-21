@@ -43,6 +43,8 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         @for(country <- countries){@if(country.id == team.idCountry.get){
         <td>@country.name</td>}}}else{<td></td>}
         <td>
+            <a href="@mcgrady.controllers.routes.TeamController.view(team.id.get)">
+                <img src=@routes.Assets.versioned("images/ver.png") alt="Visualizar">
             <a href="@mcgrady.controllers.routes.TeamController.edit(team.id.get)">
                 <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>
             <a href="@mcgrady.controllers.routes.TeamController.delete(team.id)">

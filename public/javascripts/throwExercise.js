@@ -22,7 +22,7 @@ function setInShotChart(id){
     document.getElementById(id).value=value;
     document.getElementById(id).onchange();
 }
-function openForm(evt, formul, serieId) {
+function openFormSC(evt, formul, serieId) {
     // Declare all variables
     var i, tabcontent, tablinks;
     document.getElementById('id_serie_shot').value = serieId;

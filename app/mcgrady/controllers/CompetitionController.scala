@@ -138,19 +138,22 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi
   }
 
   def view(id: Long): Action[AnyContent] = Action.async { implicit request =>
-    playerStatsService.listSimple flatMap { pStats =>
-      playerService.listSimple flatMap { players =>
-        teamStatsService.listSimple flatMap { tStats =>
-          gameService.listSimple flatMap { games =>
-            inscriptionService.listSimple flatMap { inscriptions =>
-              teamService.listSimple flatMap { teams =>
-                countryService.list flatMap { countries =>
-                  competitionService.find(id).map { competition =>
-                    Ok(html.viewCompetition(competition, countries, teams, inscriptions, games, tStats, players, pStats))
-                  }.recover {
-                    case ex: TimeoutException =>
-                      Logger.error("Error viendo competición")
-                      InternalServerError(ex.getMessage)
+    seasonService.listSimple flatMap { seasons =>
+      playerStatsService.listSimple flatMap { pStats =>
+        playerService.listSimple flatMap { players =>
+          teamStatsService.listSimple flatMap { tStats =>
+            gameService.listSimple flatMap { games =>
+              inscriptionService.listSimple flatMap { inscriptions =>
+                teamService.listSimple flatMap { teams =>
+                  countryService.list flatMap { countries =>
+                    competitionService.find(id).map { competition =>
+                      Ok(html.viewCompetition(competition, countries, teams, inscriptions, games, tStats, players
+                        , pStats, seasons))
+                    }.recover {
+                      case ex: TimeoutException =>
+                        Logger.error("Error visualizando competición")
+                        InternalServerError(ex.getMessage)
+                    }
                   }
                 }
               }
@@ -159,11 +162,5 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi
         }
       }
     }
-  }
-  def calculate(a: Int, b:Int): Int ={
-    return a+b
-  }
-  def division(a: Int, b:Int): Int ={
-    return a/b
   }
 }

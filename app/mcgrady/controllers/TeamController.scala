@@ -7,18 +7,26 @@ import play.api._
 import play.api.mvc._
 import play.api.i18n.{MessagesApi, Messages, I18nSupport}
 import java.util.concurrent.TimeoutException
+import java.text.SimpleDateFormat
 import com.google.inject.Inject
-import mcgrady.model.{Team, TeamForm, Country}
-import mcgrady.service.{TeamService, CountryService}
+import mcgrady.model._
+import mcgrady.service._
 import mcgrady.views._
 
 /**
   * Created by Borja Gete on 27/03/17.
   */
 
-class TeamController @Inject()(val messagesApi: MessagesApi,
-                                teamService: TeamService,
-                                countryService: CountryService
+class TeamController @Inject()(val messagesApi: MessagesApi
+                               ,teamService: TeamService
+                               ,countryService: CountryService
+                              ,playerService: PlayerService
+                              ,contractService: ContractService
+                              ,seasonService: SeasonService
+                              ,competitionService: CompetitionService
+                              ,teamStatsService: TeamStatsService
+                              ,inscriptionService: InscriptionService
+                              ,gameService: GameService
                                ) extends Controller with I18nSupport {
 
   val home = Redirect(mcgrady.controllers.routes.TeamController.list(0, 2, ""))
@@ -106,6 +114,30 @@ class TeamController @Inject()(val messagesApi: MessagesApi,
       case ex: TimeoutException =>
         Logger.error("Error borrando un equipo")
         InternalServerError(ex.getMessage)
+    }
+  }
+
+  def view(id: Long): Action[AnyContent] = Action.async { implicit request =>
+    gameService.listSimple flatMap { games =>
+      inscriptionService.listSimple flatMap { inscriptions =>
+        teamStatsService.listSimple flatMap { tStats =>
+          competitionService.listSimple flatMap { competitions =>
+            seasonService.listSimple flatMap { seasons =>
+              contractService.listSimple flatMap { contracts =>
+                playerService.listSimple flatMap { players =>
+                  teamService.find(id).map { team =>
+                    Ok(html.viewTeam(team, players, contracts, seasons, competitions, tStats, inscriptions, games, new SimpleDateFormat("dd/MM/yyyy")))
+                  }.recover {
+                    case ex: TimeoutException =>
+                      Logger.error("Error visualizando equipo")
+                      InternalServerError(ex.getMessage)
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

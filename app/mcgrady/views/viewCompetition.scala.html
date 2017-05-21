@@ -1,15 +1,27 @@
-@(competition: mcgrady.model.Competition, countries:Seq[mcgrady.model.Country], teams:Seq[mcgrady.model.Team],inscriptions:Seq[mcgrady.model.Inscription], games:Seq[mcgrady.model.Game],tStats:Seq[mcgrady.model.TeamStats],players:Seq[mcgrady.model.Player],pStats:Seq[mcgrady.model.PlayerStats])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+@(competition: mcgrady.model.Competition, countries:Seq[mcgrady.model.Country], teams:Seq[mcgrady.model.Team],inscriptions:Seq[mcgrady.model.Inscription], games:Seq[mcgrady.model.Game],tStats:Seq[mcgrady.model.TeamStats],players:Seq[mcgrady.model.Player],pStats:Seq[mcgrady.model.PlayerStats],seasons:Seq[mcgrady.model.Season])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 @import java.math.BigInteger; var tWins=0; var tLoses=0; var tGames=0; var pGames=0; var pPts=0; var pReb=0; var pAss=0; var pBlk=0; var pSte=0;
 @sum(a:Long,b:Long) = {@(a + b).toInt}
 @div(a:Long,b:Long) = {@(a / b)}
 @main(Messages("competition.title")){
-<h3>@competition.name</h3>
+<h1>@competition.name</h1>
+@for(season<-seasons){ @if(competition.idSeason == season.id.get){ <h3>Temporada @season.year</h3>}}
 <div id="standings">
+    <h2>Clasificación</h2>
     <table id="table-standings" class="table table-striped">
         <tr>
-            <th onclick="sortTable(0,'table-standings')">Nombre</th>
-            <th onclick="sortTable(1,'table-standings')">Partidos</th>
-            <th onclick="sortTable(2,'table-standings')">V - D</th>
+            <th>Nombre
+                <img src=@routes.Assets.versioned("images/arriba.png") alt="Orden Ascendente" onclick="sortTableAsc(0,'table-standings')">
+                <img src=@routes.Assets.versioned("images/abajo.png") alt="Orden Descendente" onclick="sortTableDesc(0,'table-standings')">
+            </th>
+            <th>Partidos
+                <img src=@routes.Assets.versioned("images/arriba.png") alt="Orden Ascendente" onclick="sortTableAsc(1,'table-standings')">
+                <img src=@routes.Assets.versioned("images/abajo.png") alt="Orden Descendente" onclick="sortTableDesc(1,'table-standings')">
+            </th>
+            <th>Récord
+                <img src=@routes.Assets.versioned("images/arriba.png") alt="Orden Ascendente" onclick="sortTableAsc(2,'table-standings')">
+                <img src=@routes.Assets.versioned("images/abajo.png") alt="Orden Descendente" onclick="sortTableDesc(2,'table-standings')">
+            </th>
+            <th></th>
         </tr>
         @for(inscription<-inscriptions){ @if(inscription.idCompetition == competition.id.get){
         @for(team<-teams){ @if(team.id.get == inscription.idTeam){ @{tGames=0} @{tWins=0} @{tLoses=0}
@@ -25,20 +37,47 @@
             }}
             <td>@tGames</td>
             <td>@tWins - @tLoses</td>
+            <td><a href="@mcgrady.controllers.routes.TeamController.view(team.id.get)">
+                <img src=@routes.Assets.versioned("images/ver.png") alt="Visualizar"></a></td>
         </tr>
         }}}}
     </table>
 </div>
 <br>
 <div id="stats">
+    <h2>Tabla de máximos</h2>
     <table id="table-stats" class="table table-striped table-inline">
-        <tr><th onclick="sortTable(0,'table-stats')">Jugador</th>
-        <th onclick="sortTable(1,'table-stats')">Puntos PP</th>
-        <th onclick="sortTable(2,'table-stats')">Rebotes PP</th>
-        <th onclick="sortTable(3,'table-stats')">Aistencias PP</th>
-        <th onclick="sortTable(4,'table-stats')">Robos PP</th>
-        <th onclick="sortTable(5,'table-stats')">Tapones PP</th>
-        <th onclick="sortTable(6,'table-stats')">Partidos</th></tr>
+        <tr>
+            <th>Jugador
+                <img src=@routes.Assets.versioned("images/arriba.png") alt="Orden Ascendente" onclick="sortTableAsc(0,'table-stats')">
+                <img src=@routes.Assets.versioned("images/abajo.png") alt="Orden Descendente" onclick="sortTableDesc(0,'table-stats')">
+            </th>
+            <th>Puntos PP
+                <img src=@routes.Assets.versioned("images/arriba.png") alt="Orden Ascendente" onclick="sortTableAsc(1,'table-stats')">
+                <img src=@routes.Assets.versioned("images/abajo.png") alt="Orden Descendente" onclick="sortTableDesc(1,'table-stats')">
+            </th>
+            <th>Rebotes PP
+                <img src=@routes.Assets.versioned("images/arriba.png") alt="Orden Ascendente" onclick="sortTableAsc(2,'table-stats')">
+                <img src=@routes.Assets.versioned("images/abajo.png") alt="Orden Descendente" onclick="sortTableDesc(2,'table-stats')">
+            </th>
+            <th>Aistencias PP
+                <img src=@routes.Assets.versioned("images/arriba.png") alt="Orden Ascendente" onclick="sortTableAsc(3,'table-stats')">
+                <img src=@routes.Assets.versioned("images/abajo.png") alt="Orden Descendente" onclick="sortTableDesc(3,'table-stats')">
+            </th>
+            <th>Robos PP
+                <img src=@routes.Assets.versioned("images/arriba.png") alt="Orden Ascendente" onclick="sortTableAsc(4,'table-stats')">
+                <img src=@routes.Assets.versioned("images/abajo.png") alt="Orden Descendente" onclick="sortTableDesc(4,'table-stats')">
+            </th>
+            <th>Tapones PP
+                <img src=@routes.Assets.versioned("images/arriba.png") alt="Orden Ascendente" onclick="sortTableAsc(5,'table-stats')">
+                <img src=@routes.Assets.versioned("images/abajo.png") alt="Orden Descendente" onclick="sortTableDesc(5,'table-stats')">
+            </th>
+            <th>Partidos
+                <img src=@routes.Assets.versioned("images/arriba.png") alt="Orden Ascendente" onclick="sortTableAsc(6,'table-stats')">
+                <img src=@routes.Assets.versioned("images/abajo.png") alt="Orden Descendente" onclick="sortTableDesc(6,'table-stats')">
+            </th>
+            <th></th>
+        </tr>
         @for(player<-players){
         @{pGames=0} @{pPts=0} @{pReb=0} @{pAss=0} @{pSte=0} @{pBlk=0}
         @for(game<-games){ @for(inscription<-inscriptions){
@@ -51,6 +90,7 @@
         @{pBlk+=pStat.blocks.get.asInstanceOf[Number].intValue}
         @{pSte+=pStat.steals.get.asInstanceOf[Number].intValue}
         }}}}}}
+        @if(pGames > 5){
         <tr>
             <td>@player.firstName @player.lastName</td>
             <td>@{"%.2f".format(pPts.toFloat/pGames.toFloat).replace(',','.')}</td>
@@ -59,7 +99,9 @@
             <td>@{"%.2f".format(pSte.toFloat/pGames.toFloat).replace(',','.')}</td>
             <td>@{"%.2f".format(pBlk.toFloat/pGames.toFloat).replace(',','.')}</td>
             <td>@pGames</td>
-        </tr>
+            <td><a href="@mcgrady.controllers.routes.PlayerController.view(player.id.get)">
+                <img src=@routes.Assets.versioned("images/ver.png") alt="Visualizar"></a></td>
+        </tr>}
         }
     </table>
 </div>

@@ -7,17 +7,25 @@ import play.api._
 import play.api.mvc._
 import play.api.i18n.{MessagesApi, Messages, I18nSupport}
 import java.util.concurrent.TimeoutException
+import java.text.SimpleDateFormat
 import com.google.inject.Inject
-import mcgrady.model.{Player, PlayerForm}
-import mcgrady.service.PlayerService
+import mcgrady.model._
+import mcgrady.service._
 import mcgrady.views._
 
 /**
   * Created by Borja Gete on 25/03/17.
   */
 
-class PlayerController @Inject()(val messagesApi: MessagesApi,
-                               playerService: PlayerService
+class PlayerController @Inject()(val messagesApi: MessagesApi
+                                 ,playerService: PlayerService
+                                ,playerStatsService: PlayerStatsService
+                                ,gameService: GameService
+                                ,inscriptionService: InscriptionService
+                                ,competitionService: CompetitionService
+                                ,seasonService: SeasonService
+                                ,teamService: TeamService
+                                ,contractService: ContractService
                               ) extends Controller with I18nSupport {
 
   val home = Redirect(mcgrady.controllers.routes.PlayerController.list(0, 2, ""))
@@ -96,6 +104,30 @@ class PlayerController @Inject()(val messagesApi: MessagesApi,
       case ex: TimeoutException =>
         Logger.error("Error borrando un jugador")
         InternalServerError(ex.getMessage)
+    }
+  }
+  def view(id: Long) : Action[AnyContent] = Action.async { implicit request =>
+    contractService.listSimple flatMap { contracts =>
+      teamService.listSimple flatMap { teams =>
+        seasonService.listSimple flatMap { seasons =>
+          competitionService.listSimple flatMap { competitions =>
+            inscriptionService.listSimple flatMap { inscriptions =>
+              gameService.listSimple flatMap { games =>
+                playerStatsService.listSimple flatMap { pStats =>
+                  playerService.find(id).map { player =>
+                    Ok(html.viewPlayer(player, pStats, games, inscriptions, competitions, seasons, teams, contracts
+                      , new SimpleDateFormat("dd/MM/yyyy")))
+                  }.recover {
+                    case ex: TimeoutException =>
+                      Logger.error("Error visualizando jugador")
+                      InternalServerError(ex.getMessage)
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

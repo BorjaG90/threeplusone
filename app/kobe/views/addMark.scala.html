@@ -38,8 +38,8 @@
         }}
     </table>
     <div class="tab" align="center">
-        <button class="tablinks" onclick="openForm(event, 'General')">General</button>
-        <button class="tablinks" onclick="openForm(event, 'shot-chart', @serie.id)">Lanzamientos</button>
+        <button class="tablinks" onclick="openFormSC(event, 'General')">General</button>
+        <button class="tablinks" onclick="openFormSC(event, 'shot-chart', @serie.id)">Lanzamientos</button>
     </div>
     <div id="General" class="tabcontent">
         <form id="@plan.name-@session.name-@serie.id-data-form" role="form" action=@kobe.controllers.routes.RecordController.saveMark(session.id.get) method="post" autocomplete="off">

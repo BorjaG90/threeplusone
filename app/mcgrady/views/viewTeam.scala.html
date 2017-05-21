@@ -1,0 +1,85 @@
+@(team: mcgrady.model.Team, players: Seq[mcgrady.model.Player], contracts:Seq[mcgrady.model.Contract], seasons:Seq[mcgrady.model.Season],competitions:Seq[mcgrady.model.Competition],tStats:Seq[mcgrady.model.TeamStats],inscriptions:Seq[mcgrady.model.Inscription],games:Seq[mcgrady.model.Game], sf: java.text.SimpleDateFormat)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+@import java.math.BigInteger; var tWins=0; var tLoses=0; var tGames=0; var pPts=0; var pReb=0; var pAss=0; var pBlk=0; var pSte=0;
+@main(Messages("team.title")){
+<h1>@team.name - @team.abrv</h1>
+<div id="roster">
+    <h2>Plantilla</h2>
+    <table id="table-roster" class="table table-striped">
+        <tr>
+            <th>Número</th>
+            <th>Jugador</th>
+            <th>Contrato</th>
+            <th></th>
+        </tr>
+    @for(contract<-contracts){ @if(contract.idTeam == team.id.get){ @for(player<-players){
+        @if(player.id.get == contract.idPlayer){
+    <tr>
+        <td>@contract.number</td>
+        <td>@player.firstName @player.lastName</td>
+        <td>@if(contract.initDate != None){@sf.format(contract.initDate.get)} -
+        @if(contract.endDate != None){@sf.format(contract.endDate.get)}</td>
+        <td><a href="@mcgrady.controllers.routes.PlayerController.view(player.id.get)">
+            <img src=@routes.Assets.versioned("images/ver.png") alt="Visualizar"></a></td>
+    </tr>
+    }}}}
+    </table>
+</div>
+<div id="standings">
+    <h3>Temporadas</h3>
+    <div class="tab">
+        @for(season<-seasons.sortBy(x=> x.year)){
+        <button class="tablinks" onclick="openForm(event, 'div-season-@season.year')">@season.year</button>
+        }
+    </div><br>
+
+    @for(season<-seasons){
+    <div id="div-season-@season.year" class="tabcontent" style="display:none;">
+        @season.year :
+        @for(competition<-competitions){ @if(competition.idSeason == season.id.get){
+        <button class="tablinks" onclick="openForm2(event, 'div-competition-@season.year-@competition.id')">@competition.name</button>
+        }}
+    </div>
+    }
+    <br>
+    @for(season<-seasons){ @for(competition<-competitions){
+    <div id="div-competition-@season.year-@competition.id" class="tabcontent2" style="display:none;">
+        <table>
+            <tr>
+                <th>Partidos</th><th>Récord</th><th>Puntos PP</th><th>Rebotes PP</th><th>Asistencias PP</th>
+                <th>Tapones PP</th><th>Robos PP</th>
+            </tr>
+        @for(inscription<-inscriptions){
+            <tr>
+            @if(inscription.idTeam == team.id.get && inscription.idCompetition == competition.id.get && competition.idSeason == season.id.get){
+            @{tGames=0} @{tWins=0} @{tLoses=0}
+            @for(game<-games){ @if(game.idHome == inscription.idTeam){ @{tGames += 1}
+            @if(game.winner.get == "H"){ @{tWins += 1} }else{ @{tLoses += 1} }
+            }else{ @if(game.idVisitor == inscription.idTeam){ @{tGames += 1}
+            @if(game.winner.get == "A"){ @{tWins += 1} }else{ @{tLoses += 1} }}}}
+                <td>@tGames</td>
+                <td>@tWins - @tLoses</td>
+            @{tGames=0} @{pPts=0} @{pReb=0} @{pAss=0} @{pSte=0} @{pBlk=0}
+            @for(game<-games){ @for(inscription<-inscriptions){ @if(inscription.idTeam == team.id.get){
+            @if(inscription.idCompetition == competition.id.get && competition.idSeason == season.id.get){
+            @if(game.idHome == inscription.id.get || game.idVisitor == inscription.id.get){
+            @for(tStat<-tStats){ @if(tStat.idGame == game.id.get){ @if(inscription.id.get == tStat.idInscription){
+            @{tGames+=1}
+            @{pPts+=tStat.points.get.asInstanceOf[Number].intValue}
+            @{pReb+=tStat.offReb.get.asInstanceOf[Number].intValue+tStat.defReb.get.asInstanceOf[Number].intValue}
+            @{pAss+=tStat.assists.get.asInstanceOf[Number].intValue}
+            @{pBlk+=tStat.blocks.get.asInstanceOf[Number].intValue}
+            @{pSte+=tStat.steals.get.asInstanceOf[Number].intValue}
+            }}}}}}}}
+                <td>@{"%.2f".format(pPts.toFloat/tGames.toFloat).replace(',','.')}</td>
+                <td>@{"%.2f".format(pReb.toFloat/tGames.toFloat).replace(',','.')}</td>
+                <td>@{"%.2f".format(pAss.toFloat/tGames.toFloat).replace(',','.')}</td>
+                <td>@{"%.2f".format(pSte.toFloat/tGames.toFloat).replace(',','.')}</td>
+                <td>@{"%.2f".format(pBlk.toFloat/tGames.toFloat).replace(',','.')}</td>
+            </tr>
+            }}
+        </table>
+    </div>
+    }}
+</div>
+
+}
