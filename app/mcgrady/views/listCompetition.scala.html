@@ -61,6 +61,8 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <td>@country.name</td>}}}else{<td></td>}
         <td>@competition.description</td>
         <td>
+            <a href="@mcgrady.controllers.routes.CompetitionController.view(competition.id.get)">
+                <img src=@routes.Assets.versioned("images/ver.png") alt="Visualizar"></a>
             <a href="@mcgrady.controllers.routes.CompetitionController.edit(competition.id.get)">
                 <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>
             <a href="@mcgrady.controllers.routes.CompetitionController.delete(competition.id)">

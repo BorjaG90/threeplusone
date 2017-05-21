@@ -10,18 +10,24 @@ import play.api.i18n.{MessagesApi, Messages, I18nSupport}
 import java.util.concurrent.TimeoutException
 import java.text.SimpleDateFormat
 import com.google.inject.Inject
-import mcgrady.model.{Competition, CompetitionForm, Country, Season}
-import mcgrady.service.{CompetitionService, CountryService, SeasonService}
+import mcgrady.model._
+import mcgrady.service._
 import mcgrady.views._
 
 /**
   * Created by Borja Gete on 9/02/17.
   */
 
-class CompetitionController @Inject()(val messagesApi: MessagesApi,
-                                      competitionService: CompetitionService,
-                                      countryService: CountryService,
-                                      seasonService: SeasonService
+class CompetitionController @Inject()(val messagesApi: MessagesApi
+                                      ,competitionService: CompetitionService
+                                      ,countryService: CountryService
+                                      ,seasonService: SeasonService
+                                     ,teamService: TeamService
+                                     ,inscriptionService: InscriptionService
+                                     ,gameService: GameService
+                                     ,teamStatsService: TeamStatsService
+                                     ,playerService: PlayerService
+                                     ,playerStatsService: PlayerStatsService
                                      ) extends Controller with I18nSupport {
 
   val home = Redirect(mcgrady.controllers.routes.CompetitionController.list(0, 2, "", ""))
@@ -129,5 +135,35 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi,
         Logger.error("Error borrando una competición")
         InternalServerError(ex.getMessage)
     }
+  }
+
+  def view(id: Long): Action[AnyContent] = Action.async { implicit request =>
+    playerStatsService.listSimple flatMap { pStats =>
+      playerService.listSimple flatMap { players =>
+        teamStatsService.listSimple flatMap { tStats =>
+          gameService.listSimple flatMap { games =>
+            inscriptionService.listSimple flatMap { inscriptions =>
+              teamService.listSimple flatMap { teams =>
+                countryService.list flatMap { countries =>
+                  competitionService.find(id).map { competition =>
+                    Ok(html.viewCompetition(competition, countries, teams, inscriptions, games, tStats, players, pStats))
+                  }.recover {
+                    case ex: TimeoutException =>
+                      Logger.error("Error viendo competición")
+                      InternalServerError(ex.getMessage)
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  def calculate(a: Int, b:Int): Int ={
+    return a+b
+  }
+  def division(a: Int, b:Int): Int ={
+    return a/b
   }
 }

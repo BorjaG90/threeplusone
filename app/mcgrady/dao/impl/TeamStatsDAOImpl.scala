@@ -66,7 +66,7 @@ class TeamStatsDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigP
         homeT <- home.inscription_team_fk
         visitorT <- visitor.inscription_team_fk
         if team.name like filter.toLowerCase
-      } yield (teamStat, game, inscription, team.name, homeT.abrv, visitorT.abrv)).drop(offset).take(pageSize)
+      } yield (teamStat, game, inscription, team.name, homeT.abrv, visitorT.abrv)).sortBy(x=> x._2.id).drop(offset).take(pageSize)
     val totalRows = count
     val result = db.run(query.result)
 

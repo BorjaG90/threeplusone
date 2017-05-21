@@ -31,6 +31,7 @@ POST    /competitions                       mcgrady.controllers.CompetitionContr
 GET     /competition/:id                   mcgrady.controllers.CompetitionController.edit(id: Long)
 POST    /competition/:id                     mcgrady.controllers.CompetitionController.update(id: Long)
 GET     /competition/delete/:id                 mcgrady.controllers.CompetitionController.delete(id: Option[Long])
+GET     /competition/:id/view               mcgrady.controllers.CompetitionController.view(id:Long)
 
 #Team
 GET     /team                       mcgrady.controllers.TeamController.index
