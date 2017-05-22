@@ -122,3 +122,15 @@ i{
  	border: solid gold;
     border-width: 1px 1px 1px 1px;
  }
+ /*Tablas con scroll horizontal*/
+ {
+    text-align: center;
+     width:auto;
+     overflow-x: scroll;
+     overflow-y: hidden;
+ }
+ .scroll-h td, th {
+     padding: 0.25em 0.25em;
+     text-align: center;
+     font-size: 12px;
+ }

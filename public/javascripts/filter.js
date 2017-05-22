@@ -10,14 +10,14 @@ function inscription(){
         document.getElementById("id_group").value = "";
         document.getElementById("id_subgroup").value = "";
     }else if(id.charAt(0)=="G"){
-        var idG = id.substring(id.lastIndexOf("-"))
-        document.getElementById("id_competition").value = document.getElementById("CG-" & idG).value;
+        var idG = id.substring(id.lastIndexOf("-")+1)
+        document.getElementById("id_competition").value = document.getElementById("CG-" + idG).value;
         document.getElementById("id_group").value = value;
         document.getElementById("id_subgroup").value = "";
     }else if(id.charAt(0)=="S"){
-    var idS = id.substring(id.lastIndexOf("-"))
-        document.getElementById("id_competition").value = document.getElementById("CS-" & idS).value;
-        document.getElementById("id_group").value = document.getElementById("GS-" & idS).value;
+        var idS = id.substring(id.lastIndexOf("-")+1)
+        document.getElementById("id_competition").value = document.getElementById("CS-" + idS).value;
+        document.getElementById("id_group").value = document.getElementById("GS-" + idS).value;
         document.getElementById("id_subgroup").value = value;
     }
 }

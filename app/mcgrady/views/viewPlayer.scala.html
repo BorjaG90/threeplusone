@@ -1,12 +1,14 @@
 @(player: mcgrady.model.Player,pStats:Seq[mcgrady.model.PlayerStats],games:Seq[mcgrady.model.Game],inscriptions:Seq[mcgrady.model.Inscription],competitions:Seq[mcgrady.model.Competition],seasons:Seq[mcgrady.model.Season],teams:Seq[mcgrady.model.Team],contracts:Seq[mcgrady.model.Contract],sf: java.text.SimpleDateFormat)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
-@import java.math.BigInteger; var pGames=0; var a=0; var b=0; var c=0; var d=0; var e=0; var f=0; var g=0; var h=0; var i=0; var k=0; var j=0; var l=0; var m=0;
+@import java.math.BigInteger; var pGames=0; var a=0; var b=0; var c=0; var d=0; var e=0; var f=0; var g=0; var h=0; var i=0; var k=0; var j=0; var l=0; var m=0; var n=0; var o=0; var p=0; var q=0; var r=0; var s=0;
 @import java.lang.String; var pTeam=""; var pYear=""; var pComp=""
 @main(Messages("team.title")){
 <div id="statistics">
     <h1>@player.firstName @player.lastName</h1>
     <h2>Carrera</h2>
     <h3>Medias</h3>
-    @{pGames=0} @{a=0} @{b=0} @{c=0} @{d=0} @{e=0} @{f=0} @{g=0} @{h=0} @{i=0} @{j=0} @{k=0} @{l=0} @{m=0}
+    @{pGames=0} @{a=0} @{b=0} @{c=0} @{d=0} @{e=0} @{f=0} @{g=0} @{h=0} @{i=0}
+    @{j=0} @{k=0} @{l=0} @{m=0} @{o=0} @{p=0} @{q=0} @{r=0} @{s=0}
+    <div class="scroll-h">
     <table>
         @for(pStat<-pStats){ @if(pStat.idPlayer == player.id.get){ @{pGames+=1}}}
         <tr>
@@ -23,6 +25,17 @@
             <th>TLC</th>
             <th>TLI</th>
             <th>TL%</th>
+            <th>RebOf</th>
+            <th>RebDef</th>
+            <th>RebPP</th>
+            <th>APP</th>
+            <th>TPP</th>
+            <th>RobPP</th>
+            <th>Per</th>
+            <th>FPP</th>
+            <th>Flag</th>
+            <th>Tec</th>
+            <th>MPP</th>
         </tr>
         <tr>
             @for(pStat<-pStats){
@@ -34,6 +47,16 @@
             @{e+=pStat.t3a.get.asInstanceOf[Number].intValue}
             @{f+=pStat.ftm.get.asInstanceOf[Number].intValue}
             @{g+=pStat.fta.get.asInstanceOf[Number].intValue}
+            @{i+=pStat.offReb.get.asInstanceOf[Number].intValue}
+            @{j+=pStat.defReb.get.asInstanceOf[Number].intValue}
+            @{k+=pStat.assists.get.asInstanceOf[Number].intValue}
+            @{l+=pStat.blocks.get.asInstanceOf[Number].intValue}
+            @{m+=pStat.steals.get.asInstanceOf[Number].intValue}
+            @{n+=pStat.turnovers.get.asInstanceOf[Number].intValue}
+            @{o+=pStat.fouls.get.asInstanceOf[Number].intValue}
+            @{p+=pStat.flagFouls.get.asInstanceOf[Number].intValue}
+            @{q+=pStat.techFouls.get.asInstanceOf[Number].intValue}
+            @{r+=pStat.minutes.get.asInstanceOf[Number].intValue}
             }}
             <td>@{"%.2f".format(a.toFloat/pGames.toFloat).replace(',','.')}</td>
             <td>@{"%.2f".format((b.toFloat-d.toFloat)/pGames.toFloat).replace(',','.')}</td>
@@ -48,57 +71,28 @@
             <td>@{"%.2f".format(f.toFloat/pGames.toFloat).replace(',','.')}</td>
             <td>@{"%.2f".format(g.toFloat/pGames.toFloat).replace(',','.')}</td>
             <td>@{"%.2f".format(f.toFloat*100/g.toFloat).replace(',','.')}</td>
-        </tr>
-        <tr>
-            <th></th>
-            <th>RebOf</th>
-            <th>RebDef</th>
-            <th>Reb</th>
-            <th>Ass</th>
-            <th>Tap</th>
-            <th>Rob</th>
-            <th>Per</th>
-            <th>Fal</th>
-            <th>Flag</th>
-            <th>Tec</th>
-            <th>Min</th>
-            <th></th>
-        </tr>
-        <tr>
-            @{a=0} @{b=0} @{c=0} @{d=0} @{e=0} @{f=0} @{g=0} @{h=0} @{i=0} @{j=0} @{k=0} @{l=0} @{m=0}
-            <td></td>
-            @for(pStat<-pStats){
-            @if(pStat.idPlayer == player.id.get){
-            @{a+=pStat.offReb.get.asInstanceOf[Number].intValue}
-            @{b+=pStat.defReb.get.asInstanceOf[Number].intValue}
-            @{c+=pStat.assists.get.asInstanceOf[Number].intValue}
-            @{d+=pStat.blocks.get.asInstanceOf[Number].intValue}
-            @{e+=pStat.steals.get.asInstanceOf[Number].intValue}
-            @{f+=pStat.turnovers.get.asInstanceOf[Number].intValue}
-            @{g+=pStat.fouls.get.asInstanceOf[Number].intValue}
-            @{h+=pStat.flagFouls.get.asInstanceOf[Number].intValue}
-            @{i+=pStat.techFouls.get.asInstanceOf[Number].intValue}
-            @{j+=pStat.minutes.get.asInstanceOf[Number].intValue}
-            }}
-            <td>@{"%.2f".format(a.toFloat/pGames.toFloat).replace(',','.')}</td>
-            <td>@{"%.2f".format(b.toFloat/pGames.toFloat).replace(',','.')}</td>
-            <td>@{"%.2f".format((a.toFloat+b.toFloat)/pGames.toFloat).replace(',','.')}</td>
-            <td>@{"%.2f".format(c.toFloat/pGames.toFloat).replace(',','.')}</td>
-            <td>@{"%.2f".format(d.toFloat/pGames.toFloat).replace(',','.')}</td>
-            <td>@{"%.2f".format(e.toFloat/pGames.toFloat).replace(',','.')}</td>
-            <td>@{"%.2f".format(f.toFloat/pGames.toFloat).replace(',','.')}</td>
-            <td>@{"%.2f".format(g.toFloat/pGames.toFloat).replace(',','.')}</td>
-            <td>@{"%.2f".format(h.toFloat/pGames.toFloat).replace(',','.')}</td>
             <td>@{"%.2f".format(i.toFloat/pGames.toFloat).replace(',','.')}</td>
             <td>@{"%.2f".format(j.toFloat/pGames.toFloat).replace(',','.')}</td>
+            <td>@{"%.2f".format((i.toFloat+j.toFloat)/pGames.toFloat).replace(',','.')}</td>
+            <td>@{"%.2f".format(k.toFloat/pGames.toFloat).replace(',','.')}</td>
+            <td>@{"%.2f".format(l.toFloat/pGames.toFloat).replace(',','.')}</td>
+            <td>@{"%.2f".format(m.toFloat/pGames.toFloat).replace(',','.')}</td>
+            <td>@{"%.2f".format(n.toFloat/pGames.toFloat).replace(',','.')}</td>
+            <td>@{"%.2f".format(o.toFloat/pGames.toFloat).replace(',','.')}</td>
+            <td>@{"%.2f".format(p.toFloat/pGames.toFloat).replace(',','.')}</td>
+            <td>@{"%.2f".format(q.toFloat/pGames.toFloat).replace(',','.')}</td>
+            <td>@{"%.2f".format(r.toFloat/pGames.toFloat).replace(',','.')}</td>
         </tr>
     </table>
+    </div>
     <h3>Acumulado</h3>
-    @{pGames=0}@{a=0} @{b=0} @{c=0} @{d=0} @{e=0} @{f=0} @{g=0} @{h=0} @{i=0} @{j=0} @{k=0} @{l=0} @{m=0}
+    @{pGames=0} @{a=0} @{b=0} @{c=0} @{d=0} @{e=0} @{f=0} @{g=0} @{h=0} @{i=0}
+    @{j=0} @{k=0} @{l=0} @{m=0} @{o=0} @{p=0} @{q=0} @{r=0} @{s=0}
+    <div class="scroll-h">
     <table>
         @for(pStat<-pStats){ @if(pStat.idPlayer == player.id.get){ @{pGames+=1}}}
         <tr>
-            <th>PPP</th>
+            <th>Pts</th>
             <th>T2C</th>
             <th>T2I</th>
             <th>T2%</th>
@@ -111,10 +105,23 @@
             <th>TLC</th>
             <th>TLI</th>
             <th>TL%</th>
+            <th>RebOf</th>
+            <th>RebDef</th>
+            <th>Reb</th>
+            <th>Ass</th>
+            <th>Tap</th>
+            <th>Rob</th>
+            <th>Per</th>
+            <th>Fal</th>
+            <th>Flag</th>
+            <th>Tec</th>
+            <th>Min</th>
+            <th>Par</th>
         </tr>
         <tr>
             @for(pStat<-pStats){
             @if(pStat.idPlayer == player.id.get){
+
             @{a+=pStat.points.get.asInstanceOf[Number].intValue}
             @{b+=pStat.fgm.get.asInstanceOf[Number].intValue}
             @{c+=pStat.fga.get.asInstanceOf[Number].intValue}
@@ -122,6 +129,17 @@
             @{e+=pStat.t3a.get.asInstanceOf[Number].intValue}
             @{f+=pStat.ftm.get.asInstanceOf[Number].intValue}
             @{g+=pStat.fta.get.asInstanceOf[Number].intValue}
+            @{h+=pStat.offReb.get.asInstanceOf[Number].intValue}
+            @{i+=pStat.defReb.get.asInstanceOf[Number].intValue}
+            @{j+=pStat.assists.get.asInstanceOf[Number].intValue}
+            @{k+=pStat.blocks.get.asInstanceOf[Number].intValue}
+            @{l+=pStat.steals.get.asInstanceOf[Number].intValue}
+            @{m+=pStat.turnovers.get.asInstanceOf[Number].intValue}
+            @{n+=pStat.fouls.get.asInstanceOf[Number].intValue}
+            @{o+=pStat.flagFouls.get.asInstanceOf[Number].intValue}
+            @{p+=pStat.techFouls.get.asInstanceOf[Number].intValue}
+            @{q+=pStat.minutes.get.asInstanceOf[Number].intValue}
+
             }}
             <td>@a</td>
             <td>@{"%.0f".format((b.toFloat-d.toFloat)).replace(',','.')}</td>
@@ -136,76 +154,146 @@
             <td>@f</td>
             <td>@g</td>
             <td>@{"%.2f".format(f.toFloat*100/g.toFloat).replace(',','.')}</td>
-        </tr>
-        <tr>
-            <th></th>
-            <th>RebOf</th>
-            <th>RebDef</th>
-            <th>Reb</th>
-            <th>Ass</th>
-            <th>Tap</th>
-            <th>Rob</th>
-            <th>Per</th>
-            <th>Fal</th>
-            <th>Flag</th>
-            <th>Tec</th>
-            <th>Min</th>
-            <th>Par</th>
-            <th></th>
-        </tr>
-        <tr>
-            @{a=0} @{b=0} @{c=0} @{d=0} @{e=0} @{f=0} @{g=0} @{h=0} @{i=0} @{j=0} @{k=0} @{l=0} @{m=0}
-            <td></td>
-            @for(pStat<-pStats){
-            @if(pStat.idPlayer == player.id.get){
-            @{a+=pStat.offReb.get.asInstanceOf[Number].intValue}
-            @{b+=pStat.defReb.get.asInstanceOf[Number].intValue}
-            @{c+=pStat.assists.get.asInstanceOf[Number].intValue}
-            @{d+=pStat.blocks.get.asInstanceOf[Number].intValue}
-            @{e+=pStat.steals.get.asInstanceOf[Number].intValue}
-            @{f+=pStat.turnovers.get.asInstanceOf[Number].intValue}
-            @{g+=pStat.fouls.get.asInstanceOf[Number].intValue}
-            @{h+=pStat.flagFouls.get.asInstanceOf[Number].intValue}
-            @{i+=pStat.techFouls.get.asInstanceOf[Number].intValue}
-            @{j+=pStat.minutes.get.asInstanceOf[Number].intValue}
-            }}
-            <td>@a</td>
-            <td>@b</td>
-            <td>@{"%.0f".format((a.toFloat+b.toFloat)).replace(',','.')}</td>
-            <td>@c</td>
-            <td>@d</td>
-            <td>@e</td>
-            <td>@f</td>
-            <td>@g</td>
             <td>@h</td>
             <td>@i</td>
+            <td>@{"%.0f".format((h.toFloat+i.toFloat)).replace(',','.')}</td>
             <td>@j</td>
+            <td>@k</td>
+            <td>@l</td>
+            <td>@m</td>
+            <td>@n</td>
+            <td>@o</td>
+            <td>@p</td>
+            <td>@q</td>
             <td>@pGames</td>
         </tr>
     </table>
+    </div>
+
     <h2>Temporadas</h2>
     <h3>Medias</h3>
+    <div class="scroll-h">
+        <table>
+            <tr>
+                <th>Temp</th>
+                <th>Comp</th>
+                <th>Equ</th>
+                <th>PPP</th>
+                <th>T2C</th>
+                <th>T2I</th>
+                <th>T2%</th>
+                <th>T3C</th>
+                <th>T3I</th>
+                <th>T3%</th>
+                <th>TCC</th>
+                <th>TCI</th>
+                <th>TC%</th>
+                <th>TLC</th>
+                <th>TLI</th>
+                <th>TL%</th>
+                <th>RebOf</th>
+                <th>RebDef</th>
+                <th>RPP</th>
+                <th>APP</th>
+                <th>TPP</th>
+                <th>RobPP</th>
+                <th>Per</th>
+                <th>FPP</th>
+                <th>Flag</th>
+                <th>Tec</th>
+                <th>MPP</th>
+            </tr>
+            @for(season<-seasons){
+            @for(competition<-competitions.filter(_.idSeason == season.id.get)){
+            @competition.name
+            @{pGames=0} @{a=0} @{b=0} @{c=0} @{d=0} @{e=0} @{f=0} @{g=0} @{h=0} @{i=0}
+            @{j=0} @{k=0} @{l=0} @{m=0} @{o=0} @{p=0} @{q=0} @{r=0} @{s=0}
 
+            @for(pStat<-pStats.filter(_.idPlayer == player.id.get)){
+            @for(game<-games.filter(_.id.get == pStat.idGame)){
+            @for(inscription<-inscriptions.filter(_.id.get == game.idHome).filter(_.idCompetition == competition.id.get)){
+
+            @for(contract<-contracts.filter(_.idPlayer == player.id.get)){
+            @for(team<-teams.filter(_.id.get == contract.idTeam).filter(_.id.get == inscription.idTeam)){
+
+            @{pTeam = team.abrv}
+            @pTeam
+            @{s=team.id.get.asInstanceOf[Number].intValue}
+            @s
+
+            }}
+
+            @{pGames+=1}
+            @{a+=pStat.points.get.asInstanceOf[Number].intValue}
+            @{b+=pStat.fgm.get.asInstanceOf[Number].intValue}
+            @{c+=pStat.fga.get.asInstanceOf[Number].intValue}
+            @{d+=pStat.t3m.get.asInstanceOf[Number].intValue}
+            @{e+=pStat.t3a.get.asInstanceOf[Number].intValue}
+            @{f+=pStat.ftm.get.asInstanceOf[Number].intValue}
+            @{g+=pStat.fta.get.asInstanceOf[Number].intValue}
+            @{h=competition.id.get.asInstanceOf[Number].intValue}
+            @{i+=pStat.offReb.get.asInstanceOf[Number].intValue}
+            @{j+=pStat.defReb.get.asInstanceOf[Number].intValue}
+            @{k+=pStat.assists.get.asInstanceOf[Number].intValue}
+            @{l+=pStat.blocks.get.asInstanceOf[Number].intValue}
+            @{m+=pStat.steals.get.asInstanceOf[Number].intValue}
+            @{n+=pStat.turnovers.get.asInstanceOf[Number].intValue}
+            @{o+=pStat.fouls.get.asInstanceOf[Number].intValue}
+            @{p+=pStat.flagFouls.get.asInstanceOf[Number].intValue}
+            @{q+=pStat.techFouls.get.asInstanceOf[Number].intValue}
+            @{r+=pStat.minutes.get.asInstanceOf[Number].intValue}
+            @{pComp=competition.abrv.get}
+            @{pYear = season.year}
+
+            }
+            }
+            }
+            @if(pGames != 0){
+            <tr>
+                <td>@pYear</td>
+                <td><a href="@mcgrady.controllers.routes.CompetitionController.view(h)">@pComp</a></td>
+                <td><a href="@mcgrady.controllers.routes.TeamController.view(s)">@pTeam</a></td>
+                <td>@{"%.2f".format(a.toFloat/pGames.toFloat).replace(',','.')}</td>
+                <td>@{"%.2f".format((b.toFloat-d.toFloat)/pGames.toFloat).replace(',','.')}</td>
+                <td>@{"%.2f".format((c.toFloat-e.toFloat)/pGames.toFloat).replace(',','.')}</td>
+                <td>@{"%.2f".format((b.toFloat-d.toFloat)*100/(c.toFloat-e.toFloat)).replace(',','.')}%</td>
+                <td>@{"%.2f".format(d.toFloat/pGames.toFloat).replace(',','.')}</td>
+                <td>@{"%.2f".format(e.toFloat/pGames.toFloat).replace(',','.')}</td>
+                <td>@{"%.2f".format(d.toFloat*100/e.toFloat).replace(',','.')}%</td>
+                <td>@{"%.2f".format(b.toFloat/pGames.toFloat).replace(',','.')}</td>
+                <td>@{"%.2f".format(c.toFloat/pGames.toFloat).replace(',','.')}</td>
+                <td>@{"%.2f".format(b.toFloat*100/c.toFloat).replace(',','.')}%</td>
+                <td>@{"%.2f".format(f.toFloat/pGames.toFloat).replace(',','.')}</td>
+                <td>@{"%.2f".format(g.toFloat/pGames.toFloat).replace(',','.')}</td>
+                <td>@{"%.2f".format(f.toFloat*100/g.toFloat).replace(',','.')}%</td>
+                <td>@{"%.2f".format(i.toFloat/pGames.toFloat).replace(',','.')}</td>
+                <td>@{"%.2f".format(j.toFloat/pGames.toFloat).replace(',','.')}</td>
+                <td>@{"%.2f".format((i.toFloat+j.toFloat)/pGames.toFloat).replace(',','.')}</td>
+                <td>@{"%.2f".format(k.toFloat/pGames.toFloat).replace(',','.')}</td>
+                <td>@{"%.2f".format(l.toFloat/pGames.toFloat).replace(',','.')}</td>
+                <td>@{"%.2f".format(m.toFloat/pGames.toFloat).replace(',','.')}</td>
+                <td>@{"%.2f".format(n.toFloat/pGames.toFloat).replace(',','.')}</td>
+                <td>@{"%.2f".format(o.toFloat/pGames.toFloat).replace(',','.')}</td>
+                <td>@{"%.2f".format(p.toFloat/pGames.toFloat).replace(',','.')}</td>
+                <td>@{"%.2f".format(q.toFloat/pGames.toFloat).replace(',','.')}</td>
+                <td>@{"%.2f".format(r.toFloat/pGames.toFloat).replace(',','.')}</td>
+            </tr>
+            }
+
+            }
+            }
+
+        </table>
+    </div>
     <h3>Acumulado</h3>
-    @{pGames=0}@{a=0} @{b=0} @{c=0} @{d=0} @{e=0} @{f=0} @{g=0} @{h=0} @{i=0} @{j=0} @{k=0} @{l=0} @{m=0}
+
+    <div class="scroll-h">
     <table>
-        @for(season<-seasons){
-        @for(competition<-competitions){
-        @for(pStat<-pStats){
-        @if(pStat.idPlayer == player.id.get){
-        @for(game<-games){
-        @if(pStat.idGame == game.id.get){
-        @for(inscription<-inscriptions){
-        @if(game.idHome == inscription.id.get){
-
-        @if(inscription.idCompetition == competition.id.get){
-
-        @if(competition.idSeason == season.id.get){
-        @{pGames+=1}
-        }}}}}}}}}}
         <tr>
             <th>Temp</th>
-            <th>PPP</th>
+            <th>Comp</th>
+            <th>Equ</th>
+            <th>Pts</th>
             <th>T2C</th>
             <th>T2I</th>
             <th>T2%</th>
@@ -218,46 +306,6 @@
             <th>TLC</th>
             <th>TLI</th>
             <th>TL%</th>
-        </tr>
-        <tr>
-
-            @for(pStat<-pStats){
-            @if(pStat.idPlayer == player.id.get){
-            @for(game<-games){
-            @if(pStat.idGame == game.id.get){
-            @for(inscription<-inscriptions){
-            @if(game.idHome == inscription.id.get){
-            @for(competition<-competitions){
-            @if(inscription.idCompetition == competition.id.get){
-            @for(season<-seasons){
-            @if(competition.idSeason == season.id.get){
-            @{a+=pStat.points.get.asInstanceOf[Number].intValue}
-            @{b+=pStat.fgm.get.asInstanceOf[Number].intValue}
-            @{c+=pStat.fga.get.asInstanceOf[Number].intValue}
-            @{d+=pStat.t3m.get.asInstanceOf[Number].intValue}
-            @{e+=pStat.t3a.get.asInstanceOf[Number].intValue}
-            @{f+=pStat.ftm.get.asInstanceOf[Number].intValue}
-            @{g+=pStat.fta.get.asInstanceOf[Number].intValue}
-            @{pYear = season.year}
-            }}}}}}}}}}
-            <td>@pYear</td>
-            <td>@a</td>
-            <td>@{"%.0f".format((b.toFloat-d.toFloat)).replace(',','.')}</td>
-            <td>@{"%.0f".format((c.toFloat-e.toFloat)).replace(',','.')}</td>
-            <td>@{"%.2f".format((b.toFloat-d.toFloat)*100/(c.toFloat-e.toFloat)).replace(',','.')}%</td>
-            <td>@d</td>
-            <td>@e</td>
-            <td>@{"%.2f".format(d.toFloat*100/e.toFloat).replace(',','.')}%</td>
-            <td>@b</td>
-            <td>@c</td>
-            <td>@{"%.2f".format(b.toFloat*100/c.toFloat).replace(',','.')}%</td>
-            <td>@f</td>
-            <td>@g</td>
-            <td>@{"%.2f".format(f.toFloat*100/g.toFloat).replace(',','.')}</td>
-        </tr>
-        <tr>
-            <th>Comp</th>
-            <th>Equ</th>
             <th>RebOf</th>
             <th>RebDef</th>
             <th>Reb</th>
@@ -271,50 +319,84 @@
             <th>Min</th>
             <th>Par</th>
         </tr>
-        <tr>
-            @{a=0} @{b=0} @{c=0} @{d=0} @{e=0} @{f=0} @{g=0} @{h=0} @{i=0} @{j=0} @{k=0} @{l=0} @{m=0}
+        @for(season<-seasons){
+        @for(competition<-competitions.filter(_.idSeason == season.id.get)){
+        @competition.name
+        @{pGames=0} @{a=0} @{b=0} @{c=0} @{d=0} @{e=0} @{f=0} @{g=0} @{h=0} @{i=0}
+        @{j=0} @{k=0} @{l=0} @{m=0} @{o=0} @{p=0} @{q=0} @{r=0} @{s=0}
 
-            @for(pStat<-pStats){
-            @if(pStat.idPlayer == player.id.get){
-            @for(game<-games){
-            @if(pStat.idGame == game.id.get){
-            @for(inscription<-inscriptions){
-            @if(game.idHome == inscription.id.get){
-            @for(competition<-competitions){
-            @if(inscription.idCompetition == competition.id.get){
-            @for(season<-seasons){
-            @if(competition.idSeason == season.id.get){
-            @{a+=pStat.offReb.get.asInstanceOf[Number].intValue}
-            @{b+=pStat.defReb.get.asInstanceOf[Number].intValue}
-            @{c+=pStat.assists.get.asInstanceOf[Number].intValue}
-            @{d+=pStat.blocks.get.asInstanceOf[Number].intValue}
-            @{e+=pStat.steals.get.asInstanceOf[Number].intValue}
-            @{f+=pStat.turnovers.get.asInstanceOf[Number].intValue}
-            @{g+=pStat.fouls.get.asInstanceOf[Number].intValue}
-            @{h+=pStat.flagFouls.get.asInstanceOf[Number].intValue}
-            @{i+=pStat.techFouls.get.asInstanceOf[Number].intValue}
-            @{j+=pStat.minutes.get.asInstanceOf[Number].intValue}
-            @{h=competition.id.get.asInstanceOf[Number].intValue}
-            @{pComp=competition.abrv.get}
-            @for(contract<-contracts){@if(contract.idPlayer == player.id.get){
-            @for(team<-teams){@if(contract.idTeam == team.id.get){ @{pTeam = team.abrv} @{i=team.id.get.asInstanceOf[Number].intValue}}}
-            }}
-            }}}}}}}}}}
+        @for(pStat<-pStats.filter(_.idPlayer == player.id.get)){
+        @for(game<-games.filter(_.id.get == pStat.idGame)){
+        @for(inscription<-inscriptions.filter(_.id.get == game.idHome).filter(_.idCompetition == competition.id.get)){
+
+        @for(contract<-contracts.filter(_.idPlayer == player.id.get)){
+        @for(team<-teams.filter(_.id.get == contract.idTeam).filter(_.id.get == inscription.idTeam)){
+
+        @{pTeam = team.abrv}
+        @pTeam
+        @{s=team.id.get.asInstanceOf[Number].intValue}
+        @s
+
+        }}
+
+        @{pGames+=1}
+        @{a+=pStat.points.get.asInstanceOf[Number].intValue}
+        @{b+=pStat.fgm.get.asInstanceOf[Number].intValue}
+        @{c+=pStat.fga.get.asInstanceOf[Number].intValue}
+        @{d+=pStat.t3m.get.asInstanceOf[Number].intValue}
+        @{e+=pStat.t3a.get.asInstanceOf[Number].intValue}
+        @{f+=pStat.ftm.get.asInstanceOf[Number].intValue}
+        @{g+=pStat.fta.get.asInstanceOf[Number].intValue}
+        @{h=competition.id.get.asInstanceOf[Number].intValue}
+        @{i+=pStat.offReb.get.asInstanceOf[Number].intValue}
+        @{j+=pStat.defReb.get.asInstanceOf[Number].intValue}
+        @{k+=pStat.assists.get.asInstanceOf[Number].intValue}
+        @{l+=pStat.blocks.get.asInstanceOf[Number].intValue}
+        @{m+=pStat.steals.get.asInstanceOf[Number].intValue}
+        @{n+=pStat.turnovers.get.asInstanceOf[Number].intValue}
+        @{o+=pStat.fouls.get.asInstanceOf[Number].intValue}
+        @{p+=pStat.flagFouls.get.asInstanceOf[Number].intValue}
+        @{q+=pStat.techFouls.get.asInstanceOf[Number].intValue}
+        @{r+=pStat.minutes.get.asInstanceOf[Number].intValue}
+        @{pComp=competition.abrv.get}
+        @{pYear = season.year}
+
+        }
+        }
+        }
+        @if(pGames != 0){
+        <tr>
+            <td>@pYear</td>
             <td><a href="@mcgrady.controllers.routes.CompetitionController.view(h)">@pComp</a></td>
-            <td><a href="@mcgrady.controllers.routes.TeamController.view(i)">@pTeam</a></td>
+            <td><a href="@mcgrady.controllers.routes.TeamController.view(s)">@pTeam</a></td>
             <td>@a</td>
-            <td>@b</td>
-            <td>@{"%.0f".format((a.toFloat+b.toFloat)).replace(',','.')}</td>
-            <td>@c</td>
+            <td>@{"%.0f".format((b.toFloat-d.toFloat)).replace(',','.')}</td>
+            <td>@{"%.0f".format((c.toFloat-e.toFloat)).replace(',','.')}</td>
+            <td>@{"%.2f".format((b.toFloat-d.toFloat)*100/(c.toFloat-e.toFloat)).replace(',','.')}%</td>
             <td>@d</td>
             <td>@e</td>
+            <td>@{"%.2f".format(d.toFloat*100/e.toFloat).replace(',','.')}%</td>
+            <td>@b</td>
+            <td>@c</td>
+            <td>@{"%.2f".format(b.toFloat*100/c.toFloat).replace(',','.')}%</td>
             <td>@f</td>
             <td>@g</td>
-            <td>@h</td>
+            <td>@{"%.2f".format(f.toFloat*100/g.toFloat).replace(',','.')}</td>
             <td>@i</td>
             <td>@j</td>
+            <td>@{"%.0f".format((i.toFloat+j.toFloat)).replace(',','.')}</td>
+            <td>@k</td>
+            <td>@l</td>
+            <td>@m</td>
+            <td>@n</td>
+            <td>@o</td>
+            <td>@p</td>
+            <td>@q</td>
+            <td>@r</td>
             <td>@pGames</td>
         </tr>
+        }}}
     </table>
+    </div>
 </div>
 }

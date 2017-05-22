@@ -35,9 +35,10 @@
     @for(season<-seasons){
     <div id="div-season-@season.year" class="tabcontent" style="display:none;">
         @season.year :
-        @for(competition<-competitions){ @if(competition.idSeason == season.id.get){
+        @for(competition<-competitions){@for(inscription<-inscriptions){
+        @if(inscription.idTeam == team.id.get && inscription.idCompetition == competition.id.get && competition.idSeason == season.id.get){
         <button class="tablinks" onclick="openForm2(event, 'div-competition-@season.year-@competition.id')">@competition.name</button>
-        }}
+        }}}
     </div>
     }
     <br>
