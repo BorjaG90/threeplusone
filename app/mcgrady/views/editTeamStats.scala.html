@@ -5,125 +5,98 @@
     <fieldset >
         <label>Editando Estadisticas</label>
         <table align="center">
-            <tr>
-                <th>Partido</th>
-                <th>Equipo</th>
-                <th>Pts</th>
-                <th>Reb Of</th>
-                <th>Reb Def</th>
-                <th>Ass</th>
-                <th>Tap</th>
-                <th>Rob</th>
-                <th>TCA</th>
-                <th>TCI</th>
-                <th>T3A</th>
-                <th>T3I</th>
-                <th>TLA</th>
-                <th>TLI</th>
-                <th>Fal</th>
-                <th>Per</th>
-                <th>Min</th>
-                <th>Tec</th>
-                <th>Flag</th>
-            </tr>
+            <th colspan="2">Partido</th>
+            <th>Equipo</th>
+            <th>Minutos</th>
             <tr>
                 <td align="center">
                     @defining(teamStatsForm("id_game").value){ gameValue=>
-                    @for(game <- games){
-                    @if(gameValue.get != None && gameValue.get.toLong == game.id.get){
-                    @for(homeI <- inscriptions){@if(game.idHome == homeI.id.get){
-                    @for(awayI <- inscriptions){@if(game.idVisitor == awayI.id.get){
-                    @for(home <- teams){@if(homeI.idTeam == home.id.get){
-                    @for(away <- teams){@if(awayI.idTeam == away.id.get){
-                    @sf.format(game.dateGame) <br>
-                    @home.abrv vs @away.abrv
-                    }}}}}}}}}}}
+                    @for(game <- games){ @if(gameValue.get != None && gameValue.get.toLong == game.id.get){
+                    @for(homeI <- inscriptions.filter(_.id.get==game.idHome)){
+                    @for(awayI <- inscriptions.filter(_.id.get==game.idVisitor)){
+                    @for(home <- teams.filter(_.id.get==homeI.idTeam)){
+                    @for(away <- teams.filter(_.id.get==awayI.idTeam)){
+                    @sf.format(game.dateGame) <br> @home.abrv vs @away.abrv }}}}}}}
                 </td>
                 <td>
                     @defining(teamStatsForm("id_inscription").value) { inscriptionValue=>
                     <select id="id_inscription" name="id_inscription">
                         @for(inscription <- inscriptions){
-                            @for(team <- teams){
-                                @if(inscription.idTeam == team.id.get){
-                                    @if(inscriptionValue != None && inscription.id.get == inscriptionValue.get.toLong){
+                        @for(team <- teams.filter(_.id.get==inscription.idTeam)){
+                        @if(inscriptionValue != None && inscription.id.get == inscriptionValue.get.toLong){
                         <option selected="selected" value="@inscription.id">@team.name</option>
-                                    }else{
+                        }else{
                         <option value="@inscription.id">@team.name</option>
-                                    }
-                                }
-                            }
-                        }
+                        }}}
                     </select>
                     }
                 </td>
-                <td>@defining(teamStatsForm("points").value){ pointsValue=>
-                    <input type="text" id="points" name="points" value="@pointsValue" >
-                    }
-                </td>
-                <td>@defining(teamStatsForm("off_rebounds").value){ off_reboundsValue=>
-                    <input type="text" id="off_rebounds" name="off_rebounds" value="@off_reboundsValue" >
-                    }
-                </td>
-                <td>@defining(teamStatsForm("def_rebounds").value){ def_reboundsValue=>
-                    <input type="text" id="def_rebounds" name="def_rebounds" value="@def_reboundsValue" >
-                    }
-                </td>
-                <td>@defining(teamStatsForm("assists").value){ assistsValue=>
-                    <input type="text" id="assists" name="assists" value="@assistsValue" >
-                    }
-                </td>
-                <td>@defining(teamStatsForm("blocks").value){ blocksValue=>
-                    <input type="text" id="blocks" name="blocks" value="@blocksValue" >
-                    }
-                </td>
-                <td>@defining(teamStatsForm("steals").value){ stealsValue=>
-                    <input type="text" id="steals" name="steals" value="@stealsValue" >
-                    }
-                </td>
-                <td>@defining(teamStatsForm("fg_made").value){ fg_madeValue=>
-                    <input type="text" id="fg_made" name="fg_made" value="@fg_madeValue" >
-                    }
-                </td>
-                <td>@defining(teamStatsForm("fg_attemped").value){ fg_attempedValue=>
-                    <input type="text" id="fg_attemped" name="fg_attemped" value="@fg_attempedValue" >
-                    }
-                </td>
-                <td>@defining(teamStatsForm("t3_made").value){ t3_madeValue=>
-                    <input type="text" id="t3_made" name="t3_made" value="@t3_madeValue" >
-                    }
-                </td>
-                <td>@defining(teamStatsForm("t3_attemped").value){ t3_attempedValue=>
-                    <input type="text" id="t3_attemped" name="t3_attemped" value="@t3_attempedValue" >
-                    }
-                </td>
-                <td>@defining(teamStatsForm("ft_made").value){ ft_madeValue=>
-                    <input type="text" id="ft_made" name="ft_made" value="@ft_madeValue" >
-                    }
-                </td>
-                <td>@defining(teamStatsForm("ft_attemped").value){ ft_attempedValue=>
-                    <input type="text" id="ft_attemped" name="ft_attemped" value="@ft_attempedValue" >
-                    }
-                </td>
-                <td>@defining(teamStatsForm("fouls").value){ foulsValue=>
-                    <input type="text" id="fouls" name="fouls" value="@foulsValue" >
-                    }
-                </td>
-                <td>@defining(teamStatsForm("turnovers").value){ turnoversValue=>
-                    <input type="text" id="turnovers" name="turnovers" value="@turnoversValue" >
-                    }
-                </td>
                 <td>@defining(teamStatsForm("minutes").value){ minutesValue=>
-                    <input type="text" id="minutes" name="minutes" value="@minutesValue" >
-                    }
-                </td>
+                    <input type="text" id="minutes" name="minutes" value="@minutesValue" > } </td>
+            </tr>
+            <tr>
+                <th>Puntos</th>
+                <th>TC Anotados</th>
+                <th>T3 Anotados</th>
+                <th>TL Anotados</th>
+            </tr>
+            <tr>
+                <td>@defining(teamStatsForm("points").value){ pointsValue=>
+                    <input type="text" id="points" name="points" value="@pointsValue" > } </td>
+                <td>@defining(teamStatsForm("fg_made").value){ fg_madeValue=>
+                    <input type="text" id="fg_made" name="fg_made" value="@fg_madeValue" > } </td>
+                <td>@defining(teamStatsForm("t3_made").value){ t3_madeValue=>
+                    <input type="text" id="t3_made" name="t3_made" value="@t3_madeValue" > } </td>
+                <td>@defining(teamStatsForm("ft_made").value){ ft_madeValue=>
+                    <input type="text" id="ft_made" name="ft_made" value="@ft_madeValue" > } </td>
+            </tr>
+            <tr>
+                <th>Asistencias</th>
+                <th>TC Intentados</th>
+                <th>T3 Intentados</th>
+                <th>TL Intentados</th>
+            </tr>
+            <tr>
+                <td>@defining(teamStatsForm("assists").value){ assistsValue=>
+                    <input type="text" id="assists" name="assists" value="@assistsValue" > } </td>
+                <td>@defining(teamStatsForm("fg_attemped").value){ fg_attempedValue=>
+                    <input type="text" id="fg_attemped" name="fg_attemped" value="@fg_attempedValue" > } </td>
+                <td>@defining(teamStatsForm("t3_attemped").value){ t3_attempedValue=>
+                    <input type="text" id="t3_attemped" name="t3_attemped" value="@t3_attempedValue" > } </td>
+                <td>@defining(teamStatsForm("ft_attemped").value){ ft_attempedValue=>
+                    <input type="text" id="ft_attemped" name="ft_attemped" value="@ft_attempedValue" > } </td>
+            </tr>
+            <tr>
+                <th>Reb Ofensivos</th>
+                <th>Reb Defensivos</th>
+                <th>Tapones</th>
+                <th>Robos</th>
+            </tr>
+            <tr>
+                <td>@defining(teamStatsForm("off_rebounds").value){ off_reboundsValue=>
+                    <input type="text" id="off_rebounds" name="off_rebounds" value="@off_reboundsValue" > } </td>
+                <td>@defining(teamStatsForm("def_rebounds").value){ def_reboundsValue=>
+                    <input type="text" id="def_rebounds" name="def_rebounds" value="@def_reboundsValue" > } </td>
+                <td>@defining(teamStatsForm("blocks").value){ blocksValue=>
+                    <input type="text" id="blocks" name="blocks" value="@blocksValue" > } </td>
+                <td>@defining(teamStatsForm("steals").value){ stealsValue=>
+                    <input type="text" id="steals" name="steals" value="@stealsValue" > } </td>
+            </tr>
+            <tr>
+                <th>Faltas</th>
+                <th>Técnicas</th>
+                <th>Flagrantes</th>
+                <th>Pérdidas</th>
+            </tr>
+            <tr>
+                <td>@defining(teamStatsForm("fouls").value){ foulsValue=>
+                    <input type="text" id="fouls" name="fouls" value="@foulsValue" > } </td>
                 <td>@defining(teamStatsForm("tech_fouls").value){ tech_foulsValue=>
-                    <input type="text" id="tech_fouls" name="tech_fouls" value="@tech_foulsValue" >
-                    }
-                </td>
+                    <input type="text" id="tech_fouls" name="tech_fouls" value="@tech_foulsValue" > } </td>
                 <td>@defining(teamStatsForm("flag_fouls").value){ flag_foulsValue=>
-                    <input type="text" id="flag_fouls" name="flag_fouls" value="@flag_foulsValue" >
-                    }
-                </td>
+                    <input type="text" id="flag_fouls" name="flag_fouls" value="@flag_foulsValue" > } </td>
+                <td>@defining(teamStatsForm("turnovers").value){ turnoversValue=>
+                    <input type="text" id="turnovers" name="turnovers" value="@turnoversValue" > } </td>
             </tr>
         </table>
         <br/>

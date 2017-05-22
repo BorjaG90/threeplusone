@@ -4,7 +4,7 @@
 @div(a:Long,b:Long) = {@(a / b)}
 @main(Messages("competition.title")){
 <h1>@competition.name</h1>
-@for(season<-seasons){ @if(competition.idSeason == season.id.get){ <h3>Temporada @season.year</h3>}}
+@for(season<-seasons.filter(_.id.get == competition.idSeason)){ <h3>Temporada @season.year</h3>}
 <div id="standings">
     <h2>Clasificación</h2>
     <table id="table-standings" class="table table-striped">
@@ -23,8 +23,8 @@
             </th>
             <th></th>
         </tr>
-        @for(inscription<-inscriptions){ @if(inscription.idCompetition == competition.id.get){
-        @for(team<-teams){ @if(team.id.get == inscription.idTeam){ @{tGames=0} @{tWins=0} @{tLoses=0}
+        @for(inscription<-inscriptions.filter(_.idCompetition == competition.id.get)){
+        @for(team<-teams.filter(_.id.get == inscription.idTeam)){ @{tGames=0} @{tWins=0} @{tLoses=0}
         <tr>
             <td>@team.name</td>
             @for(game<-games){
@@ -40,7 +40,7 @@
             <td><a href="@mcgrady.controllers.routes.TeamController.view(team.id.get)">
                 <img src=@routes.Assets.versioned("images/ver.png") alt="Visualizar"></a></td>
         </tr>
-        }}}}
+        }}
     </table>
 </div>
 <br>
@@ -78,18 +78,16 @@
             </th>
             <th></th>
         </tr>
-        @for(player<-players){
-        @{pGames=0} @{pPts=0} @{pReb=0} @{pAss=0} @{pSte=0} @{pBlk=0}
-        @for(game<-games){ @for(inscription<-inscriptions){
-        @if(game.idHome == inscription.idTeam && inscription.idCompetition == competition.id.get){
-        @for(pStat<-pStats){ @if(pStat.idGame == game.id.get){ @if(player.id.get == pStat.idPlayer){
-        @{pGames+=1}
+        @for(player<-players){ @{pGames=0} @{pPts=0} @{pReb=0} @{pAss=0} @{pSte=0} @{pBlk=0}
+        @for(game<-games){
+        @for(inscription<-inscriptions.filter(_.idTeam == game.idHome).filter(_.idCompetition == competition.id.get)){
+        @for(pStat<-pStats.filter(_.idGame == game.id.get).filter(_.idPlayer == player.id.get)){ @{pGames+=1}
         @{pPts+=pStat.points.get.asInstanceOf[Number].intValue}
         @{pReb+=pStat.offReb.get.asInstanceOf[Number].intValue+pStat.defReb.get.asInstanceOf[Number].intValue}
         @{pAss+=pStat.assists.get.asInstanceOf[Number].intValue}
         @{pBlk+=pStat.blocks.get.asInstanceOf[Number].intValue}
         @{pSte+=pStat.steals.get.asInstanceOf[Number].intValue}
-        }}}}}}
+        }}}
         @if(pGames > 5){
         <tr>
             <td>@player.firstName @player.lastName</td>

@@ -40,9 +40,9 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <tr>
         <td>@arena.name</td>
         <td>@arena.direction</td>
-        @if(arena.idCountry != None){
-        @for(country <- countries){@if(country.id == arena.idCountry.get){
-        <td>@country.name</td>}}}else{<td></td>}
+        <td>@if(arena.idCountry != None){
+        @for(country <- countries.filter(_.id == arena.idCountry.get)){
+        @country.name}}</td>
         <td>
             <a href="@mcgrady.controllers.routes.ArenaController.edit(arena.id.get)">
                 <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>

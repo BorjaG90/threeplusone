@@ -19,16 +19,12 @@
                     @defining(serieForm("id_session").value) { sessionValue=>
                     <select id="id_session" name="id_session">
                         @for(plan <- plans){
-                            @for(session <- sessions){
-                                @if(plan.id.get == session.idPlan){
-                                    @if(session.id.get == sessionValue.toString){
+                        @for(session <- sessions.filter(_.idPlan==plan.id.get)){
+                        @if(session.id.get == sessionValue.toString){
                         <option selected="selected" value="@session.id">@plan.name>@session.name</option>
-                                    }else{
+                        }else{
                         <option value="@session.id">@plan.name>@session.name</option>
-                                    }
-                                }
-                            }
-                        }
+                        }}}
                     </select>
                     }
                 </td>

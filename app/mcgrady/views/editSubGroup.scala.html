@@ -21,10 +21,10 @@
                     <select id="id_group" name="id_group">
                         @for(group <- groups){
                         @if(groupValue != None && group.id.get == groupValue.get.toLong){
-                        @for(competition <- competitions){ @if(competition.id.get == group.idCompetition){
+                        @for(competition <- competitions.filter(_.id.get == group.idCompetition)){
                         @for(season <- seasons){ @if(season.id.get == competition.idSeason){
                         <option selected="selected" value="@group.id">@season.year-@competition.abrv/@group.name</option>
-                        }else{<option value="@group.id">@season.year-@competition.abrv/@group.name</option>}}}}}}
+                        }else{<option value="@group.id">@season.year-@competition.abrv/@group.name</option>}}}}}
                     </select>
                     }
                 </td>

@@ -25,23 +25,19 @@
                 <td colspan="2">
                     <select id="id_game" name="id_game">
                         @for(game <- games){
-                        @for(homeI <- inscriptions){@if(game.idHome == homeI.id.get){
-                        @for(awayI <- inscriptions){@if(game.idVisitor == awayI.id.get){
-                        @for(home <- teams){@if(homeI.idTeam == home.id.get){
-                        @for(away <- teams){@if(awayI.idTeam == away.id.get){
+                        @for(homeI <- inscriptions.filter(_.id.get==game.idHome)){
+                        @for(awayI <- inscriptions.filter(_.id.get==game.idVisitor)){
+                        @for(home <- teams.filter(_.id.get==homeI.idTeam)){
+                        @for(away <- teams.filter(_.id.get==awayI.idTeam)){
                         <option value="@game.id">@sf.format(game.dateGame) - @home.abrv vs @away.abrv</option>
-                        }}}}}}}}}
+                        }}}}}
                     </select>
                 </td>
                 <td>
                     <select id="id_inscription" name="id_inscription">
-                        @for(team <- teams){
-                        @for(inscription <- inscriptions){
-                        @if(inscription.idTeam == team.id.get){
+                        @for(team <- teams){@for(inscription <- inscriptions.filter(_.idTeam == team.id.get)){
                         <option value="@inscription.id">@team.name</option>
-                        }
-                        }
-                        }
+                        }}
                     </select>
                 </td>
                 <td><input type="text" id="minutes" name="minutes" value="" placeholder="Minutos"></td>

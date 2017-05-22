@@ -1,9 +1,6 @@
 @(id: Long, exerciseForm: Form[kobe.model.Exercise], typeExercises: Seq[kobe.model.TypeExercise], categories: Seq[kobe.model.Category], enviroments: Seq[kobe.model.Enviroment])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
-
 @import helper._
-
 @main(Messages("exercise.title")){
-
 <form id="exercise-data-form" role="form" action=@kobe.controllers.routes.ExerciseController.update(id) method="post" autocomplete="off">
     <fieldset >
         <label>Ejercicios</label>

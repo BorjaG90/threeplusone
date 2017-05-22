@@ -10,7 +10,6 @@
     @{j=0} @{k=0} @{l=0} @{m=0} @{o=0} @{p=0} @{q=0} @{r=0} @{s=0}
     <div class="scroll-h">
     <table>
-        @for(pStat<-pStats){ @if(pStat.idPlayer == player.id.get){ @{pGames+=1}}}
         <tr>
             <th>PPP</th>
             <th>T2C</th>
@@ -38,8 +37,7 @@
             <th>MPP</th>
         </tr>
         <tr>
-            @for(pStat<-pStats){
-            @if(pStat.idPlayer == player.id.get){
+            @for(pStat<-pStats.filter(_.idPlayer == player.id.get)){
             @{a+=pStat.points.get.asInstanceOf[Number].intValue}
             @{b+=pStat.fgm.get.asInstanceOf[Number].intValue}
             @{c+=pStat.fga.get.asInstanceOf[Number].intValue}
@@ -57,7 +55,8 @@
             @{p+=pStat.flagFouls.get.asInstanceOf[Number].intValue}
             @{q+=pStat.techFouls.get.asInstanceOf[Number].intValue}
             @{r+=pStat.minutes.get.asInstanceOf[Number].intValue}
-            }}
+            @{pGames+=1}
+            }
             <td>@{"%.2f".format(a.toFloat/pGames.toFloat).replace(',','.')}</td>
             <td>@{"%.2f".format((b.toFloat-d.toFloat)/pGames.toFloat).replace(',','.')}</td>
             <td>@{"%.2f".format((c.toFloat-e.toFloat)/pGames.toFloat).replace(',','.')}</td>
@@ -90,7 +89,6 @@
     @{j=0} @{k=0} @{l=0} @{m=0} @{o=0} @{p=0} @{q=0} @{r=0} @{s=0}
     <div class="scroll-h">
     <table>
-        @for(pStat<-pStats){ @if(pStat.idPlayer == player.id.get){ @{pGames+=1}}}
         <tr>
             <th>Pts</th>
             <th>T2C</th>
@@ -119,9 +117,7 @@
             <th>Par</th>
         </tr>
         <tr>
-            @for(pStat<-pStats){
-            @if(pStat.idPlayer == player.id.get){
-
+            @for(pStat<-pStats.filter(_.idPlayer == player.id.get)){
             @{a+=pStat.points.get.asInstanceOf[Number].intValue}
             @{b+=pStat.fgm.get.asInstanceOf[Number].intValue}
             @{c+=pStat.fga.get.asInstanceOf[Number].intValue}
@@ -139,8 +135,7 @@
             @{o+=pStat.flagFouls.get.asInstanceOf[Number].intValue}
             @{p+=pStat.techFouls.get.asInstanceOf[Number].intValue}
             @{q+=pStat.minutes.get.asInstanceOf[Number].intValue}
-
-            }}
+            @{pGames+=1} }
             <td>@a</td>
             <td>@{"%.0f".format((b.toFloat-d.toFloat)).replace(',','.')}</td>
             <td>@{"%.0f".format((c.toFloat-e.toFloat)).replace(',','.')}</td>
@@ -203,9 +198,8 @@
                 <th>Tec</th>
                 <th>MPP</th>
             </tr>
-            @for(season<-seasons){
-            @for(competition<-competitions.filter(_.idSeason == season.id.get)){
-            @competition.name
+            @for(season<-seasons){ @for(competition<-competitions.filter(_.idSeason == season.id.get)){
+
             @{pGames=0} @{a=0} @{b=0} @{c=0} @{d=0} @{e=0} @{f=0} @{g=0} @{h=0} @{i=0}
             @{j=0} @{k=0} @{l=0} @{m=0} @{o=0} @{p=0} @{q=0} @{r=0} @{s=0}
 
@@ -217,9 +211,7 @@
             @for(team<-teams.filter(_.id.get == contract.idTeam).filter(_.id.get == inscription.idTeam)){
 
             @{pTeam = team.abrv}
-            @pTeam
             @{s=team.id.get.asInstanceOf[Number].intValue}
-            @s
 
             }}
 
@@ -245,9 +237,7 @@
             @{pComp=competition.abrv.get}
             @{pYear = season.year}
 
-            }
-            }
-            }
+            }}}
             @if(pGames != 0){
             <tr>
                 <td>@pYear</td>
@@ -321,7 +311,7 @@
         </tr>
         @for(season<-seasons){
         @for(competition<-competitions.filter(_.idSeason == season.id.get)){
-        @competition.name
+
         @{pGames=0} @{a=0} @{b=0} @{c=0} @{d=0} @{e=0} @{f=0} @{g=0} @{h=0} @{i=0}
         @{j=0} @{k=0} @{l=0} @{m=0} @{o=0} @{p=0} @{q=0} @{r=0} @{s=0}
 
@@ -333,9 +323,7 @@
         @for(team<-teams.filter(_.id.get == contract.idTeam).filter(_.id.get == inscription.idTeam)){
 
         @{pTeam = team.abrv}
-        @pTeam
         @{s=team.id.get.asInstanceOf[Number].intValue}
-        @s
 
         }}
 
@@ -361,9 +349,7 @@
         @{pComp=competition.abrv.get}
         @{pYear = season.year}
 
-        }
-        }
-        }
+        }}}
         @if(pGames != 0){
         <tr>
             <td>@pYear</td>

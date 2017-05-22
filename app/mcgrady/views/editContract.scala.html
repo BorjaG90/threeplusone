@@ -42,9 +42,9 @@
                 <td align="center">
                     @defining(contractForm("init_date").value){ initDateValue=>
                         @if(initDateValue != None){
-                    <input type="date" id="init_date" name="init_date" step="1" min="2000-01-01" max="2050-12-31" value="@initDateValue.get">
+                    <input type="date" id="init_date1" name="init_date" step="1" min="2000-01-01" max="2050-12-31" value="@initDateValue.get">
                         }else{
-                    <input type="date" id="init_date" name="init_date" step="1" min="2000-01-01" max="2050-12-31" value="">
+                    <input type="date" id="init_date2" name="init_date" step="1" min="2000-01-01" max="2050-12-31" value="">
                         }
                     }
                 </td>
@@ -56,9 +56,9 @@
                 <td>
                     @defining(contractForm("end_date").value){ endDateValue=>
                         @if(endDateValue != None){
-                    <input type="date" id="end_date" name="end_date" step="1" min="2000-01-01" max="2050-12-31" value="@endDateValue.get">
+                    <input type="date" id="end_date1" name="end_date" step="1" min="2000-01-01" max="2050-12-31" value="@endDateValue.get">
                         }else{
-                    <input type="date" id="end_date" name="end_date" step="1" min="2000-01-01" max="2050-12-31" value="">
+                    <input type="date" id="end_date2" name="end_date" step="1" min="2000-01-01" max="2050-12-31" value="">
                         }
                     }
                 </td>

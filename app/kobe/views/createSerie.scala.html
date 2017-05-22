@@ -27,20 +27,14 @@
             <tr>
                 <td>
                     <select id="id_session" name="id_session">
-                        @for(plan <- plans){
-                            @for(session <- sessions){
-                                @if(plan.id.get == session.idPlan){
+                        @for(plan <- plans){ @for(session <- sessions.filter(_.idPlan==plan.id.get)){
                         <option value="@session.id">@plan.name>@session.name</option>
-                                }
-                            }
-                        }
+                        }}
                     </select>
                 </td>
                 <td>
                     <select id="id_exercise" name="id_exercise">
-                        @for(exercise <- exercises){
-                        <option value="@exercise.id">@exercise.name</option>
-                        }
+                        @for(exercise <- exercises){<option value="@exercise.id">@exercise.name</option>}
                     </select>
                 </td>
                 <td align="center">

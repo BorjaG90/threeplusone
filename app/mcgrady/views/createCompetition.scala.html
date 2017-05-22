@@ -25,14 +25,12 @@
             <tr>
                 <td>
                     <select id="id_season" name="id_season">
-                        @for(season <- seasons){
+                        @for(season <- seasons.sortWith(_.year > _.year)){
                         <option value="@season.id">@season.year</option>
                         }
                     </select>
                 </td>
-                <td>
-                    <input type="text" id="name" name="name" value="" placeholder="Nombre" required>
-                </td>
+                <td> <input type="text" id="name" name="name" value="" placeholder="Nombre" required> </td>
                 <td>
                     <input type="text" id="abbreviation" name="abbreviation" value="" placeholder="Abreviatura" required>
                 </td>

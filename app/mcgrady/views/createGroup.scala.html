@@ -29,11 +29,10 @@
                 </td>
                 <td>
                     <select id="id_competition" name="id_competition">
-                        @for(season <- seasons){
-                        @for(competition <- competitions){
-                        @if(season.id.get == competition.idSeason){
+                        @for(season <- seasons.sortWith(_.year > _.year)){
+                        @for(competition <- competitions.sortBy(_.abrv).filter(_.idSeason==season.id.get)){
                         <option value="@competition.id">@season.year-@competition.abrv</option>
-                        }}}
+                        }}
                     </select>
                 </td>
                 <td align="center">

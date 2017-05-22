@@ -42,18 +42,18 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <td>@exercise.name</td>
         <td>
             @if(exercise.idTypeExercise != None){
-            @for(texe <- types){ @if(texe.id.get == exercise.idTypeExercise.get){
-            <a href="@kobe.controllers.routes.TypeExerciseController.edit(texe.id.get)">@texe.name</a>}}}
+            @for(texe <- types.filter(_.id.get == exercise.idTypeExercise.get)){
+            <a href="@kobe.controllers.routes.TypeExerciseController.edit(texe.id.get)">@texe.name</a>}}
         </td>
         <td>
             @if(exercise.idCategory != None){
-            @for(category <- categories){ @if(category.id.get == exercise.idCategory.get){
-            <a href="@kobe.controllers.routes.CategoryController.edit(category.id.get)">@category.name</a>}}}
+            @for(category <- categories.filter(_.id.get == exercise.idCategory.get)){
+            <a href="@kobe.controllers.routes.CategoryController.edit(category.id.get)">@category.name</a>}}
         </td>
         <td>
             @if(exercise.idEnviroment != None){
-            @for(enviroment <- enviroments){ @if(enviroment.id.get == exercise.idEnviroment.get){
-            <a href="@kobe.controllers.routes.EnviromentController.edit(enviroment.id.get)">@enviroment.name</a>}}}
+            @for(enviroment <- enviroments.filter(_.id.get == exercise.idEnviroment.get)){
+            <a href="@kobe.controllers.routes.EnviromentController.edit(enviroment.id.get)">@enviroment.name</a>}}
         </td>
         <td>@exercise.notes</td>
         <td><a href="@kobe.controllers.routes.ExerciseController.edit(exercise.id.get)">

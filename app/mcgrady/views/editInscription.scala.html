@@ -27,36 +27,39 @@
                     @defining(inscriptionForm("id_subgroup").value) { subgroupValue=>
                     <input type="hidden" id="id_competition" name="id_competition" value="@competitionValue">
                     @if(groupValue != None){
-                    <input type="hidden" id="id_group" name="id_group" value="@groupValue">}else{
-                    <input type="hidden" id="id_group" name="id_group" value="">}
+                    <input type="hidden" id="id_group1" name="id_group" value="@groupValue">}else{
+                    <input type="hidden" id="id_group2" name="id_group" value="">}
                     @if(subgroupValue != None){
-                    <input type="hidden" id="id_subgroup" name="id_subgroup" value="@subgroupValue">
-                    }else{ <input type="hidden" id="id_subgroup" name="id_subgroup" value="">}
-                    @for(competition <- competitions){ @for(season <- seasons){
-                    @if(season.id.get == competition.idSeason){
-                    @for(group <- groups){ @if(competition.id.get == group.idCompetition){
-                    @{groupCount = 0}
-                    @for(subGroup <- subgroups){ @if(group.id.get == subGroup.idGroup){
+                    <input type="hidden" id="id_subgroup1" name="id_subgroup" value="@subgroupValue">
+                    }else{ <input type="hidden" id="id_subgroup2" name="id_subgroup" value="">}
+                    @for(season <- seasons){
+                    @for(competition <- competitions.filter(_.idSeason==season.id.get)){
+                    @for(group <- groups.filter(_.idCompetition==competition.id.get)){ @{groupCount = 0}
+                    @for(subGroup <- subgroups.filter(_.idGroup==group.id.get)){
                     @{groupCount += 1}
                     <input type="hidden" id="CS-@subGroup.id" value="@competition.id">
                     <input type="hidden" id="GS-@subGroup.id" value="@group.id">
-                    }}
-                    @if(groupCount==0){ <input type="hidden" id="CG-@group.id" value="@competition.id"> }}}}}}
+                    }
+                    @if(groupCount==0){ <input type="hidden" id="CG-@group.id" value="@competition.id"> }
+                    }}}
                     <select id="asignation" onchange="inscription()">
                         <option id="E" value="">-Seleccionar-</option>
-                        @for(competition <- competitions){ @for(season <- seasons){
-                        @if(season.id.get == competition.idSeason){ @{compCount = 0} @for(group <- groups){
-                        @if(competition.id.get == group.idCompetition){ @{compCount += 1} @{groupCount = 0}
-                        @for(subGroup <- subgroups){ @if(group.id.get == subGroup.idGroup){ @{groupCount += 1}
+                        @for(season <- seasons){@for(competition <- competitions.filter(_.idSeason==season.id.get)){
+                        @{compCount = 0}
+                        @for(group <- groups.filter(_.idCompetition==competition.id.get)){ @{compCount += 1}
+                        @{groupCount = 0}
+                        @for(subGroup <- subgroups.filter(_.idGroup==group.id.get)){ @{groupCount += 1}
                         @if(subgroupValue != None && subGroup.id.get == subgroupValue.get.toLong){
                         <option id="S-@subGroup.id" value="@subGroup.id" selected="selected">@season.year-@competition.abrv/@group.name-@subGroup.name</option>
                         }else{
                         <option id="S-@subGroup.id" value="@subGroup.id">@season.year-@competition.abrv/@group.name-@subGroup.name</option>
-                        }}} @if(groupCount==0){ @if(groupValue != None && group.id.get == groupValue.get.toLong){
+                        }}
+                        @if(groupCount==0){ @if(groupValue != None && group.id.get == groupValue.get.toLong){
                         <option id="G-@group.id" value="@group.id" selected="selected">@season.year-@competition.abrv/@group.name</option>
                         }else{
                         <option id="G-@group.id" value="@group.id">@season.year-@competition.abrv/@group.name</option>
-                        }}}} @if(compCount==0){ @if(competition.id.get == competitionValue.get.toLong){
+                        }}
+                        @if(compCount==0){ @if(competition.id.get == competitionValue.get.toLong){
                         <option id="C-@competition.id" value="@competition.id" selected="selected">@season.year-@competition.abrv</option>
                         }else{
                         <option id="C-@competition.id" value="@competition.id">@season.year-@competition.abrv</option>
@@ -69,12 +72,11 @@
                     <select id="id_arena" name="id_arena">
                         <option value=""></option>
                         @for(arena <- arenas){
-                            @if(arenaValue != None && arena.id.get == arenaValue.get.toLong){
-                    <option selected="selected" value="@arena.id">@arena.name</option>
-                            }else{
-                    <option value="@arena.id">@arena.name</option>
-                            }
-                        }
+                        @if(arenaValue != None && arena.id.get == arenaValue.get.toLong){
+                        <option selected="selected" value="@arena.id">@arena.name</option>
+                        }else{
+                        <option value="@arena.id">@arena.name</option>
+                        }}
                     </select>
                     }
                 </td>

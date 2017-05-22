@@ -46,16 +46,16 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <td align="right"><a href="@mcgrady.controllers.routes.InscriptionController.edit(home.id.get)">@teamH</a></td>
         <td><a href="@mcgrady.controllers.routes.InscriptionController.edit(visitor.id.get)">@teamV</a></td>
         <td>
-            @if(game.idArena != None){ @for(arena<-arenas){ @if(arena.id == game.idArena.get){
-            <a href="@mcgrady.controllers.routes.ArenaController.edit(arena.id.get)">@arena.name</a> }}}
+            @if(game.idArena != None){ @for(arena<-arenas.filter(_.id == game.idArena.get)){
+            <a href="@mcgrady.controllers.routes.ArenaController.edit(arena.id.get)">@arena.name</a> }}
         </td>
         <td>
             @if(game.winner != None && game.winner.get == "H"){ @teamH
             }else {@if(game.winner != None && game.winner.get == "A"){ @teamV }}
         </td>
         <td>
-            @if(game.mvp != None){ @for(mvp<-players){ @if(mvp.id.get == game.mvp.get){
-            <a href="@mcgrady.controllers.routes.PlayerController.edit(mvp.id.get)">@mvp.firstName @mvp.lastName</a> }}}
+            @if(game.mvp != None){ @for(mvp<-players.filter(_.id.get == game.mvp.get)){
+            <a href="@mcgrady.controllers.routes.PlayerController.edit(mvp.id.get)">@mvp.firstName @mvp.lastName</a> }}
         </td>
         <td>@game.description</td>
         <td>

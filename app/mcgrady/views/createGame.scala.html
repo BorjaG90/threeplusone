@@ -43,14 +43,14 @@
                 </td>
                 <td>
                     <select id="id_home" name="id_home">
-                        @for(inscription <- inscriptions){ @for(team <- teams){ @if(inscription.idTeam == team.id.get){
-                        <option value="@inscription.id">@team.name</option> }}}
+                        @for(inscription <- inscriptions){ @for(team <- teams.filter(_.id.get==inscription.idTeam)){
+                        <option value="@inscription.id">@team.name</option> }}
                     </select>
                 </td>
                 <td>
                     <select id="id_visitor" name="id_visitor">
-                        @for(inscription <- inscriptions){ @for(team <- teams){ @if(inscription.idTeam == team.id.get){
-                        <option value="@inscription.id">@team.name</option> }}}
+                        @for(inscription <- inscriptions){ @for(team <- teams.filter(_.id.get==inscription.idTeam)){
+                        <option value="@inscription.id">@team.name</option> }}
                     </select>
                 </td>
                 <td>
@@ -73,9 +73,9 @@
                 <td>
                     <select id="mvp" name="mvp">
                         <option value=""></option>
-                        @for(inscription <- inscriptions.sortBy(x => x.idTeam)){ @for(player<-players){ @for(contract<-contracts){
-                        @if(contract.idTeam == inscription.idTeam && contract.idPlayer == player.id.get){
-                        <option value="@player.id">@player.firstName @player.lastName</option> }}}}
+                        @for(inscription <- inscriptions.sortBy(x => x.idTeam)){ @for(player<-players){
+                        @for(contract<-contracts.filter(_.idTeam == inscription.idTeam).filter(_.idPlayer == player.id.get)){
+                        <option value="@player.id">@player.firstName @player.lastName</option> }}}
                     </select>
                 </td>
                 <td colspan="2" align="center">

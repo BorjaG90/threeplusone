@@ -28,16 +28,16 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     @for((record,serie,unit,exercise) <- currentPage.items){
     <tr>
         @for(plan <- plans){
-        @for(session <- sessions){ @if(session.idPlan == plan.id.get){ @if(serie.idSession == session.id.get){
+        @for(session <- sessions.filter(_.idPlan == plan.id.get).filter(_.id.get == serie.idSession)){
         <td>@plan.name>@session.name-
             <a href="@kobe.controllers.routes.SerieController.edit(serie.id.get)">@serie.id</a></td>
-        }}}}
+        }}
         <td>@exercise.name</td>
-        <td>@if(record.typeR == "V"){<b>@record.value @unit.name</b>}else{@record.value @unit.name}</td>
+        <td>@if(record.typeR == "V"){- <b>@record.value @unit.name</b> -}else{@record.value @unit.name}</td>
         <td>@record.notes</td>
-        @if(record.typeR == "M"){ <td></td>}else{
-        <td> <a href="@kobe.controllers.routes.RecordController.editVolume(record.id.get)">
-                <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a> </td> }
+        <td>@if(record.typeR == "V"){
+        <a href="@kobe.controllers.routes.RecordController.editVolume(record.id.get)">
+                <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>  }</td>
         <td> <a href="@kobe.controllers.routes.RecordController.delete(record.id)">
                 <img src=@routes.Assets.versioned("images/basura.png") alt="Borrar"></a> </td>
     </tr>

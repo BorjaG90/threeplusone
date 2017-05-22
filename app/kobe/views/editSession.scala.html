@@ -21,16 +21,14 @@
                     }
                 </td>
                <td>
-                    @defining(sessionForm("id_plan").value) { planValue=>
+                   @defining(sessionForm("id_plan").value) { planValue=>
                    <select id="id_plan" name="id_plan">
-                        @for(plan <- plans){
-                            @if(plan.id.get  == planValue.get.toLong){
-                    <option selected="selected" value="@plan.id">@plan.name</option>
-                            }else{
-                    <option value="@plan.id">@plan.name</option>
-                            }
-                        }
-                    </select>
+                       @for(plan <- plans){ @if(plan.id.get  == planValue.get.toLong){
+                       <option selected="selected" value="@plan.id">@plan.name</option>
+                       }else{
+                       <option value="@plan.id">@plan.name</option>
+                       }}
+                   </select>
                     }
                 </td>
                 <td align="center">

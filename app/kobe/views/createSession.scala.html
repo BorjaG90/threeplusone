@@ -30,9 +30,7 @@
                 </td>
                 <td>
                     <select id="id_plan" name="id_plan">
-                        @for(plan <- plans){
-                        <option value="@plan.id">@plan.name</option>
-                        }
+                        @for(plan <- plans){<option value="@plan.id">@plan.name</option>}
                     </select>
                 </td>
                 <td align="center">
