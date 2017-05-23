@@ -5,16 +5,7 @@ use threeplusone;
 
 #Emptys
 
-#Units
-INSERT INTO units (name,description,type, creation_date) VALUES('s','Segundos','T',0);
-INSERT INTO units (name,description,type, creation_date) VALUES('min','Minutos','T',0);
-INSERT INTO units (name,description,type, creation_date) VALUES('h','Horas','T', 0);
-INSERT INTO units (name,description,type, creation_date) VALUES('m','Metros','D', 0);
-INSERT INTO units (name,description,type, creation_date) VALUES('km','KiloMetros','D', 0);
-INSERT INTO units (name,description,type, creation_date) VALUES('rep','Repeticiones','D', 0);
-INSERT INTO units (name,description,type, creation_date) VALUES('LPM','Latidos por Minuto','D', 0);
-INSERT INTO units (name,description,type, creation_date) VALUES('fga','Lanzamientos','D', 0);
-INSERT INTO units (name,description,type, creation_date) VALUES('fgm','Canastas','D', 0);
+
 
 #Enviroments
 INSERT INTO enviroments (name) VALUES('Gimnasio');

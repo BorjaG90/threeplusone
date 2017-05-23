@@ -54,7 +54,7 @@ INSERT INTO players(first_name, last_name, nick_name, creation_date) VALUES('Jer
 INSERT INTO players(first_name, last_name, creation_date) VALUES('DeShawn','Stevenson',0);
 INSERT INTO players(first_name, last_name, creation_date) VALUES('Moochie','Norris',0);
 
-#Arenas
+#arenas
 INSERT INTO arenas(name,direction,id_country,creation_date) VALUES ('Barclays Center','Brooklyn, New York',(SELECT id FROM countries where name like ('Estados Unidos')),0);
 INSERT INTO arenas(name,direction,id_country,creation_date) VALUES ('Spectrum Center','Charlotte, North Carolina',(SELECT id FROM countries where name like ('Estados Unidos')),0);
 INSERT INTO arenas(name,direction,id_country,creation_date) VALUES ('Bok Center','Tulsa, Oklahoma',(SELECT id FROM countries where name like ('Estados Unidos')),0);
@@ -126,143 +126,143 @@ INSERT INTO contracts (id_player,id_team,number,init_date,end_date,creation_date
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ghost Ballers') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3 Headed Monsters') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1498341600000,(SELECT id from Arenas where name like 'Barclays Center'),'H',(SELECT id from players where first_name like 'Mike' and last_name like 'Bibby'),0);
+	,1498341600000,(SELECT id from arenas where name like 'Barclays Center'),'H',(SELECT id from players where first_name like 'Mike' and last_name like 'Bibby'),0);
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Power') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1498341600000,(SELECT id from Arenas where name like 'Barclays Center'),'A',(SELECT id from players where first_name like 'Corey' and last_name like 'Maggette'),0);
+	,1498341600000,(SELECT id from arenas where name like 'Barclays Center'),'A',(SELECT id from players where first_name like 'Corey' and last_name like 'Maggette'),0);
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ball Hogs') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1498341600000,(SELECT id from Arenas where name like 'Barclays Center'),'H',(SELECT id from players where first_name like 'Allen' and last_name like 'Iverson'),0);
+	,1498341600000,(SELECT id from arenas where name like 'Barclays Center'),'H',(SELECT id from players where first_name like 'Allen' and last_name like 'Iverson'),0);
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1498341600000,(SELECT id from Arenas where name like 'Barclays Center'),'A',(SELECT id from players where first_name like 'Kenyon' and last_name like 'Martin'),0);
+	,1498341600000,(SELECT id from arenas where name like 'Barclays Center'),'A',(SELECT id from players where first_name like 'Kenyon' and last_name like 'Martin'),0);
 #2stWeek
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ball Hogs') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1498946400000,(SELECT id from Arenas where name like 'Spectrum Center'),'H',(SELECT id from players where first_name like 'Brian' and last_name like 'Scalabrine'),0);
+	,1498946400000,(SELECT id from arenas where name like 'Spectrum Center'),'H',(SELECT id from players where first_name like 'Brian' and last_name like 'Scalabrine'),0);
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3 Headed Monsters') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1498946400000,(SELECT id from Arenas where name like 'Spectrum Center'),'A',(SELECT id from players where first_name like 'Rashard' and last_name like 'Lewis'),0);
+	,1498946400000,(SELECT id from arenas where name like 'Spectrum Center'),'A',(SELECT id from players where first_name like 'Rashard' and last_name like 'Lewis'),0);
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Power') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1498946400000,(SELECT id from Arenas where name like 'Spectrum Center'),'H',(SELECT id from players where first_name like 'Corey' and last_name like 'Maggette'),0);
+	,1498946400000,(SELECT id from arenas where name like 'Spectrum Center'),'H',(SELECT id from players where first_name like 'Corey' and last_name like 'Maggette'),0);
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ghost Ballers') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1498946400000,(SELECT id from Arenas where name like 'Spectrum Center'),'H',(SELECT id from players where first_name like 'Allen' and last_name like 'Iverson'),0);
+	,1498946400000,(SELECT id from arenas where name like 'Spectrum Center'),'H',(SELECT id from players where first_name like 'Allen' and last_name like 'Iverson'),0);
 #3stWeek
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Power') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3 Headed Monsters') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1499551200000,(SELECT id from Arenas where name like 'Bok Center'),'H',(SELECT id from players where first_name like 'Corey' and last_name like 'Maggette'),0);
+	,1499551200000,(SELECT id from arenas where name like 'Bok Center'),'H',(SELECT id from players where first_name like 'Corey' and last_name like 'Maggette'),0);
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1499551200000,(SELECT id from Arenas where name like 'Bok Center'),'A',(SELECT id from players where first_name like 'Jermaine' and last_name like 'O´Neal'),0);
+	,1499551200000,(SELECT id from arenas where name like 'Bok Center'),'A',(SELECT id from players where first_name like 'Jermaine' and last_name like 'O´Neal'),0);
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ball Hogs') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ghost Ballers') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1499551200000,(SELECT id from Arenas where name like 'Bok Center'),'H',(SELECT id from players where first_name like 'Brian' and last_name like 'Scalabrine'),0);
+	,1499551200000,(SELECT id from arenas where name like 'Bok Center'),'H',(SELECT id from players where first_name like 'Brian' and last_name like 'Scalabrine'),0);
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1499551200000,(SELECT id from Arenas where name like 'Bok Center'),'A',(SELECT id from players where first_name like 'Allen' and last_name like 'Iverson'),0);
+	,1499551200000,(SELECT id from arenas where name like 'Bok Center'),'A',(SELECT id from players where first_name like 'Allen' and last_name like 'Iverson'),0);
 #4stWeek
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ghost Ballers') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Power') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1500156000000,(SELECT id from Arenas where name like 'Wells Fargo Center'),'H',(SELECT id from players where first_name like 'Mike' and last_name like 'Bibby'),0);
+	,1500156000000,(SELECT id from arenas where name like 'Wells Fargo Center'),'H',(SELECT id from players where first_name like 'Mike' and last_name like 'Bibby'),0);
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ball Hogs') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1500156000000,(SELECT id from Arenas where name like 'Wells Fargo Center'),'A',(SELECT id from players where first_name like 'Brian' and last_name like 'Scalabrine'),0);
+	,1500156000000,(SELECT id from arenas where name like 'Wells Fargo Center'),'A',(SELECT id from players where first_name like 'Brian' and last_name like 'Scalabrine'),0);
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3 Headed Monsters') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1500156000000,(SELECT id from Arenas where name like 'Wells Fargo Center'),'A',(SELECT id from players where first_name like 'Jason' and last_name like 'Williams'),0);
+	,1500156000000,(SELECT id from arenas where name like 'Wells Fargo Center'),'A',(SELECT id from players where first_name like 'Jason' and last_name like 'Williams'),0);
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1500156000000,(SELECT id from Arenas where name like 'Wells Fargo Center'),'H',(SELECT id from players where first_name like 'Allen' and last_name like 'Iverson'),0);
+	,1500156000000,(SELECT id from arenas where name like 'Wells Fargo Center'),'H',(SELECT id from players where first_name like 'Allen' and last_name like 'Iverson'),0);
 #5stWeek
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ball Hogs') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1501365600000,(SELECT id from Arenas where name like 'American Airlines Center'),'H',(SELECT id from players where first_name like 'Chauncey' and last_name like 'Billups'),0);
+	,1501365600000,(SELECT id from arenas where name like 'American Airlines Center'),'H',(SELECT id from players where first_name like 'Chauncey' and last_name like 'Billups'),0);
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Power') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1501365600000,(SELECT id from Arenas where name like 'American Airlines Center'),'H',(SELECT id from players where first_name like 'Allen' and last_name like 'Iverson'),0);
+	,1501365600000,(SELECT id from arenas where name like 'American Airlines Center'),'H',(SELECT id from players where first_name like 'Allen' and last_name like 'Iverson'),0);
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ghost Ballers') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1501365600000,(SELECT id from Arenas where name like 'American Airlines Center'),'H',(SELECT id from players where first_name like 'Kenyon' and last_name like 'Martin'),0);
+	,1501365600000,(SELECT id from arenas where name like 'American Airlines Center'),'H',(SELECT id from players where first_name like 'Kenyon' and last_name like 'Martin'),0);
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3 Headed Monsters') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1501365600000,(SELECT id from Arenas where name like 'American Airlines Center'),'A',(SELECT id from players where first_name like 'Jason' and last_name like 'Williams'),0);
+	,1501365600000,(SELECT id from arenas where name like 'American Airlines Center'),'A',(SELECT id from players where first_name like 'Jason' and last_name like 'Williams'),0);
 #6stWeek
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ghost Ballers') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1501970400000,(SELECT id from Arenas where name like 'Rupp Arena'),'H',(SELECT id from players where first_name like 'Jermaine' and last_name like 'O´Neal'),0);
+	,1501970400000,(SELECT id from arenas where name like 'Rupp Arena'),'H',(SELECT id from players where first_name like 'Jermaine' and last_name like 'O´Neal'),0);
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Power') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1501970400000,(SELECT id from Arenas where name like 'Rupp Arena'),'A',(SELECT id from players where first_name like 'Corey' and last_name like 'Maggette'),0);
+	,1501970400000,(SELECT id from arenas where name like 'Rupp Arena'),'A',(SELECT id from players where first_name like 'Corey' and last_name like 'Maggette'),0);
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ball Hogs') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3 Headed Monsters') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1501970400000,(SELECT id from Arenas where name like 'Rupp Arena'),'A',(SELECT id from players where first_name like 'Jason' and last_name like 'Williams'),0);
+	,1501970400000,(SELECT id from arenas where name like 'Rupp Arena'),'A',(SELECT id from players where first_name like 'Jason' and last_name like 'Williams'),0);
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1501970400000,(SELECT id from Arenas where name like 'Rupp Arena'),'A',(SELECT id from players where first_name like 'Allen' and last_name like 'Iverson'),0);
+	,1501970400000,(SELECT id from arenas where name like 'Rupp Arena'),'A',(SELECT id from players where first_name like 'Allen' and last_name like 'Iverson'),0);
 #7stWeek
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ghost Ballers') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3 Headed Monsters') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1502575200000,(SELECT id from Arenas where name like 'Staples Center'),'H',(SELECT id from players where first_name like 'Mike' and last_name like 'Bibby'),0);
+	,1502575200000,(SELECT id from arenas where name like 'Staples Center'),'H',(SELECT id from players where first_name like 'Mike' and last_name like 'Bibby'),0);
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Power') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1502575200000,(SELECT id from Arenas where name like 'Staples Center'),'A',(SELECT id from players where first_name like 'Corey' and last_name like 'Maggette'),0);
+	,1502575200000,(SELECT id from arenas where name like 'Staples Center'),'A',(SELECT id from players where first_name like 'Corey' and last_name like 'Maggette'),0);
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ball Hogs') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1502575200000,(SELECT id from Arenas where name like 'Staples Center'),'H',(SELECT id from players where first_name like 'Allen' and last_name like 'Iverson'),0);
+	,1502575200000,(SELECT id from arenas where name like 'Staples Center'),'H',(SELECT id from players where first_name like 'Allen' and last_name like 'Iverson'),0);
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1502575200000,(SELECT id from Arenas where name like 'Staples Center'),'A',(SELECT id from players where first_name like 'Kenyon' and last_name like 'Martin'),0);
+	,1502575200000,(SELECT id from arenas where name like 'Staples Center'),'A',(SELECT id from players where first_name like 'Kenyon' and last_name like 'Martin'),0);
 #PlayOff
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ball Hogs') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1503180000000,(SELECT id from Arenas where name like 'Rupp Arena'),'H',(SELECT id from players where first_name like 'Allen' and last_name like 'Iverson'),0);
+	,1503180000000,(SELECT id from arenas where name like 'Rupp Arena'),'H',(SELECT id from players where first_name like 'Allen' and last_name like 'Iverson'),0);
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3 Headed Monsters') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ghost Ballers') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1503180000000,(SELECT id from Arenas where name like 'Rupp Arena'),'H',(SELECT id from players where first_name like 'Jason' and last_name like 'Williams'),0);
+	,1503180000000,(SELECT id from arenas where name like 'Rupp Arena'),'H',(SELECT id from players where first_name like 'Jason' and last_name like 'Williams'),0);
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1503180000000,(SELECT id from Arenas where name like 'Rupp Arena'),'A',(SELECT id from players where first_name like 'Stephen' and last_name like 'Jackson'),0);
+	,1503180000000,(SELECT id from arenas where name like 'Rupp Arena'),'A',(SELECT id from players where first_name like 'Stephen' and last_name like 'Jackson'),0);
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Power') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1503180000000,(SELECT id from Arenas where name like 'Rupp Arena'),'A',(SELECT id from players where first_name like 'Bonzi' and last_name like 'Wells'),0);
+	,1503180000000,(SELECT id from arenas where name like 'Rupp Arena'),'A',(SELECT id from players where first_name like 'Bonzi' and last_name like 'Wells'),0);
 #Final
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3 Headed Monsters') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
-	,1503698400000,(SELECT id from Arenas where name like 'T-Mobile Arena'),'H',(SELECT id from players where first_name like 'Allen' and last_name like 'Iverson'),0);
+	,1503698400000,(SELECT id from arenas where name like 'T-Mobile Arena'),'H',(SELECT id from players where first_name like 'Allen' and last_name like 'Iverson'),0);
 
 #Stats 
 #1st Week

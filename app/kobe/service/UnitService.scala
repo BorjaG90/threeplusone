@@ -19,5 +19,6 @@ trait UnitService {
   def list(page: Int, pageSize:Int, orderBy: Int, filter: String):Future[Page[Unit]]
   def count: Future[Int]
   def find(id: Long): Future[Unit]
+  def findByName(name: String): Future[Unit]
   def get(id: Long): Future[Option[Unit]]
 }

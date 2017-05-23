@@ -42,6 +42,9 @@ class UnitDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvid
   override def findById(id: Long): Future[Unit] ={
     db.run(filterQuery(id).result.head)
   }
+  override def findByName(name: String): Future[Unit] ={
+    db.run(filterQueryName(name).result.head)
+  }
 
   override def count: Future[Int] = {
     db.run(units.length.result)
@@ -67,5 +70,8 @@ class UnitDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvid
 
   private def filterQuery(id: Long): Query[UnitTable, Unit, Seq] = {
     units.filter(_.id === id)
+  }
+  private def filterQueryName(name: String): Query[UnitTable, Unit, Seq] = {
+    units.filter(_.name === name)
   }
 }

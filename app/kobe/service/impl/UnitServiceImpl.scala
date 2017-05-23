@@ -38,6 +38,9 @@ class UnitServiceImpl @Inject()(unitDAO: UnitDAO)extends UnitService{
   override def find(id: Long): Future[Unit] = {
     unitDAO.findById(id)
   }
+  override def findByName(name: String): Future[Unit] ={
+    unitDAO.findByName(name)
+  }
   def get(id: Long): Future[Option[Unit]] = {
     unitDAO.get(id)
   }

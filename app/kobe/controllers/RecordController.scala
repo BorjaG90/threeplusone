@@ -227,64 +227,69 @@ class RecordController @Inject()(val messagesApi: MessagesApi
   }
   def saveMark(id:Long): Action[AnyContent] = Action.async { implicit request =>
     sessionService.find(id) flatMap { session =>
-      RecordForm.form.bindFromRequest.fold( formWithErrors =>
-        Future.successful(BadRequest(html.addMark(formWithErrors
-          , Seq.empty[Record]
-          , session
-          , Seq.empty[Unit]
-          , Seq.empty[Plan]
-          , Seq.empty[Serie]
-          , Seq.empty[Exercise]
-          , new SimpleDateFormat("dd/MM/yyyy"))))
-        ,data => {
-          val newRecord = Record(Some(0L), data.idUnit, data.idSerie, data.value, data.notes, data.typeR, data.exeDate
-            , new java.util.Date(), Some(new java.util.Date(0))
-          )
-          val futureRecordInsert = recordService.add(newRecord)
-          futureRecordInsert.map { result =>
-            Redirect(kobe.controllers.routes.RecordController.addMark(id)).flashing("success" -> "La marca ha sido creada")
-          }.recover {
-            case ex: TimeoutException =>
-              Logger.error("Error guardando una marca")
-              InternalServerError(ex.getMessage)
-            case ex: NoSuchElementException =>
-              Logger.error("Error guardando una marca")
-              InternalServerError(ex.getMessage)
-          }
-        }
-      )
-    }
-  }
-  def saveShotChart(id:Long): Action[AnyContent] = Action.async { implicit request =>
-    sessionService.find(id) flatMap { session =>
-      RecordForm.shotChartForm.bindFromRequest.fold( formWithErrors =>
-        Future.successful(BadRequest(html.addMark(RecordForm.form
-          , Seq.empty[Record]
-          , session
-          , Seq.empty[Unit]
-          , Seq.empty[Plan]
-          , Seq.empty[Serie]
-          , Seq.empty[Exercise]
-          , new SimpleDateFormat("dd/MM/yyyy"))))
-        ,chart => {
-          var count = 0;
-          //Recorre el array de anotados/lanzados
-          chart.shots.foreach { data =>
-            var idUnit = 10
-            if(data.value != None) {
-              //Si contiene "Intentos" cambia el id de la unidad
-              //IMPORTANTE: Requiere que la BD se cree con los scripts de Evolutions que tienen unidades por defecto
-              if(data.notes.get.toString.contains("Intentos")){ idUnit = 9 }
-              val newRecord = Record(Some(0L), idUnit, chart.idSerie, data.value.get, data.notes, "M", Some(new java.util.Date())
+          RecordForm.form.bindFromRequest.fold(formWithErrors =>
+            Future.successful(BadRequest(html.addMark(formWithErrors
+              , Seq.empty[Record]
+              , session
+              , Seq.empty[Unit]
+              , Seq.empty[Plan]
+              , Seq.empty[Serie]
+              , Seq.empty[Exercise]
+              , new SimpleDateFormat("dd/MM/yyyy"))))
+            , data => {
+              val newRecord = Record(Some(0L), data.idUnit, data.idSerie, data.value, data.notes, data.typeR, data.exeDate
                 , new java.util.Date(), Some(new java.util.Date(0))
               )
               val futureRecordInsert = recordService.add(newRecord)
+              futureRecordInsert.map { result =>
+                Redirect(kobe.controllers.routes.RecordController.addMark(id)).flashing("success" -> "La marca ha sido creada")
+              }.recover {
+                case ex: TimeoutException =>
+                  Logger.error("Error guardando una marca")
+                  InternalServerError(ex.getMessage)
+                case ex: NoSuchElementException =>
+                  Logger.error("Error guardando una marca")
+                  InternalServerError(ex.getMessage)
+              }
             }
-            count = count +1
-          }
-          Future.successful(Redirect(kobe.controllers.routes.RecordController.addMark(id)).flashing("success" -> "Los lanzamientos se han añadido"))
+          )
         }
-      )
+  }
+  def saveShotChart(id:Long): Action[AnyContent] = Action.async { implicit request =>
+    unitService.findByName("fgm") flatMap { fgm =>
+      unitService.findByName("fga") flatMap { fga =>
+
+        sessionService.find(id) flatMap { session =>
+          RecordForm.shotChartForm.bindFromRequest.fold(formWithErrors =>
+            Future.successful(BadRequest(html.addMark(RecordForm.form
+              , Seq.empty[Record]
+              , session
+              , Seq.empty[Unit]
+              , Seq.empty[Plan]
+              , Seq.empty[Serie]
+              , Seq.empty[Exercise]
+              , new SimpleDateFormat("dd/MM/yyyy"))))
+            , chart => {
+              var count = 0;
+              //Recorre el array de anotados/lanzados
+              chart.shots.foreach { data =>
+                var idUnit = fgm.id.get
+                if (data.value != None) {
+                  //Si contiene "Intentos" cambia el id de la unidad
+                  //IMPORTANTE: Requiere que la BD se cree con los scripts de Evolutions que tienen unidades por defecto
+                  if (data.notes.get.toString.contains("Intentos")) { idUnit = fga.id.get }
+                  val newRecord = Record(Some(0L), idUnit, chart.idSerie, data.value.get, data.notes, "M", Some(new java.util.Date())
+                    , new java.util.Date(), Some(new java.util.Date(0))
+                  )
+                  val futureRecordInsert = recordService.add(newRecord)
+                }
+                count = count + 1
+              }
+              Future.successful(Redirect(kobe.controllers.routes.RecordController.addMark(id)).flashing("success" -> s"Los lanzamientos se han añadido (Actualice la página en caso de no observar los cambios)"))
+            }
+          )
+        }
+      }
     }
   }
   def delete(id: Option[Long]): Action[AnyContent] = Action.async { implicit request =>

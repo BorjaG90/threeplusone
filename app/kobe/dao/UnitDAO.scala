@@ -18,6 +18,7 @@ trait UnitDAO {
   def listSimple:Future[Seq[Unit]]
   def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page[Unit]]
   def findById(id: Long): Future[Unit]
+  def findByName(name: String): Future[Unit]
   def get(id: Long): Future[Option[Unit]]
   def count: Future[Int]
 }
