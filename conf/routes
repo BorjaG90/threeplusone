@@ -97,6 +97,7 @@ POST    /games                       mcgrady.controllers.GameController.save
 GET     /game/:id                   mcgrady.controllers.GameController.edit(id: Long, idComp: Long)
 POST    /game/:id                     mcgrady.controllers.GameController.update(id: Long)
 GET     /game/delete/:id                 mcgrady.controllers.GameController.delete(id: Option[Long])
+GET     /game/:id/view              mcgrady.controllers.GameController.view(id: Long)
 
 #PlayerStats
 GET     /playerStat                       mcgrady.controllers.PlayerStatsController.index

@@ -1,0 +1,291 @@
+@(game:mcgrady.model.Game,pStats:Seq[mcgrady.model.PlayerStats],players:Seq[mcgrady.model.Player],inscriptions:Seq[mcgrady.model.Inscription],contracts:Seq[mcgrady.model.Contract],tStats:Seq[mcgrady.model.TeamStats],teams:Seq[mcgrady.model.Team],sf: java.text.SimpleDateFormat)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+@main(Messages("game.title")){
+<div id="scoreboard">
+    <h2>Marcador</h2>
+    <p style="text-align:center">
+    @for(tStat<-tStats.filter(_.idGame == game.id.get)){
+    @for(inscription<-inscriptions.filter(_.id.get == game.idHome)){
+    @for(team<-teams.filter(_.id.get == tStat.idInscription)){
+        @team.name
+    }}}
+    </p>
+    <p style="text-align:center">
+    @for(tStat<-tStats.filter(_.idGame == game.id.get)){
+    @for(inscription<-inscriptions.filter(_.id.get == game.idHome)){
+    @for(team<-teams.filter(_.id.get == tStat.idInscription)){
+        @tStat.points
+    }}}
+    </p>
+    <p style="text-align:center">
+    @if(game.mvp.isDefined){Mvp:
+    @for(player<-players.filter(_.id.get == game.mvp.get)){@player.firstName @player.lastName
+    <td><a href="@mcgrady.controllers.routes.PlayerController.view(player.id.get)">
+        <img src=@routes.Assets.versioned("images/ver.png") alt="Visualizar"></a></td>
+    }}</p>
+
+</div>
+<div id="statistics">
+    <h2>Estadísticas</h2>
+    <table>
+        <tr>
+            <th>Jugador</th>
+            <th>Pts</th>
+            <th>T2C</th>
+            <th>T2I</th>
+            <th>T2%</th>
+            <th>T3C</th>
+            <th>T3I</th>
+            <th>T3%</th>
+            <th>TCC</th>
+            <th>TCI</th>
+            <th>TC%</th>
+            <th>TLC</th>
+            <th>TLI</th>
+            <th>TL%</th>
+            <th>RebOf</th>
+            <th>RebDef</th>
+            <th>Reb</th>
+            <th>Ass</th>
+            <th>Tap</th>
+            <th>Rob</th>
+            <th>Per</th>
+            <th>Fal</th>
+            <th>Flag</th>
+            <th>Tec</th>
+            <th>Min</th>
+            <th></th>
+        </tr>
+        @for(pStat<-pStats.filter(_.idGame == game.id.get)){
+        @for(player<-players.filter(_.id.get == pStat.idPlayer)){
+        @for(inscription<-inscriptions.filter(_.id.get == game.idHome)){
+        @for(contract<-contracts.filter(_.idPlayer == player.id.get).filter(_.idTeam == inscription.id.get)){
+        <tr>
+            <td><a href="@mcgrady.controllers.routes.PlayerController.edit(player.id.get)">
+                @player.firstName @player.lastName</a></td>
+            <td>@pStat.points</td>
+            <td>@{"%.0f".format(pStat.fgm.get.toFloat-pStat.t3m.get.toFloat).replace(',','.')}</td>
+            <td>@{"%.0f".format(pStat.fga.get.toFloat-pStat.t3a.get.toFloat).replace(',','.')}</td>
+            <td>@{"%.2f".format((pStat.fgm.get.toFloat-pStat.t3m.get.toFloat).toFloat*100/(pStat.fga.get.toFloat-pStat.t3a.get.toFloat)).toString.replace(',','.')}%</td>
+            <td>@pStat.t3m</td>
+            <td>@pStat.t3a</td>
+            <td>@{"%.2f".format(pStat.t3m.get.toFloat*100/pStat.t3a.get.toFloat).toString.replace(',','.')}%</td>
+            <td>@pStat.fgm</td>
+            <td>@pStat.fga</td>
+            <td>@{"%.2f".format(pStat.fgm.get.toFloat*100/pStat.fga.get.toFloat).toString.replace(',','.')}%</td>
+            <td>@pStat.ftm</td>
+            <td>@pStat.fta</td>
+            <td>@{"%.2f".format(pStat.ftm.get.toFloat*100/pStat.fta.get.toFloat).toString.replace(',','.')}%</td>
+            <td>@pStat.offReb</td>
+            <td>@pStat.defReb</td>
+            <td>@{"%.0f".format(pStat.offReb.get.toFloat+pStat.defReb.get.toFloat).toString.replace(',','.')}</td>
+            <td>@pStat.assists</td>
+            <td>@pStat.blocks</td>
+            <td>@pStat.steals</td>
+            <td>@pStat.turnovers</td>
+            <td>@pStat.fouls</td>
+            <td>@pStat.flagFouls</td>
+            <td>@pStat.techFouls</td>
+            <td>@pStat.minutes</td>
+            <td><a href="@mcgrady.controllers.routes.PlayerController.view(player.id.get)">
+                <img src=@routes.Assets.versioned("images/ver.png") alt="Visualizar"></a></td>
+        </tr>
+        }}}}
+    </table>
+    <table>
+        <tr>
+            <th>Anfitrión</th>
+            <th>Pts</th>
+            <th>T2C</th>
+            <th>T2I</th>
+            <th>T2%</th>
+            <th>T3C</th>
+            <th>T3I</th>
+            <th>T3%</th>
+            <th>TCC</th>
+            <th>TCI</th>
+            <th>TC%</th>
+            <th>TLC</th>
+            <th>TLI</th>
+            <th>TL%</th>
+            <th>RebOf</th>
+            <th>RebDef</th>
+            <th>Reb</th>
+            <th>Ass</th>
+            <th>Tap</th>
+            <th>Rob</th>
+            <th>Per</th>
+            <th>Fal</th>
+            <th>Flag</th>
+            <th>Tec</th>
+            <th>Min</th>
+            <th></th>
+        </tr>
+        @for(tStat<-tStats.filter(_.idGame == game.id.get)){
+        @for(inscription<-inscriptions.filter(_.id.get == game.idHome).filter(_.id.get == tStat.idInscription)){
+        @for(team<-teams.filter(_.id.get == tStat.idInscription)){
+        <tr>
+            <td><a href="@mcgrady.controllers.routes.TeamController.edit(team.id.get)">
+                @team.name</a></td>
+            <td>@tStat.points</td>
+            <td>@{"%.0f".format(tStat.fgm.get.toFloat-tStat.t3m.get.toFloat).replace(',','.')}</td>
+            <td>@{"%.0f".format(tStat.fga.get.toFloat-tStat.t3a.get.toFloat).replace(',','.')}</td>
+            <td>@{"%.2f".format((tStat.fgm.get.toFloat-tStat.t3m.get.toFloat).toFloat*100/(tStat.fga.get.toFloat-tStat.t3a.get.toFloat)).toString.replace(',','.')}%</td>
+            <td>@tStat.t3m</td>
+            <td>@tStat.t3a</td>
+            <td>@{"%.2f".format(tStat.t3m.get.toFloat*100/tStat.t3a.get.toFloat).toString.replace(',','.')}%</td>
+            <td>@tStat.fgm</td>
+            <td>@tStat.fga</td>
+            <td>@{"%.2f".format(tStat.fgm.get.toFloat*100/tStat.fga.get.toFloat).toString.replace(',','.')}%</td>
+            <td>@tStat.ftm</td>
+            <td>@tStat.fta</td>
+            <td>@{"%.2f".format(tStat.ftm.get.toFloat*100/tStat.fta.get.toFloat).toString.replace(',','.')}%</td>
+            <td>@tStat.offReb</td>
+            <td>@tStat.defReb</td>
+            <td>@{"%.0f".format(tStat.offReb.get.toFloat+tStat.defReb.get.toFloat).toString.replace(',','.')}</td>
+            <td>@tStat.assists</td>
+            <td>@tStat.blocks</td>
+            <td>@tStat.steals</td>
+            <td>@tStat.turnovers</td>
+            <td>@tStat.fouls</td>
+            <td>@tStat.flagFouls</td>
+            <td>@tStat.techFouls</td>
+            <td>@tStat.minutes</td>
+            <td><a href="@mcgrady.controllers.routes.TeamController.view(team.id.get)">
+                <img src=@routes.Assets.versioned("images/ver.png") alt="Visualizar"></a></td>
+        </tr>
+        }}}
+    </table>
+    <br>
+    <table>
+        <tr>
+            <th>Visitante</th>
+            <th>Pts</th>
+            <th>T2C</th>
+            <th>T2I</th>
+            <th>T2%</th>
+            <th>T3C</th>
+            <th>T3I</th>
+            <th>T3%</th>
+            <th>TCC</th>
+            <th>TCI</th>
+            <th>TC%</th>
+            <th>TLC</th>
+            <th>TLI</th>
+            <th>TL%</th>
+            <th>RebOf</th>
+            <th>RebDef</th>
+            <th>Reb</th>
+            <th>Ass</th>
+            <th>Tap</th>
+            <th>Rob</th>
+            <th>Per</th>
+            <th>Fal</th>
+            <th>Flag</th>
+            <th>Tec</th>
+            <th>Min</th>
+            <th></th>
+        </tr>
+        @for(tStat<-tStats.filter(_.idGame == game.id.get)){
+        @for(inscription<-inscriptions.filter(_.id.get == game.idVisitor).filter(_.id.get == tStat.idInscription)){
+        @for(team<-teams.filter(_.id.get == inscription.idTeam)){
+        <tr>
+            <td><a href="@mcgrady.controllers.routes.TeamController.edit(team.id.get)">
+                @team.name</a></td>
+            <td>@tStat.points</td>
+            <td>@{"%.0f".format(tStat.fgm.get.toFloat-tStat.t3m.get.toFloat).replace(',','.')}</td>
+            <td>@{"%.0f".format(tStat.fga.get.toFloat-tStat.t3a.get.toFloat).replace(',','.')}</td>
+            <td>@{"%.2f".format((tStat.fgm.get.toFloat-tStat.t3m.get.toFloat).toFloat*100/(tStat.fga.get.toFloat-tStat.t3a.get.toFloat)).toString.replace(',','.')}%</td>
+            <td>@tStat.t3m</td>
+            <td>@tStat.t3a</td>
+            <td>@{"%.2f".format(tStat.t3m.get.toFloat*100/tStat.t3a.get.toFloat).toString.replace(',','.')}%</td>
+            <td>@tStat.fgm</td>
+            <td>@tStat.fga</td>
+            <td>@{"%.2f".format(tStat.fgm.get.toFloat*100/tStat.fga.get.toFloat).toString.replace(',','.')}%</td>
+            <td>@tStat.ftm</td>
+            <td>@tStat.fta</td>
+            <td>@{"%.2f".format(tStat.ftm.get.toFloat*100/tStat.fta.get.toFloat).toString.replace(',','.')}%</td>
+            <td>@tStat.offReb</td>
+            <td>@tStat.defReb</td>
+            <td>@{"%.0f".format(tStat.offReb.get.toFloat+tStat.defReb.get.toFloat).toString.replace(',','.')}</td>
+            <td>@tStat.assists</td>
+            <td>@tStat.blocks</td>
+            <td>@tStat.steals</td>
+            <td>@tStat.turnovers</td>
+            <td>@tStat.fouls</td>
+            <td>@tStat.flagFouls</td>
+            <td>@tStat.techFouls</td>
+            <td>@tStat.minutes</td>
+            <td><a href="@mcgrady.controllers.routes.TeamController.view(team.id.get)">
+                <img src=@routes.Assets.versioned("images/ver.png") alt="Visualizar"></a></td>
+        </tr>
+        }}}
+    </table>
+
+    <table>
+        <tr>
+            <th>Jugador</th>
+            <th>Pts</th>
+            <th>T2C</th>
+            <th>T2I</th>
+            <th>T2%</th>
+            <th>T3C</th>
+            <th>T3I</th>
+            <th>T3%</th>
+            <th>TCC</th>
+            <th>TCI</th>
+            <th>TC%</th>
+            <th>TLC</th>
+            <th>TLI</th>
+            <th>TL%</th>
+            <th>RebOf</th>
+            <th>RebDef</th>
+            <th>Reb</th>
+            <th>Ass</th>
+            <th>Tap</th>
+            <th>Rob</th>
+            <th>Per</th>
+            <th>Fal</th>
+            <th>Flag</th>
+            <th>Tec</th>
+            <th>Min</th>
+            <th></th>
+        </tr>
+        @for(pStat<-pStats.filter(_.idGame == game.id.get)){
+        @for(player<-players.filter(_.id.get == pStat.idPlayer)){
+        @for(inscription<-inscriptions.filter(_.id.get == game.idVisitor)){
+        @for(contract<-contracts.filter(_.idPlayer == player.id.get).filter(_.idTeam == inscription.id.get)){
+        <tr>
+            <td><a href="@mcgrady.controllers.routes.PlayerController.edit(player.id.get)">
+                @player.firstName @player.lastName</a></td>
+            <td>@pStat.points</td>
+            <td>@{"%.0f".format(pStat.fgm.get.toFloat-pStat.t3m.get.toFloat).replace(',','.')}</td>
+            <td>@{"%.0f".format(pStat.fga.get.toFloat-pStat.t3a.get.toFloat).replace(',','.')}</td>
+            <td>@{"%.2f".format((pStat.fgm.get.toFloat-pStat.t3m.get.toFloat).toFloat*100/(pStat.fga.get.toFloat-pStat.t3a.get.toFloat)).toString.replace(',','.')}%</td>
+            <td>@pStat.t3m</td>
+            <td>@pStat.t3a</td>
+            <td>@{"%.2f".format(pStat.t3m.get.toFloat*100/pStat.t3a.get.toFloat).toString.replace(',','.')}%</td>
+            <td>@pStat.fgm</td>
+            <td>@pStat.fga</td>
+            <td>@{"%.2f".format(pStat.fgm.get.toFloat*100/pStat.fga.get.toFloat).toString.replace(',','.')}%</td>
+            <td>@pStat.ftm</td>
+            <td>@pStat.fta</td>
+            <td>@{"%.2f".format(pStat.ftm.get.toFloat*100/pStat.fta.get.toFloat).toString.replace(',','.')}%</td>
+            <td>@pStat.offReb</td>
+            <td>@pStat.defReb</td>
+            <td>@{"%.0f".format(pStat.offReb.get.toFloat+pStat.defReb.get.toFloat).toString.replace(',','.')}</td>
+            <td>@pStat.assists</td>
+            <td>@pStat.blocks</td>
+            <td>@pStat.steals</td>
+            <td>@pStat.turnovers</td>
+            <td>@pStat.fouls</td>
+            <td>@pStat.flagFouls</td>
+            <td>@pStat.techFouls</td>
+            <td>@pStat.minutes</td>
+            <td><a href="@mcgrady.controllers.routes.PlayerController.view(player.id.get)">
+                <img src=@routes.Assets.versioned("images/ver.png") alt="Visualizar"></a></td>
+        </tr>
+        }}}}
+    </table>
+
+</div>
+}

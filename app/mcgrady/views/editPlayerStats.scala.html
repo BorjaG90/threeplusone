@@ -11,9 +11,9 @@
                 <th>Minutos</th>
             </tr>
             <tr>
-                <td>
+                <td colspan="2">
                     @defining(playerStatsForm("id_game").value){ gameValue=>
-                    @for(game <- games){ @if(gameValue.get != None && gameValue.get.toLong == game.id.get){
+                    @for(game <- games){ @if(gameValue.isDefined && gameValue.get.toLong == game.id.get){
                     @for(homeI <- inscriptions.filter(_.id.get==game.idHome)){
                     @for(awayI <- inscriptions.filter(_.id.get==game.idVisitor)){
                     @for(home <- teams.filter(_.id.get==homeI.idTeam)){
@@ -26,7 +26,7 @@
                         @for(inscription <- inscriptions.sortBy(x => x.idTeam)){
                         @for(player<-players){
                         @for(contract<-contracts.filter(_.idTeam == inscription.idTeam).filter(_.idPlayer == player.id.get)){
-                        @if(playerValue != None && player.id.get == playerValue.get.toLong){
+                        @if(playerValue.isDefined && player.id.get == playerValue.get.toLong){
                         <option selected="selected" value="@player.id">@player.firstName @player.lastName</option>
                         }else{ <option value="@player.id">@player.firstName @player.lastName</option> }}}}
                     </select>

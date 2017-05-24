@@ -31,7 +31,7 @@
                         <option value = ""></option>
                         }
                         @for(country <- countries){
-                        @if(countryValue != None && country.id == countryValue.get.toLong){
+                        @if(countryValue.isDefined && country.id == countryValue.get.toLong){
                         <option selected="selected" value="@country.id">@country.name</option>
                         }else{
                         <option value="@country.id">@country.name</option>

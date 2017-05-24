@@ -39,15 +39,12 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     </tr>
     @for((contract,player,team) <- currentPage.items){
     <tr>
-        <td><a href="@mcgrady.controllers.routes.PlayerController.edit(player.id.get)">@player.firstName @player.lastName</a></td>
+        <td><a href="@mcgrady.controllers.routes.PlayerController.edit(player.id.get)">
+            @player.firstName @player.lastName</a></td>
         <td><a href="@mcgrady.controllers.routes.TeamController.edit(team.id.get)">@team.name</a></td>
         <td>@contract.number</td>
-        @if(contract.initDate != None){
-        <td>@sf.format(contract.initDate.get)</td>
-        }else{<td></td>}
-        @if(contract.endDate != None){
-        <td>@sf.format(contract.endDate.get)</td>
-        }else{<td></td>}
+        <td>@if(contract.initDate.isDefined){ @sf.format(contract.initDate.get) }</td>
+        <td>@if(contract.endDate.isDefined){ @sf.format(contract.endDate.get) }</td>
         <td>
             <a href="@mcgrady.controllers.routes.ContractController.edit(contract.id.get)">
                 <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar">

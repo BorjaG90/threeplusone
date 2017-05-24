@@ -20,7 +20,7 @@
                     @defining(groupForm("id_competition").value) { competitionValue=>
                     <select id="id_competition" name="id_competition">
                         @for(competition <- competitions){
-                        @if(competitionValue != None && competition.id.get == competitionValue.get.toLong){
+                        @if(competitionValue.isDefined && competition.id.get == competitionValue.get.toLong){
                         @for(season <- seasons){ @if(season.id.get == competition.idSeason){
                         <option selected="selected" value="@competition.id">@season.year-@competition.abrv</option>
                         }else{ <option value="@competition.id">@season.year-@competition.abrv</option>}}}}

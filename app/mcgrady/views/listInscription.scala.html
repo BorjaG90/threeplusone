@@ -38,21 +38,20 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     </tr>
     @for((inscription, team, competition, season) <- currentPage.items){
     <tr>
-        @if(season.id.get == None){
-        <td></td>}else{<td>@season.year</td>}
+        <td>@if(season.id.isDefined){ @season.year }</td>
         <td>
-            @if(competition.id.get != None){
+            @if(competition.id.isDefined){
             <a href="@mcgrady.controllers.routes.CompetitionController.edit(competition.id.get)">@competition.abrv</a>}
-            @if(inscription.idGroup != None){
+            @if(inscription.idGroup.isDefined){
             @for(group <- groups.filter(_.id.get == inscription.idGroup.get)){
             / <a href="@mcgrady.controllers.routes.GroupController.edit(group.id.get)">@group.name</a>}}
-            @if(inscription.idSubGroup != None){
+            @if(inscription.idSubGroup.isDefined){
             @for(subgroup <- subgroups.filter(_.id.get == inscription.idSubGroup.get)){
             - <a href="@mcgrady.controllers.routes.SubGroupController.edit(subgroup.id.get)">@subgroup.name</a>}}
         </td>
         <td><a href="@mcgrady.controllers.routes.TeamController.edit(team.id.get)">@team.name</a></td>
         <td>
-            @if(inscription.idArena != None){
+            @if(inscription.idArena.isDefined){
             @for(arena <- arenas.filter(_.id.get == inscription.idArena.get)){
             <a href="@mcgrady.controllers.routes.ArenaController.edit(arena.id.get)">@arena.name</a>}}
         </td>

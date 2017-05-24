@@ -15,7 +15,7 @@
                 <td>
                     @defining(inscriptionForm("id_team").value) { teamValue=>
                     <select id="id_team" name="id_team">
-                        @for(team <- teams){ @if(teamValue != None && team.id.get == teamValue.get.toLong){
+                        @for(team <- teams){ @if(teamValue.isDefined && team.id.get == teamValue.get.toLong){
                         <option selected="selected" value="@team.id">@team.name</option> }else{
                         <option value="@team.id">@team.name</option>}}
                     </select>
@@ -26,10 +26,10 @@
                     @defining(inscriptionForm("id_group").value) { groupValue=>
                     @defining(inscriptionForm("id_subgroup").value) { subgroupValue=>
                     <input type="hidden" id="id_competition" name="id_competition" value="@competitionValue">
-                    @if(groupValue != None){
+                    @if(groupValue.isDefined){
                     <input type="hidden" id="id_group1" name="id_group" value="@groupValue">}else{
                     <input type="hidden" id="id_group2" name="id_group" value="">}
-                    @if(subgroupValue != None){
+                    @if(subgroupValue.isDefined){
                     <input type="hidden" id="id_subgroup1" name="id_subgroup" value="@subgroupValue">
                     }else{ <input type="hidden" id="id_subgroup2" name="id_subgroup" value="">}
                     @for(season <- seasons){
@@ -49,12 +49,12 @@
                         @for(group <- groups.filter(_.idCompetition==competition.id.get)){ @{compCount += 1}
                         @{groupCount = 0}
                         @for(subGroup <- subgroups.filter(_.idGroup==group.id.get)){ @{groupCount += 1}
-                        @if(subgroupValue != None && subGroup.id.get == subgroupValue.get.toLong){
+                        @if(subgroupValue.isDefined && subGroup.id.get == subgroupValue.get.toLong){
                         <option id="S-@subGroup.id" value="@subGroup.id" selected="selected">@season.year-@competition.abrv/@group.name-@subGroup.name</option>
                         }else{
                         <option id="S-@subGroup.id" value="@subGroup.id">@season.year-@competition.abrv/@group.name-@subGroup.name</option>
                         }}
-                        @if(groupCount==0){ @if(groupValue != None && group.id.get == groupValue.get.toLong){
+                        @if(groupCount==0){ @if(groupValue.isDefined && group.id.get == groupValue.get.toLong){
                         <option id="G-@group.id" value="@group.id" selected="selected">@season.year-@competition.abrv/@group.name</option>
                         }else{
                         <option id="G-@group.id" value="@group.id">@season.year-@competition.abrv/@group.name</option>
@@ -72,7 +72,7 @@
                     <select id="id_arena" name="id_arena">
                         <option value=""></option>
                         @for(arena <- arenas){
-                        @if(arenaValue != None && arena.id.get == arenaValue.get.toLong){
+                        @if(arenaValue.isDefined && arena.id.get == arenaValue.get.toLong){
                         <option selected="selected" value="@arena.id">@arena.name</option>
                         }else{
                         <option value="@arena.id">@arena.name</option>

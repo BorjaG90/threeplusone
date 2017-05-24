@@ -63,11 +63,16 @@
                 @for(game<-games){ @if(game.idHome == inscription.id.get || game.idVisitor == inscription.id.get){
                 @for(tStat<-tStats.filter(_.idGame == game.id.get).filter(_.idInscription == inscription.id.get)){
                 @{tGames+=1}
-                @{pPts+=tStat.points.get.asInstanceOf[Number].intValue}
+                @if(tStat.points.isDefined){@{pPts+=tStat.points.get.asInstanceOf[Number].intValue}}
+
+                @if(tStat.offReb.isDefined){ @if(tStat.defReb.isDefined){
                 @{pReb+=tStat.offReb.get.asInstanceOf[Number].intValue+tStat.defReb.get.asInstanceOf[Number].intValue}
-                @{pAss+=tStat.assists.get.asInstanceOf[Number].intValue}
-                @{pBlk+=tStat.blocks.get.asInstanceOf[Number].intValue}
-                @{pSte+=tStat.steals.get.asInstanceOf[Number].intValue}
+                }else{ @{pReb+=tStat.offReb.get.asInstanceOf[Number].intValue}}
+                }else{ @if(tStat.defReb.isDefined){@{pReb+=tStat.defReb.get.asInstanceOf[Number].intValue}} }
+
+                @if(tStat.assists.isDefined){@{pAss+=tStat.assists.get.asInstanceOf[Number].intValue}}
+                @if(tStat.blocks.isDefined){@{pBlk+=tStat.blocks.get.asInstanceOf[Number].intValue}}
+                @if(tStat.steals.isDefined){@{pSte+=tStat.steals.get.asInstanceOf[Number].intValue}}
                 }}}}
                 <td>@{"%.2f".format(pPts.toFloat/tGames.toFloat).replace(',','.')}</td>
                 <td>@{"%.2f".format(pReb.toFloat/tGames.toFloat).replace(',','.')}</td>

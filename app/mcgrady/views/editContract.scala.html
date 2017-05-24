@@ -17,7 +17,7 @@
                     @defining(contractForm("id_player").value) { playerValue=>
                     <select id="id_player" name="id_player">
                         @for(player <- players){
-                            @if(playerValue != None && player.id.get == playerValue.get.toLong){
+                            @if(playerValue.isDefined && player.id.get == playerValue.get.toLong){
                     <option selected="selected" value="@player.id">@player.lastName</option>
                             }else{
                     <option value="@player.id">@player.firstName @player.lastName</option>
@@ -30,7 +30,7 @@
                     @defining(contractForm("id_team").value) { teamValue=>
                     <select id="id_team" name="id_team">
                         @for(team <- teams){
-                            @if(teamValue != None && team.id.get == teamValue.get.toLong){
+                            @if(teamValue.isDefined && team.id.get == teamValue.get.toLong){
                     <option selected="selected" value="@team.id">@team.name</option>
                             }else{
                     <option value="@team.id">@team.name</option>
@@ -41,7 +41,7 @@
                 </td>
                 <td align="center">
                     @defining(contractForm("init_date").value){ initDateValue=>
-                        @if(initDateValue != None){
+                        @if(initDateValue.isDefined){
                     <input type="date" id="init_date1" name="init_date" step="1" min="2000-01-01" max="2050-12-31" value="@initDateValue.get">
                         }else{
                     <input type="date" id="init_date2" name="init_date" step="1" min="2000-01-01" max="2050-12-31" value="">
@@ -55,7 +55,7 @@
                 </td>
                 <td>
                     @defining(contractForm("end_date").value){ endDateValue=>
-                        @if(endDateValue != None){
+                        @if(endDateValue.isDefined){
                     <input type="date" id="end_date1" name="end_date" step="1" min="2000-01-01" max="2050-12-31" value="@endDateValue.get">
                         }else{
                     <input type="date" id="end_date2" name="end_date" step="1" min="2000-01-01" max="2050-12-31" value="">

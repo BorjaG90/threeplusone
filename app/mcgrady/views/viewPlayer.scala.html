@@ -1,7 +1,7 @@
 @(player: mcgrady.model.Player,pStats:Seq[mcgrady.model.PlayerStats],games:Seq[mcgrady.model.Game],inscriptions:Seq[mcgrady.model.Inscription],competitions:Seq[mcgrady.model.Competition],seasons:Seq[mcgrady.model.Season],teams:Seq[mcgrady.model.Team],contracts:Seq[mcgrady.model.Contract],sf: java.text.SimpleDateFormat)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 @import java.math.BigInteger; var pGames=0; var a=0; var b=0; var c=0; var d=0; var e=0; var f=0; var g=0; var h=0; var i=0; var k=0; var j=0; var l=0; var m=0; var n=0; var o=0; var p=0; var q=0; var r=0; var s=0;
 @import java.lang.String; var pTeam=""; var pYear=""; var pComp=""
-@main(Messages("team.title")){
+@main(Messages("player.title")){
 <div id="statistics">
     <h1>@player.firstName @player.lastName</h1>
     <h2>Carrera</h2>
@@ -38,23 +38,23 @@
         </tr>
         <tr>
             @for(pStat<-pStats.filter(_.idPlayer == player.id.get)){
-            @{a+=pStat.points.get.asInstanceOf[Number].intValue}
-            @{b+=pStat.fgm.get.asInstanceOf[Number].intValue}
-            @{c+=pStat.fga.get.asInstanceOf[Number].intValue}
-            @{d+=pStat.t3m.get.asInstanceOf[Number].intValue}
-            @{e+=pStat.t3a.get.asInstanceOf[Number].intValue}
-            @{f+=pStat.ftm.get.asInstanceOf[Number].intValue}
-            @{g+=pStat.fta.get.asInstanceOf[Number].intValue}
-            @{i+=pStat.offReb.get.asInstanceOf[Number].intValue}
-            @{j+=pStat.defReb.get.asInstanceOf[Number].intValue}
-            @{k+=pStat.assists.get.asInstanceOf[Number].intValue}
-            @{l+=pStat.blocks.get.asInstanceOf[Number].intValue}
-            @{m+=pStat.steals.get.asInstanceOf[Number].intValue}
-            @{n+=pStat.turnovers.get.asInstanceOf[Number].intValue}
-            @{o+=pStat.fouls.get.asInstanceOf[Number].intValue}
-            @{p+=pStat.flagFouls.get.asInstanceOf[Number].intValue}
-            @{q+=pStat.techFouls.get.asInstanceOf[Number].intValue}
-            @{r+=pStat.minutes.get.asInstanceOf[Number].intValue}
+            @if(pStat.points.isDefined){@{a+=pStat.points.get.asInstanceOf[Number].intValue}}
+            @if(pStat.fgm.isDefined){@{b+=pStat.fgm.get.asInstanceOf[Number].intValue}}
+            @if(pStat.fga.isDefined){@{c+=pStat.fga.get.asInstanceOf[Number].intValue}}
+            @if(pStat.t3m.isDefined){@{d+=pStat.t3m.get.asInstanceOf[Number].intValue}}
+            @if(pStat.t3a.isDefined){@{e+=pStat.t3a.get.asInstanceOf[Number].intValue}}
+            @if(pStat.ftm.isDefined){@{f+=pStat.ftm.get.asInstanceOf[Number].intValue}}
+            @if(pStat.fta.isDefined){@{g+=pStat.fta.get.asInstanceOf[Number].intValue}}
+            @if(pStat.offReb.isDefined){@{i+=pStat.offReb.get.asInstanceOf[Number].intValue}}
+            @if(pStat.defReb.isDefined){@{j+=pStat.defReb.get.asInstanceOf[Number].intValue}}
+            @if(pStat.assists.isDefined){@{k+=pStat.assists.get.asInstanceOf[Number].intValue}}
+            @if(pStat.blocks.isDefined){@{l+=pStat.blocks.get.asInstanceOf[Number].intValue}}
+            @if(pStat.steals.isDefined){@{m+=pStat.steals.get.asInstanceOf[Number].intValue}}
+            @if(pStat.turnovers.isDefined){@{n+=pStat.turnovers.get.asInstanceOf[Number].intValue}}
+            @if(pStat.fouls.isDefined){@{o+=pStat.fouls.get.asInstanceOf[Number].intValue}}
+            @if(pStat.flagFouls.isDefined){@{p+=pStat.flagFouls.get.asInstanceOf[Number].intValue}}
+            @if(pStat.techFouls.isDefined){@{q+=pStat.techFouls.get.asInstanceOf[Number].intValue}}
+            @if(pStat.minutes.isDefined){@{r+=pStat.minutes.get.asInstanceOf[Number].intValue}}
             @{pGames+=1}
             }
             <td>@{"%.2f".format(a.toFloat/pGames.toFloat).replace(',','.')}</td>
@@ -118,23 +118,23 @@
         </tr>
         <tr>
             @for(pStat<-pStats.filter(_.idPlayer == player.id.get)){
-            @{a+=pStat.points.get.asInstanceOf[Number].intValue}
-            @{b+=pStat.fgm.get.asInstanceOf[Number].intValue}
-            @{c+=pStat.fga.get.asInstanceOf[Number].intValue}
-            @{d+=pStat.t3m.get.asInstanceOf[Number].intValue}
-            @{e+=pStat.t3a.get.asInstanceOf[Number].intValue}
-            @{f+=pStat.ftm.get.asInstanceOf[Number].intValue}
-            @{g+=pStat.fta.get.asInstanceOf[Number].intValue}
-            @{h+=pStat.offReb.get.asInstanceOf[Number].intValue}
-            @{i+=pStat.defReb.get.asInstanceOf[Number].intValue}
-            @{j+=pStat.assists.get.asInstanceOf[Number].intValue}
-            @{k+=pStat.blocks.get.asInstanceOf[Number].intValue}
-            @{l+=pStat.steals.get.asInstanceOf[Number].intValue}
-            @{m+=pStat.turnovers.get.asInstanceOf[Number].intValue}
-            @{n+=pStat.fouls.get.asInstanceOf[Number].intValue}
-            @{o+=pStat.flagFouls.get.asInstanceOf[Number].intValue}
-            @{p+=pStat.techFouls.get.asInstanceOf[Number].intValue}
-            @{q+=pStat.minutes.get.asInstanceOf[Number].intValue}
+            @if(pStat.points.isDefined){@{a+=pStat.points.get.asInstanceOf[Number].intValue}}
+            @if(pStat.fgm.isDefined){@{b+=pStat.fgm.get.asInstanceOf[Number].intValue}}
+            @if(pStat.fga.isDefined){@{c+=pStat.fga.get.asInstanceOf[Number].intValue}}
+            @if(pStat.t3m.isDefined){@{d+=pStat.t3m.get.asInstanceOf[Number].intValue}}
+            @if(pStat.t3a.isDefined){@{e+=pStat.t3a.get.asInstanceOf[Number].intValue}}
+            @if(pStat.ftm.isDefined){@{f+=pStat.ftm.get.asInstanceOf[Number].intValue}}
+            @if(pStat.fta.isDefined){@{g+=pStat.fta.get.asInstanceOf[Number].intValue}}
+            @if(pStat.offReb.isDefined){@{h+=pStat.offReb.get.asInstanceOf[Number].intValue}}
+            @if(pStat.defReb.isDefined){@{i+=pStat.defReb.get.asInstanceOf[Number].intValue}}
+            @if(pStat.assists.isDefined){@{j+=pStat.assists.get.asInstanceOf[Number].intValue}}
+            @if(pStat.blocks.isDefined){@{k+=pStat.blocks.get.asInstanceOf[Number].intValue}}
+            @if(pStat.steals.isDefined){@{l+=pStat.steals.get.asInstanceOf[Number].intValue}}
+            @if(pStat.turnovers.isDefined){@{m+=pStat.turnovers.get.asInstanceOf[Number].intValue}}
+            @if(pStat.fouls.isDefined){@{n+=pStat.fouls.get.asInstanceOf[Number].intValue}}
+            @if(pStat.flagFouls.isDefined){@{o+=pStat.flagFouls.get.asInstanceOf[Number].intValue}}
+            @if(pStat.techFouls.isDefined){@{p+=pStat.techFouls.get.asInstanceOf[Number].intValue}}
+            @if(pStat.minutes.isDefined){@{q+=pStat.minutes.get.asInstanceOf[Number].intValue}}
             @{pGames+=1} }
             <td>@a</td>
             <td>@{"%.0f".format((b.toFloat-d.toFloat)).replace(',','.')}</td>
@@ -216,24 +216,24 @@
             }}
 
             @{pGames+=1}
-            @{a+=pStat.points.get.asInstanceOf[Number].intValue}
-            @{b+=pStat.fgm.get.asInstanceOf[Number].intValue}
-            @{c+=pStat.fga.get.asInstanceOf[Number].intValue}
-            @{d+=pStat.t3m.get.asInstanceOf[Number].intValue}
-            @{e+=pStat.t3a.get.asInstanceOf[Number].intValue}
-            @{f+=pStat.ftm.get.asInstanceOf[Number].intValue}
-            @{g+=pStat.fta.get.asInstanceOf[Number].intValue}
+            @if(pStat.points.isDefined){@{a+=pStat.points.get.asInstanceOf[Number].intValue}}
+            @if(pStat.fgm.isDefined){@{b+=pStat.fgm.get.asInstanceOf[Number].intValue}}
+            @if(pStat.fga.isDefined){@{c+=pStat.fga.get.asInstanceOf[Number].intValue}}
+            @if(pStat.t3m.isDefined){@{d+=pStat.t3m.get.asInstanceOf[Number].intValue}}
+            @if(pStat.t3a.isDefined){@{e+=pStat.t3a.get.asInstanceOf[Number].intValue}}
+            @if(pStat.ftm.isDefined){@{f+=pStat.ftm.get.asInstanceOf[Number].intValue}}
+            @if(pStat.fta.isDefined){@{g+=pStat.fta.get.asInstanceOf[Number].intValue}}
             @{h=competition.id.get.asInstanceOf[Number].intValue}
-            @{i+=pStat.offReb.get.asInstanceOf[Number].intValue}
-            @{j+=pStat.defReb.get.asInstanceOf[Number].intValue}
-            @{k+=pStat.assists.get.asInstanceOf[Number].intValue}
-            @{l+=pStat.blocks.get.asInstanceOf[Number].intValue}
-            @{m+=pStat.steals.get.asInstanceOf[Number].intValue}
-            @{n+=pStat.turnovers.get.asInstanceOf[Number].intValue}
-            @{o+=pStat.fouls.get.asInstanceOf[Number].intValue}
-            @{p+=pStat.flagFouls.get.asInstanceOf[Number].intValue}
-            @{q+=pStat.techFouls.get.asInstanceOf[Number].intValue}
-            @{r+=pStat.minutes.get.asInstanceOf[Number].intValue}
+            @if(pStat.offReb.isDefined){@{i+=pStat.offReb.get.asInstanceOf[Number].intValue}}
+            @if(pStat.defReb.isDefined){@{j+=pStat.defReb.get.asInstanceOf[Number].intValue}}
+            @if(pStat.assists.isDefined){@{k+=pStat.assists.get.asInstanceOf[Number].intValue}}
+            @if(pStat.blocks.isDefined){@{l+=pStat.blocks.get.asInstanceOf[Number].intValue}}
+            @if(pStat.steals.isDefined){@{m+=pStat.steals.get.asInstanceOf[Number].intValue}}
+            @if(pStat.turnovers.isDefined){@{n+=pStat.turnovers.get.asInstanceOf[Number].intValue}}
+            @if(pStat.fouls.isDefined){@{o+=pStat.fouls.get.asInstanceOf[Number].intValue}}
+            @if(pStat.flagFouls.isDefined){@{p+=pStat.flagFouls.get.asInstanceOf[Number].intValue}}
+            @if(pStat.techFouls.isDefined){@{q+=pStat.techFouls.get.asInstanceOf[Number].intValue}}
+            @if(pStat.minutes.isDefined){@{r+=pStat.minutes.get.asInstanceOf[Number].intValue}}
             @{pComp=competition.abrv.get}
             @{pYear = season.year}
 
@@ -328,24 +328,24 @@
         }}
 
         @{pGames+=1}
-        @{a+=pStat.points.get.asInstanceOf[Number].intValue}
-        @{b+=pStat.fgm.get.asInstanceOf[Number].intValue}
-        @{c+=pStat.fga.get.asInstanceOf[Number].intValue}
-        @{d+=pStat.t3m.get.asInstanceOf[Number].intValue}
-        @{e+=pStat.t3a.get.asInstanceOf[Number].intValue}
-        @{f+=pStat.ftm.get.asInstanceOf[Number].intValue}
-        @{g+=pStat.fta.get.asInstanceOf[Number].intValue}
+        @if(pStat.points.isDefined){@{a+=pStat.points.get.asInstanceOf[Number].intValue}}
+        @if(pStat.fgm.isDefined){@{b+=pStat.fgm.get.asInstanceOf[Number].intValue}}
+        @if(pStat.fga.isDefined){@{c+=pStat.fga.get.asInstanceOf[Number].intValue}}
+        @if(pStat.t3m.isDefined){@{d+=pStat.t3m.get.asInstanceOf[Number].intValue}}
+        @if(pStat.t3a.isDefined){@{e+=pStat.t3a.get.asInstanceOf[Number].intValue}}
+        @if(pStat.ftm.isDefined){@{f+=pStat.ftm.get.asInstanceOf[Number].intValue}}
+        @if(pStat.fta.isDefined){@{g+=pStat.fta.get.asInstanceOf[Number].intValue}}
         @{h=competition.id.get.asInstanceOf[Number].intValue}
-        @{i+=pStat.offReb.get.asInstanceOf[Number].intValue}
-        @{j+=pStat.defReb.get.asInstanceOf[Number].intValue}
-        @{k+=pStat.assists.get.asInstanceOf[Number].intValue}
-        @{l+=pStat.blocks.get.asInstanceOf[Number].intValue}
-        @{m+=pStat.steals.get.asInstanceOf[Number].intValue}
-        @{n+=pStat.turnovers.get.asInstanceOf[Number].intValue}
-        @{o+=pStat.fouls.get.asInstanceOf[Number].intValue}
-        @{p+=pStat.flagFouls.get.asInstanceOf[Number].intValue}
-        @{q+=pStat.techFouls.get.asInstanceOf[Number].intValue}
-        @{r+=pStat.minutes.get.asInstanceOf[Number].intValue}
+        @if(pStat.offReb.isDefined){@{i+=pStat.offReb.get.asInstanceOf[Number].intValue}}
+        @if(pStat.defReb.isDefined){@{j+=pStat.defReb.get.asInstanceOf[Number].intValue}}
+        @if(pStat.assists.isDefined){@{k+=pStat.assists.get.asInstanceOf[Number].intValue}}
+        @if(pStat.blocks.isDefined){@{l+=pStat.blocks.get.asInstanceOf[Number].intValue}}
+        @if(pStat.steals.isDefined){@{m+=pStat.steals.get.asInstanceOf[Number].intValue}}
+        @if(pStat.turnovers.isDefined){@{n+=pStat.turnovers.get.asInstanceOf[Number].intValue}}
+        @if(pStat.fouls.isDefined){@{o+=pStat.fouls.get.asInstanceOf[Number].intValue}}
+        @if(pStat.flagFouls.isDefined){@{p+=pStat.flagFouls.get.asInstanceOf[Number].intValue}}
+        @if(pStat.techFouls.isDefined){@{q+=pStat.techFouls.get.asInstanceOf[Number].intValue}}
+        @if(pStat.minutes.isDefined){@{r+=pStat.minutes.get.asInstanceOf[Number].intValue}}
         @{pComp=competition.abrv.get}
         @{pYear = season.year}
 

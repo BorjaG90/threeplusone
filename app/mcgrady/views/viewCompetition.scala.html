@@ -82,11 +82,12 @@
         @for(game<-games){
         @for(inscription<-inscriptions.filter(_.idTeam == game.idHome).filter(_.idCompetition == competition.id.get)){
         @for(pStat<-pStats.filter(_.idGame == game.id.get).filter(_.idPlayer == player.id.get)){ @{pGames+=1}
-        @{pPts+=pStat.points.get.asInstanceOf[Number].intValue}
-        @{pReb+=pStat.offReb.get.asInstanceOf[Number].intValue+pStat.defReb.get.asInstanceOf[Number].intValue}
-        @{pAss+=pStat.assists.get.asInstanceOf[Number].intValue}
-        @{pBlk+=pStat.blocks.get.asInstanceOf[Number].intValue}
-        @{pSte+=pStat.steals.get.asInstanceOf[Number].intValue}
+        @if(pStat.points.isDefined){@{pPts+=pStat.points.get.asInstanceOf[Number].intValue}}
+        @if(pStat.offReb.isDefined && pStat.defReb.isDefined){
+        @{pReb+=pStat.offReb.get.asInstanceOf[Number].intValue+pStat.defReb.get.asInstanceOf[Number].intValue}}
+        @if(pStat.assists.isDefined){@{pAss+=pStat.assists.get.asInstanceOf[Number].intValue}}
+        @if(pStat.blocks.isDefined){@{pBlk+=pStat.blocks.get.asInstanceOf[Number].intValue}}
+        @if(pStat.steals.isDefined){@{pSte+=pStat.steals.get.asInstanceOf[Number].intValue}}
         }}}
         @if(pGames > 5){
         <tr>

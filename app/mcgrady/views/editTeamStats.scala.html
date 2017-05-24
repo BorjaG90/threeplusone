@@ -9,9 +9,9 @@
             <th>Equipo</th>
             <th>Minutos</th>
             <tr>
-                <td align="center">
+                <td colspan="2" align="center">
                     @defining(teamStatsForm("id_game").value){ gameValue=>
-                    @for(game <- games){ @if(gameValue.get != None && gameValue.get.toLong == game.id.get){
+                    @for(game <- games){ @if(gameValue.isDefined && gameValue.get.toLong == game.id.get){
                     @for(homeI <- inscriptions.filter(_.id.get==game.idHome)){
                     @for(awayI <- inscriptions.filter(_.id.get==game.idVisitor)){
                     @for(home <- teams.filter(_.id.get==homeI.idTeam)){
@@ -23,7 +23,7 @@
                     <select id="id_inscription" name="id_inscription">
                         @for(inscription <- inscriptions){
                         @for(team <- teams.filter(_.id.get==inscription.idTeam)){
-                        @if(inscriptionValue != None && inscription.id.get == inscriptionValue.get.toLong){
+                        @if(inscriptionValue.isDefined && inscription.id.get == inscriptionValue.get.toLong){
                         <option selected="selected" value="@inscription.id">@team.name</option>
                         }else{
                         <option value="@inscription.id">@team.name</option>

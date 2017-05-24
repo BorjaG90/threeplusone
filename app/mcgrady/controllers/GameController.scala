@@ -27,6 +27,8 @@ class GameController @Inject()(val messagesApi: MessagesApi
                                , teamService: TeamService
                                , competitionService: CompetitionService
                                , seasonService: SeasonService
+                              , playerStatsService: PlayerStatsService
+                              , teamStatsService: TeamStatsService
                               ) extends Controller with I18nSupport {
 
   val home = Redirect(mcgrady.controllers.routes.GameController.list(0, 2, ""))
@@ -145,6 +147,29 @@ class GameController @Inject()(val messagesApi: MessagesApi
       case ex: TimeoutException =>
         Logger.error("Error borrando un partido")
         InternalServerError(ex.getMessage)
+    }
+  }
+
+  def view(id: Long): Action[AnyContent] = Action.async { implicit request =>
+    teamService.listSimple flatMap { teams =>
+      teamStatsService.listSimple flatMap { tStats =>
+        contractService.listSimple flatMap { contracts =>
+          inscriptionService.listSimple flatMap { inscriptions =>
+            playerService.listSimple flatMap { players =>
+              playerStatsService.listSimple flatMap { pStats =>
+                gameService.find(id).map { game =>
+                  Ok(html.viewGame(game, pStats, players, inscriptions, contracts,tStats,teams
+                    , new SimpleDateFormat("dd/MM/yyyy")))
+                }.recover {
+                  case ex: TimeoutException =>
+                    Logger.error("Error visualizando partido")
+                    InternalServerError(ex.getMessage)
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

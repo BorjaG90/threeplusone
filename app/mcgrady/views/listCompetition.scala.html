@@ -49,16 +49,15 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     </tr>
     @for((competition,season) <- currentPage.items){
     <tr>
-        @if(season.year != None){<td><a class="td_7" href="@mcgrady.controllers.routes.SeasonController.edit(season.id.get)">@season.year</a></td>}else{<td></td>}
+        <td><a class="td_7" href="@mcgrady.controllers.routes.SeasonController.edit(season.id.get)">@season.year</a></td>
         <td>@competition.name</td>
         <td>@competition.abrv</td>
         <td>@competition.division</td>
         <td>@competition.typeCompetition</td>
-        <td>@if(competition.initDate != None){@sf.format(competition.initDate.get)}</td>
-        <td>@if(competition.endDate != None){@sf.format(competition.endDate.get)}</td>
-        <td>@if(competition.idCountry != None){
-        @for(country <- countries){@if(country.id == competition.idCountry.get){
-        @country.name}}}</td>
+        <td>@if(competition.initDate.isDefined){ @sf.format(competition.initDate.get )}</td>
+        <td>@if(competition.endDate.isDefined){ @sf.format(competition.endDate.get )}</td>
+        <td>@if(competition.idCountry.isDefined){
+            @for(country <- countries){@if(country.id == competition.idCountry.get){ @country.name }}}</td>
         <td>@competition.description</td>
         <td>
             <a href="@mcgrady.controllers.routes.CompetitionController.view(competition.id.get)">

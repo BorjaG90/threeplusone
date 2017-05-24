@@ -17,7 +17,7 @@
                     @defining(competitionForm("id_season").value) { seasonValue=>
                     <select id="id_season" name="id_season">
                         @for(season <- seasons){
-                        @if(seasonValue != None && season.id.get == seasonValue.get.toLong){
+                        @if(seasonValue.isDefined && season.id.get == seasonValue.get.toLong){
                         <option selected="selected" value="@season.id">@season.year</option>
                         }else{
                         <option value="@season.id">@season.year</option>
@@ -56,7 +56,7 @@
                         <option value = ""></option>
                         }
                         @for(country <- countries){
-                            @if(countryValue != None && country.id == countryValue.get.toLong){
+                            @if(countryValue.isDefined && country.id == countryValue.get.toLong){
                         <option selected="selected" value="@country.id">@country.name</option>
                             }else{
                         <option value="@country.id">@country.name</option>
