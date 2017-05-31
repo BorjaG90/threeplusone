@@ -61,7 +61,7 @@
                             </select>
                         </td>
                         <td align="center">
-                            <input type="date" id="execution_date" name="execution_date" value="2017-06-30">
+                            <input type="date" id="execution_date" name="execution_date" value="2017-06-30" onchange="validateDate('execution_date','btn-submit')">
                         </td>
                         <td><input type="text" id="notes" name="notes" value="" placeholder="Notas"></td>
                         <td>
@@ -72,7 +72,7 @@
                 </table>
                 <br/>
                 <div class="form-actions controls ynt-btn-xlarge">
-                    <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button>
+                    <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button>
                 </div>
             </fieldset>
         </form>

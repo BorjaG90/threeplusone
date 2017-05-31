@@ -39,26 +39,26 @@
                     </select>
                     }
                 </td>
-                <td align="center">
-                    @defining(contractForm("init_date").value){ initDateValue=>
-                        @if(initDateValue.isDefined){
-                    <input type="date" id="init_date1" name="init_date" step="1" min="2000-01-01" max="2050-12-31" value="@initDateValue.get">
-                        }else{
-                    <input type="date" id="init_date2" name="init_date" step="1" min="2000-01-01" max="2050-12-31" value="">
-                        }
-                    }
-                </td>
                 <td>
                     @defining(contractForm("number").value){ numberValue=>
                     <input type="text" id="number" name="number" value="@numberValue" placeholder="Número">
                     }
                 </td>
+                <td align="center">
+                    @defining(contractForm("init_date").value){ initDateValue=>
+                        @if(initDateValue.isDefined){
+                    <input type="date" id="init_date" name="init_date" step="1" min="2000-01-01" max="2050-12-31" value="@initDateValue.get" onchange="validateDate('init_date','btn-submit')">
+                        }else{
+                    <input type="date" id="init_date" name="init_date" step="1" min="2000-01-01" max="2050-12-31" value="" onchange="validateDate('init_date','btn-submit')">
+                        }
+                    }
+                </td>
                 <td>
                     @defining(contractForm("end_date").value){ endDateValue=>
                         @if(endDateValue.isDefined){
-                    <input type="date" id="end_date1" name="end_date" step="1" min="2000-01-01" max="2050-12-31" value="@endDateValue.get">
+                    <input type="date" id="end_date" name="end_date" step="1" min="2000-01-01" max="2050-12-31" value="@endDateValue.get" onchange="validateDate('end_date','btn-submit')">
                         }else{
-                    <input type="date" id="end_date2" name="end_date" step="1" min="2000-01-01" max="2050-12-31" value="">
+                    <input type="date" id="end_date" name="end_date" step="1" min="2000-01-01" max="2050-12-31" value="" onchange="validateDate('end_date','btn-submit')">
                         }
                     }
                 </td>
@@ -66,7 +66,7 @@
         </table>
         <br/>
         <div>
-            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Contrato</button> o
+            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Guardar Contrato</button> o
             <a href=@mcgrady.controllers.routes.ContractController.list() class="btn">Cancelar</a>
         </div>
     </fieldset>

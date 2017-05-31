@@ -26,9 +26,9 @@
                 <td align="center">
                     @defining(gameForm("date").value){ dateValue=>
                     @if(dateValue.isDefined){
-                    <input type="date" id="date" name="date" step="1" min="2000-01-01" max="2050-12-31" value="@dateValue.get">
+                    <input type="date" id="date" name="date" step="1" min="2000-01-01" max="2050-12-31" value="@dateValue.get" onchange="validateDate('date','btn-submit')">
                     }else{
-                    <input type="date" id="dateN" name="date" step="1" min="2000-01-01" max="2050-12-31" value="">
+                    <input type="date" id="date" name="date" step="1" min="2000-01-01" max="2050-12-31" value="" onchange="validateDate('date','btn-submit')">
                     }}
                 </td>
                 <td>
@@ -108,7 +108,7 @@
         </table>
         <br/>
         <div>
-            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Partido</button> o
+            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Guardar Partido</button> o
             <a href=@mcgrady.controllers.routes.GameController.list() class="btn">Cancelar</a>
         </div>
     </fieldset>

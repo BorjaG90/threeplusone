@@ -2,7 +2,7 @@
 
 @import helper._
 
-@main(Messages("arena.title")){
+@main(Messages("plan.title")){
 @request.flash.get(messages("flash.success")).map { msg =>
 <div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
     <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
@@ -30,7 +30,7 @@
                     <input type="text" id="name" name="name" value="" placeholder="Nombre" required>
                 </td>
                 <td align="center">
-                    <input type="date" id="date" name="date" step="1" min="2000-01-01" max="2050-12-31" value="2017-06-30">
+                    <input type="date" id="date" name="date" step="1" min="2000-01-01" max="2050-12-31" value="2017-06-30" onchange="validateDate('date','btn-submit')">
                 </td>
                 <td align="center">
                     <input type="text" id="description" name="description" value="" placeholder="Descripción">
@@ -42,7 +42,7 @@
         </table>
         <br/>
         <div class="form-actions controls ynt-btn-xlarge">
-            <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
+            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
             <a href=@kobe.controllers.routes.PlanController.list() class="btn">Cancelar</a>
         </div>
     </fieldset>

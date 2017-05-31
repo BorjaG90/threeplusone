@@ -8,7 +8,7 @@
         <table>
             <tr>
                 <th>Equipo</th>
-                <th>SubGrupo</th>
+                <th>Asignación</th>
                 <th>Arena</th>
             </tr>
             <tr>
@@ -49,21 +49,24 @@
                         @for(group <- groups.filter(_.idCompetition==competition.id.get)){ @{compCount += 1}
                         @{groupCount = 0}
                         @for(subGroup <- subgroups.filter(_.idGroup==group.id.get)){ @{groupCount += 1}
-                        @if(subgroupValue.isDefined && subGroup.id.get == subgroupValue.get.toLong){
+                            @if(subgroupValue.isDefined && subGroup.id.get == subgroupValue.get.toLong){
                         <option id="S-@subGroup.id" value="@subGroup.id" selected="selected">@season.year-@competition.abrv/@group.name-@subGroup.name</option>
-                        }else{
+                            }else{
                         <option id="S-@subGroup.id" value="@subGroup.id">@season.year-@competition.abrv/@group.name-@subGroup.name</option>
-                        }}
-                        @if(groupCount==0){ @if(groupValue.isDefined && group.id.get == groupValue.get.toLong){
-                        <option id="G-@group.id" value="@group.id" selected="selected">@season.year-@competition.abrv/@group.name</option>
-                        }else{
-                        <option id="G-@group.id" value="@group.id">@season.year-@competition.abrv/@group.name</option>
+                            }
+                        }
+                        @if(groupCount == 0){
+                            @if(groupValue.isDefined && group.id.get == groupValue.get.toLong){
+                            <option id="G-@group.id" value="@group.id" selected="selected">@season.year-@competition.abrv/@group.name</option>
+                            }else{
+                            <option id="G-@group.id" value="@group.id">@season.year-@competition.abrv/@group.name</option>
+                            }
                         }}
                         @if(compCount==0){ @if(competition.id.get == competitionValue.get.toLong){
                         <option id="C-@competition.id" value="@competition.id" selected="selected">@season.year-@competition.abrv</option>
                         }else{
                         <option id="C-@competition.id" value="@competition.id">@season.year-@competition.abrv</option>
-                        }}}}}
+                        }}}}
                     </select>
                     }}}
                 </td>

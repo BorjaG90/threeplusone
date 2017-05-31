@@ -59,6 +59,8 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         </td>
         <td>@game.description</td>
         <td>
+            <a href="@mcgrady.controllers.routes.GameController.view(game.id.get)">
+                <img src=@routes.Assets.versioned("images/ver.png") alt="Visualizar"></a>
             <a href="@mcgrady.controllers.routes.GameController.edit(game.id.get,home.idCompetition)">
                 <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>
             <a href="@mcgrady.controllers.routes.GameController.delete(game.id)">

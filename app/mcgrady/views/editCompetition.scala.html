@@ -84,19 +84,19 @@
                 </td>
                 <td align="center">
                     @defining(competitionForm("init_date").value){ initDateValue=>
-                    <input type="date" id="init_date" name="init_date"  value="@initDateValue">
+                    <input type="date" id="init_date" name="init_date"  value="@initDateValue" onchange="validateDate('init_date','btn-submit')">
                     }
                 </td>
                 <td align="center">
                     @defining(competitionForm("end_date").value){ endDateValue=>
-                    <input type="date" id="end_date" name="end_date"  value="@endDateValue">
+                    <input type="date" id="end_date" name="end_date"  value="@endDateValue" onchange="validateDate('end_date','btn-submit')">
                     }
                 </td>
             </tr>
         </table>
         <br/>
         <div>
-            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Competicion</button> o
+            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Guardar Competicion</button> o
             <a href=@mcgrady.controllers.routes.CompetitionController.list() class="btn">Cancelar</a>
         </div>
     </fieldset>

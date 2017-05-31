@@ -48,13 +48,6 @@ INSERT INTO players(first_name, last_name, nick_name, creation_date) VALUES('Nik
 INSERT INTO players(first_name, last_name, nick_name, creation_date) VALUES('De´Angelo','Russel','Ice on my Veins',0);
 INSERT INTO players(first_name, last_name, nick_name, creation_date) VALUES('Isaiah','Thomas','Mr 4º Quarter',0);
 
-# Arenas
-INSERT INTO arenas(name,id_country,creation_date) VALUES ('TD Garden',(SELECT id FROM countries where name like ('Estados Unidos')),0);
-INSERT INTO arenas(name,id_country,creation_date) VALUES ('Staples Center',(SELECT id FROM countries where name like ('Estados Unidos')),0);
-INSERT INTO arenas(name,id_country,creation_date) VALUES ('Amway Arena',(SELECT id FROM countries where name like ('Estados Unidos')),0);
-INSERT INTO arenas(name,id_country,creation_date) VALUES ('Oracle Arena',(SELECT id FROM countries where name like ('Estados Unidos')),0);
-INSERT INTO arenas(name,id_country,creation_date) VALUES ('Madison Square Garden',(SELECT id FROM countries where name like ('Estados Unidos')),0);
-
 # Competitions
 INSERT INTO competitions (id_season,name,abbreviation,division,id_country,type,init_date,end_date,creation_date)
 VALUES ((SELECT id from seasons as s where s.year like '2017'),'National Basketball Asociation','NBA','1',(SELECT id FROM countries where name like ('Estados Unidos')),'Liga',1472680800000,1472680800000,0);

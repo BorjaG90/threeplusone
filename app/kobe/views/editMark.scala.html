@@ -44,7 +44,7 @@
                 </td>
                 <td>
                     @defining(recordForm("execution_date").value){ dateValue=>
-                    <input type="date" id="execution_date" name="execution_date" value="@dateValue">
+                    <input type="date" id="execution_date" name="execution_date" value="@dateValue" onchange="validateDate('execution_date','btn-submit')">
                     }
                 </td>
                 <td align="center">
@@ -57,7 +57,7 @@
         </table>
         <br/>
         <div>
-            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Volúmen</button>
+            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Guardar Marca</button>
             o
             <a href=@kobe.controllers.routes.RecordController.list() class="btn">Cancelar</a>
         </div>

@@ -39,7 +39,7 @@
             </tr>
             <tr>
                 <td align="center">
-                    <input type="date" id="date" name="date" step="1" min="2000-01-01" max="2050-12-31" value="2017-06-30">
+                    <input type="date" id="date" name="date" step="1" min="2000-01-01" max="2050-12-31" value="2017-06-30" onchange="validateDate('date','btn-submit')">
                 </td>
                 <td>
                     <select id="id_home" name="id_home">
@@ -85,7 +85,7 @@
         </table>
         <br/>
         <div class="form-actions controls ynt-btn-xlarge">
-            <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
+            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
             <a href=@mcgrady.controllers.routes.GameController.list() class="btn">Cancelar</a>
         </div>
     </fieldset>

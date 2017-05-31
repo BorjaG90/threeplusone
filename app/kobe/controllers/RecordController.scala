@@ -123,9 +123,9 @@ class RecordController @Inject()(val messagesApi: MessagesApi
         exerciseService.listSimple flatMap { exercises =>
           sessionService.listSimple flatMap { sessions =>
             serieService.listSimple flatMap { series =>
-              recordService.find(id).map { volume =>
-                Ok(html.editVolume(id
-                  , RecordForm.form.fill(volume)
+              recordService.find(id).map { mark =>
+                Ok(html.editMark(id
+                  , RecordForm.form.fill(mark)
                   , series.sortBy(_.id)
                   , exercises.sortBy(_.name)
                   , sessions.sortBy(_.name)
@@ -133,7 +133,7 @@ class RecordController @Inject()(val messagesApi: MessagesApi
                   , units))
               }.recover {
                 case ex: TimeoutException =>
-                  Logger.error("Error editando un volúmen")
+                  Logger.error("Error editando una marca")
                   InternalServerError(ex.getMessage)
               }
             }

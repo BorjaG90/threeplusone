@@ -23,7 +23,7 @@
                 </td>
                 <td align="center">
                     @defining(planForm("date").value){ dateValue=>
-                    <input type="date" id="date" name="date"  value="@dateValue">
+                    <input type="date" id="date" name="date"  value="@dateValue" onchange="validateDate('date','btn-submit')">
                     }
                 </td>
                 <td align="center">
@@ -40,7 +40,7 @@
         </table>
         <br/>
         <div>
-            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Plan</button>
+            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Guardar Plan</button>
             o
             <a href=@kobe.controllers.routes.PlanController.list() class="btn">Cancelar</a>
         </div>
