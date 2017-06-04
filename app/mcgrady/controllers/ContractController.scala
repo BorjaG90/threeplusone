@@ -5,13 +5,15 @@ import scala.concurrent.ExecutionContext.Implicits._
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api._
 import play.api.mvc._
-import play.api.i18n.{MessagesApi, Messages, I18nSupport}
+import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import java.util.concurrent.TimeoutException
 import java.text.SimpleDateFormat
+
 import com.google.inject.Inject
 import mcgrady.model.{Contract, ContractForm, Player, Team}
 import mcgrady.service.{ContractService, PlayerService, TeamService}
 import mcgrady.views._
+import model.UserForm
 
 /**
   * Created by Borja Gete on 30/03/17.
@@ -31,7 +33,11 @@ class ContractController @Inject()(val messagesApi: MessagesApi
 
   def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
     contractService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
+      if (request.session.get("email").isDefined) {
       Ok(html.listContract(pageEmp, orderBy, filter, new SimpleDateFormat("dd/MM/yyyy")))
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
+      }
     }.recover {
       case ex: TimeoutException =>
         Logger.error("Error listando contratos")
@@ -42,7 +48,11 @@ class ContractController @Inject()(val messagesApi: MessagesApi
   def add: Action[AnyContent] = Action.async { implicit request =>
     teamService.listSimple flatMap { teams =>
       playerService.listSimple map { players =>
+        if (request.session.get("email").isDefined) {
         Ok(html.createContract(ContractForm.form, players.sortBy(_.lastName), teams.sortBy(_.name)))
+        } else {
+          Ok(views.html.login(UserForm.loginForm))
+        }
       }
     }
   }
@@ -51,7 +61,11 @@ class ContractController @Inject()(val messagesApi: MessagesApi
     teamService.listSimple flatMap { teams =>
       playerService.listSimple flatMap { players =>
         contractService.find(id).map { contract =>
+          if (request.session.get("email").isDefined) {
           Ok(html.editContract(id, ContractForm.form.fill(contract), players.sortBy(_.lastName), teams.sortBy(_.name)))
+          } else {
+            Ok(views.html.login(UserForm.loginForm))
+          }
         }.recover {
           case ex: TimeoutException =>
             Logger.error("Error editando un contrato")
@@ -73,7 +87,11 @@ class ContractController @Inject()(val messagesApi: MessagesApi
           )
           val futureContractUpdate = contractService.update(id, newContract.copy(id = Some(id)))
           futureContractUpdate.map { result =>
+            if (request.session.get("email").isDefined) {
             home.flashing("success" -> "El contrato  ha sido actualizado")
+            } else {
+              Ok(views.html.login(UserForm.loginForm))
+            }
           }.recover {
             case ex: TimeoutException =>
               Logger.error("Error actualizando un contrato")
@@ -95,7 +113,11 @@ class ContractController @Inject()(val messagesApi: MessagesApi
         )
         val futureContractInsert = contractService.add(newContract)
         futureContractInsert.map { result =>
+          if (request.session.get("email").isDefined) {
           home.flashing("success" -> "El contrato ha sido creado")
+          } else {
+            Ok(views.html.login(UserForm.loginForm))
+          }
         }.recover {
           case ex: TimeoutException =>
             Logger.error("Error guardando un contrato")
@@ -107,7 +129,13 @@ class ContractController @Inject()(val messagesApi: MessagesApi
 
   def delete(id: Option[Long]): Action[AnyContent] = Action.async { implicit request =>
     val futureContractDel = contractService.delete(id)
-    futureContractDel.map { result => home.flashing("success" -> "Contrato eliminado") }.recover {
+    futureContractDel.map { result =>
+      if (request.session.get("email").isDefined) {
+        home.flashing("success" -> "Contrato eliminado")
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
+
+      } }.recover {
       case ex: TimeoutException =>
         Logger.error("Error borrando un contrato")
         InternalServerError(ex.getMessage)

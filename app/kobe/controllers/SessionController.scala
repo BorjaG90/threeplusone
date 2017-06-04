@@ -5,21 +5,23 @@ import scala.concurrent.ExecutionContext.Implicits._
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api._
 import play.api.mvc._
-import play.api.i18n.{MessagesApi, Messages, I18nSupport}
+import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import java.util.concurrent.TimeoutException
+
 import com.google.inject.Inject
-import kobe.model.{Session, SessionForm,Plan}
-import kobe.service.{SessionService,PlanService}
+import kobe.model.{Plan, Session, SessionForm}
+import kobe.service.{PlanService, SessionService}
 import kobe.views._
+import model.UserForm
 
 /**
   * Created by Borja Gete on 29/03/17.
   */
 
 class SessionController @Inject()(val messagesApi: MessagesApi
-                                , sessionService: SessionService
-                                , planService: PlanService
-                               ) extends Controller with I18nSupport {
+                                  , sessionService: SessionService
+                                  , planService: PlanService
+                                 ) extends Controller with I18nSupport {
 
   val home = Redirect(kobe.controllers.routes.SessionController.list(0, 2, ""))
 
@@ -29,7 +31,11 @@ class SessionController @Inject()(val messagesApi: MessagesApi
 
   def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
     sessionService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
-      Ok(html.listSession(pageEmp, orderBy, filter))
+      if (request.session.get("email").isDefined) {
+        Ok(html.listSession(pageEmp, orderBy, filter))
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
+      }
     }.recover {
       case ex: TimeoutException =>
         Logger.error("Error listando sesiones")
@@ -39,14 +45,22 @@ class SessionController @Inject()(val messagesApi: MessagesApi
 
   def add: Action[AnyContent] = Action.async { implicit request =>
     planService.listSimple map { plans =>
-      Ok(html.createSession(SessionForm.form, plans.sortBy(_.name)))
+      if (request.session.get("email").isDefined) {
+        Ok(html.createSession(SessionForm.form, plans.sortBy(_.name)))
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
+      }
     }
   }
 
   def edit(id: Long): Action[AnyContent] = Action.async { implicit request =>
     planService.listSimple flatMap { plans =>
       sessionService.find(id).map { session =>
-        Ok(html.editSession(id, SessionForm.form.fill(session), plans))
+        if (request.session.get("email").isDefined) {
+          Ok(html.editSession(id, SessionForm.form.fill(session), plans))
+        } else {
+          Ok(views.html.login(UserForm.loginForm))
+        }
       }.recover {
         case ex: TimeoutException =>
           Logger.error("Error editando una sesión")
@@ -65,7 +79,11 @@ class SessionController @Inject()(val messagesApi: MessagesApi
           )
           val futureSessionUpdate = sessionService.update(id, newSession.copy(id = Some(id)))
           futureSessionUpdate.map { result =>
-            home.flashing("success" -> "La sesion %s ha sido actualizada".format(newSession.name))
+            if (request.session.get("email").isDefined) {
+              home.flashing("success" -> "La sesion %s ha sido actualizada".format(newSession.name))
+            } else {
+              Ok(views.html.login(UserForm.loginForm))
+            }
           }.recover {
             case ex: TimeoutException =>
               Logger.error("Error actualizando una sesion")
@@ -85,7 +103,11 @@ class SessionController @Inject()(val messagesApi: MessagesApi
         )
         val futureSessionInsert = sessionService.add(newSession)
         futureSessionInsert.map { result =>
-          home.flashing("success" -> "La sesión %s ha sido creada".format(newSession.name))
+          if (request.session.get("email").isDefined) {
+            home.flashing("success" -> "La sesión %s ha sido creada".format(newSession.name))
+          } else {
+            Ok(views.html.login(UserForm.loginForm))
+          }
         }.recover {
           case ex: TimeoutException =>
             Logger.error("Error guardando una sesión")
@@ -97,7 +119,13 @@ class SessionController @Inject()(val messagesApi: MessagesApi
 
   def delete(id: Option[Long]): Action[AnyContent] = Action.async { implicit request =>
     val futureSessionDel = sessionService.delete(id)
-    futureSessionDel.map { result => home.flashing("success" -> "Sesión eliminada") }.recover {
+    futureSessionDel.map { result =>
+      if (request.session.get("email").isDefined) {
+        home.flashing("success" -> "Sesión eliminada")
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
+      }
+    }.recover {
       case ex: TimeoutException =>
         Logger.error("Error borrando una sesión")
         InternalServerError(ex.getMessage)

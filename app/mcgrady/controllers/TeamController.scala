@@ -5,29 +5,31 @@ import scala.concurrent.ExecutionContext.Implicits._
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api._
 import play.api.mvc._
-import play.api.i18n.{MessagesApi, Messages, I18nSupport}
+import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import java.util.concurrent.TimeoutException
 import java.text.SimpleDateFormat
+
 import com.google.inject.Inject
 import mcgrady.model._
 import mcgrady.service._
 import mcgrady.views._
+import model.UserForm
 
 /**
   * Created by Borja Gete on 27/03/17.
   */
 
 class TeamController @Inject()(val messagesApi: MessagesApi
-                               ,teamService: TeamService
-                               ,countryService: CountryService
-                              ,playerService: PlayerService
-                              ,contractService: ContractService
-                              ,seasonService: SeasonService
-                              ,competitionService: CompetitionService
-                              ,teamStatsService: TeamStatsService
-                              ,inscriptionService: InscriptionService
-                              ,gameService: GameService
-                               ) extends Controller with I18nSupport {
+                               , teamService: TeamService
+                               , countryService: CountryService
+                               , playerService: PlayerService
+                               , contractService: ContractService
+                               , seasonService: SeasonService
+                               , competitionService: CompetitionService
+                               , teamStatsService: TeamStatsService
+                               , inscriptionService: InscriptionService
+                               , gameService: GameService
+                              ) extends Controller with I18nSupport {
 
   val home = Redirect(mcgrady.controllers.routes.TeamController.list(0, 2, ""))
 
@@ -38,7 +40,11 @@ class TeamController @Inject()(val messagesApi: MessagesApi
   def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
     countryService.list flatMap { countries =>
       teamService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
-        Ok(html.listTeam(pageEmp, orderBy, filter, countries))
+        if (request.session.get("email").isDefined) {
+          Ok(html.listTeam(pageEmp, orderBy, filter, countries))
+        } else {
+          Ok(views.html.login(UserForm.loginForm))
+        }
       }.recover {
         case ex: TimeoutException =>
           Logger.error("Error listando equipos")
@@ -49,14 +55,22 @@ class TeamController @Inject()(val messagesApi: MessagesApi
 
   def add: Action[AnyContent] = Action.async { implicit request =>
     countryService.list map { countries =>
-      Ok(html.createTeam(TeamForm.form, countries.sortBy(_.name)))
+      if (request.session.get("email").isDefined) {
+        Ok(html.createTeam(TeamForm.form, countries.sortBy(_.name)))
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
+      }
     }
   }
 
   def edit(id: Long): Action[AnyContent] = Action.async { implicit request =>
     countryService.list flatMap { countries =>
       teamService.find(id).map { team =>
-        Ok(html.editTeam(id, TeamForm.form.fill(team), countries.sortBy(_.name)))
+        if (request.session.get("email").isDefined) {
+          Ok(html.editTeam(id, TeamForm.form.fill(team), countries.sortBy(_.name)))
+        } else {
+          Ok(views.html.login(UserForm.loginForm))
+        }
       }.recover {
         case ex: TimeoutException =>
           Logger.error("Error editando un equipo")
@@ -76,7 +90,11 @@ class TeamController @Inject()(val messagesApi: MessagesApi
           )
           val futureTeamUpdate = teamService.update(id, newTeam.copy(id = Some(id)))
           futureTeamUpdate.map { result =>
-            home.flashing("success" -> "El equipo %s ha sido actualizado".format(newTeam.name))
+            if (request.session.get("email").isDefined) {
+              home.flashing("success" -> "El equipo %s ha sido actualizado".format(newTeam.name))
+            } else {
+              Ok(views.html.login(UserForm.loginForm))
+            }
           }.recover {
             case ex: TimeoutException =>
               Logger.error("Error actualizando un equipo")
@@ -97,8 +115,11 @@ class TeamController @Inject()(val messagesApi: MessagesApi
         )
         val futureTeamInsert = teamService.add(newTeam)
         futureTeamInsert.map { result =>
-          home.flashing("success" -> "El equipo %s ha sido creado".format(
-            newTeam.name))
+          if (request.session.get("email").isDefined) {
+            home.flashing("success" -> "El equipo %s ha sido creado".format(newTeam.name))
+          } else {
+            Ok(views.html.login(UserForm.loginForm))
+          }
         }.recover {
           case ex: TimeoutException =>
             Logger.error("Error guardando un equipo")
@@ -110,7 +131,13 @@ class TeamController @Inject()(val messagesApi: MessagesApi
 
   def delete(id: Option[Long]): Action[AnyContent] = Action.async { implicit request =>
     val futureTeamDel = teamService.delete(id)
-    futureTeamDel.map { result => home.flashing("success" -> "Equipo eliminado") }.recover {
+    futureTeamDel.map { result =>
+      if (request.session.get("email").isDefined) {
+        home.flashing("success" -> "Equipo eliminado")
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
+      }
+    }.recover {
       case ex: TimeoutException =>
         Logger.error("Error borrando un equipo")
         InternalServerError(ex.getMessage)
@@ -126,7 +153,12 @@ class TeamController @Inject()(val messagesApi: MessagesApi
               contractService.listSimple flatMap { contracts =>
                 playerService.listSimple flatMap { players =>
                   teamService.find(id).map { team =>
-                    Ok(html.viewTeam(team, players, contracts, seasons, competitions, tStats, inscriptions, games, new SimpleDateFormat("dd/MM/yyyy")))
+                    if (request.session.get("email").isDefined) {
+                      Ok(html.viewTeam(team, players, contracts, seasons, competitions, tStats, inscriptions, games
+                        , new SimpleDateFormat("dd/MM/yyyy")))
+                    } else {
+                      Ok(views.html.login(UserForm.loginForm))
+                    }
                   }.recover {
                     case ex: TimeoutException =>
                       Logger.error("Error visualizando equipo")

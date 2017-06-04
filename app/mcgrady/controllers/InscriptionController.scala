@@ -5,12 +5,14 @@ import scala.concurrent.ExecutionContext.Implicits._
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api._
 import play.api.mvc._
-import play.api.i18n.{MessagesApi, Messages, I18nSupport}
+import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import java.util.concurrent.TimeoutException
+
 import com.google.inject.Inject
 import mcgrady.model._
 import mcgrady.service._
 import mcgrady.views._
+import model.UserForm
 
 /**
   * Created by Borja Gete on 31/03/17.
@@ -24,20 +26,22 @@ class InscriptionController @Inject()(val messagesApi: MessagesApi
                                       , competitionService: CompetitionService
                                       , seasonService: SeasonService
                                       , arenaService: ArenaService
-                                  ) extends Controller with I18nSupport {
+                                     ) extends Controller with I18nSupport {
 
   val home = Redirect(mcgrady.controllers.routes.InscriptionController.list(0, 2, ""))
 
-  def index = Action {
-    home
-  }
+  def index = Action { home }
 
   def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
     arenaService.listSimple flatMap { arenas =>
       subGroupService.listSimple flatMap { subgroups =>
         groupService.listSimple flatMap { groups =>
           inscriptionService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
-            Ok(html.listInscription(pageEmp, orderBy, filter, groups, subgroups, arenas))
+            if (request.session.get("email").isDefined) {
+              Ok(html.listInscription(pageEmp, orderBy, filter, groups, subgroups, arenas))
+            } else {
+              Ok(views.html.login(UserForm.loginForm))
+            }
           }.recover {
             case ex: TimeoutException =>
               Logger.error("Error listando inscripciones")
@@ -55,10 +59,14 @@ class InscriptionController @Inject()(val messagesApi: MessagesApi
           arenaService.listSimple flatMap { arenas =>
             subGroupService.listSimple flatMap { subgroups =>
               teamService.listSimple map { teams =>
-                Ok(html.createInscription(InscriptionForm.form
-                  , teams.sortBy(_.name), subgroups.sortBy(_.name), arenas.sortBy(_.name)
-                  , groups.sortBy(_.name), competitions.sortBy(_.name), seasons.sortBy(_.year)
-                ))
+                if (request.session.get("email").isDefined) {
+                  Ok(html.createInscription(InscriptionForm.form
+                    , teams.sortBy(_.name), subgroups.sortBy(_.name), arenas.sortBy(_.name)
+                    , groups.sortBy(_.name), competitions.sortBy(_.name), seasons.sortBy(_.year)
+                  ))
+                } else {
+                  Ok(views.html.login(UserForm.loginForm))
+                }
               }
             }
           }
@@ -75,10 +83,14 @@ class InscriptionController @Inject()(val messagesApi: MessagesApi
             subGroupService.listSimple flatMap { subgroups =>
               teamService.listSimple flatMap { teams =>
                 inscriptionService.find(id).map { inscription =>
-                  Ok(html.editInscription(id, InscriptionForm.form.fill(inscription)
-                    , teams.sortBy(_.name), subgroups.sortBy(_.name), arenas.sortBy(_.name)
-                    , groups.sortBy(_.name), competitions.sortBy(_.name), seasons.sortBy(_.year)
-                  ))
+                  if (request.session.get("email").isDefined) {
+                    Ok(html.editInscription(id, InscriptionForm.form.fill(inscription)
+                      , teams.sortBy(_.name), subgroups.sortBy(_.name), arenas.sortBy(_.name)
+                      , groups.sortBy(_.name), competitions.sortBy(_.name), seasons.sortBy(_.year)
+                    ))
+                  } else {
+                    Ok(views.html.login(UserForm.loginForm))
+                  }
                 }.recover {
                   case ex: TimeoutException =>
                     Logger.error("Error editando un inscripción")
@@ -105,7 +117,11 @@ class InscriptionController @Inject()(val messagesApi: MessagesApi
           )
           val futureInscriptionUpdate = inscriptionService.update(id, newInscription.copy(id = Some(id)))
           futureInscriptionUpdate.map { result =>
-            home.flashing("success" -> "La inscripción ha sido actualizada")
+            if (request.session.get("email").isDefined) {
+              home.flashing("success" -> "La inscripción ha sido actualizada")
+            } else {
+              Ok(views.html.login(UserForm.loginForm))
+            }
           }.recover {
             case ex: TimeoutException =>
               Logger.error("Error actualizando una inscripción")
@@ -128,7 +144,11 @@ class InscriptionController @Inject()(val messagesApi: MessagesApi
         )
         val futureInscriptionInsert = inscriptionService.add(newInscription)
         futureInscriptionInsert.map { result =>
-          home.flashing("success" -> "La inscripción ha sido creada")
+          if (request.session.get("email").isDefined) {
+            home.flashing("success" -> "La inscripción ha sido creada")
+          } else {
+            Ok(views.html.login(UserForm.loginForm))
+          }
         }.recover {
           case ex: TimeoutException =>
             Logger.error("Error guardando una inscripción")
@@ -140,7 +160,13 @@ class InscriptionController @Inject()(val messagesApi: MessagesApi
 
   def delete(id: Option[Long]): Action[AnyContent] = Action.async { implicit request =>
     val futureInscriptionDel = inscriptionService.delete(id)
-    futureInscriptionDel.map { result => home.flashing("success" -> "Inscripción eliminada") }.recover {
+    futureInscriptionDel.map { result =>
+      if (request.session.get("email").isDefined) {
+        home.flashing("success" -> "Inscripción eliminada")
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
+      }
+    }.recover {
       case ex: TimeoutException =>
         Logger.error("Error borrando una inscripción")
         InternalServerError(ex.getMessage)

@@ -39,10 +39,14 @@ function validateDate(element, submit){
         if(!isValidDate(text)){
             alert('[ERROR] El campo debe tener un valor de fecha valido');
             button.style.display = "none"
+            button.classList.add('date');
             return false;
         }
     }
-    button.style.display = "inline"
+    button.classList.remove('date')
+    if(!button.classList.contains('number')){
+        button.style.display = "inline"
+    }
     slash = "/"
     document.getElementById(element).value = replaceAll(text,"/","-")
     return true
@@ -52,4 +56,24 @@ function replaceAll(str, find, replace) {
 }
 function escapeRegExp(str) {
     return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+}
+
+function validateNumber(element, submit){
+    text=document.getElementById(element).value;
+    button=document.getElementById(submit);
+    if(text != null){
+        if(!isNumber(text)){
+            alert('[ERROR] El campo debe tener un valor númerico valido');
+            button.style.display = "none"
+            button.classList.add('number');
+            return false;
+        }
+    }
+    button.classList.remove('number')
+    if(!button.classList.contains('date')){
+        button.style.display = "inline"
+    }
+    slash = "/"
+    document.getElementById(element).value = replaceAll(text,"/","-")
+    return true
 }

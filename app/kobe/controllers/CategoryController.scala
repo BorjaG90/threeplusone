@@ -2,23 +2,24 @@ package kobe.controllers
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits._
-import play.api.libs.concurrent.Execution.Implicits._
 import play.api._
 import play.api.mvc._
-import play.api.i18n.{MessagesApi, Messages, I18nSupport}
+import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import java.util.concurrent.TimeoutException
+
 import com.google.inject.Inject
 import kobe.model.{Category, CategoryForm}
 import kobe.service.CategoryService
 import kobe.views._
+import model.UserForm
 
 /**
   * Created by Borja Gete on 26/03/17.
   */
 
 class CategoryController @Inject()(val messagesApi: MessagesApi,
-                                       categoryService: CategoryService
-                                      ) extends Controller with I18nSupport {
+                                   categoryService: CategoryService
+                                  ) extends Controller with I18nSupport {
 
   val home = Redirect(kobe.controllers.routes.CategoryController.list(0, 2, ""))
 
@@ -28,7 +29,11 @@ class CategoryController @Inject()(val messagesApi: MessagesApi,
 
   def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
     categoryService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
-      Ok(html.listCategory(pageEmp, orderBy, filter))
+      if (request.session.get("email").isDefined) {
+        Ok(html.listCategory(pageEmp, orderBy, filter))
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
+      }
     }.recover {
       case ex: TimeoutException =>
         Logger.error("Error listando categorias")
@@ -37,12 +42,20 @@ class CategoryController @Inject()(val messagesApi: MessagesApi,
   }
 
   def add: Action[AnyContent] = Action { implicit request =>
-    Ok(html.createCategory(CategoryForm.form))
+    if (request.session.get("email").isDefined) {
+      Ok(html.createCategory(CategoryForm.form))
+    } else {
+      Ok(views.html.login(UserForm.loginForm))
+    }
   }
 
   def edit(id: Long): Action[AnyContent] = Action.async { implicit request =>
     categoryService.find(id).map { category =>
-      Ok(html.editCategory(id, CategoryForm.form.fill(category)))
+      if (request.session.get("email").isDefined) {
+        Ok(html.editCategory(id, CategoryForm.form.fill(category)))
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
+      }
     }.recover {
       case ex: TimeoutException =>
         Logger.error("Error editando una categoría")
@@ -58,7 +71,11 @@ class CategoryController @Inject()(val messagesApi: MessagesApi,
           val newCategory = Category(Some(0L), data.name, data.description, data.notes)
           val futureCategoryUpdate = categoryService.update(id, newCategory.copy(id = Some(id)))
           futureCategoryUpdate.map { result =>
-            home.flashing("success" -> "La categoría %s ha sido actualizada".format(newCategory.name))
+            if (request.session.get("email").isDefined) {
+              home.flashing("success" -> "La categoría %s ha sido actualizada".format(newCategory.name))
+            } else {
+              Ok(views.html.login(UserForm.loginForm))
+            }
           }.recover {
             case ex: TimeoutException =>
               Logger.error("Error actualizando una categoría")
@@ -76,8 +93,11 @@ class CategoryController @Inject()(val messagesApi: MessagesApi,
         val newCategory = Category(Some(0L), data.name, data.description, data.notes)
         val futureCategoryInsert = categoryService.add(newCategory)
         futureCategoryInsert.map { result =>
-          home.flashing("success" -> "La categoría %s ha sido creado".format(
-            newCategory.name))
+          if (request.session.get("email").isDefined) {
+            home.flashing("success" -> "La categoría %s ha sido creado".format(newCategory.name))
+          } else {
+            Ok(views.html.login(UserForm.loginForm))
+          }
         }.recover {
           case ex: TimeoutException =>
             Logger.error("Error guardando una categoría")
@@ -89,7 +109,13 @@ class CategoryController @Inject()(val messagesApi: MessagesApi,
 
   def delete(id: Option[Long]): Action[AnyContent] = Action.async { implicit request =>
     val futureCategoryDel = categoryService.delete(id)
-    futureCategoryDel.map { result => home.flashing("success" -> "Categoría eliminada") }.recover {
+    futureCategoryDel.map { result =>
+      if (request.session.get("email").isDefined) {
+        home.flashing("success" -> "Categoría eliminada")
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
+      }
+    }.recover {
       case ex: TimeoutException =>
         Logger.error("Error borrando una categoría")
         InternalServerError(ex.getMessage)

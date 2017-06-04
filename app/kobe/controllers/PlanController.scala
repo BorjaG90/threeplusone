@@ -5,13 +5,15 @@ import scala.concurrent.ExecutionContext.Implicits._
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api._
 import play.api.mvc._
-import play.api.i18n.{MessagesApi, Messages, I18nSupport}
+import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import java.util.concurrent.TimeoutException
 import java.text.SimpleDateFormat
+
 import com.google.inject.Inject
 import kobe.model.{Plan, PlanForm}
 import kobe.service.PlanService
 import kobe.views._
+import model.UserForm
 
 /**
   * Created by Borja Gete on 28/03/17.
@@ -29,7 +31,11 @@ class PlanController @Inject()(val messagesApi: MessagesApi,
 
   def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
     planService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
-      Ok(html.listPlan(pageEmp, orderBy, filter, new SimpleDateFormat("dd/MM/yyyy")))
+      if (request.session.get("email").isDefined) {
+        Ok(html.listPlan(pageEmp, orderBy, filter, new SimpleDateFormat("dd/MM/yyyy")))
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
+      }
     }.recover {
       case ex: TimeoutException =>
         Logger.error("Error listando planes")
@@ -38,12 +44,20 @@ class PlanController @Inject()(val messagesApi: MessagesApi,
   }
 
   def add: Action[AnyContent] = Action { implicit request =>
-    Ok(html.createPlan(PlanForm.form))
+    if (request.session.get("email").isDefined) {
+      Ok(html.createPlan(PlanForm.form))
+    } else {
+      Ok(views.html.login(UserForm.loginForm))
+    }
   }
 
   def edit(id: Long): Action[AnyContent] = Action.async { implicit request =>
     planService.find(id).map { plan =>
-      Ok(html.editPlan(id, PlanForm.form.fill(plan)))
+      if (request.session.get("email").isDefined) {
+        Ok(html.editPlan(id, PlanForm.form.fill(plan)))
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
+      }
     }.recover {
       case ex: TimeoutException =>
         Logger.error("Error editando un plan")
@@ -61,7 +75,11 @@ class PlanController @Inject()(val messagesApi: MessagesApi,
           )
           val futurePlanUpdate = planService.update(id, newPlan.copy(id = Some(id)))
           futurePlanUpdate.map { result =>
-            home.flashing("success" -> "El plan %s ha sido actualizado".format(newPlan.name))
+            if (request.session.get("email").isDefined) {
+              home.flashing("success" -> "El plan %s ha sido actualizado".format(newPlan.name))
+            } else {
+              Ok(views.html.login(UserForm.loginForm))
+            }
           }.recover {
             case ex: TimeoutException =>
               Logger.error("Error actualizando un plan")
@@ -81,7 +99,11 @@ class PlanController @Inject()(val messagesApi: MessagesApi,
         )
         val futurePlanInsert = planService.add(newPlan)
         futurePlanInsert.map { result =>
-          home.flashing("success" -> "El plan %s ha sido creado".format(newPlan.name))
+          if (request.session.get("email").isDefined) {
+            home.flashing("success" -> "El plan %s ha sido creado".format(newPlan.name))
+          } else {
+            Ok(views.html.login(UserForm.loginForm))
+          }
         }.recover {
           case ex: TimeoutException =>
             Logger.error("Error guardando un plan")
@@ -93,7 +115,13 @@ class PlanController @Inject()(val messagesApi: MessagesApi,
 
   def delete(id: Option[Long]): Action[AnyContent] = Action.async { implicit request =>
     val futurePlanDel = planService.delete(id)
-    futurePlanDel.map { result => home.flashing("success" -> "Plan eliminado") }.recover {
+    futurePlanDel.map { result =>
+      if (request.session.get("email").isDefined) {
+        home.flashing("success" -> "Plan eliminado")
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
+      }
+    }.recover {
       case ex: TimeoutException =>
         Logger.error("Error borrando un plan")
         InternalServerError(ex.getMessage)

@@ -5,12 +5,14 @@ import scala.concurrent.ExecutionContext.Implicits._
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api._
 import play.api.mvc._
-import play.api.i18n.{MessagesApi, Messages, I18nSupport}
+import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import java.util.concurrent.TimeoutException
+
 import com.google.inject.Inject
-import mcgrady.model.{Group, GroupForm,Competition,Season}
-import mcgrady.service.{GroupService,CompetitionService,SeasonService}
+import mcgrady.model.{Competition, Group, GroupForm, Season}
+import mcgrady.service.{CompetitionService, GroupService, SeasonService}
 import mcgrady.views._
+import model.UserForm
 
 /**
   * Created by Borja Gete on 29/03/17.
@@ -24,13 +26,15 @@ class GroupController @Inject()(val messagesApi: MessagesApi
 
   val home = Redirect(mcgrady.controllers.routes.GroupController.list(0, 2, ""))
 
-  def index = Action {
-    home
-  }
+  def index = Action { home }
 
   def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
     groupService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
-      Ok(html.listGroup(pageEmp, orderBy, filter))
+      if (request.session.get("email").isDefined) {
+        Ok(html.listGroup(pageEmp, orderBy, filter))
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
+      }
     }.recover {
       case ex: TimeoutException =>
         Logger.error("Error listando grupos")
@@ -41,7 +45,11 @@ class GroupController @Inject()(val messagesApi: MessagesApi
   def add: Action[AnyContent] = Action.async { implicit request =>
     seasonService.listSimple flatMap { seasons =>
       competitionService.listSimple map { competitions =>
-        Ok(html.createGroup(GroupForm.form, competitions.sortBy(_.name), seasons))
+        if (request.session.get("email").isDefined) {
+          Ok(html.createGroup(GroupForm.form, competitions.sortBy(_.name), seasons))
+        } else {
+          Ok(views.html.login(UserForm.loginForm))
+        }
       }
     }
   }
@@ -50,7 +58,11 @@ class GroupController @Inject()(val messagesApi: MessagesApi
     seasonService.listSimple flatMap { seasons =>
       competitionService.listSimple flatMap { competitions =>
         groupService.find(id).map { group =>
-          Ok(html.editGroup(id, GroupForm.form.fill(group), competitions, seasons))
+          if (request.session.get("email").isDefined) {
+            Ok(html.editGroup(id, GroupForm.form.fill(group), competitions, seasons))
+          } else {
+            Ok(views.html.login(UserForm.loginForm))
+          }
         }.recover {
           case ex: TimeoutException =>
             Logger.error("Error editando un grupo")
@@ -70,7 +82,11 @@ class GroupController @Inject()(val messagesApi: MessagesApi
           )
           val futureGroupUpdate = groupService.update(id, newGroup.copy(id = Some(id)))
           futureGroupUpdate.map { result =>
-            home.flashing("success" -> "El grupo %s ha sido actualizado".format(newGroup.name))
+            if (request.session.get("email").isDefined) {
+              home.flashing("success" -> "El grupo %s ha sido actualizado".format(newGroup.name))
+            } else {
+              Ok(views.html.login(UserForm.loginForm))
+            }
           }.recover {
             case ex: TimeoutException =>
               Logger.error("Error actualizando un grupo")
@@ -90,7 +106,11 @@ class GroupController @Inject()(val messagesApi: MessagesApi
         )
         val futureGroupInsert = groupService.add(newGroup)
         futureGroupInsert.map { result =>
-          home.flashing("success" -> "El grupo %s ha sido creado".format(newGroup.name))
+          if (request.session.get("email").isDefined) {
+            home.flashing("success" -> "El grupo %s ha sido creado".format(newGroup.name))
+          } else {
+            Ok(views.html.login(UserForm.loginForm))
+          }
         }.recover {
           case ex: TimeoutException =>
             Logger.error("Error guardando un grupo")
@@ -102,7 +122,13 @@ class GroupController @Inject()(val messagesApi: MessagesApi
 
   def delete(id: Option[Long]): Action[AnyContent] = Action.async { implicit request =>
     val futureGroupDel = groupService.delete(id)
-    futureGroupDel.map { result => home.flashing("success" -> "Grupo eliminado") }.recover {
+    futureGroupDel.map { result =>
+      if (request.session.get("email").isDefined) {
+        home.flashing("success" -> "Grupo eliminado")
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
+      }
+    }.recover {
       case ex: TimeoutException =>
         Logger.error("Error borrando un grupo")
         InternalServerError(ex.getMessage)

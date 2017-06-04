@@ -6,12 +6,14 @@ import scala.concurrent.ExecutionContext.Implicits._
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api._
 import play.api.mvc._
-import play.api.i18n.{MessagesApi, Messages, I18nSupport}
+import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import java.util.concurrent.TimeoutException
+
 import com.google.inject.Inject
 import mcgrady.model.{Season, SeasonForm}
-import mcgrady.service.{SeasonService}
+import mcgrady.service.SeasonService
 import mcgrady.views._
+import model.UserForm
 
 /**
   * Created by Borja Gete on 9/02/17.
@@ -23,13 +25,15 @@ class SeasonController @Inject()(val messagesApi: MessagesApi,
 
   val home = Redirect(mcgrady.controllers.routes.SeasonController.list(0, 2, ""))
 
-  def index = Action {
-    home
-  }
+  def index = Action { home }
 
   def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
     seasonService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
-      Ok(html.listSeason(pageEmp, orderBy, filter))
+      if (request.session.get("email").isDefined) {
+        Ok(html.listSeason(pageEmp, orderBy, filter))
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
+      }
     }.recover {
       case ex: TimeoutException =>
         Logger.error("Error listando temporadas")
@@ -39,17 +43,21 @@ class SeasonController @Inject()(val messagesApi: MessagesApi,
 
   def add: Action[AnyContent] = Action.async { implicit request =>
     seasonService.listSimple map { seasons =>
-      val allYears= new ArrayBuffer[String]()
-      for(a <- 2000 to 2050){
-        allYears += a.toString
-        for(season <- seasons){
-          if(allYears.contains(season.year)){
-           allYears -= season.year
+      if (request.session.get("email").isDefined) {
+        val allYears = new ArrayBuffer[String]()
+        for (a <- 2000 to 2050) {
+          allYears += a.toString
+          for (season <- seasons) {
+            if (allYears.contains(season.year)) {
+              allYears -= season.year
+            }
           }
         }
+        val years = collection.Seq[String](allYears: _*)
+        Ok(html.createSeason(SeasonForm.form, years))
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
       }
-      val years=collection.Seq[String](allYears:_*)
-      Ok(html.createSeason(SeasonForm.form, years))
     }
   }
 
@@ -66,7 +74,11 @@ class SeasonController @Inject()(val messagesApi: MessagesApi,
       }
       val years = collection.Seq[String](allYears: _*)
       seasonService.find(id).map { season =>
-        Ok(html.editSeason(id, SeasonForm.form.fill(season), years))
+        if (request.session.get("email").isDefined) {
+          Ok(html.editSeason(id, SeasonForm.form.fill(season), years))
+        } else {
+          Ok(views.html.login(UserForm.loginForm))
+        }
       }.recover {
         case ex: TimeoutException =>
           Logger.error("Error editando una temporada")
@@ -77,7 +89,7 @@ class SeasonController @Inject()(val messagesApi: MessagesApi,
 
   def update(id: Long): Action[AnyContent] = Action.async { implicit request =>
     SeasonForm.form.bindFromRequest.fold(
-      formWithErrors => Future.successful(BadRequest(html.editSeason(id, formWithErrors,Seq.empty[String]))),
+      formWithErrors => Future.successful(BadRequest(html.editSeason(id, formWithErrors, Seq.empty[String]))),
       data => {
         seasonService.find(id).flatMap { oldSeason =>
           val newSeason = Season(Some(0L), data.year, data.description
@@ -85,7 +97,11 @@ class SeasonController @Inject()(val messagesApi: MessagesApi,
           )
           val futureSeasonUpdate = seasonService.update(id, newSeason.copy(id = Some(id)))
           futureSeasonUpdate.map { result =>
-            home.flashing("success" -> "La Temporada %s ha sido actualizada".format(newSeason.year))
+            if (request.session.get("email").isDefined) {
+              home.flashing("success" -> "La Temporada %s ha sido actualizada".format(newSeason.year))
+            } else {
+              Ok(views.html.login(UserForm.loginForm))
+            }
           }.recover {
             case ex: TimeoutException =>
               Logger.error("Error actualizando una temporada")
@@ -98,13 +114,18 @@ class SeasonController @Inject()(val messagesApi: MessagesApi,
 
   def save: Action[AnyContent] = Action.async { implicit request =>
     SeasonForm.form.bindFromRequest.fold(
-      formWithErrors => Future.successful(BadRequest(html.createSeason(formWithErrors,Seq.empty[String]))),
+      formWithErrors => Future.successful(BadRequest(html.createSeason(formWithErrors, Seq.empty[String]))),
       data => {
         val newSeason = Season(Some(0L), data.year, data.description
           , new java.util.Date(), Some(new java.util.Date(0))
         )
         val futureSeasonInsert = seasonService.add(newSeason)
-        futureSeasonInsert.map { result => home.flashing("success" -> "La Temporada %s ha sido creada".format(newSeason.year))
+        futureSeasonInsert.map { result =>
+          if (request.session.get("email").isDefined) {
+            home.flashing("success" -> "La Temporada %s ha sido creada".format(newSeason.year))
+          } else {
+            Ok(views.html.login(UserForm.loginForm))
+          }
         }.recover {
           case ex: TimeoutException =>
             Logger.error("Error guardando una temporada")
@@ -116,7 +137,13 @@ class SeasonController @Inject()(val messagesApi: MessagesApi,
 
   def delete(id: Option[Long]): Action[AnyContent] = Action.async { implicit request =>
     val futureSeasonDel = seasonService.delete(id)
-    futureSeasonDel.map { result => home.flashing("success" -> "Temporada eliminada") }.recover {
+    futureSeasonDel.map { result =>
+      if (request.session.get("email").isDefined) {
+        home.flashing("success" -> "Temporada eliminada")
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
+      }
+    }.recover {
       case ex: TimeoutException =>
         Logger.error("Error borrando una temporada")
         InternalServerError(ex.getMessage)

@@ -57,7 +57,6 @@ class ArenaDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvi
       } yield arena).drop(offset).take(pageSize)
     val totalRows = count(filter)
     val result = db.run(query.result)
-
     result flatMap (objects => totalRows map (rows => Page(objects, page, offset, rows)))
   }
 

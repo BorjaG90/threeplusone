@@ -13,6 +13,7 @@ import com.google.inject.Inject
 import mcgrady.model._
 import mcgrady.service._
 import mcgrady.views._
+import model.UserForm
 
 /**
   * Created by Borja Gete on 3/04/17.
@@ -27,21 +28,23 @@ class GameController @Inject()(val messagesApi: MessagesApi
                                , teamService: TeamService
                                , competitionService: CompetitionService
                                , seasonService: SeasonService
-                              , playerStatsService: PlayerStatsService
-                              , teamStatsService: TeamStatsService
+                               , playerStatsService: PlayerStatsService
+                               , teamStatsService: TeamStatsService
                               ) extends Controller with I18nSupport {
 
   val home = Redirect(mcgrady.controllers.routes.GameController.list(0, 2, ""))
 
-  def index = Action {
-    home
-  }
+  def index = Action { home }
 
   def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
     playerService.listSimple flatMap { players =>
       arenaService.listSimple flatMap { arenas =>
         gameService.list(page, 20, orderBy, "%" + filter + "%").map { pageEmp =>
-          Ok(html.listGame(pageEmp, orderBy, filter, new SimpleDateFormat("dd/MM/yyyy"), players, arenas))
+          if (request.session.get("email").isDefined) {
+            Ok(html.listGame(pageEmp, orderBy, filter, new SimpleDateFormat("dd/MM/yyyy"), players, arenas))
+          } else {
+            Ok(views.html.login(UserForm.loginForm))
+          }
         }.recover {
           case ex: TimeoutException =>
             Logger.error("Error listando partidos")
@@ -59,8 +62,12 @@ class GameController @Inject()(val messagesApi: MessagesApi
             arenaService.listSimple flatMap { arenas =>
               inscriptionService.listFilterCompetition(id) flatMap { inscriptions =>
                 playerService.listSimple map { players =>
-                  Ok(html.createGame(GameForm.form, players.sortBy(_.lastName)
-                    , inscriptions, arenas.sortBy(_.name), teams.sortBy(_.name), id, competitions, seasons, contracts))
+                  if (request.session.get("email").isDefined) {
+                    Ok(html.createGame(GameForm.form, players.sortBy(_.lastName)
+                      , inscriptions, arenas.sortBy(_.name), teams.sortBy(_.name), id, competitions, seasons, contracts))
+                  } else {
+                    Ok(views.html.login(UserForm.loginForm))
+                  }
                 }
               }
             }
@@ -79,8 +86,12 @@ class GameController @Inject()(val messagesApi: MessagesApi
               inscriptionService.listFilterCompetition(idComp) flatMap { inscriptions =>
                 playerService.listSimple flatMap { players =>
                   gameService.find(id).map { game =>
-                    Ok(html.editGame(id, GameForm.form.fill(game), players.sortBy(_.lastName)
-                      , inscriptions, arenas.sortBy(_.name), teams.sortBy(_.name), idComp, competitions, seasons,contracts))
+                    if (request.session.get("email").isDefined) {
+                      Ok(html.editGame(id, GameForm.form.fill(game), players.sortBy(_.lastName)
+                        , inscriptions, arenas.sortBy(_.name), teams.sortBy(_.name), idComp, competitions, seasons, contracts))
+                    } else {
+                      Ok(views.html.login(UserForm.loginForm))
+                    }
                   }.recover {
                     case ex: TimeoutException =>
                       Logger.error("Error editando un partido")
@@ -108,7 +119,11 @@ class GameController @Inject()(val messagesApi: MessagesApi
           )
           val futureGameUpdate = gameService.update(id, newGame.copy(id = Some(id)))
           futureGameUpdate.map { result =>
-            home.flashing("success" -> "El partido  ha sido actualizado")
+            if (request.session.get("email").isDefined) {
+              home.flashing("success" -> "El partido  ha sido actualizado")
+            } else {
+              Ok(views.html.login(UserForm.loginForm))
+            }
           }.recover {
             case ex: TimeoutException =>
               Logger.error("Error actualizando un partido")
@@ -131,7 +146,11 @@ class GameController @Inject()(val messagesApi: MessagesApi
         )
         val futureGameInsert = gameService.add(newGame)
         futureGameInsert.map { result =>
-          home.flashing("success" -> "El partido ha sido creado")
+          if (request.session.get("email").isDefined) {
+            home.flashing("success" -> "El partido ha sido creado")
+          } else {
+            Ok(views.html.login(UserForm.loginForm))
+          }
         }.recover {
           case ex: TimeoutException =>
             Logger.error("Error guardando un partido")
@@ -143,7 +162,13 @@ class GameController @Inject()(val messagesApi: MessagesApi
 
   def delete(id: Option[Long]): Action[AnyContent] = Action.async { implicit request =>
     val futureGameDel = gameService.delete(id)
-    futureGameDel.map { result => home.flashing("success" -> "Partido eliminado") }.recover {
+    futureGameDel.map { result =>
+      if (request.session.get("email").isDefined) {
+        home.flashing("success" -> "Partido eliminado")
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
+      }
+    }.recover {
       case ex: TimeoutException =>
         Logger.error("Error borrando un partido")
         InternalServerError(ex.getMessage)
@@ -158,8 +183,12 @@ class GameController @Inject()(val messagesApi: MessagesApi
             playerService.listSimple flatMap { players =>
               playerStatsService.listSimple flatMap { pStats =>
                 gameService.find(id).map { game =>
-                  Ok(html.viewGame(game, pStats, players, inscriptions, contracts,tStats,teams
-                    , new SimpleDateFormat("dd/MM/yyyy")))
+                  if (request.session.get("email").isDefined) {
+                    Ok(html.viewGame(game, pStats, players, inscriptions, contracts, tStats, teams
+                      , new SimpleDateFormat("dd/MM/yyyy")))
+                  } else {
+                    Ok(views.html.login(UserForm.loginForm))
+                  }
                 }.recover {
                   case ex: TimeoutException =>
                     Logger.error("Error visualizando partido")

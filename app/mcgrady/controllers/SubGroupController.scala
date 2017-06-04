@@ -2,15 +2,16 @@ package mcgrady.controllers
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits._
-import play.api.libs.concurrent.Execution.Implicits._
 import play.api._
 import play.api.mvc._
-import play.api.i18n.{MessagesApi, Messages, I18nSupport}
+import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import java.util.concurrent.TimeoutException
+
 import com.google.inject.Inject
-import mcgrady.model.{SubGroup, SubGroupForm, Group,Competition,Season}
-import mcgrady.service.{SubGroupService, GroupService,CompetitionService,SeasonService}
+import mcgrady.model.{Competition, Group, Season, SubGroup, SubGroupForm}
+import mcgrady.service.{CompetitionService, GroupService, SeasonService, SubGroupService}
 import mcgrady.views._
+import model.UserForm
 
 /**
   * Created by Borja Gete on 29/03/17.
@@ -31,7 +32,11 @@ class SubGroupController @Inject()(val messagesApi: MessagesApi
 
   def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
     subGroupService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
+      if (request.session.get("email").isDefined) {
       Ok(html.listSubGroup(pageEmp, orderBy, filter))
+    } else {
+    Ok(views.html.login(UserForm.loginForm))
+  }
     }.recover {
       case ex: TimeoutException =>
         Logger.error("Error listando subGrupos")
@@ -43,7 +48,11 @@ class SubGroupController @Inject()(val messagesApi: MessagesApi
     seasonService.listSimple flatMap { seasons =>
       competitionService.listSimple flatMap { competitions =>
         groupService.listSimple map { groups =>
+          if (request.session.get("email").isDefined) {
           Ok(html.createSubGroup(SubGroupForm.form, groups.sortBy(_.name),competitions,seasons))
+        } else {
+        Ok(views.html.login(UserForm.loginForm))
+      }
         }
       }
     }
@@ -54,7 +63,11 @@ class SubGroupController @Inject()(val messagesApi: MessagesApi
       competitionService.listSimple flatMap { competitions =>
         groupService.listSimple flatMap { groups =>
           subGroupService.find(id).map { subGroup =>
+            if (request.session.get("email").isDefined) {
             Ok(html.editSubGroup(id, SubGroupForm.form.fill(subGroup), groups,competitions,seasons))
+          } else {
+          Ok(views.html.login(UserForm.loginForm))
+        }
           }.recover {
             case ex: TimeoutException =>
               Logger.error("Error editando un subGrupo")
@@ -75,7 +88,11 @@ class SubGroupController @Inject()(val messagesApi: MessagesApi
             )
             val futureSubGroupUpdate = subGroupService.update(id, newSubGroup.copy(id = Some(id)))
             futureSubGroupUpdate.map { result =>
+              if (request.session.get("email").isDefined) {
               home.flashing("success" -> "El subGrupo %s ha sido actualizado".format(newSubGroup.name))
+            } else {
+          Ok(views.html.login(UserForm.loginForm))
+        }
             }.recover {
               case ex: TimeoutException =>
                 Logger.error("Error actualizando un subGrupo")
@@ -95,7 +112,11 @@ class SubGroupController @Inject()(val messagesApi: MessagesApi
           )
           val futureSubGroupInsert = subGroupService.add(newSubGroup)
           futureSubGroupInsert.map { result =>
+            if (request.session.get("email").isDefined) {
             home.flashing("success" -> "El subGrupo %s ha sido creado".format(newSubGroup.name))
+          } else {
+          Ok(views.html.login(UserForm.loginForm))
+        }
           }.recover {
             case ex: TimeoutException =>
               Logger.error("Error guardando un subGrupo")
@@ -107,7 +128,13 @@ class SubGroupController @Inject()(val messagesApi: MessagesApi
 
   def delete(id: Option[Long]): Action[AnyContent] = Action.async { implicit request =>
     val futureSubGroupDel = subGroupService.delete(id)
-    futureSubGroupDel.map { result => home.flashing("success" -> "SubGrupo eliminado") }.recover {
+    futureSubGroupDel.map { result =>
+      if (request.session.get("email").isDefined) {
+      home.flashing("success" -> "SubGrupo eliminado")
+    } else {
+    Ok(views.html.login(UserForm.loginForm))
+  }
+    }.recover {
       case ex: TimeoutException =>
         Logger.error("Error borrando un subGrupo")
         InternalServerError(ex.getMessage)

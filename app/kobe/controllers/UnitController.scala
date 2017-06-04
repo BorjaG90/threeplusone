@@ -2,15 +2,16 @@ package kobe.controllers
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits._
-import play.api.libs.concurrent.Execution.Implicits._
 import play.api._
 import play.api.mvc._
-import play.api.i18n.{MessagesApi, Messages, I18nSupport}
+import play.api.i18n.{I18nSupport, MessagesApi}
 import java.util.concurrent.TimeoutException
+
 import com.google.inject.Inject
 import kobe.model.{Unit, UnitForm}
 import kobe.service.UnitService
 import kobe.views._
+import model.UserForm
 
 /**
   * Created by Borja Gete on 25/03/17.
@@ -22,13 +23,15 @@ class UnitController @Inject()(val messagesApi: MessagesApi,
 
   val home = Redirect(kobe.controllers.routes.UnitController.list(0, 2, ""))
 
-  def index = Action {
-    home
-  }
+  def index = Action { home }
 
   def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
     unitService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
-      Ok(html.listUnit(pageEmp, orderBy, filter))
+      if (request.session.get("email").isDefined) {
+        Ok(html.listUnit(pageEmp, orderBy, filter))
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
+      }
     }.recover {
       case ex: TimeoutException =>
         Logger.error("Error listando unidades")
@@ -37,12 +40,20 @@ class UnitController @Inject()(val messagesApi: MessagesApi,
   }
 
   def add: Action[AnyContent] = Action { implicit request =>
-    Ok(html.createUnit(UnitForm.form))
+    if (request.session.get("email").isDefined) {
+      Ok(html.createUnit(UnitForm.form))
+    } else {
+      Ok(views.html.login(UserForm.loginForm))
+    }
   }
 
   def edit(id: Long): Action[AnyContent] = Action.async { implicit request =>
     unitService.find(id).map { unit =>
-      Ok(html.editUnit(id, UnitForm.form.fill(unit)))
+      if (request.session.get("email").isDefined) {
+        Ok(html.editUnit(id, UnitForm.form.fill(unit)))
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
+      }
     }.recover {
       case ex: TimeoutException =>
         Logger.error("Error editando una unidad")
@@ -60,7 +71,11 @@ class UnitController @Inject()(val messagesApi: MessagesApi,
           )
           val futureUnitUpdate = unitService.update(id, newUnit.copy(id = Some(id)))
           futureUnitUpdate.map { result =>
-            home.flashing("success" -> "La unidad %s ha sido actualizada".format(newUnit.name))
+            if (request.session.get("email").isDefined) {
+              home.flashing("success" -> "La unidad %s ha sido actualizada".format(newUnit.name))
+            } else {
+              Ok(views.html.login(UserForm.loginForm))
+            }
           }.recover {
             case ex: TimeoutException =>
               Logger.error("Error actualizando una unidad")
@@ -80,8 +95,11 @@ class UnitController @Inject()(val messagesApi: MessagesApi,
         )
         val futureUnitInsert = unitService.add(newUnit)
         futureUnitInsert.map { result =>
-          home.flashing("success" -> "La unidad %s ha sido creado".format(
-            newUnit.name))
+          if (request.session.get("email").isDefined) {
+            home.flashing("success" -> "La unidad %s ha sido creado".format(newUnit.name))
+          } else {
+            Ok(views.html.login(UserForm.loginForm))
+          }
         }.recover {
           case ex: TimeoutException =>
             Logger.error("Error guardando una unidad")
@@ -93,7 +111,13 @@ class UnitController @Inject()(val messagesApi: MessagesApi,
 
   def delete(id: Option[Long]): Action[AnyContent] = Action.async { implicit request =>
     val futureUnitDel = unitService.delete(id)
-    futureUnitDel.map { result => home.flashing("success" -> "Unidad eliminada") }.recover {
+    futureUnitDel.map { result =>
+      if (request.session.get("email").isDefined) {
+        home.flashing("success" -> "Unidad eliminada")
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
+      }
+    }.recover {
       case ex: TimeoutException =>
         Logger.error("Error borrando una unidad")
         InternalServerError(ex.getMessage)

@@ -6,46 +6,51 @@ import scala.concurrent.ExecutionContext.Implicits._
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api._
 import play.api.mvc._
-import play.api.i18n.{MessagesApi, Messages, I18nSupport}
+import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import java.util.concurrent.TimeoutException
 import java.text.SimpleDateFormat
+
 import com.google.inject.Inject
 import mcgrady.model._
 import mcgrady.service._
 import mcgrady.views._
+import model.UserForm
 
 /**
   * Created by Borja Gete on 9/02/17.
   */
 
 class CompetitionController @Inject()(val messagesApi: MessagesApi
-                                      ,competitionService: CompetitionService
-                                      ,countryService: CountryService
-                                      ,seasonService: SeasonService
-                                     ,teamService: TeamService
-                                     ,inscriptionService: InscriptionService
-                                     ,gameService: GameService
-                                     ,teamStatsService: TeamStatsService
-                                     ,playerService: PlayerService
-                                     ,playerStatsService: PlayerStatsService
+                                      , competitionService: CompetitionService
+                                      , countryService: CountryService
+                                      , seasonService: SeasonService
+                                      , teamService: TeamService
+                                      , inscriptionService: InscriptionService
+                                      , gameService: GameService
+                                      , teamStatsService: TeamStatsService
+                                      , playerService: PlayerService
+                                      , playerStatsService: PlayerStatsService
                                      ) extends Controller with I18nSupport {
 
   val home = Redirect(mcgrady.controllers.routes.CompetitionController.list(0, 2, "", ""))
 
-  def index = Action {
-    home
-  }
+  def index = Action { home }
 
-  def list(page: Int, orderBy: Int, filter: String, yFilter:String): Action[AnyContent] = Action.async { implicit request =>
+  def list(page: Int, orderBy: Int, filter: String, yFilter: String): Action[AnyContent] = Action.async { implicit request =>
     countryService.list flatMap { countries =>
       competitionService.list(page, 10, orderBy, "%" + filter + "%", "%" + yFilter + "%").flatMap { pageEmp =>
         seasonService.listSimple map { seasons =>
-          val allYears = new ArrayBuffer[String]()
-          for (season <- seasons) {
-            allYears += season.year
+          if (request.session.get("email").isDefined) {
+            val allYears = new ArrayBuffer[String]()
+            for (season <- seasons) {
+              allYears += season.year
+            }
+            val years = collection.Seq[String](allYears: _*)
+
+            Ok(html.listCompetition(pageEmp, orderBy, filter, new SimpleDateFormat("dd/MM/yyyy"), yFilter, years, countries))
+          } else {
+            Ok(views.html.login(UserForm.loginForm))
           }
-          val years = collection.Seq[String](allYears: _*)
-          Ok(html.listCompetition(pageEmp, orderBy, filter, new SimpleDateFormat("dd/MM/yyyy"), yFilter, years, countries))
         }
       }.recover {
         case ex: TimeoutException =>
@@ -58,8 +63,11 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi
   def add: Action[AnyContent] = Action.async { implicit request =>
     seasonService.listSimple flatMap { seasons =>
       countryService.list map { countries =>
-        Ok(html.createCompetition(CompetitionForm.form, countries.sortBy(_.name), seasons.sortBy(_.year))
-        )
+        if (request.session.get("email").isDefined) {
+          Ok(html.createCompetition(CompetitionForm.form, countries.sortBy(_.name), seasons.sortBy(_.year)))
+        } else {
+          Ok(views.html.login(UserForm.loginForm))
+        }
       }
     }
   }
@@ -68,8 +76,12 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi
     seasonService.listSimple flatMap { seasons =>
       countryService.list flatMap { countries =>
         competitionService.find(id).map { competition =>
-          Ok(html.editCompetition(id, CompetitionForm.form.fill(
-            competition), countries.sortBy(_.name), seasons.sortBy(_.year)))
+          if (request.session.get("email").isDefined) {
+            Ok(html.editCompetition(id, CompetitionForm.form.fill(
+              competition), countries.sortBy(_.name), seasons.sortBy(_.year)))
+          } else {
+            Ok(views.html.login(UserForm.loginForm))
+          }
         }.recover {
           case ex: TimeoutException =>
             Logger.error("Error editando una competición")
@@ -92,7 +104,11 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi
             )
             val futureCompetitionUpdate = competitionService.update(id, newCompetition.copy(id = Some(id)))
             futureCompetitionUpdate.map { result =>
-              home.flashing("success" -> "La Competición %s ha sido actualizada".format(newCompetition.name))
+              if (request.session.get("email").isDefined) {
+                home.flashing("success" -> "La Competición %s ha sido actualizada".format(newCompetition.name))
+              } else {
+                Ok(views.html.login(UserForm.loginForm))
+              }
             }.recover {
               case ex: TimeoutException =>
                 Logger.error("Error actualizando una competición")
@@ -116,8 +132,12 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi
           )
           val futureCompetitionInsert = competitionService.add(newCompetition)
           futureCompetitionInsert.map { result =>
-            home.flashing("success" -> "La Competición %s ha sido creada".format(
-              newCompetition.name))
+            if (request.session.get("email").isDefined) {
+              home.flashing("success" -> "La Competición %s ha sido creada".format(
+                newCompetition.name))
+            } else {
+              Ok(views.html.login(UserForm.loginForm))
+            }
           }.recover {
             case ex: TimeoutException =>
               Logger.error("Error guardando una competición")
@@ -130,37 +150,58 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi
 
   def delete(id: Option[Long]): Action[AnyContent] = Action.async { implicit request =>
     val futureCompetitionDel = competitionService.delete(id)
-    futureCompetitionDel.map { result => home.flashing("success" -> "Competición eliminada") }.recover {
+    futureCompetitionDel.map { result =>
+      if (request.session.get("email").isDefined) {
+        home.flashing("success" -> "Competición eliminada")
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
+      }
+
+    }.recover {
       case ex: TimeoutException =>
         Logger.error("Error borrando una competición")
         InternalServerError(ex.getMessage)
     }
   }
 
-  def view(id: Long): Action[AnyContent] = Action.async { implicit request =>
-    seasonService.listSimple flatMap { seasons =>
-      playerStatsService.listSimple flatMap { pStats =>
-        playerService.listSimple flatMap { players =>
-          teamStatsService.listSimple flatMap { tStats =>
-            gameService.listSimple flatMap { games =>
-              inscriptionService.listSimple flatMap { inscriptions =>
-                teamService.listSimple flatMap { teams =>
-                  countryService.list flatMap { countries =>
-                    competitionService.find(id).map { competition =>
-                      Ok(html.viewCompetition(competition, countries, teams, inscriptions, games, tStats, players
-                        , pStats, seasons))
-                    }.recover {
-                      case ex: TimeoutException =>
-                        Logger.error("Error visualizando competición")
-                        InternalServerError(ex.getMessage)
-                    }
+  def view(id: Long): Action[AnyContent] = Action.async {
+    implicit request =>
+      seasonService.listSimple flatMap {
+        seasons =>
+          playerStatsService.listSimple flatMap {
+            pStats =>
+              playerService.listSimple flatMap {
+                players =>
+                  teamStatsService.listSimple flatMap {
+                    tStats =>
+                      gameService.listSimple flatMap {
+                        games =>
+                          inscriptionService.listSimple flatMap {
+                            inscriptions =>
+                              teamService.listSimple flatMap {
+                                teams =>
+                                  countryService.list flatMap {
+                                    countries =>
+                                      competitionService.find(id).map {
+                                        competition =>
+                                          if (request.session.get("email").isDefined) {
+                                            Ok(html.viewCompetition(competition, countries, teams, inscriptions, games, tStats, players
+                                              , pStats, seasons))
+                                          } else {
+                                            Ok(views.html.login(UserForm.loginForm))
+                                          }
+                                      }.recover {
+                                        case ex: TimeoutException =>
+                                          Logger.error("Error visualizando competición")
+                                          InternalServerError(ex.getMessage)
+                                      }
+                                  }
+                              }
+                          }
+                      }
                   }
-                }
               }
-            }
           }
-        }
       }
-    }
   }
 }

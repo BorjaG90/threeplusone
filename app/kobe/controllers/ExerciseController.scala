@@ -5,12 +5,14 @@ import scala.concurrent.ExecutionContext.Implicits._
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api._
 import play.api.mvc._
-import play.api.i18n.{MessagesApi, Messages, I18nSupport}
+import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import java.util.concurrent.TimeoutException
+
 import com.google.inject.Inject
-import kobe.model.{Exercise, ExerciseForm, TypeExercise, Category, Enviroment}
-import kobe.service.{ExerciseService, TypeExerciseService, CategoryService, EnviromentService}
+import kobe.model.{Category, Enviroment, Exercise, ExerciseForm, TypeExercise}
+import kobe.service.{CategoryService, EnviromentService, ExerciseService, TypeExerciseService}
 import kobe.views._
+import model.UserForm
 
 /**
   * Created by Borja Gete on 30/03/17.
@@ -34,7 +36,11 @@ class ExerciseController @Inject()(val messagesApi: MessagesApi
       categoryService.listSimple flatMap { categories =>
         typeExerciseService.listSimple flatMap { types =>
           exerciseService.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
-            Ok(html.listExercise(pageEmp, orderBy, filter, types, categories, enviroments))
+            if (request.session.get("email").isDefined) {
+              Ok(html.listExercise(pageEmp, orderBy, filter, types, categories, enviroments))
+            } else {
+              Ok(views.html.login(UserForm.loginForm))
+            }
           }.recover {
             case ex: TimeoutException =>
               Logger.error("Error listando ejercicios")
@@ -49,9 +55,12 @@ class ExerciseController @Inject()(val messagesApi: MessagesApi
     enviromentService.listSimple flatMap { enviroments =>
       categoryService.listSimple flatMap { categories =>
         typeExerciseService.listSimple map { typeExercises =>
-          Ok(html.createExercise(
-            ExerciseForm.form, typeExercises.sortBy(_.name), categories.sortBy(_.name), enviroments.sortBy(_.name)
-          ))
+          if (request.session.get("email").isDefined) {
+            Ok(html.createExercise(ExerciseForm.form, typeExercises.sortBy(_.name)
+              , categories.sortBy(_.name), enviroments.sortBy(_.name)))
+          } else {
+            Ok(views.html.login(UserForm.loginForm))
+          }
         }
       }
     }
@@ -62,9 +71,12 @@ class ExerciseController @Inject()(val messagesApi: MessagesApi
       categoryService.listSimple flatMap { categories =>
         typeExerciseService.listSimple flatMap { typeExercises =>
           exerciseService.find(id).map { exercise =>
-            Ok(html.editExercise(
-              id, ExerciseForm.form.fill(exercise), typeExercises.sortBy(_.name), categories.sortBy(_.name), enviroments.sortBy(_.name)
-            ))
+            if (request.session.get("email").isDefined) {
+              Ok(html.editExercise(id, ExerciseForm.form.fill(exercise), typeExercises.sortBy(_.name)
+                , categories.sortBy(_.name), enviroments.sortBy(_.name)))
+            } else {
+              Ok(views.html.login(UserForm.loginForm))
+            }
           }.recover {
             case ex: TimeoutException =>
               Logger.error("Error editando un ejercicio")
@@ -89,7 +101,11 @@ class ExerciseController @Inject()(val messagesApi: MessagesApi
           )
           val futureExerciseUpdate = exerciseService.update(id, newExercise.copy(id = Some(id)))
           futureExerciseUpdate.map { result =>
-            home.flashing("success" -> "El ejercicio %s ha sido actualizado".format(newExercise.name))
+            if (request.session.get("email").isDefined) {
+              home.flashing("success" -> "El ejercicio %s ha sido actualizado".format(newExercise.name))
+            } else {
+              Ok(views.html.login(UserForm.loginForm))
+            }
           }.recover {
             case ex: TimeoutException =>
               Logger.error("Error actualizando un ejercicio")
@@ -104,7 +120,7 @@ class ExerciseController @Inject()(val messagesApi: MessagesApi
     ExerciseForm.form.bindFromRequest.fold(
       formWithErrors => Future.successful(
         BadRequest(html.createExercise(
-          formWithErrors,Seq.empty[TypeExercise],Seq.empty[Category],Seq.empty[Enviroment])
+          formWithErrors, Seq.empty[TypeExercise], Seq.empty[Category], Seq.empty[Enviroment])
         )),
       data => {
         val newExercise = Exercise(
@@ -113,7 +129,11 @@ class ExerciseController @Inject()(val messagesApi: MessagesApi
         )
         val futureExerciseInsert = exerciseService.add(newExercise)
         futureExerciseInsert.map { result =>
-          home.flashing("success" -> "El ejercicio %s ha sido creado".format(newExercise.name))
+          if (request.session.get("email").isDefined) {
+            home.flashing("success" -> "El ejercicio %s ha sido creado".format(newExercise.name))
+          } else {
+            Ok(views.html.login(UserForm.loginForm))
+          }
         }.recover {
           case ex: TimeoutException =>
             Logger.error("Error guardando un ejercicio")
@@ -125,7 +145,13 @@ class ExerciseController @Inject()(val messagesApi: MessagesApi
 
   def delete(id: Option[Long]): Action[AnyContent] = Action.async { implicit request =>
     val futureExerciseDel = exerciseService.delete(id)
-    futureExerciseDel.map { result => home.flashing("success" -> "Ejercicio eliminado") }.recover {
+    futureExerciseDel.map { result =>
+      if (request.session.get("email").isDefined) {
+        home.flashing("success" -> "Ejercicio eliminado")
+      } else {
+        Ok(views.html.login(UserForm.loginForm))
+      }
+    }.recover {
       case ex: TimeoutException =>
         Logger.error("Error borrando un ejercicio")
         InternalServerError(ex.getMessage)
