@@ -11,7 +11,7 @@
     <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
 </div>
 }
-<div id="content">
+<div id="sc-content">
     @for(plan <- plans){
     @if(session.idPlan == plan.id.get){
     <h1>Plan: <b>@plan.name</b></h1>
@@ -38,10 +38,13 @@
         }}
     </table>
     <div class="tab" align="center">
-        <button class="tablinks" onclick="openFormSC(event, 'General')">General</button>
-        <button class="tablinks" onclick="openFormSC(event, 'shot-chart', @serie.id)">Lanzamientos</button>
+        <br>
+        <button class="tablinks" onclick="openFormSC(event, 'general-@serie.id.get')">General</button>
+        <button class="tablinks" onclick="openFormSC(event, 'shot-chart-@serie.id.get', @serie.id)">Lanzamientos</button>
+
     </div>
-    <div id="General" class="tabcontent">
+    <div id="general-@serie.id.get" class="tabcontent">
+        <br>
         <form id="@plan.name-@session.name-@serie.id-data-form" role="form" action=@kobe.controllers.routes.RecordController.saveMark(session.id.get) method="post" autocomplete="off">
             <fieldset>
                 <label>Nueva Marca</label>
@@ -54,7 +57,7 @@
                         <th>Notas</th>
                     </tr>
                     <tr>
-                        <td><input type="text" id="value" name="value" value="" placeholder="Valor"></td>
+                        <td><input type="text" id="value" name="value" value="" placeholder="Valor" onchange="validateNumber('value','btn-submit')"></td>
                         <td>
                             <select id="id_unit" name="id_unit">
                                 @for(unit <- units){ <option value="@unit.id">@unit.name</option> }
@@ -77,7 +80,7 @@
             </fieldset>
         </form>
     </div>
-    <div id="shot-chart" class="tabcontent" style="display:none; background-image: url(@routes.Assets.versioned("images/ShotChart3.gif"))">
+    <div id="shot-chart-@serie.id.get" class="tabcontent sc" style="display:none; background-image: url(@routes.Assets.versioned("images/ShotChart3.gif"))">
         <svg id="shot-chart-svg" width="500" height="900">
             <defs>
                 <mask id="hole">
@@ -203,8 +206,10 @@
             <input id="triple-right-fgm-down" type="text" name="shots[26].value" value="" onchange="setInShotChart('triple-right-fgm')">
             <input id="triple-right-fga-down" type="text" name="shots[27].value" value="" onchange="setInShotChart('triple-right-fga')">
             <br>
-            <button type="submit" class="btn btn-primary ynt-btn-orange">
-                <img src=@routes.Assets.versioned("images/guardarBlanco.png") alt="Guardar"></button>}}}}}}
+            Serie: @serie.id.get<br>
+            <button id="btn-submit2" type="submit" class="btn btn-primary ynt-btn-orange">
+                <img src=@routes.Assets.versioned("images/guardarBlanco.png") alt="Guardar"></button>}}
         </form>
     </div>
+}}}}
 </div>}

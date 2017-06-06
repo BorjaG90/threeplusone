@@ -25,8 +25,8 @@
     }
 </div>
 <form id="playerStats-data-form" role="form" action=@mcgrady.controllers.routes.PlayerStatsController.save() method="post" autocomplete="off">
+    <h2>Nueva Línea Estadística</h2>
     <fieldset >
-        <label>Nueva Línea Estadística</label>
         <br/>
         <table align="center">
             <tr>
@@ -53,7 +53,7 @@
                         <option value="@player.id">@player.firstName @player.lastName</option> }}}
                     </select>
                 </td>
-                <td><input type="text" id="minutes" name="minutes" value="" placeholder="Minutos"></td>
+                <td><input type="text" id="minutes" name="minutes" value="" placeholder="Minutos" onchange="validateNumber('minutes','btn-submit')"></td>
             </tr>
             <tr>
                 <th>Puntos</th>
@@ -62,10 +62,10 @@
                 <th>TL Anotados</th>
             </tr>
             <tr>
-                <td><input type="text" id="points" name="points" value="" placeholder="Puntos"></td>
-                <td><input type="text" id="fg_made" name="fg_made" value="" placeholder="TCampo Conseguidos"></td>
-                <td><input type="text" id="t3_made" name="t3_made" value="" placeholder="Triple Conseguidos"></td>
-                <td><input type="text" id="ft_made" name="ft_made" value="" placeholder="Libre Conseguidos"></td>
+                <td><input type="text" id="points" name="points" value="" placeholder="Puntos" onchange="validateNumber('points','btn-submit')"></td>
+                <td><input type="text" id="fg_made" name="fg_made" value="" placeholder="TCampo Conseguidos" onchange="validateNumber('fg_made','btn-submit')"></td>
+                <td><input type="text" id="t3_made" name="t3_made" value="" placeholder="Triple Conseguidos" onchange="validateNumber('t3_made','btn-submit')"></td>
+                <td><input type="text" id="ft_made" name="ft_made" value="" placeholder="Libre Conseguidos" onchange="validateNumber('ft_made','btn-submit')"></td>
             </tr>
             <tr>
                 <th>Asistencias</th>
@@ -74,10 +74,10 @@
                 <th>TL Intentados</th>
             </tr>
             <tr>
-                <td><input type="text" id="assists" name="assists" value="" placeholder="Asistencias"></td>
-                <td><input type="text" id="fg_attemped" name="fg_attemped" value="" placeholder="TCampo Intentados"></td>
-                <td><input type="text" id="t3_attemped" name="t3_attemped" value="" placeholder="Triple Intentados"></td>
-                <td><input type="text" id="ft_attemped" name="ft_attemped" value="" placeholder="Libre Intentados"></td>
+                <td><input type="text" id="assists" name="assists" value="" placeholder="Asistencias" onchange="validateNumber('assists','btn-submit')"></td>
+                <td><input type="text" id="fg_attemped" name="fg_attemped" value="" placeholder="TCampo Intentados" onchange="validateNumber('fg_attemped','btn-submit')"></td>
+                <td><input type="text" id="t3_attemped" name="t3_attemped" value="" placeholder="Triple Intentados" onchange="validateNumber('t3_attemped','btn-submit')"></td>
+                <td><input type="text" id="ft_attemped" name="ft_attemped" value="" placeholder="Libre Intentados" onchange="validateNumber('ft_attemped','btn-submit')"></td>
             </tr>
             <tr>
                 <th>Reb Ofensivos</th>
@@ -86,10 +86,10 @@
                 <th>Robos</th>
             </tr>
             <tr>
-                <td><input type="text" id="off_rebounds" name="off_rebounds" value="" placeholder="Reb Ofensivos"></td>
-                <td><input type="text" id="def_rebounds" name="def_rebounds" value="" placeholder="Reb Defensivos"></td>
-                <td><input type="text" id="blocks" name="blocks" value="" placeholder="Tapones"></td>
-                <td><input type="text" id="steals" name="steals" value="" placeholder="Robos"></td>
+                <td><input type="text" id="off_rebounds" name="off_rebounds" value="" placeholder="Reb Ofensivos" onchange="validateNumber('off_rebounds','btn-submit')"></td>
+                <td><input type="text" id="def_rebounds" name="def_rebounds" value="" placeholder="Reb Defensivos" onchange="validateNumber('def_rebounds','btn-submit')"></td>
+                <td><input type="text" id="blocks" name="blocks" value="" placeholder="Tapones" onchange="validateNumber('blocks','btn-submit')"></td>
+                <td><input type="text" id="steals" name="steals" value="" placeholder="Robos" onchange="validateNumber('steals','btn-submit')"></td>
             </tr>
             <tr>
                 <th>Faltas</th>
@@ -98,15 +98,15 @@
                 <th>Pérdidas</th>
             </tr>
             <tr>
-                <td><input type="text" id="fouls" name="fouls" value="" placeholder="Faltas"></td>
-                <td><input type="text" id="tech_fouls" name="tech_fouls" value="" placeholder="Técnicas"></td>
-                <td><input type="text" id="flag_fouls" name="flag_fouls" value="" placeholder="Flagrantes"></td>
-                <td><input type="text" id="turnovers" name="turnovers" value="" placeholder="Pérdidas"></td>
+                <td><input type="text" id="fouls" name="fouls" value="" placeholder="Faltas" onchange="validateNumber('fouls','btn-submit')"></td>
+                <td><input type="text" id="tech_fouls" name="tech_fouls" value="" placeholder="Técnicas" onchange="validateNumber('tech_fouls','btn-submit')"></td>
+                <td><input type="text" id="flag_fouls" name="flag_fouls" value="" placeholder="Flagrantes" onchange="validateNumber('flag_fouls','btn-submit')"></td>
+                <td><input type="text" id="turnovers" name="turnovers" value="" placeholder="Pérdidas" onchange="validateNumber('turnovers','btn-submit')"></td>
             </tr>
         </table>
         <br/>
         <div class="form-actions controls ynt-btn-xlarge">
-            <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
+            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
             <a href=@mcgrady.controllers.routes.PlayerStatsController.list() class="btn">Cancelar</a>
         </div>
     </fieldset>

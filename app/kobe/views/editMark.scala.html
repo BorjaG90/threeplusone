@@ -28,7 +28,7 @@
                 </td>
                 <td align="center">
                     @defining(recordForm("value").value){ valueValue=>
-                    <input type="text" id="value" name="value" value="@valueValue">
+                    <input type="text" id="value" name="value" value="@valueValue"  onchange="validateNumber('value','btn-submit')">
                     }
                 </td>
                 <td>

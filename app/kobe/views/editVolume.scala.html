@@ -30,7 +30,7 @@
                 </td>
                 <td align="center">
                     @defining(recordForm("value").value){ valueValue=>
-                    <input type="text" id="value" name="value" value="@valueValue">
+                    <input type="text" id="value" name="value" value="@valueValue"  onchange="validateNumber('value','btn-submit')">
                     }
                 </td>
                 <td>
@@ -55,7 +55,7 @@
         </table>
         <br/>
         <div>
-            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Volúmen</button>
+            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Guardar Volúmen</button>
             o
             <a href=@kobe.controllers.routes.RecordController.list() class="btn">Cancelar</a>
         </div>

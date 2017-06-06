@@ -96,10 +96,11 @@ form input[type=button]:active, input[type=submit]:active, input[type=reset]:act
     border-color:#4155af;
     color:#e6ecff;
 }
-div#content{
-    display:inline;
+#sc-content {
+    margin: auto;
+    margin-bottom: 150px;
 }
-div#shot-chart{
+div.sc{
     border:1px solid #000000;
     position: relative;
     margin-left: auto;

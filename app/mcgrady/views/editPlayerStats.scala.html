@@ -2,8 +2,8 @@
 @import helper._
 @main(Messages("playerStats.title")){
 <form id="playerStats-data-form" role="form" action=@mcgrady.controllers.routes.PlayerStatsController.update(id) method="post" autocomplete="off">
+    <h2>Editando Estadisticas</h2>
     <fieldset >
-        <label>Editando Estadisticas</label>
         <table>
             <tr>
                 <th colspan="2">Partido</th>
@@ -33,7 +33,7 @@
                     }
                 </td>
                 <td>@defining(playerStatsForm("minutes").value){ minutesValue=>
-                    <input type="text" id="minutes" name="minutes" value="@minutesValue" > } </td>
+                    <input type="text" id="minutes" name="minutes" value="@minutesValue" onchange="validateNumber('minutes','btn-submit')"> } </td>
             </tr>
             <tr>
                 <th>Puntos</th>
@@ -43,13 +43,13 @@
             </tr>
             <tr>
                 <td>@defining(playerStatsForm("points").value){ pointsValue=>
-                    <input type="text" id="points" name="points" value="@pointsValue" > } </td>
+                    <input type="text" id="points" name="points" value="@pointsValue" onchange="validateNumber('points','btn-submit')"> } </td>
                 <td>@defining(playerStatsForm("fg_made").value){ fg_madeValue=>
-                    <input type="text" id="fg_made" name="fg_made" value="@fg_madeValue" > } </td>
+                    <input type="text" id="fg_made" name="fg_made" value="@fg_madeValue" onchange="validateNumber('fg_made','btn-submit')"> } </td>
                 <td>@defining(playerStatsForm("t3_made").value){ t3_madeValue=>
-                    <input type="text" id="t3_made" name="t3_made" value="@t3_madeValue" > } </td>
+                    <input type="text" id="t3_made" name="t3_made" value="@t3_madeValue" onchange="validateNumber('t3_made','btn-submit')"> } </td>
                 <td>@defining(playerStatsForm("ft_made").value){ ft_madeValue=>
-                    <input type="text" id="ft_made" name="ft_made" value="@ft_madeValue" > } </td>
+                    <input type="text" id="ft_made" name="ft_made" value="@ft_madeValue" onchange="validateNumber('ft_made','btn-submit')"> } </td>
             </tr>
             <tr>
                 <th>Asistencias</th>
@@ -61,11 +61,11 @@
                 <td>@defining(playerStatsForm("assists").value){ assistsValue=>
                     <input type="text" id="assists" name="assists" value="@assistsValue" > } </td>
                 <td>@defining(playerStatsForm("fg_attemped").value){ fg_attempedValue=>
-                    <input type="text" id="fg_attemped" name="fg_attemped" value="@fg_attempedValue" > } </td>
+                    <input type="text" id="fg_attemped" name="fg_attemped" value="@fg_attempedValue" onchange="validateNumber('fg_attemped','btn-submit')"> } </td>
                 <td>@defining(playerStatsForm("t3_attemped").value){ t3_attempedValue=>
-                    <input type="text" id="t3_attemped" name="t3_attemped" value="@t3_attempedValue" > } </td>
+                    <input type="text" id="t3_attemped" name="t3_attemped" value="@t3_attempedValue" onchange="validateNumber('t3_attemped','btn-submit')"> } </td>
                 <td>@defining(playerStatsForm("ft_attemped").value){ ft_attempedValue=>
-                    <input type="text" id="ft_attemped" name="ft_attemped" value="@ft_attempedValue" > } </td>
+                    <input type="text" id="ft_attemped" name="ft_attemped" value="@ft_attempedValue" onchange="validateNumber('ft_attemped','btn-submit')"> } </td>
             </tr>
             <tr>
                 <th>Reb Ofensivos</th>
@@ -75,13 +75,13 @@
             </tr>
             <tr>
                 <td>@defining(playerStatsForm("off_rebounds").value){ off_reboundsValue=>
-                    <input type="text" id="off_rebounds" name="off_rebounds" value="@off_reboundsValue" > } </td>
+                    <input type="text" id="off_rebounds" name="off_rebounds" value="@off_reboundsValue" onchange="validateNumber('off_rebounds','btn-submit')"> } </td>
                 <td>@defining(playerStatsForm("def_rebounds").value){ def_reboundsValue=>
-                    <input type="text" id="def_rebounds" name="def_rebounds" value="@def_reboundsValue" > } </td>
+                    <input type="text" id="def_rebounds" name="def_rebounds" value="@def_reboundsValue" onchange="validateNumber('def_rebounds','btn-submit')"> } </td>
                 <td>@defining(playerStatsForm("blocks").value){ blocksValue=>
-                    <input type="text" id="blocks" name="blocks" value="@blocksValue" > } </td>
+                    <input type="text" id="blocks" name="blocks" value="@blocksValue" onchange="validateNumber('blocks','btn-submit')"> } </td>
                 <td>@defining(playerStatsForm("steals").value){ stealsValue=>
-                    <input type="text" id="steals" name="steals" value="@stealsValue" > } </td>
+                    <input type="text" id="steals" name="steals" value="@stealsValue" onchange="validateNumber('steals','btn-submit')"> } </td>
             </tr>
             <tr>
                 <th>Faltas</th>
@@ -91,18 +91,18 @@
             </tr>
             <tr>
                 <td>@defining(playerStatsForm("fouls").value){ foulsValue=>
-                    <input type="text" id="fouls" name="fouls" value="@foulsValue" > } </td>
+                    <input type="text" id="fouls" name="fouls" value="@foulsValue" onchange="validateNumber('fouls','btn-submit')"> } </td>
                 <td>@defining(playerStatsForm("tech_fouls").value){ tech_foulsValue=>
-                    <input type="text" id="tech_fouls" name="tech_fouls" value="@tech_foulsValue" > } </td>
+                    <input type="text" id="tech_fouls" name="tech_fouls" value="@tech_foulsValue" onchange="validateNumber('tech_fouls','btn-submit')"> } </td>
                 <td>@defining(playerStatsForm("flag_fouls").value){ flag_foulsValue=>
-                    <input type="text" id="flag_fouls" name="flag_fouls" value="@flag_foulsValue" > } </td>
+                    <input type="text" id="flag_fouls" name="flag_fouls" value="@flag_foulsValue" onchange="validateNumber('flag_fouls','btn-submit')"> } </td>
                 <td>@defining(playerStatsForm("turnovers").value){ turnoversValue=>
-                    <input type="text" id="turnovers" name="turnovers" value="@turnoversValue" > } </td>
+                    <input type="text" id="turnovers" name="turnovers" value="@turnoversValue" onchange="validateNumber('turnovers','btn-submit')"> } </td>
             </tr>
         </table>
         <br/>
         <div>
-            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Estadisticas</button> o
+            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Guardar Estadisticas</button> o
             <a href=@mcgrady.controllers.routes.PlayerStatsController.list() class="btn">Cancelar</a>
         </div>
     </fieldset>

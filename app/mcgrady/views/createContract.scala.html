@@ -14,8 +14,8 @@
 </div>
 }
 <form id="contract-data-form" role="form" action=@mcgrady.controllers.routes.ContractController.save() method="post" autocomplete="off">
+    <h2>Nuevo Contrato</h2>
     <fieldset >
-        <label>Nuevo Contrato</label>
         <br/>
         <table align="center">
             <tr>
@@ -40,7 +40,7 @@
                         }
                     </select>
                 </td>
-                <td><input type="text" id="number" name="number" value ="" placeholder="00"></td>
+                <td><input type="text" id="number" name="number" value ="" placeholder="00" onchange="validateNumber('number','btn-submit')"></td>
                 <td align="center">
                     <input type="date" id="init_date" name="init_date" step="1" min="2000-01-01" max="2050-12-31" value="2016-09-01" onchange="validateDate('init_date','btn-submit')">
                 </td>

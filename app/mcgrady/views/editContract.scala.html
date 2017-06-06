@@ -2,8 +2,8 @@
 @import helper._
 @main(Messages("contract.title")){
 <form id="contract-data-form" role="form" action=@mcgrady.controllers.routes.ContractController.update(id) method="post" autocomplete="off">
+    <h2>Editando Contratos</h2>
     <fieldset >
-        <label>Editando Contratos</label>
         <table>
             <tr>
                 <th>Jugador</th>
@@ -41,7 +41,7 @@
                 </td>
                 <td>
                     @defining(contractForm("number").value){ numberValue=>
-                    <input type="text" id="number" name="number" value="@numberValue" placeholder="Número">
+                    <input type="text" id="number" name="number" value="@numberValue" placeholder="Número" onchange="validateNumber('number','btn-submit')">
                     }
                 </td>
                 <td align="center">

@@ -35,7 +35,7 @@ function isValidDate(text) {
 function validateDate(element, submit){
     text=document.getElementById(element).value;
     button=document.getElementById(submit);
-    if(text != null){
+    if(text != null && text != ''){
         if(!isValidDate(text)){
             alert('[ERROR] El campo debe tener un valor de fecha valido');
             button.style.display = "none"
@@ -61,7 +61,7 @@ function escapeRegExp(str) {
 function validateNumber(element, submit){
     text=document.getElementById(element).value;
     button=document.getElementById(submit);
-    if(text != null){
+    if(text != null && text != ''){
         if(!isNumber(text)){
             alert('[ERROR] El campo debe tener un valor númerico valido');
             button.style.display = "none"

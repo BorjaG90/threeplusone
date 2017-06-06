@@ -10,20 +10,29 @@ body {
 }
 /*--Header--*/
 #header {
+    display: block;
     height:140px;
     background:#fff;
-    /*position:fixed;*/
-    width:98%;
+    position: absolute;
+    width:80%;
     margin: -8 0 0 -8;
     padding:15px;
     border-bottom: solid 2px #4155a0;
 }
+#header dl{
+    width:10%;
+    display: block;
+    position:relative;
+    top: -70px;
+    right: -875px;
+
+}
 /*--Nav--*/
 .nav{
-   /*position:relative;*/
-   top:-50px;
-   left:366px;
-   width: 66%;
+   position:relative;
+   top:-90px;
+   left:120px;
+   width: 76%;
    font-size:15px;
    color:#fff;
 }
@@ -86,6 +95,11 @@ body {
     max-height:1000px;
     -webkit-transform:perspective(500) rotate3d(0,0,0,0);
 }
+/*--Content--*/
+#content {
+    display: block;
+    padding-top:170px;
+}
 /*--Footer--*/
 footer {
     background:#0f2c5b;
@@ -96,6 +110,9 @@ footer {
     text-align: center;
     font-size:9px; color: #ffffff;
     margin-top:150px;
+        position: fixed;
+        bottom :0px;
+        left: 0px;
 }
 footer div#ico{
     text-align: right;

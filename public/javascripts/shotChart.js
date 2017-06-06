@@ -4,6 +4,12 @@
 function calculatePercentage(idMade,idAtt,min,max,idSvg){
     var made = document.getElementById(idMade).value;
     var att = document.getElementById(idAtt).value;
+    if(att != null && att != '' && made > att){
+        document.getElementById(idAtt).value = 'Err';
+    }
+    validateNumber(idMade,'btn-submit2')
+    validateNumber(idAtt,'btn-submit2')
+
     var r = (made / att) * 100;
      if(r <= min && r < 101){
         document.getElementById(idSvg).className.baseVal = "zone bad-fg";
@@ -18,6 +24,7 @@ function calculatePercentage(idMade,idAtt,min,max,idSvg){
     document.getElementById(attDown).value=att;
 }
 function setInShotChart(id){
+    validateNumber(id+ "-down",'btn-submit2')
     var value = document.getElementById(id+ "-down").value;
     document.getElementById(id).value=value;
     document.getElementById(id).onchange();

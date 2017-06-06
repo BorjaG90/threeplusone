@@ -50,7 +50,7 @@
             </tr>
             <tr>
                 <td>
-                    <input type="text" id="value" name="value" value="" placeholder="Valor">
+                    <input type="text" id="value" name="value" value="" placeholder="Valor"  onchange="validateNumber('value','btn-submit')">
                 </td>
                 <td>
                     <select id="id_unit" name="id_unit">
@@ -68,7 +68,7 @@
         </table>
         <br/>
         <div class="form-actions controls ynt-btn-xlarge">
-            <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button>
+            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button>
         </div>
     </fieldset>
 </form>

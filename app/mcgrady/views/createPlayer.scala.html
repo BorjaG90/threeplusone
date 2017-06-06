@@ -12,8 +12,8 @@
 </div>
 }
 <form id="player-data-form" role="form" action=@mcgrady.controllers.routes.PlayerController.save() method="post" autocomplete="off">
+    <h2>Nuevo Jugador</h2>
     <fieldset >
-        <label>Nuevo Jugador</label>
         <br/>
         <table align="center">
             <tr>
@@ -39,10 +39,10 @@
             </tr>
             <tr>
                 <td>
-                    <input type="text" id="height" name="height" value="" placeholder="Altura">
+                    <input type="text" id="height" name="height" value="" placeholder="Altura"  onchange="validateNumber('height','btn-submit')">
                 </td>
                 <td>
-                    <input type="text" id="weight" name="weight" value="" placeholder="Peso">
+                    <input type="text" id="weight" name="weight" value="" placeholder="Peso"  onchange="validateNumber('weight','btn-submit')">
                 </td>
                 <td align="center">
                     <input type="text" id="description" name="description" value="" placeholder="Descripción">
@@ -51,7 +51,7 @@
         </table>
         <br/>
         <div class="form-actions controls ynt-btn-xlarge">
-            <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
+            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
             <a href=@mcgrady.controllers.routes.PlayerController.list() class="btn">Cancelar</a>
         </div>
     </fieldset>

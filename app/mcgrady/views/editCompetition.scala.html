@@ -2,8 +2,8 @@
 @import helper._
 @main(Messages("competition.title")){
 <form id="competition-data-form" role="form" action=@mcgrady.controllers.routes.CompetitionController.update(id) method="post" autocomplete="off">
+    <h2>Editando Competición</h2>
     <fieldset >
-        <label>Editando Competición</label>
         <table>
             <tr>
                 <th>Temporada <a href=@mcgrady.controllers.routes.SeasonController.add() class="btn">

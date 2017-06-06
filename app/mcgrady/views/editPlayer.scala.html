@@ -2,8 +2,8 @@
 @import helper._
 @main(Messages("player.title")){
 <form id="player-data-form" role="form" action=@mcgrady.controllers.routes.PlayerController.update(id) method="post" autocomplete="off">
+    <h2>Editando Jugador</h2>
     <fieldset>
-        <label>Editando Jugador</label>
         <table>
             <tr>
                 <th>Nombre</th>
@@ -36,12 +36,12 @@
             <tr>
                 <td>
                     @defining(playerForm("height").value){ heightValue=>
-                    <input type="text" id="height" name="height" value="@heightValue" placeholder="Altura">
+                    <input type="text" id="height" name="height" value="@heightValue" placeholder="Altura" onchange="validateNumber('height','btn-submit')">
                     }
                 </td>
                 <td>
                     @defining(playerForm("weight").value){ weightValue=>
-                    <input type="text" id="weight" name="weight" value="@weightValue" placeholder="Peso">
+                    <input type="text" id="weight" name="weight" value="@weightValue" placeholder="Peso" onchange="validateNumber('weight','btn-submit')">
                     }
                 </td>
                 <td align="center">
@@ -53,7 +53,7 @@
         </table>
         <br/>
         <div>
-            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Jugador</button>
+            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Guardar Jugador</button>
             o
             <a href=@mcgrady.controllers.routes.PlayerController.list() class="btn">Cancelar</a>
         </div>
