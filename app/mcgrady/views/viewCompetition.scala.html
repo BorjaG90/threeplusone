@@ -3,6 +3,16 @@
 @sum(a:Long,b:Long) = {@(a + b).toInt}
 @div(a:Long,b:Long) = {@(a / b)}
 @main(Messages("competition.title")){
+<div id="help" style="display:none;">
+    <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
+    <br>En esta pantalla se puede consultar la clasificación actual de la competición y las medias en las cinco
+    estadísticas principales de los jugadores participantes en la competición con un mínimo de partidos
+</div>
+<div id="legend" style="display:none;">
+    <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
+    <br><b>Récord</b> -> Victorias-Derrotas cosechadas en una competición
+    <br><b>PP</b> -> Por partido
+</div>
 <h1>@competition.name</h1>
 @for(season<-seasons.filter(_.id.get == competition.idSeason)){ <h3>Temporada @season.year</h3>}
 <div id="standings">

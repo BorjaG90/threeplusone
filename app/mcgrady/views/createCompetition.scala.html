@@ -13,6 +13,15 @@
     <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
 </div>
 }
+<div id="help" style="display:none;">
+    <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
+    <br>En esta pantalla se pueden añadir Competiciones al sistema
+    <br>Se debe especificar Temporada y Tipo de Liga correspondiente p.e. (3x3, Eliminatoria, Liguilla + PlayOffs, etc.)
+</div>
+<div id="legend" style="display:none;">
+    <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
+    <br>No hay leyenda disponible
+</div>
 <form id="competition-data-form" role="form" action=@mcgrady.controllers.routes.CompetitionController.save() method="post" autocomplete="off">
     <h2>Nueva Competición</h2>
     <fieldset>

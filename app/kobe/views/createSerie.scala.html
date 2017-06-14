@@ -13,6 +13,15 @@
     <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
 </div>
 }
+<div id="help" style="display:none;">
+    <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
+    <br>En esta pantalla se pueden añadir Series al sistema.
+    <br>hay que especificar la Sesión a la que pertenece y el Ejercicio que se debe realizar.
+</div>
+<div id="legend" style="display:none;">
+    <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
+    <br>No hay leyenda disponible
+</div>
 <h1>Añadir Serie</h1>
 <form id="serie-data-form" role="form" action=@kobe.controllers.routes.SerieController.save() method="post" autocomplete="off">
     <fieldset >

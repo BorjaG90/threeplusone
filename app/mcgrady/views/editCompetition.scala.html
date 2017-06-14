@@ -1,6 +1,14 @@
 @(id: Long, competitionForm: Form[mcgrady.model.Competition], countries: Seq[mcgrady.model.Country], seasons: Seq[mcgrady.model.Season])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 @import helper._
 @main(Messages("competition.title")){
+<div id="help" style="display:none;">
+    <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
+    <br>En esta pantalla se pueden editar Competiciones presentes en el sistema
+</div>
+<div id="legend" style="display:none;">
+    <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
+    <br>No hay leyenda disponible
+</div>
 <form id="competition-data-form" role="form" action=@mcgrady.controllers.routes.CompetitionController.update(id) method="post" autocomplete="off">
     <h2>Editando Competición</h2>
     <fieldset >

@@ -1,6 +1,21 @@
 @(id: Long, playerStatsForm: Form[mcgrady.model.PlayerStats], games: Seq[mcgrady.model.Game], players: Seq[mcgrady.model.Player],teams: Seq[mcgrady.model.Team],inscriptions: Seq[mcgrady.model.Inscription],idComp:Long, competitions: Seq[mcgrady.model.Competition], seasons: Seq[mcgrady.model.Season], contracts: Seq[mcgrady.model.Contract], sf: java.text.SimpleDateFormat)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 @import helper._
 @main(Messages("playerStats.title")){
+<div id="help" style="display:none;">
+    <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
+    <br>En esta pantalla se pueden editar Líneas estadísticas de Jugadores presentes en el sistema
+    <br><b>ATENCIÓN!</b> Los Tiros de Campo son la suma de los Triples más los Tiros de Dos.
+    <br>En tiros de campo se debe introducir la suma de los tiros de 2 y los tiros de 3 (Anotados o Intentados en cada
+    caso)
+    <br>En las pantallas de visualización el programa realiza el calculo automaticamente para mostrar adecuadamente
+    los datos
+</div>
+<div id="legend" style="display:none;">
+    <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
+    <br><b>TC</b> -> Tiros de Campo
+    <br><b>T3</b> -> Tiros de Tres
+    <br><b>TL</b> -> Tiros Libres
+</div>
 <form id="playerStats-data-form" role="form" action=@mcgrady.controllers.routes.PlayerStatsController.update(id) method="post" autocomplete="off">
     <h2>Editando Estadisticas</h2>
     <fieldset >

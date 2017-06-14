@@ -3,7 +3,14 @@
 @import helper._
 
 @main(Messages("volume.title")){
-
+<div id="help" style="display:none;">
+    <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
+    <br>En esta pantalla se pueden editar Volúmnes registrados en el sistema
+</div>
+<div id="legend" style="display:none;">
+    <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
+    <br>No hay leyenda disponible
+</div>
 <form id="record-data-form" role="form" action=@kobe.controllers.routes.RecordController.updateVolume(id) method="post" autocomplete="off">
     <fieldset>
         <label>Volumen</label>

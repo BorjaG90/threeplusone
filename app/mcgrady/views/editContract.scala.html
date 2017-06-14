@@ -1,6 +1,14 @@
 @(id: Long, contractForm: Form[mcgrady.model.Contract], players: Seq[mcgrady.model.Player], teams: Seq[mcgrady.model.Team])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 @import helper._
 @main(Messages("contract.title")){
+<div id="help" style="display:none;">
+    <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
+    <br>En esta pantalla se pueden editar Contratos registrados en el sistema
+</div>
+<div id="legend" style="display:none;">
+    <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
+    <br>No hay leyenda disponible
+</div>
 <form id="contract-data-form" role="form" action=@mcgrady.controllers.routes.ContractController.update(id) method="post" autocomplete="off">
     <h2>Editando Contratos</h2>
     <fieldset >

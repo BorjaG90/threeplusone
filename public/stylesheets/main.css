@@ -7,34 +7,41 @@ body {
     width: 1024px;
     margin-right: auto;
     margin-left: auto;
+    padding-bottom: 100px;
 }
 /*--Header--*/
 #header {
     display: block;
-    height:140px;
+    height:60px;
     background:#fff;
-    position: absolute;
-    width:80%;
-    margin: -8 0 0 -8;
+    position: relative;
+    width:845px;
+    margin: auto;
+    top:75px;
     padding:15px;
     border-bottom: solid 2px #4155a0;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
 }
-#header dl{
-    width:10%;
+#header div#user{
+    float:right;
+}
+#header div#logo{
+    position: relative;
+    bottom: 120px;
+    right: 30px;
     display: block;
-    position:relative;
-    top: -70px;
-    right: -875px;
-
+    float: left;
 }
 /*--Nav--*/
 .nav{
    position:relative;
-   top:-90px;
-   left:120px;
-   width: 76%;
+   width: 510px;
    font-size:15px;
    color:#fff;
+   float:left;
+   z-index:1;
 }
 .nav p{
     padding:7px;
@@ -66,7 +73,7 @@ body {
     padding:0px;
 
 }
-.nav a {
+.nav li ul li a {
     display:block;
     padding:20px 30px;
     /*line-height:1.2em;*/
@@ -81,7 +88,6 @@ body {
     position:absolute;
     left:0;
     top:60px;
-    z-index:1;
     max-height:0;
     overflow:hidden;
     -webkit-transform:perspective(400) rotate3d(1,0,0,-90deg);
@@ -97,9 +103,13 @@ body {
 }
 /*--Content--*/
 #content {
-    display: block;
-    padding-top:170px;
-}
+    /*display: block;*/
+    position: absolute;
+    margin: auto;
+    margin-top: 70px;
+    margin-bottom: 70px;
+    width: 1024px;
+    }
 /*--Footer--*/
 footer {
     background:#0f2c5b;
@@ -109,7 +119,7 @@ footer {
     /*text-transform:uppercase;*/
     text-align: center;
     font-size:9px; color: #ffffff;
-    margin-top:150px;
+    /*margin-top:150px;*/
         position: fixed;
         bottom :0px;
         left: 0px;
@@ -120,5 +130,39 @@ footer div#ico{
 footer div#contact{
     text-align: left;
 }
+footer div#font{
+    text-align: right;
+}
 footer a:link { color: #afafaf;}
 footer a:visited { color: #dfaddd;}
+
+/*--Help--*/
+div#help{
+    background: #afffff;
+    color: blue;
+    width: 300px;
+    position: absolute;
+    left: 600px;
+    top: 10px;
+    padding: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+/*--Legend--*/
+div#legend{
+    background: orange;
+    color: black;
+    width: 300px;
+    position: absolute;
+    left: 600px;
+    top: 10px;
+    padding: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+div#statistics{
+    z-index:0;
+}

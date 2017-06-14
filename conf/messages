@@ -31,3 +31,6 @@ mark.title = Registros
 # Flash Scope
 flash.success = success
 flash.error = error
+
+# Help
+es.teams = En esta pantalla puedes

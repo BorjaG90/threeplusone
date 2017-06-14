@@ -20,6 +20,14 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
 </div>
 }
+<div id="help" style="display:none;">
+    <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
+    <br>En esta pantalla se pueden listar los Partidos registrados y sus detalles
+</div>
+<div id="legend" style="display:none;">
+    <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
+    <br><b>MVP</b> -> <i>Most Valuable Player</i> Jugador más valioso del partido
+</div>
 <h3>Partidos</h3>
 <div id="actions">
     @helper.form(action=mcgrady.controllers.routes.GameController.list()) {

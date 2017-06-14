@@ -1,6 +1,14 @@
 @(id: Long, playerForm: Form[mcgrady.model.Player])(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 @import helper._
 @main(Messages("player.title")){
+<div id="help" style="display:none;">
+    <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
+    <br>En esta pantalla se pueden editar Jugadores presentes en el sistema
+</div>
+<div id="legend" style="display:none;">
+    <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
+    <br>No hay leyenda disponible
+</div>
 <form id="player-data-form" role="form" action=@mcgrady.controllers.routes.PlayerController.update(id) method="post" autocomplete="off">
     <h2>Editando Jugador</h2>
     <fieldset>

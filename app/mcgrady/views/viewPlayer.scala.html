@@ -2,6 +2,28 @@
 @import java.math.BigInteger; var pGames=0; var a=0; var b=0; var c=0; var d=0; var e=0; var f=0; var g=0; var h=0; var i=0; var k=0; var j=0; var l=0; var m=0; var n=0; var o=0; var p=0; var q=0; var r=0; var s=0;
 @import java.lang.String; var pTeam=""; var pYear=""; var pComp=""
 @main(Messages("player.title")){
+<div id="help" style="display:none;">
+    <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
+    <p>En esta pantalla se puede consultar las estadisticas acumuladas y los promedios del jugador
+        durante su carrera completa y desglosado por año, equipo y competición</p>
+</div>
+<div id="legend" style="display:none;">
+    <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
+    <br><b>Temp</b> -> Temporada<br><b>Comp</b> -> Competición<br><b>Equ</b> -> Equipo
+    <br><b>PPP</b> -> Puntos por Partido<br><b>Pts</b> -> Puntos<br><b>T2C</b> -> Tiros de 2 Conseguidos
+    <br><b>T2I</b> -> Tiros de 2 Intentados<br><b>T2%</b> -> Porcentaje de Tiros de 2
+    <br><b>T3C</b> -> Triples Conseguidos<br><b>T3I</b> -> Triples Intentados
+    <br><b>T3%</b> -> Porcentaje de Triples<br><b>TCC</b> -> Tiros de Campo Conseguidos
+    <br><b>TCI</b> -> Tiros de Campo Intentados<br><b>TC%</b> -> Porcentaje de Tiros de Campo
+    <br><b>TLC</b> -> Tiros Libros Conseguidos<br><b>TLI</b> -> Tiros Libros Intentados
+    <br><b>TL%</b> -> Porcentaje de Tiros Libres<br><b>RebOf</b> ->Rebotes Ofensivos
+    <br><b>RebDef</b> -> Rebotes defensivos<br><b>RebPP</b> -> Rebotes por Partido
+    <br><b>Reb</b> -> Rebotes<br><b>APP</b> -> Asistencias por Partido<br><b>Ass</b> -> Asistencias
+    <br><b>TPP</b> -> Tapones por Partido<br><b>Tap</b> -> Tapones<br><b>RobPP</b> -> Robos por Partido
+    <br><b>Rob</b> -> Robos<br><b>Per</b> -> Pérdidas<br><b>FPP</b>-> Faltas por Partido<br><b>Fal</b> -> Faltas
+    <br><b>Flag</b> -> Faltas Flagrantes<br><b>Tec</b> -> Faltas Técnicas<br><b>MPP</b> -> Minutos por Partido
+    <br><b>Par</b> -> Partidos
+</div>
 <div id="statistics">
     <h1>@player.firstName @player.lastName</h1>
     <h2>Carrera</h2>

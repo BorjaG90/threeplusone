@@ -1,5 +1,24 @@
 @(game:mcgrady.model.Game,pStats:Seq[mcgrady.model.PlayerStats],players:Seq[mcgrady.model.Player],inscriptions:Seq[mcgrady.model.Inscription],contracts:Seq[mcgrady.model.Contract],tStats:Seq[mcgrady.model.TeamStats],teams:Seq[mcgrady.model.Team],sf: java.text.SimpleDateFormat)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 @main(Messages("game.title")){
+<div id="help" style="display:none;">
+    <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
+    <br>En esta pantalla se puede consultar las estadisticas realizadas por los jugadores y los equipos
+        en un partido
+</div>
+<div id="legend" style="display:none;">
+    <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
+    <br><b>Pts</b> -> Puntos<br><b>T2C</b> -> Tiros de 2 Conseguidos
+    <br><b>T2I</b> -> Tiros de 2 Intentados<br><b>T2%</b> -> Porcentaje de Tiros de 2
+    <br><b>T3C</b> -> Triples Conseguidos<br><b>T3I</b> -> Triples Intentados
+    <br><b>T3%</b> -> Porcentaje de Triples<br><b>TCC</b> -> Tiros de Campo Conseguidos
+    <br><b>TCI</b> -> Tiros de Campo Intentados<br><b>TC%</b> -> Porcentaje de Tiros de Campo
+    <br><b>TLC</b> -> Tiros Libros Conseguidos<br><b>TLI</b> -> Tiros Libros Intentados
+    <br><b>TL%</b> -> Porcentaje de Tiros Libres<br><b>RebOf</b> ->Rebotes Ofensivos
+    <br><b>RebDef</b> -> Rebotes defensivos<br><b>Reb</b> -> Rebotes<br><b>Ass</b> -> Asistencias
+    <br><b>Tap</b> -> Tapones<br><b>Rob</b> -> Robos<br><b>Per</b> -> Pérdidas<br><b>Fal</b> -> Faltas
+    <br><b>Flag</b> -> Faltas Flagrantes<br><b>Tec</b> -> Faltas Técnicas<br><b>Min</b> -> Minutos
+    <br><b>Par</b> -> Partidos
+</div>
 <div id="scoreboard">
     <h2>Marcador</h2>
     <p style="text-align:center">

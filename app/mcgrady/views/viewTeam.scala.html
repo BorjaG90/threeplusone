@@ -1,7 +1,19 @@
 @(team: mcgrady.model.Team, players: Seq[mcgrady.model.Player], contracts:Seq[mcgrady.model.Contract], seasons:Seq[mcgrady.model.Season],competitions:Seq[mcgrady.model.Competition],tStats:Seq[mcgrady.model.TeamStats],inscriptions:Seq[mcgrady.model.Inscription],games:Seq[mcgrady.model.Game], sf: java.text.SimpleDateFormat)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 @import java.math.BigInteger; var tWins=0; var tLoses=0; var tGames=0; var pPts=0; var pReb=0; var pAss=0; var pBlk=0; var pSte=0;
 @main(Messages("team.title")){
+<div id="help" style="display:none;">
+    <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
+    <p>En esta pantalla se puede consultar la plantilla actual del equipo elegido y las medias
+        en las cinco estadisticas principales realizadas en cada competición y en cada temporada
+        en la que se participó</p>
+</div>
+<div id="legend" style="display:none;">
+    <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
+    <p><b>Récord</b> -> Victorias-Derrotas cosechadas en una competición</p>
+    <p><b>PP</b> -> Por partido</p>
+</div>
 <h1>@team.name - @team.abrv</h1>
+
 <div id="roster">
     <h2>Plantilla</h2>
     <table id="table-roster" class="table table-striped">

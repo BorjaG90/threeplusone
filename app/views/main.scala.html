@@ -17,13 +17,11 @@
     </head>
     <body>
         <div id="header">
-			<a href="@routes.Application.index"><h1>ThreePlusOne System.</h1></a>
-			<dl id="user">
-                <dd>
-                    <a href="@routes.Authentication.logout()">
-                    <img src=@routes.Assets.versioned("images/potencia64.png") alt="Cerrar Sesión"></a>
-                </dd>
-            </dl>
+            <div id="logo">
+                <a href="@routes.Application.index">
+                <img src=@routes.Assets.versioned("images/logo2.png") alt="ThreePlusOne"></a>
+                </a>
+            </div>
             <nav class="nav">
                 <ul>
                     <li><p>Entrenamientos</p>
@@ -44,10 +42,7 @@
                             <li><a href="@mcgrady.controllers.routes.TeamStatsController.index">Estad. Equipos</a></li>
                         </ul>
                     </li>
-                    <li><p></p></li><li><p></p></li><li><p></p></li><li><p></p></li><li><p></p></li><li><p></p></li>
-                    <li><p></p></li><li><p></p></li><li><p></p></li><li><p></p></li><li><p></p></li><li><p></p></li>
-                    <li><p></p></li><li><p></p></li><li><p></p></li><li><p></p></li><li><p></p></li><li><p></p></li>
-                    <li><p></p></li><li><p></p></li><li><p></p></li>
+                    <li><p></p></li><li><p></p></li><li><p>
                     <li><p><img src=@routes.Assets.versioned("images/servidor32A.png") alt="Entrenamientos"></p>
                         <ul>
                             <li><a href="@kobe.controllers.routes.UnitController.index">Unidades</a></li>
@@ -67,8 +62,18 @@
                             <li><a href="@mcgrady.controllers.routes.InscriptionController.index">Inscripciones</a></li>
                         </ul>
                     </li>
+                    <li><p><a href='#' onClick="openHelp()">
+                    <img src=@routes.Assets.versioned("images/informacion.png") alt="Ayuda">
+                    </a></p></li>
+                    <li><p><a href='#' onClick="openLegend()">
+                    <img src=@routes.Assets.versioned("images/leyenda.png") alt="Leyenda">
+                    </a></p></li>
                 </ul>
             </nav>
+            <div id="user">
+                <a href="@routes.Authentication.logout()">
+                    <img src=@routes.Assets.versioned("images/potencia64.png") alt="Cerrar Sesión"></a>
+            </div>
         </div>
         <div id="content">
 		@content
@@ -76,7 +81,8 @@
 		<footer>
 		    <div id="contact"><a href="https://github.com/BorjaG90/threeplusone">
 		    <img src=@routes.Assets.versioned("images/participacion32.png") alt="RRSS"></a></div>
-		    <div id="ico">Iconos diseñados por<a href="http://www.flaticon.es/autores/madebyoliver" title="Madebyoliver">Madebyoliver</a>desde<a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>con licencia<a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+		    <div id="ico">Iconos diseñados por<a href="http://www.flaticon.es/autores/madebyoliver" title="Madebyoliver" target="_blank">Madebyoliver</a>desde<a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>con licencia<a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+		    <div id="font">Fuentes obtenidas de <a href="http://www.dafont.com/es/sports-jersey.font" target="_blank">DaFont</a></div>
 		</footer>
     </body>
 </html>

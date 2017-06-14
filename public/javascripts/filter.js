@@ -209,3 +209,18 @@ function openForm2(evt, formul) {
     document.getElementById(formul).style.display = "block";
     evt.currentTarget.className += " active";
 }
+
+function openHelp(){
+    document.getElementById("help").style.display = "inline";
+    document.getElementById("legend").style.display = "none";
+}
+function closeHelp(){
+    document.getElementById("help").style.display = "none";
+}
+function openLegend(){
+    document.getElementById("legend").style.display = "inline";
+    document.getElementById("help").style.display = "none";
+}
+function closeLegend(){
+    document.getElementById("legend").style.display = "none";
+}

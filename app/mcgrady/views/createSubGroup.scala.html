@@ -11,6 +11,14 @@
     <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
 </div>
 }
+<div id="help" style="display:none;">
+    <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
+    <br>En esta pantalla se pueden añadir SubGrupos al sistema
+</div>
+<div id="legend" style="display:none;">
+    <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
+    <br>No hay leyenda disponible
+</div>
 <form id="subGroup-data-form" role="form" action=@mcgrady.controllers.routes.SubGroupController.save() method="post" autocomplete="off">
     <h2>Nuevo SubGrupo</h2>
     <fieldset >
