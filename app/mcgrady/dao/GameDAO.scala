@@ -3,7 +3,7 @@ package mcgrady.dao
 import scala.concurrent.Future
 import com.google.inject.ImplementedBy
 import util.Page
-import mcgrady.model.{Game, Inscription, Player, Arena}
+import mcgrady.model._
 import impl.GameDAOImpl
 
 /**

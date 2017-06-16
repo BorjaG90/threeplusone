@@ -47,8 +47,8 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <tr>
         <td>@group.name</td>
         <td>
-            <a href="@mcgrady.controllers.routes.SeasonController.edit(competition.id.get)">@season.year</a>
-            - <a href="@mcgrady.controllers.routes.CompetitionController.edit(competition.id.get)">@competition.abrv</a>
+            @season.year -
+            <a href="@mcgrady.controllers.routes.CompetitionController.view(competition.id.get)">@competition.abrv</a>
         </td>
         <td>@group.notes</td>
         <td>

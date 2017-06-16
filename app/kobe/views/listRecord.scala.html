@@ -40,8 +40,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <tr>
         @for(plan <- plans){
         @for(session <- sessions.filter(_.idPlan == plan.id.get).filter(_.id.get == serie.idSession)){
-        <td>@plan.name>@session.name-
-            <a href="@kobe.controllers.routes.SerieController.edit(serie.id.get)">@serie.id</a></td>
+        <td>@plan.name>@session.name-@serie.id</td>
         }}
         <td>@exercise.name</td>
         <td>@if(record.typeR == "V"){- <b>@record.value @unit.name</b> -}else{@record.value @unit.name}</td>

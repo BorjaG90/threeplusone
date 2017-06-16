@@ -52,17 +52,17 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <td>
             @if(exercise.idTypeExercise != None){
             @for(texe <- types.filter(_.id.get == exercise.idTypeExercise.get)){
-            <a href="@kobe.controllers.routes.TypeExerciseController.edit(texe.id.get)">@texe.name</a>}}
+            @texe.name}}
         </td>
         <td>
             @if(exercise.idCategory != None){
             @for(category <- categories.filter(_.id.get == exercise.idCategory.get)){
-            <a href="@kobe.controllers.routes.CategoryController.edit(category.id.get)">@category.name</a>}}
+            @category.name}}
         </td>
         <td>
             @if(exercise.idEnviroment != None){
             @for(enviroment <- enviroments.filter(_.id.get == exercise.idEnviroment.get)){
-            <a href="@kobe.controllers.routes.EnviromentController.edit(enviroment.id.get)">@enviroment.name</a>}}
+            @enviroment.name}}
         </td>
         <td>@exercise.notes</td>
         <td><a href="@kobe.controllers.routes.ExerciseController.edit(exercise.id.get)">

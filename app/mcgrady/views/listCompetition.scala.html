@@ -59,7 +59,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     </tr>
     @for((competition,season) <- currentPage.items){
     <tr>
-        <td><a class="td_7" href="@mcgrady.controllers.routes.SeasonController.edit(season.id.get)">@season.year</a></td>
+        <td>@season.year</td>
         <td>@competition.name</td>
         <td>@competition.abrv</td>
         <td>@competition.division</td>

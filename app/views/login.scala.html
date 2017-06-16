@@ -13,13 +13,13 @@
     <script src="@routes.Assets.versioned("javascripts/validate.js")" type="text/javascript"></script>
 </head>
 <body align="center">
-<img src=@routes.Assets.versioned("images/logo2_270.png") alt="ThreePlusOne"></a>
+
 <div id="help" style="display:none;">
     <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
     <br>Introduce <br><br>E-Mail: <em>prueba@@tpo.es</em><br>Contraseña: <em>prueba</em>
     <br><br>para entrar al sistema
 </div>
-<a href='#' onClick="openHelp()"><img src=@routes.Assets.versioned("images/informacion.png") alt="Ayuda"></a>
+
 @helper.form(routes.Authentication.authenticate) {
 
 <h3>Ingresar</h3>
@@ -31,10 +31,18 @@
 @flash.get("success").map { message =>
 <p class="success"> @message </p>
 }
+<div id="login-form">
+<div id="login-thumbnail"><img src=@routes.Assets.versioned("images/logo2_400.png") alt="ThreePlusOne"></div>
 
-<p> <input type="email" name="email" placeholder="Email" id="email" value="@form("email").value"> </p>
-<p> <input type="password" name="password" id="password" placeholder="Contraseña"> </p>
-<p> <button type="submit" id="loginbutton">Login</button> </p>
+  <form class="login-form">
+    <input type="email" name="email" placeholder="Email" id="email" value="@form("email").value">
+    <input type="password" name="password" id="password" placeholder="Contraseña">
+    <button type="submit" id="loginbutton">Log In</button>
+  </form>
+</div>
+<a href='#' onClick="openHelp()">
+    <img src=@routes.Assets.versioned("images/informacion.png") alt="Ayuda">
+</a>
 
 }
 

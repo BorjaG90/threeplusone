@@ -67,8 +67,8 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     </tr>
     @for((teamStats,game,inscription,team,home,away) <- currentPage.items){
     <tr>
-        <td><a href="@mcgrady.controllers.routes.GameController.edit(game.id.get,1)">@sf.format(game.dateGame) <br> @home vs @away</a></td>
-        <td><a href="@mcgrady.controllers.routes.InscriptionController.edit(inscription.id.get)">@team</a></td>
+        <td><a href="@mcgrady.controllers.routes.GameController.view(game.id.get)">@sf.format(game.dateGame) <br> @home vs @away</a></td>
+        <td><a href="@mcgrady.controllers.routes.TeamController.view(inscription.idTeam)">@team</a></td>
         <td>@teamStats.points</td>
         <td>@teamStats.offReb</td>
         <td>@teamStats.defReb</td>

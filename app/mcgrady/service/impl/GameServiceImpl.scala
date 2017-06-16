@@ -5,7 +5,7 @@ import javax.inject.Inject
 import com.google.inject.Singleton
 import util.Page
 import mcgrady.dao.GameDAO
-import mcgrady.model.{Game, Inscription, Player, Arena}
+import mcgrady.model._
 import mcgrady.service.GameService
 
 /**

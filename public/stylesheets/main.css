@@ -148,6 +148,7 @@ div#help{
     -moz-border-radius: 5px;
     border-radius: 5px;
     -webkit-border-radius: 5px;
+    z-index: 5;
 }
 
 /*--Legend--*/
@@ -162,7 +163,62 @@ div#legend{
     -moz-border-radius: 5px;
     border-radius: 5px;
     -webkit-border-radius: 5px;
+    z-index: 5;
 }
 div#statistics{
     z-index:0;
+}
+
+/* Login */
+#login-form {
+  position: relative;
+  /*z-index: 1;*/
+  background: #FFFFFF;
+  max-width: 300px;
+  margin: 0 auto 25px;
+  padding: 30px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  text-align: center;
+}
+
+#login-thumbnail img {
+  /*display: block;*/
+  width: 70%;
+  height: 70%;
+  box-sizing: border-box;
+}
+#login-form input {
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+#login-form button {
+  /*outline: 0;*/
+  background: #144ca8;
+  width: 100%;
+  border: 0;
+  /*padding: 15px;*/
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  color: #FFFFFF;
+  font-size: 14px;
+  cursor: pointer;
+  }
+#login-form button:hover {
+  background: #5877b5 ;
+  transition: all 0.3s ease 0s;
 }

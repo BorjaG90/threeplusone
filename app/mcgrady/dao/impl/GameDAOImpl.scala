@@ -6,7 +6,7 @@ import play.api.db.slick.DatabaseConfigProvider
 import slick.driver.JdbcProfile
 import javax.inject.Inject
 import util.Page
-import mcgrady.model.{Game, GameTable, Inscription, InscriptionTable, Player, PlayerTable, Arena, ArenaTable, Team}
+import mcgrady.model._
 import mcgrady.dao.GameDAO
 
 /**
