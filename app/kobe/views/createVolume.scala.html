@@ -34,13 +34,13 @@
 <table>
     <tr>
         <th>Valor</th>
-        <th>Notas</th>
+        <th class="tdnotes">Notas</th>
         <th></th>
     </tr>
     @for(volume <- records.filter(_.idSerie == serie.id.get).filter(_.typeR == "V")){
     <tr>
         <td>@volume.value @for(unit <- units.filter(_.id.get == volume.idUnit)){ @unit.name</td> }
-        <td>@volume.notes</td>
+        <td class="tdnotes">@volume.notes</td>
         <td><a href="@kobe.controllers.routes.RecordController.editVolume(volume.id.get)">
             <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>
         </td>
@@ -59,7 +59,7 @@
             </tr>
             <tr>
                 <td>
-                    <input type="text" id="value" name="value" value="" placeholder="Valor"  onchange="validateNumber('value','btn-submit')">
+                    <input type="text" id="value" name="value" value="" placeholder="Valor" onchange="validateNumber('value','btn-submit')">
                 </td>
                 <td>
                     <select id="id_unit" name="id_unit">
@@ -67,7 +67,7 @@
                     </select>
                 </td>
                 <td>
-                    <input type="text" id="notes" name="notes" value="" placeholder="Notas">
+                    <textarea id="notes" name="notes" placeholder="Notas"></textarea>
                 </td>
                 <td>
                     <input type="hidden" id="id_serie" name="id_serie" value="@serie.id">
@@ -89,4 +89,6 @@
 }
 }
 
+<div id="navigation-back"> <a href="@request.headers.get("referer")">
+    <img src=@routes.Assets.versioned("images/volver24.png") alt="Volver"></a></div>
 }

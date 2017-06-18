@@ -109,7 +109,7 @@
                 </td>
                 <td colspan="2" align="center">
                     @defining(gameForm("description").value){ descriptionValue=>
-                    <input type="text" id="description" name="description" value="@descriptionValue">
+                    <textarea id="description" name="description">@descriptionValue</textarea>
                     }
                 </td>
             </tr>
@@ -117,7 +117,7 @@
         <br/>
         <div>
             <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Guardar Partido</button> o
-            <a href=@mcgrady.controllers.routes.GameController.list() class="btn">Cancelar</a>
+            <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>
 </form>
@@ -125,5 +125,4 @@
 @form(mcgrady.controllers.routes.GameController.delete(Some(id)), 'class -> "topRight") {
 <input type="submit" value="Eliminar Partido" class="btn danger">
 }
-
 }

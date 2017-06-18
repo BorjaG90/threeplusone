@@ -41,17 +41,17 @@
                     <input type="date" id="date" name="date" step="1" min="2000-01-01" max="2050-12-31" value="2017-06-30" onchange="validateDate('date','btn-submit')">
                 </td>
                 <td align="center">
-                    <input type="text" id="description" name="description" value="" placeholder="Descripción">
+                    <textarea  id="description" name="description" placeholder="Descripción"></textarea>
                 </td>
                 <td align="center">
-                    <input type="text" id="notes" name="notes" value="" placeholder="Notas">
+                    <textarea  id="notes" name="notes" placeholder="Notas"></textarea>
                 </td>
             </tr>
         </table>
         <br/>
         <div class="form-actions controls ynt-btn-xlarge">
             <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
-            <a href=@kobe.controllers.routes.PlanController.list() class="btn">Cancelar</a>
+            <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>
 </form>

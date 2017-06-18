@@ -39,13 +39,13 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
 <table class="table table-striped">
     <tr>
         <th>Año</th>
-        <th>Descripción</th>
+        <th class="tdnotes">Descripción</th>
         <th></th>
     </tr>
     @for(season <- currentPage.items){
     <tr>
         <td>@season.year</td>
-        <td>@season.description</td>
+        <td class="tdnotes">@season.description</td>
         <td>
             <a href="@mcgrady.controllers.routes.SeasonController.edit(season.id.get)">
                 <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>
@@ -67,4 +67,6 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <a href="@link(page)"><button>Siguiente<i class="arrow_right"></i></button></a>
     }.getOrElse {|}
 </div>
+<div id="navigation-back"> <a href="@request.headers.get("referer")">
+    <img src=@routes.Assets.versioned("images/volver24.png") alt="Volver"></a></div>
 }

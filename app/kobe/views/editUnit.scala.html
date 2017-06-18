@@ -11,9 +11,9 @@
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
     <br>No hay leyenda disponible
 </div>
+<h3>Editar Unidad</h3>
 <form id="unit-data-form" role="form" action=@kobe.controllers.routes.UnitController.update(id) method="post" autocomplete="off">
     <fieldset>
-        <label>Unidads</label>
         <br/>
         <table align="center">
             <tr>
@@ -29,7 +29,7 @@
                 </td>
                 <td align="center">
                     @defining(unitForm("description").value){ descriptionValue=>
-                    <input type="text" id="description" name="description" value="@descriptionValue">
+                    <textarea  id="description" name="description" >@descriptionValue</textarea>
                     }
                 </td>
                 <td>
@@ -49,7 +49,7 @@
         <div>
             <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Unidad</button>
             o
-            <a href=@kobe.controllers.routes.UnitController.list() class="btn">Cancelar</a>
+            <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>
 </form>
@@ -57,5 +57,4 @@
 @form(kobe.controllers.routes.UnitController.delete(Some(id)), 'class -> "topRight") {
 <input type="submit" value="Eliminar Unidad" class="btn danger">
 }
-
 }

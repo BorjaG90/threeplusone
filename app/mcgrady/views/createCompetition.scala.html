@@ -63,7 +63,7 @@
                     </select>
                 </td>
                 <td align="center">
-                    <input type="text" id="description" name="description" value="" placeholder="Descripción">
+                    <textarea id="description" name="description" value="" placeholder="Descripción"></textarea>
                 </td>
             </tr>
             <tr>
@@ -86,7 +86,7 @@
         <br/>
         <div class="form-actions controls ynt-btn-xlarge">
             <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
-            <a href=@mcgrady.controllers.routes.CompetitionController.list() class="btn">Cancelar</a>
+            <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>
 </form>

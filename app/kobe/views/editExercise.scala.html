@@ -9,9 +9,9 @@
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
     <br>No hay leyenda disponible
 </div>
+<h3>Editar Ejercicio</h3>
 <form id="exercise-data-form" role="form" action=@kobe.controllers.routes.ExerciseController.update(id) method="post" autocomplete="off">
     <fieldset >
-        <label>Ejercicios</label>
         <br/>
         <table align="center">
             <tr>
@@ -68,7 +68,7 @@
                 </td>
                 <td align="center">
                     @defining(exerciseForm("notes").value){ notesValue=>
-                    <input type="text" id="notes" name="notes"  value="@notesValue">
+                    <textarea  id="notes" name="notes">@notesValue</textarea>
                     }
                 </td>
             </tr>
@@ -76,7 +76,7 @@
         <br/>
         <div>
             <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Ejercicio</button> o
-            <a href=@kobe.controllers.routes.ExerciseController.list() class="btn">Cancelar</a>
+            <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>
 </form>

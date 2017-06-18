@@ -47,7 +47,7 @@
         <div>
             <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar SubGrupo</button>
             o
-            <a href=@mcgrady.controllers.routes.SubGroupController.list() class="btn">Cancelar</a>
+            <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>
 </form>
@@ -55,5 +55,4 @@
 @form(mcgrady.controllers.routes.SubGroupController.delete(Some(id)), 'class -> "topRight") {
 <input type="submit" value="Eliminar SubGrupo" class="btn danger">
 }
-
 }

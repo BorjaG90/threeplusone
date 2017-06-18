@@ -53,7 +53,7 @@
         <br/>
         <div>
             <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Estadio</button> o
-            <a href=@mcgrady.controllers.routes.ArenaController.list() class="btn">Cancelar</a>
+            <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>
 </form>

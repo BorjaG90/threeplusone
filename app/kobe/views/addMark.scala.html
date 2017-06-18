@@ -33,8 +33,9 @@
     <table>
         <tr>
             <th>Valor</th>
-            <th>Ejecución</th>
-            <th>Notas</th>
+            <th>Ejecución <div class="tooltip"><span class="tooltiptext">Fecha en la que se ha relizado la serie</span>
+                <img src=@routes.Assets.versioned("images/info.png") alt="Info"></div></th>
+            <th class="tdnotes">Notas</th>
             <th></th>
         </tr>
         @for(mark <- records){ @if(mark.idSerie == serie.id.get && mark.typeR.toString == "M"){
@@ -42,7 +43,7 @@
             <td>@mark.value @for(unit <- units){ @if(unit.id.get == mark.idUnit){ @unit.name</td> }}
             <td>@if(mark.exeDate.get != None){ @sf.format(mark.exeDate.get) } </td>
             <td>@mark.notes</td>
-            <td><a href="@kobe.controllers.routes.RecordController.editMark(mark.id.get)">
+            <td class="tdnotes"><a href="@kobe.controllers.routes.RecordController.editMark(mark.id.get)">
                 <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>
             </td>
         </tr>
@@ -52,7 +53,8 @@
         <br>
         <button class="tablinks" onclick="openFormSC(event, 'general-@serie.id.get')">General</button>
         <button class="tablinks" onclick="openFormSC(event, 'shot-chart-@serie.id.get', @serie.id)">Lanzamientos</button>
-
+        <div class="tooltip"><span class="tooltiptext">Elige entre los diferentes Formularios de inserción</span>
+            <img src=@routes.Assets.versioned("images/info.png") alt="Info"></div>
     </div>
     <div id="general-@serie.id.get" class="tabcontent">
         <br>
@@ -65,7 +67,7 @@
                         <th>Valor</th>
                         <th>Unidad</th>
                         <th>Ejecución</th>
-                        <th>Notas</th>
+                        <th class="tdnotes">Notas</th>
                     </tr>
                     <tr>
                         <td><input type="text" id="value" name="value" value="" placeholder="Valor" onchange="validateNumber('value','btn-submit')"></td>
@@ -77,7 +79,7 @@
                         <td align="center">
                             <input type="date" id="execution_date" name="execution_date" value="2017-06-30" onchange="validateDate('execution_date','btn-submit')">
                         </td>
-                        <td><input type="text" id="notes" name="notes" value="" placeholder="Notas"></td>
+                        <td class="tdnotes"><textarea id="notes" name="notes" placeholder="Notas"></textarea></td>
                         <td>
                             <input type="hidden" id="id_serie" name="id_serie" value="@serie.id">
                             <input type="hidden" id="type" name="type" value="M">
@@ -223,4 +225,7 @@
         </form>
     </div>
 }}}}
-</div>}
+</div>
+<div id="navigation-back"> <a href="@request.headers.get("referer")">
+    <img src=@routes.Assets.versioned("images/volver24.png") alt="Volver"></a></div>
+}

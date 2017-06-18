@@ -75,7 +75,7 @@
         <br/>
         <div>
             <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Guardar Contrato</button> o
-            <a href=@mcgrady.controllers.routes.ContractController.list() class="btn">Cancelar</a>
+            <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>
 </form>

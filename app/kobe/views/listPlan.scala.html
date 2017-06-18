@@ -40,8 +40,8 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <tr>
         <th>Nombre</th>
         <th>Fecha</th>
-        <th>Descripción</th>
-        <th>Tipo</th>
+        <th class="tdnotes">Descripción</th>
+        <th class="tdnotes">Notas</th>
         <th></th>
     </tr>
     @for(plan <- currentPage.items){
@@ -50,8 +50,8 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         @if(plan.date != None){
         <td>@sf.format(plan.date.get)</td>
         }else{<td></td>}
-        <td>@plan.description</td>
-        <td>@plan.notes</td>
+        <td class="tdnotes">@plan.description</td>
+        <td class="tdnotes">@plan.notes</td>
         <td>
             <a href="@kobe.controllers.routes.PlanController.edit(plan.id.get)">
                 <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>
@@ -71,4 +71,6 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <a href="@link(page)"><button>Siguiente<i class="arrow_right"></i></button></a>
     }.getOrElse {|}
 </div>
+<div id="navigation-back"> <a href="@request.headers.get("referer")">
+    <img src=@routes.Assets.versioned("images/volver24.png") alt="Volver"></a></div>
 }

@@ -37,17 +37,17 @@
                     <input type="text" id="name" name="name" value="" placeholder="Nombre" required>
                 </td>
                 <td align="center">
-                    <input type="text" id="description" name="description" value="" placeholder="Descripción">
+                    <textarea id="description" name="description" placeholder="Descripción"></textarea>
                 </td>
                 <td align="center">
-                    <input type="text" id="notes" name="notes" value="" placeholder="Notas">
+                    <textarea  id="notes" name="notes" placeholder="Notas"></textarea>
                 </td>
             </tr>
         </table>
         <br/>
         <div class="form-actions controls ynt-btn-xlarge">
             <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
-            <a href=@kobe.controllers.routes.TypeExerciseController.list() class="btn">Cancelar</a>
+            <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>
 </form>

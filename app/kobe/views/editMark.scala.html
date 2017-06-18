@@ -9,9 +9,9 @@
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
     <br>No hay leyenda disponible
 </div>
+<h3>Editar Marca</h3>
 <form id="record-data-form" role="form" action=@kobe.controllers.routes.RecordController.updateMark(id) method="post" autocomplete="off">
     <fieldset>
-        <label>Marca</label>
         <br/>
         <table align="center">
             <tr>
@@ -57,7 +57,7 @@
                 </td>
                 <td align="center">
                     @defining(recordForm("notes").value){ notesValue=>
-                    <input type="text" id="notes" name="notes" value="@notesValue">
+                    <textarea  id="notes" name="notes">@notesValue</textarea>
                     }
                 </td>
 
@@ -65,9 +65,8 @@
         </table>
         <br/>
         <div>
-            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Guardar Marca</button>
-            o
-            <a href=@kobe.controllers.routes.RecordController.list() class="btn">Cancelar</a>
+            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Guardar Marca</button> o
+            <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>
 </form>
@@ -75,5 +74,4 @@
 @form(kobe.controllers.routes.RecordController.delete(Some(id)), 'class -> "topRight") {
 <input type="submit" value="Eliminar Marca" class="btn danger">
 }
-
 }

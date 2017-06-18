@@ -33,7 +33,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <th>Serie</th>
         <th>Ejercicio</th>
         <th>Volumen</th>
-        <th>Notas</th>
+        <th class="tdnotes">Notas</th>
         <th></th><th></th>
     </tr>
     @for((record,serie,unit,exercise) <- currentPage.items){
@@ -44,7 +44,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         }}
         <td>@exercise.name</td>
         <td>@if(record.typeR == "V"){- <b>@record.value @unit.name</b> -}else{@record.value @unit.name}</td>
-        <td>@record.notes</td>
+        <td class="tdnotes">@record.notes</td>
         <td>@if(record.typeR == "V"){
         <a href="@kobe.controllers.routes.RecordController.editVolume(record.id.get)">
                 <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>  }</td>
@@ -61,4 +61,6 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     @currentPage.next.map { page =>
     <a href="@link(page)"><button>Siguiente<i class="arrow_right"></i></button></a> }.getOrElse {|}
 </div>
+<div id="navigation-back"> <a href="@request.headers.get("referer")">
+    <img src=@routes.Assets.versioned("images/volver24.png") alt="Volver"></a></div>
 }

@@ -1,4 +1,4 @@
-@(team: mcgrady.model.Team, players: Seq[mcgrady.model.Player], contracts:Seq[mcgrady.model.Contract], seasons:Seq[mcgrady.model.Season],competitions:Seq[mcgrady.model.Competition],tStats:Seq[mcgrady.model.TeamStats],inscriptions:Seq[mcgrady.model.Inscription],games:Seq[mcgrady.model.Game], sf: java.text.SimpleDateFormat)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
+@(team: mcgrady.model.Team, players: Seq[mcgrady.model.Player], contracts:Seq[mcgrady.model.Contract], seasons:Seq[mcgrady.model.Season],competitions:Seq[mcgrady.model.Competition],tStats:Seq[mcgrady.model.TeamStats],inscriptions:Seq[mcgrady.model.Inscription],games:Seq[mcgrady.model.Game], sf: java.text.SimpleDateFormat, today: java.util.Date)(implicit flash: play.api.mvc.Flash,request: RequestHeader,messages : Messages)
 @import java.math.BigInteger; var tWins=0; var tLoses=0; var tGames=0; var pPts=0; var pReb=0; var pAss=0; var pBlk=0; var pSte=0;
 @main(Messages("team.title")){
 <div id="help" style="display:none;">
@@ -15,7 +15,9 @@
 <h1>@team.name - @team.abrv</h1>
 
 <div id="roster">
-    <h2>Plantilla</h2>
+    <h2>Plantilla</h2><div class="tooltip" style="top: -40px;left: 105px;"><span class="tooltiptext">Jugadores con
+    contrato en vigor con el equipo</span>
+    <img src=@routes.Assets.versioned("images/info.png") alt="Info"></div>
     <table id="table-roster" class="table table-striped">
         <tr>
             <th>Número</th>
@@ -23,11 +25,11 @@
             <th>Contrato</th>
             <th></th>
         </tr>
-        @for(contract<-contracts.filter(_.idTeam == team.id.get)){
+        @for(contract<-contracts.filter(_.idTeam == team.id.get).filter(_.endDate.get.after(today))
+        .filter(_.initDate.get.before(today))){
         @for(player<-players.filter(_.id.get == contract.idPlayer)){
         <tr>
-            <td>@contract.number</td>
-            <td>@player.firstName @player.lastName</td>
+            <td>@contract.number</td> <td>@player.firstName @player.lastName</td>
             <td>@if(contract.initDate != None){@sf.format(contract.initDate.get)} -
             @if(contract.endDate != None){@sf.format(contract.endDate.get)}</td>
             <td><a href="@mcgrady.controllers.routes.PlayerController.view(player.id.get)">
@@ -37,7 +39,9 @@
     </table>
 </div>
 <div id="standings">
-    <h3>Temporadas</h3>
+    <h3>Temporadas</h3><div class="tooltip" style="top: -40px;left: 120px;"><span class="tooltiptext">Se puede seleccionar
+    de que competición y temporada ver las estadisticas que ha registrado el equipo</span>
+    <img src=@routes.Assets.versioned("images/info.png") alt="Info"></div>
     <div class="tab">
         @for(season<-seasons.sortBy(x=> x.year)){
         <button class="tablinks" onclick="openForm(event, 'div-season-@season.year')">@season.year</button>
@@ -98,4 +102,6 @@
     }}
 </div>
 
+<div id="navigation-back"> <a href="@request.headers.get("referer")">
+    <img src=@routes.Assets.versioned("images/volver24.png") alt="Volver"></a></div>
 }

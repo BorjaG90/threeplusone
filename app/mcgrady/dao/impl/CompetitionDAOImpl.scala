@@ -58,7 +58,7 @@ class CompetitionDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfi
       (for {
         competition <- competitions if competition.name.toLowerCase like filter.toLowerCase
         season <- competition.competition_season_fk if season.year.toLowerCase like sFilter.toLowerCase
-      } yield (competition,season)).drop(offset).take(pageSize)
+      } yield (competition,season)).sortBy(x=> (x._2.year > x._2.year)).drop(offset).take(pageSize)
     val totalRows = count(filter)
     val result = db.run(query.result)
 

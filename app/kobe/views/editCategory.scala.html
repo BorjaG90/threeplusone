@@ -29,12 +29,12 @@
                 </td>
                 <td align="center">
                     @defining(categoryForm("description").value){ descriptionValue=>
-                    <input type="text" id="description" name="description" value="@descriptionValue">
+                    <textarea  id="description" name="description">@descriptionValue</textarea>
                     }
                 </td>
                 <td align="center">
                     @defining(categoryForm("notes").value){ notesValue=>
-                    <input type="text" id="notes" name="notes" value="@notesValue">
+                    <textarea  id="notes" name="notes">@notesValue</textarea>
                     }
                 </td>
             </tr>
@@ -43,7 +43,7 @@
         <div>
             <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Categoría</button>
             o
-            <a href=@kobe.controllers.routes.CategoryController.list() class="btn">Cancelar</a>
+            <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>
 </form>

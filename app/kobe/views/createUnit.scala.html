@@ -37,7 +37,7 @@
                     <input type="text" id="name" name="name" value="" placeholder="Nombre" required>
                 </td>
                 <td align="center">
-                    <input type="text" id="description" name="description" value="" placeholder="Descripción">
+                    <textarea  id="description" name="description" placeholder="Descripción"></textarea>
                 </td>
                 <td>
                     <input type="radio" id="type1" name="type" value="D" checked>Decimal<br>
@@ -48,7 +48,7 @@
         <br/>
         <div class="form-actions controls ynt-btn-xlarge">
             <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
-            <a href=@kobe.controllers.routes.UnitController.list() class="btn">Cancelar</a>
+            <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>
 </form>

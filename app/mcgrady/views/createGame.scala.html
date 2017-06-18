@@ -21,6 +21,7 @@
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
     <br>No hay leyenda disponible
 </div>
+<h2>Nuevo Partido</h2>
 <div id="actions">
     @helper.form(action=mcgrady.controllers.routes.GameController.add(id)) {
     Competición:<select id="competition" name="id">
@@ -35,9 +36,8 @@
     }
 </div>
 <form id="game-data-form" role="form" action=@mcgrady.controllers.routes.GameController.save() method="post" autocomplete="off">
-    <h2>Nuevo Partido</h2>
     <fieldset >
-        <br/>
+        <br>
         <table align="center">
             <tr>
                 <th>Fecha</th>
@@ -87,14 +87,14 @@
                     </select>
                 </td>
                 <td colspan="2" align="center">
-                    <input type="text" id="description" name="description" value="" placeholder="Descripción" >
+                    <textarea id="description" name="description" value="" placeholder="Descripción" ></textarea>
                 </td>
             </tr>
         </table>
         <br/>
         <div class="form-actions controls ynt-btn-xlarge">
             <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
-            <a href=@mcgrady.controllers.routes.GameController.list() class="btn">Cancelar</a>
+            <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>
 </form>

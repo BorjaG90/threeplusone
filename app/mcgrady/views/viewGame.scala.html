@@ -79,8 +79,7 @@
         @for(inscription<-inscriptions.filter(_.id.get == game.idHome)){
         @for(contract<-contracts.filter(_.idPlayer == player.id.get).filter(_.idTeam == inscription.id.get)){
         <tr>
-            <td><a href="@mcgrady.controllers.routes.PlayerController.edit(player.id.get)">
-                @player.firstName @player.lastName</a></td>
+            <td>@player.firstName @player.lastName</td>
             <td>@pStat.points</td>
             <td>@{"%.0f".format(pStat.fgm.get.toFloat-pStat.t3m.get.toFloat).replace(',','.')}</td>
             <td>@{"%.0f".format(pStat.fga.get.toFloat-pStat.t3a.get.toFloat).replace(',','.')}</td>
@@ -143,8 +142,7 @@
         @for(inscription<-inscriptions.filter(_.id.get == game.idHome).filter(_.id.get == tStat.idInscription)){
         @for(team<-teams.filter(_.id.get == tStat.idInscription)){
         <tr>
-            <td><a href="@mcgrady.controllers.routes.TeamController.edit(team.id.get)">
-                @team.name</a></td>
+            <td>@team.name</td>
             <td>@tStat.points</td>
             <td>@{"%.0f".format(tStat.fgm.get.toFloat-tStat.t3m.get.toFloat).replace(',','.')}</td>
             <td>@{"%.0f".format(tStat.fga.get.toFloat-tStat.t3a.get.toFloat).replace(',','.')}</td>
@@ -208,8 +206,7 @@
         @for(inscription<-inscriptions.filter(_.id.get == game.idVisitor).filter(_.id.get == tStat.idInscription)){
         @for(team<-teams.filter(_.id.get == inscription.idTeam)){
         <tr>
-            <td><a href="@mcgrady.controllers.routes.TeamController.edit(team.id.get)">
-                @team.name</a></td>
+            <td>@team.name</td>
             <td>@tStat.points</td>
             <td>@{"%.0f".format(tStat.fgm.get.toFloat-tStat.t3m.get.toFloat).replace(',','.')}</td>
             <td>@{"%.0f".format(tStat.fga.get.toFloat-tStat.t3a.get.toFloat).replace(',','.')}</td>
@@ -274,8 +271,7 @@
         @for(inscription<-inscriptions.filter(_.id.get == game.idVisitor)){
         @for(contract<-contracts.filter(_.idPlayer == player.id.get).filter(_.idTeam == inscription.id.get)){
         <tr>
-            <td><a href="@mcgrady.controllers.routes.PlayerController.edit(player.id.get)">
-                @player.firstName @player.lastName</a></td>
+            <td>@player.firstName @player.lastName</td>
             <td>@pStat.points</td>
             <td>@{"%.0f".format(pStat.fgm.get.toFloat-pStat.t3m.get.toFloat).replace(',','.')}</td>
             <td>@{"%.0f".format(pStat.fga.get.toFloat-pStat.t3a.get.toFloat).replace(',','.')}</td>
@@ -307,4 +303,6 @@
     </table>
 
 </div>
+<div id="navigation-back"> <a href="@request.headers.get("referer")">
+    <img src=@routes.Assets.versioned("images/volver24.png") alt="Volver"></a></div>
 }

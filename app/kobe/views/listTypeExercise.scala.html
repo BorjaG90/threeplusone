@@ -39,15 +39,15 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
 <table class="table table-striped">
     <tr>
         <th>Nombre</th>
-        <th>Descripción</th>
-        <th>Notas</th>
+        <th class="tdnotes">Descripción</th>
+        <th class="tdnotes">Notas</th>
         <th></th>
     </tr>
     @for(typeExercise <- currentPage.items){
     <tr>
         <td>@typeExercise.name</td>
-        <td>@typeExercise.description</td>
-        <td>@typeExercise.notes</td>
+        <td class="tdnotes">@typeExercise.description</td>
+        <td class="tdnotes">@typeExercise.notes</td>
         <td><a href="@kobe.controllers.routes.TypeExerciseController.edit(typeExercise.id.get)">
             <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>
             <a href="@kobe.controllers.routes.TypeExerciseController.delete(typeExercise.id)">
@@ -67,4 +67,6 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <a href="@link(page)"><button>Siguiente<i class="arrow_right"></i></button></a>
     }.getOrElse {|}
 </div>
+<div id="navigation-back"> <a href="@request.headers.get("referer")">
+    <img src=@routes.Assets.versioned("images/volver24.png") alt="Volver"></a></div>
 }

@@ -11,9 +11,9 @@
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
     <br>No hay leyenda disponible
 </div>
+<h3>Editar Entorno</h3>
 <form id="enviroment-data-form" role="form" action=@kobe.controllers.routes.EnviromentController.update(id) method="post" autocomplete="off">
     <fieldset>
-        <label>Entornos</label>
         <br/>
         <table align="center">
             <tr>
@@ -29,12 +29,12 @@
                 </td>
                 <td align="center">
                     @defining(enviromentForm("description").value){ descriptionValue=>
-                    <input type="text" id="description" name="description" value="@descriptionValue">
+                    <textarea  id="description" name="description">@descriptionValue</textarea>
                     }
                 </td>
                 <td align="center">
                     @defining(enviromentForm("notes").value){ notesValue=>
-                    <input type="text" id="notes" name="notes" value="@notesValue">
+                    <textarea  id="notes" name="notes">@notesValue</textarea>
                     }
                 </td>
             </tr>
@@ -43,7 +43,7 @@
         <div>
             <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Entorno</button>
             o
-            <a href=@kobe.controllers.routes.EnviromentController.list() class="btn">Cancelar</a>
+            <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>
 </form>

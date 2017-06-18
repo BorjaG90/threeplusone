@@ -45,18 +45,16 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <th>Estadio</th>
         <th>Ganador</th>
         <th>MVP</th>
-        <th>Descripción</th>
-        <th></th>
+        <th class="tdnotes">Descripción</th>
+        <th><div class="tooltip"><span class="tooltiptext">Visualiza los detalles del partido</span>
+            <img src=@routes.Assets.versioned("images/info.png") alt="Info"></div></th>
     </tr>
     @for((game,home,teamH,visitor,teamV) <- currentPage.items){
     <tr>
         <td>@sf.format(game.dateGame)</td>
         <td align="right"><a href="@mcgrady.controllers.routes.TeamController.view(home.idTeam)">@teamH</a></td>
         <td><a href="@mcgrady.controllers.routes.TeamController.view(visitor.idTeam)">@teamV</a></td>
-        <td>
-            @if(game.idArena.isDefined){ @for(arena<-arenas.filter(_.id == game.idArena.get)){
-            @arena.name }}
-        </td>
+        <td>@if(game.idArena.isDefined){ @for(arena<-arenas.filter(_.id == game.idArena.get)){@arena.name}}</td>
         <td>
             @if(game.winner.isDefined && game.winner.get == "H"){ @teamH
             }else {@if(game.winner != None && game.winner.get == "A"){ @teamV }}
@@ -65,7 +63,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
             @if(game.mvp.isDefined){ @for(mvp<-players.filter(_.id.get == game.mvp.get)){
             <a href="@mcgrady.controllers.routes.PlayerController.view(mvp.id.get)">@mvp.firstName @mvp.lastName</a> }}
         </td>
-        <td>@game.description</td>
+        <td class="tdnotes">@if(game.description.isDefined){@game.description.get}</td>
         <td>
             <a href="@mcgrady.controllers.routes.GameController.view(game.id.get)">
                 <img src=@routes.Assets.versioned("images/ver.png") alt="Visualizar"></a>
@@ -87,4 +85,6 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <a href="@link(page)"><button>Siguiente<i class="arrow_right"></i></button></a>
     }.getOrElse {|}
 </div>
+<div id="navigation-back"> <a href="@request.headers.get("referer")">
+    <img src=@routes.Assets.versioned("images/volver24.png") alt="Volver"></a></div>
 }

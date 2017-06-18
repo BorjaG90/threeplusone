@@ -117,7 +117,7 @@
         <br/>
         <div>
             <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Estadisticas</button> o
-            <a href=@mcgrady.controllers.routes.TeamStatsController.list() class="btn">Cancelar</a>
+            <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>
 </form>

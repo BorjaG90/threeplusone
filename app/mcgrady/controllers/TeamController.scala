@@ -8,6 +8,7 @@ import play.api.mvc._
 import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import java.util.concurrent.TimeoutException
 import java.text.SimpleDateFormat
+import java.util.Date
 
 import com.google.inject.Inject
 import mcgrady.model._
@@ -155,7 +156,7 @@ class TeamController @Inject()(val messagesApi: MessagesApi
                   teamService.find(id).map { team =>
                     if (request.session.get("email").isDefined) {
                       Ok(html.viewTeam(team, players, contracts, seasons, competitions, tStats, inscriptions, games
-                        , new SimpleDateFormat("dd/MM/yyyy")))
+                        , new SimpleDateFormat("dd/MM/yyyy"),new Date()))
                     } else {
                       Ok(views.html.login(UserForm.loginForm))
                     }

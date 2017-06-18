@@ -44,14 +44,14 @@
                     </select>
                 </td>
                 <td align="center">
-                    <input type="text" id="notes" name="notes" value="" placeholder="Notas">
+                    <textarea id="notes" name="notes" value="" placeholder="Notas"></textarea>
                 </td>
             </tr>
         </table>
         <br/>
         <div class="form-actions controls ynt-btn-xlarge">
             <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
-            <a href=@mcgrady.controllers.routes.GroupController.list() class="btn">Cancelar</a>
+            <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>
 </form>

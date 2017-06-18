@@ -39,7 +39,8 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
 <table class="table table-striped">
     <tr>
         <th>Temporada</th>
-        <th>Asignación</th>
+        <th>Asignación <div class="tooltip"><span class="tooltiptext">Competición/Grupo-SubGrupo</span>
+            <img src=@routes.Assets.versioned("images/info.png") alt="Info"></div></th>
         <th>Equipo</th>
         <th>Arena</th>
         <th></th>
@@ -82,4 +83,6 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <a href="@link(page)"><button>Siguiente<i class="arrow_right"></i></button></a>
     }.getOrElse {|}
 </div>
+<div id="navigation-back"> <a href="@request.headers.get("referer")">
+    <img src=@routes.Assets.versioned("images/volver24.png") alt="Volver"></a></div>
 }

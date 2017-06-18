@@ -40,14 +40,16 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <tr>
         <th>Nombre</th>
         <th>Plan</th>
-        <th>Notas</th>
-        <th></th>
+        <th class="tdnotes">Notas</th>
+        <th><div class="tooltip"><span class="tooltiptext">Añade marcas a las series asociadas.</span>
+            <img src=@routes.Assets.versioned("images/info.png") alt="Info"></div></th>
+
     </tr>
     @for((session,plan) <- currentPage.items){
     <tr>
         <td>@session.name</td>
         <td>@plan.name</td>
-        <td>@session.notes</td>
+        <td class="tdnotes">@session.notes</td>
         <td>
             <a href="@kobe.controllers.routes.RecordController.addMark(session.id.get)">
                 <img src=@routes.Assets.versioned("images/add.png") alt="Añadir Marca">
@@ -71,4 +73,6 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <a href="@link(page)"><button>Siguiente<i class="arrow_right"></i></button></a>
     }.getOrElse {|}
 </div>
+<div id="navigation-back"> <a href="@request.headers.get("referer")">
+    <img src=@routes.Assets.versioned("images/volver24.png") alt="Volver"></a></div>
 }

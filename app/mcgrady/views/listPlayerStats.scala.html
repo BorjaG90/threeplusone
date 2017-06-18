@@ -44,8 +44,8 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
 </div>
 <table class="table table-striped">
     <tr>
-        <th>Partido</th>
-        <th>Jugador</th>
+        <th colspan="3">Partido</th>
+        <th colspan="3">Jugador</th>
         <th>Pts</th>
         <th>Reb Of</th>
         <th>Reb Def</th>
@@ -67,10 +67,13 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     </tr>
     @for((playerStats,game,player,competition,home,away) <- currentPage.items){
     <tr>
-        <td><a href="@mcgrady.controllers.routes.GameController.view(game.id.get)">@sf.format(game.dateGame)
-            <br>@home vs @away </a></td>
+        <td>@sf.format(game.dateGame)<br>@home vs @away </td><td></td>
+            <td><a href="@mcgrady.controllers.routes.GameController.view(game.id.get)">
+                <img src=@routes.Assets.versioned("images/ver.png") alt="Ver Partido">
+            </a></td>
+        <td>@player.firstName @player.lastName</td><td></td>
         <td><a href="@mcgrady.controllers.routes.PlayerController.view(player.id.get)">
-            @player.firstName @player.lastName</a></td>
+            <img src=@routes.Assets.versioned("images/ver.png") alt="Ver Partido"></a></td>
         <td>@playerStats.points</td>
         <td>@playerStats.offReb</td>
         <td>@playerStats.defReb</td>
@@ -107,4 +110,6 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <a href="@link(page)"><button>Siguiente<i class="arrow_right"></i></button></a>
     }.getOrElse {|}
 </div>
+<div id="navigation-back"> <a href="@request.headers.get("referer")">
+    <img src=@routes.Assets.versioned("images/volver24.png") alt="Volver"></a></div>
 }

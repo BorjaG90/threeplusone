@@ -35,14 +35,14 @@
                     </select>
                 </td>
                 <td>
-                    <input type="text" id="description" name="description" value="" placeholder="Descripción" >
+                    <textarea id="description" name="description" value="" placeholder="Descripción" ></textarea>
                 </td>
             </tr>
         </table>
         <br/>
         <div class="form-actions controls ynt-btn-xlarge">
             <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
-            <a href=@mcgrady.controllers.routes.SeasonController.list() class="btn">Cancelar</a>
+            <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>
 </form>

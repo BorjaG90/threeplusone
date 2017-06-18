@@ -49,7 +49,7 @@
         <br/>
         <div class="form-actions controls ynt-btn-xlarge">
             <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
-            <a href=@mcgrady.controllers.routes.TeamController.list() class="btn">Cancelar</a>
+            <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>
 </form>

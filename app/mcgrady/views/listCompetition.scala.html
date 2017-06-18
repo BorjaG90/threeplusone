@@ -44,6 +44,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     } <a class="btn success" id="add" href="@mcgrady.controllers.routes.CompetitionController.add()">
     <button type="submit" class="btn-add">Nuevo</button></a>
 </div>
+
 <table class="table table-striped">
     <tr>
         <th>Temp</th>
@@ -54,8 +55,9 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <th>Inicio</th>
         <th>Fin</th>
         <th>País</th>
-        <th>Descripción</th>
-        <th></th>
+        <th class="tdnotes">Descripción</th>
+        <th><div class="tooltip"><span class="tooltiptext">Visualiza los detalles de la competición</span>
+            <img src=@routes.Assets.versioned("images/info.png") alt="Info"></div></th>
     </tr>
     @for((competition,season) <- currentPage.items){
     <tr>
@@ -68,7 +70,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <td>@if(competition.endDate.isDefined){ @sf.format(competition.endDate.get )}</td>
         <td>@if(competition.idCountry.isDefined){
             @for(country <- countries){@if(country.id == competition.idCountry.get){ @country.name }}}</td>
-        <td>@competition.description</td>
+        <td class="tdnotes">@competition.description</td>
         <td>
             <a href="@mcgrady.controllers.routes.CompetitionController.view(competition.id.get)">
                 <img src=@routes.Assets.versioned("images/ver.png") alt="Visualizar"></a>
@@ -91,4 +93,8 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <a href="@link(page)"><button>Siguiente<i class="arrow_right"></i></button></a>
     }.getOrElse {|}
 </div>
+<div id="navigation-back"> <a href="@request.headers.get("referer")">
+    <img src=@routes.Assets.versioned("images/volver24.png") alt="Volver"></a></div>
+<div id="navigation-back"> <a href="@request.headers.get("referer")">
+    <img src=@routes.Assets.versioned("images/volver24.png") alt="Volver"></a></div>
 }

@@ -60,6 +60,9 @@ form textarea{
     border: solid 1px white;
     border-radius: 4px;
     font-family: 'Lato', sans-serif; /*color:#2c3e50;*/
+    max-width:400px;
+    rows="20";
+    cols="50";
 }
 form textarea:hover{
     border-color:#a6a6a6;
@@ -70,6 +73,9 @@ form textarea:focus{
     box-shadow: 0 0 5px 1px #969696;
 }
 
+.topRight{
+    text-align:center;
+}
 /*Form button*/
  input.btn.danger{
     background-color: red;

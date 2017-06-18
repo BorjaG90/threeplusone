@@ -43,8 +43,9 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <th>Apodo</th>
         <th>Altura</th>
         <th>Peso</th>
-        <th>Descripción</th>
-        <th></th>
+        <th class="tdnotes">Descripción</th>
+        <th><div class="tooltip"><span class="tooltiptext">Visualiza los detalles del jugador</span>
+            <img src=@routes.Assets.versioned("images/info.png") alt="Info"></div></th>
     </tr>
     @for(player <- currentPage.items){
     <tr>
@@ -53,7 +54,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <td>@player.nickName</td>
         <td>@player.height</td>
         <td>@player.weight</td>
-        <td>@player.description</td>
+        <td class="tdnotes">@player.description</td>
         <td>
             <a href="@mcgrady.controllers.routes.PlayerController.view(player.id.get)">
                 <img src=@routes.Assets.versioned("images/ver.png") alt="Visualizar"></a>
@@ -76,4 +77,6 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <a href="@link(page)"><button>Siguiente<i class="arrow_right"></i></button></a>
     }.getOrElse {|}
 </div>
+<div id="navigation-back"> <a href="@request.headers.get("referer")">
+    <img src=@routes.Assets.versioned("images/volver24.png") alt="Volver"></a></div>
 }

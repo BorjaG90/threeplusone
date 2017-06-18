@@ -11,9 +11,9 @@
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
     <br>No hay leyenda disponible
 </div>
+<h3>Editar Plan</h3>
 <form id="plan-data-form" role="form" action=@kobe.controllers.routes.PlanController.update(id) method="post" autocomplete="off">
     <fieldset>
-        <label>Plans</label>
         <br/>
         <table align="center">
             <tr>
@@ -35,12 +35,12 @@
                 </td>
                 <td align="center">
                     @defining(planForm("description").value){ descriptionValue=>
-                    <input type="text" id="description" name="description" value="@descriptionValue">
+                    <textarea id="description" name="description">@descriptionValue</textarea>
                     }
                 </td>
                 <td align="center">
                     @defining(planForm("description").value){ notesValue=>
-                    <input type="text" id="notes" name="notes" value="@notesValue">
+                    <textarea  id="notes" name="notes">@notesValue</textarea>
                     }
                 </td>
             </tr>
@@ -49,7 +49,7 @@
         <div>
             <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Guardar Plan</button>
             o
-            <a href=@kobe.controllers.routes.PlanController.list() class="btn">Cancelar</a>
+            <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>
 </form>

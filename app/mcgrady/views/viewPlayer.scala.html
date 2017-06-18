@@ -27,7 +27,9 @@
 <div id="statistics">
     <h1>@player.firstName @player.lastName</h1>
     <h2>Carrera</h2>
-    <h3>Medias</h3>
+    <h3>Medias</h3><div class="tooltip" style="top: -40px;left: 70px;"><span class="tooltiptext">Promedio estadistico
+    de todas las competiciones y temporadas que ha realizado el jugador</span>
+    <img src=@routes.Assets.versioned("images/info.png") alt="Info"></div>
     @{pGames=0} @{a=0} @{b=0} @{c=0} @{d=0} @{e=0} @{f=0} @{g=0} @{h=0} @{i=0}
     @{j=0} @{k=0} @{l=0} @{m=0} @{o=0} @{p=0} @{q=0} @{r=0} @{s=0}
     <div class="scroll-h">
@@ -106,7 +108,9 @@
         </tr>
     </table>
     </div>
-    <h3>Acumulado</h3>
+    <h3>Acumulado</h3><div class="tooltip" style="top: -40px;left: 105px;"><span class="tooltiptext">Estadisticas acumuladas
+    durante todas las temporadas en activo del jugador</span>
+    <img src=@routes.Assets.versioned("images/info.png") alt="Info"></div>
     @{pGames=0} @{a=0} @{b=0} @{c=0} @{d=0} @{e=0} @{f=0} @{g=0} @{h=0} @{i=0}
     @{j=0} @{k=0} @{l=0} @{m=0} @{o=0} @{p=0} @{q=0} @{r=0} @{s=0}
     <div class="scroll-h">
@@ -188,7 +192,9 @@
     </div>
 
     <h2>Temporadas</h2>
-    <h3>Medias</h3>
+    <h3>Medias</h3><div class="tooltip" style="top: -40px;left: 70px;"><span class="tooltiptext">Promedio estadistico
+    realizado por el jugador desglosado por temporada y competición</span>
+    <img src=@routes.Assets.versioned("images/info.png") alt="Info"></div>
     <div class="scroll-h">
         <table>
             <tr>
@@ -297,7 +303,9 @@
 
         </table>
     </div>
-    <h3>Acumulado</h3>
+    <h3>Acumulado</h3><div class="tooltip" style="top: -40px;left: 105px;"><span class="tooltiptext">Estadisticas
+    acumuladas por el jugador en cada competición y temporada</span>
+    <img src=@routes.Assets.versioned("images/info.png") alt="Info"></div>
 
     <div class="scroll-h">
     <table>
@@ -407,4 +415,6 @@
     </table>
     </div>
 </div>
+<div id="navigation-back"> <a href="@request.headers.get("referer")">
+    <img src=@routes.Assets.versioned("images/volver24.png") alt="Volver"></a></div>
 }

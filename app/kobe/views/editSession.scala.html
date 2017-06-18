@@ -11,9 +11,9 @@
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
     <br>No hay leyenda disponible
 </div>
+<h3>Editar Sesión</h3>
 <form id="session-data-form" role="form" action=@kobe.controllers.routes.SessionController.update(id) method="post" autocomplete="off">
     <fieldset>
-        <label>Sesiones</label>
         <br/>
         <table align="center">
             <tr>
@@ -40,7 +40,7 @@
                 </td>
                 <td align="center">
                     @defining(sessionForm("notes").value){ notesValue=>
-                    <input type="text" id="notes" name="notes" value="@notesValue">
+                    <textarea  id="notes" name="notes">@notesValue</textarea>
                     }
                 </td>
             </tr>
@@ -49,7 +49,7 @@
         <div>
             <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Sesión</button>
             o
-            <a href=@kobe.controllers.routes.SessionController.list() class="btn">Cancelar</a>
+            <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>
 </form>
