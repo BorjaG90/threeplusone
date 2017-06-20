@@ -170,7 +170,7 @@ function sortTableDesc(n, idTable) {
             }
         }else{
             if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-              shouldSwitch= true;
+              shouldSwitch = true;
               break;
             }
         }
@@ -180,7 +180,7 @@ function sortTableDesc(n, idTable) {
       switching = true;
       switchcount ++;
     } else {
-      if (switchcount == 0) {
+      if (switchcount === 0) {
         switching = true;
       }
     }

@@ -13,7 +13,7 @@ function escapeRegExp(str) {
   * Realiza un Replace en una subcadena que cumpla un patrón
   **/
 function replaceAll(str, find, replace) {
-  return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+  return str.replace(new RegExp(escapeRegExp(find), "g"), replace);
 }
 
 /**
@@ -58,7 +58,7 @@ function isValidDate(text) {
 function validateDate(element, submit){
     var text=document.getElementById(element).value;
     var button=document.getElementById(submit);
-    if(text != null && text != ""){
+    if(text !== null && text !== ""){
         if(!isValidDate(text)){
             alert("[ERROR] El campo debe tener un valor de fecha valido");
             button.style.display = "none";
@@ -66,7 +66,7 @@ function validateDate(element, submit){
             return false;
         }
     }
-    button.classList.remove("date")
+    button.classList.remove("date");
     if(!button.classList.contains("number")){
         button.style.display = "inline";
     }
@@ -81,7 +81,7 @@ function validateDate(element, submit){
 function validateNumber(element, submit){
     var text=document.getElementById(element).value;
     var button=document.getElementById(submit);
-    if(text != null && text != ""){
+    if(text !== null && text !== ""){
         if(!isNumber(text)){
             alert('[ERROR] El campo debe tener un valor númerico valido');
             button.style.display = "none";
@@ -89,7 +89,7 @@ function validateNumber(element, submit){
             return false;
         }
     }
-    button.classList.remove("number")
+    button.classList.remove("number");
     if(!button.classList.contains("date")){
         button.style.display = "inline";
     }

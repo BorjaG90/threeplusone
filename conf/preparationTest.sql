@@ -1,10 +1,10 @@
-# Preparación de Tests
+--  Preparación de Tests
 use threeplusone;
-# Seasons
+--  Seasons
 INSERT INTO seasons (year, creation_date) VALUES ('2017', 0);
-# Arenas
-# EEUU
-# NBA
+--  Arenas
+--  EEUU
+--  NBA
 INSERT INTO arenas(name,direction,id_country,creation_date) VALUES ('American Airlines Center','Dallas, Texas',(SELECT id FROM countries where name like ('Estados Unidos')),0);
 INSERT INTO arenas(name,direction,id_country,creation_date) VALUES ('Barclays Center','Brooklyn, New York',(SELECT id FROM countries where name like ('Estados Unidos')),0);
 INSERT INTO arenas(name,direction,id_country,creation_date) VALUES ('Wells Fargo Center','Philadelphia,Philadelphia',(SELECT id FROM countries where name like ('Estados Unidos')),0);
@@ -36,13 +36,13 @@ INSERT INTO arenas(name,direction,id_country,creation_date) VALUES ('Talking Sti
 INSERT INTO arenas(name,direction,id_country,creation_date) VALUES ('Sleep Train Arena','Sacramento, California',(SELECT id FROM countries where name like ('Estados Unidos')),0);
 INSERT INTO arenas(name,direction,id_country,creation_date) VALUES ('Chesapeake Energy Arena','Oklahoma City, Oklahoma',(SELECT id FROM countries where name like ('Estados Unidos')),0);
 
-# BIG 3
+--  BIG 3
 INSERT INTO arenas(name,direction,id_country,creation_date) VALUES ('Spectrum Center','Charlotte, North Carolina',(SELECT id FROM countries where name like ('Estados Unidos')),0);
 INSERT INTO arenas(name,direction,id_country,creation_date) VALUES ('Bok Center','Tulsa, Oklahoma',(SELECT id FROM countries where name like ('Estados Unidos')),0);
 INSERT INTO arenas(name,direction,id_country,creation_date) VALUES ('Rupp Arena','Lexington, Kentucky',(SELECT id FROM countries where name like ('Estados Unidos')),0);
 INSERT INTO arenas(name,direction,id_country,creation_date) VALUES ('T-Mobile Arena','Las Vegas, Nevada',(SELECT id FROM countries where name like ('Estados Unidos')),0);
-# Europa
-# ACB
+--  Europa
+--  ACB
 INSERT INTO arenas(name,direction,id_country,creation_date) VALUES ('Palacio Vistalegre','Madrid, España',(SELECT id FROM countries where name like ('España')),0);
 INSERT INTO arenas(name,direction,id_country,creation_date) VALUES ('Bizkaia Arena','Bilbao, España',(SELECT id FROM countries where name like ('España')),0);
 INSERT INTO arenas(name,direction,id_country,creation_date) VALUES ('San Sebastián Arena 2016','San Sebastián, España',(SELECT id FROM countries where name like ('España')),0);

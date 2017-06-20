@@ -6,7 +6,7 @@ import play.api.db.slick.DatabaseConfigProvider
 import slick.driver.JdbcProfile
 import javax.inject.Inject
 import util.Page
-import kobe.model.{Exercise, ExerciseTable, TypeExercise,TypeExerciseTable, Category, CategoryTable, Enviroment,EnviromentTable}
+import kobe.model._
 import kobe.dao.ExerciseDAO
 
 /**

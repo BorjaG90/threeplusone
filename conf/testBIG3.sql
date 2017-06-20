@@ -1,7 +1,7 @@
-#Big 3
+-- Big 3
 use threeplusone;
 
-#Teams
+-- Teams
 INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('3´s Company','3SC',(SELECT id FROM countries where name like ('Estados Unidos')),0);
 INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Killer 3s','KIL',(SELECT id FROM countries where name like ('Estados Unidos')),0);
 INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Tri State','TST',(SELECT id FROM countries where name like ('Estados Unidos')),0);
@@ -11,7 +11,7 @@ INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Ghost
 INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Ball Hogs','BHG',(SELECT id FROM countries where name like ('Estados Unidos')),0);
 INSERT INTO teams (name, abbreviation, id_country, creation_date) VALUES ('Power','POW',(SELECT id FROM countries where name like ('Estados Unidos')),0);
 
-#Players
+-- Players
 INSERT INTO players(first_name, last_name, nick_name, creation_date) VALUES('Allen','Iverson','The Answer',0);
 INSERT INTO players(first_name, last_name, creation_date) VALUES('DerMarr','Johnson',0);
 INSERT INTO players(first_name, last_name, creation_date) VALUES('Andre','Owens',0);
@@ -53,11 +53,11 @@ INSERT INTO players(first_name, last_name, nick_name, creation_date) VALUES('Jer
 INSERT INTO players(first_name, last_name, creation_date) VALUES('DeShawn','Stevenson',0);
 INSERT INTO players(first_name, last_name, creation_date) VALUES('Moochie','Norris',0);
 
-#Competition
+-- Competition
 INSERT INTO competitions (id_season,name,abbreviation,division,id_country,type,init_date,end_date,creation_date)
 VALUES ((SELECT id from seasons as s where s.year like '2017'),'The BIG 3','BIG3','1',(SELECT id FROM countries where name like ('Estados Unidos')),'Liga 3x3',1472680800000,1498773600000,0);
 
-# Inscriptions
+--  Inscriptions
 INSERT INTO inscriptions (id_team,id_competition,creation_date) VALUES ((SELECT id FROM teams where name like '3´s Company'),(SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')),0);
 INSERT INTO inscriptions (id_team,id_competition,creation_date) VALUES ((SELECT id FROM teams where name like 'Killer 3s'),(SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')),0);
 INSERT INTO inscriptions (id_team,id_competition,creation_date) VALUES ((SELECT id FROM teams where name like 'Tri State'),(SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')),0);
@@ -67,7 +67,7 @@ INSERT INTO inscriptions (id_team,id_competition,creation_date) VALUES ((SELECT 
 INSERT INTO inscriptions (id_team,id_competition,creation_date) VALUES ((SELECT id FROM teams where name like 'Ball Hogs'),(SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')),0);
 INSERT INTO inscriptions (id_team,id_competition,creation_date) VALUES ((SELECT id FROM teams where name like 'Power'),(SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')),0);
 
-# Contracts
+--  Contracts
 INSERT INTO contracts (id_player,id_team,number,init_date,end_date,creation_date) VALUES ((SELECT id from players where first_name like 'Allen' and last_name like'Iverson'),(SELECT id FROM teams where name like '3´s Company'),3,1472680800000,1498773600000,0);
 INSERT INTO contracts (id_player,id_team,number,init_date,end_date,creation_date) VALUES ((SELECT id from players where first_name like 'DerMarr' and last_name like'Johnson'),(SELECT id FROM teams where name like '3´s Company'),1,1472680800000,1498773600000,0);
 INSERT INTO contracts (id_player,id_team,number,init_date,end_date,creation_date) VALUES ((SELECT id from players where first_name like 'Andre' and last_name like'Owens'),(SELECT id FROM teams where name like '3´s Company'),23,1472680800000,1498773600000,0);
@@ -109,8 +109,8 @@ INSERT INTO contracts (id_player,id_team,number,init_date,end_date,creation_date
 INSERT INTO contracts (id_player,id_team,number,init_date,end_date,creation_date) VALUES ((SELECT id from players where first_name like 'DeShawn' and last_name like'Stevenson'),(SELECT id FROM teams where name like 'Power'),92,1472680800000,1498773600000,0);
 INSERT INTO contracts (id_player,id_team,number,init_date,end_date,creation_date) VALUES ((SELECT id from players where first_name like 'Moochie' and last_name like'Norris'),(SELECT id FROM teams where name like 'Power'),14,1472680800000,1498773600000,0);
 
-# Games
-#1stWeek
+--  Games
+-- 1stWeek
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ghost Ballers') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3 Headed Monsters') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
@@ -127,7 +127,7 @@ INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VA
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,1498341600000,(SELECT id from arenas where name like 'Barclays Center'),'A',(SELECT id from players where first_name like 'Kenyon' and last_name like 'Martin'),0);
-#2stWeek
+-- 2stWeek
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ball Hogs') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
@@ -144,7 +144,7 @@ INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VA
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ghost Ballers') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,1498946400000,(SELECT id from arenas where name like 'Spectrum Center'),'H',(SELECT id from players where first_name like 'Allen' and last_name like 'Iverson'),0);
-#3stWeek
+-- 3stWeek
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Power') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3 Headed Monsters') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
@@ -161,7 +161,7 @@ INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VA
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,1499551200000,(SELECT id from arenas where name like 'Bok Center'),'A',(SELECT id from players where first_name like 'Allen' and last_name like 'Iverson'),0);
-#4stWeek
+-- 4stWeek
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ghost Ballers') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Power') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
@@ -178,7 +178,7 @@ INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VA
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,1500156000000,(SELECT id from arenas where name like 'Wells Fargo Center'),'H',(SELECT id from players where first_name like 'Allen' and last_name like 'Iverson'),0);
-#5stWeek
+-- 5stWeek
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ball Hogs') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
@@ -195,7 +195,7 @@ INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VA
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3 Headed Monsters') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,1501365600000,(SELECT id from arenas where name like 'American Airlines Center'),'A',(SELECT id from players where first_name like 'Jason' and last_name like 'Williams'),0);
-#6stWeek
+-- 6stWeek
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ghost Ballers') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
@@ -212,7 +212,7 @@ INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VA
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,1501970400000,(SELECT id from arenas where name like 'Rupp Arena'),'A',(SELECT id from players where first_name like 'Allen' and last_name like 'Iverson'),0);
-#7stWeek
+-- 7stWeek
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ghost Ballers') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3 Headed Monsters') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
@@ -229,7 +229,7 @@ INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VA
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,1502575200000,(SELECT id from arenas where name like 'Staples Center'),'A',(SELECT id from players where first_name like 'Kenyon' and last_name like 'Martin'),0);
-#PlayOff
+-- PlayOff
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ball Hogs') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
@@ -246,14 +246,14 @@ INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VA
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Power') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,1503180000000,(SELECT id from arenas where name like 'Rupp Arena'),'A',(SELECT id from players where first_name like 'Bonzi' and last_name like 'Wells'),0);
-#Final
+-- Final
 INSERT INTO games (id_home,id_visitor,date,id_arena,winner,mvp,creation_date) VALUES (
 	(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3 Headed Monsters') and id_competition in (SELECT id FROM competitions where abbreviation like 'BIG3' and id_season in (SELECT id from seasons as s where s.year like '2017')))
 	,1503698400000,(SELECT id from arenas where name like 'T-Mobile Arena'),'H',(SELECT id from players where first_name like 'Allen' and last_name like 'Iverson'),0);
 
-#Stats 
-#1st Week
+-- Stats
+-- 1st Week
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1498341600000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ghost Ballers')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ghost Ballers'))
@@ -287,7 +287,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1498341600000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3 Headed Monsters')))
 	,(SELECT id from players where first_name like 'Mahmoud' and last_name like 'Abdul-Rauf')
 	,11,3,2,2,2,1,4,1,1,1,20,6,3,10,5,3,0);
-#--2
+-- --2
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1498341600000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State'))
@@ -321,7 +321,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1498341600000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Power')))
 	,(SELECT id from players where first_name like 'DeShawn' and last_name like 'Stevenson')
 	,15,0,2,4,2,1,3,0,0,3,20,16,6,3,1,8,2);
-#--
+-- --
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1498341600000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company'))
@@ -355,7 +355,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1498341600000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ball Hogs')))
 	,(SELECT id from players where first_name like 'Rasual' and last_name like 'Butler')
 	,14,4,4,2,2,2,3,1,0,3,20,15,6,5,1,6,1);
-#--
+-- --
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1498341600000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s'))
@@ -389,7 +389,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1498341600000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy')))
 	,(SELECT id from players where first_name like 'James' and last_name like 'White')
 	,4,5,6,0,1,0,1,0,0,4,20,5,0,6,4,0,0);
-# 2 Week
+--  2 Week
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1498946400000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ball Hogs')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ball Hogs'))
@@ -423,7 +423,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1498946400000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State')))
 	,(SELECT id from players where first_name like 'Mike' and last_name like 'James')
 	,7,3,4,0,0,1,5,1,0,2,20,5,2,2,1,3,2);
-#--
+-- --
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1498946400000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy'))
@@ -457,7 +457,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1498946400000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3 Headed Monsters')))
 	,(SELECT id from players where first_name like 'Kwame' and last_name like 'Brown')
 	,8,5,8,1,3,2,3,0,1,2,20,6,1,6,5,2,1);
-#--
+-- --
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1498946400000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Power')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Power'))
@@ -491,7 +491,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1498946400000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s')))
 	,(SELECT id from players where first_name like 'Brian' and last_name like 'Cook')
 	,11,0,1,1,3,0,3,0,0,4,20,11,3,10,4,7,1);
-#--
+-- --
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1498946400000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company'))
@@ -525,7 +525,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1498946400000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ghost Ballers')))
 	,(SELECT id from players where first_name like 'Marcus' and last_name like 'Banks')
 	,13,0,6,1,0,1,0,1,1,1,20,9,3,11,5,5,2);
-# 3 Week
+--  3 Week
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1499551200000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Power')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Power'))
@@ -559,7 +559,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1499551200000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3 Headed Monsters')))
 	,(SELECT id from players where first_name like 'Kwame' and last_name like 'Brown')
 	,5,0,7,1,5,2,5,1,0,4,20,3,2,2,1,1,0);
-#--
+-- --
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1499551200000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s'))
@@ -593,7 +593,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1499551200000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State')))
 	,(SELECT id from players where first_name like 'Mike' and last_name like 'James')
 	,10,0,6,2,2,4,5,1,1,0,20,15,3,5,1,8,3);
-#--
+-- --
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1499551200000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ball Hogs')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ball Hogs'))
@@ -627,7 +627,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1499551200000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ghost Ballers')))
 	,(SELECT id from players where first_name like 'Marcus' and last_name like 'Banks')
 	,5,5,7,1,2,0,3,1,1,1,20,2,2,2,1,0,0);
-#--
+-- --
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1499551200000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy'))
@@ -661,7 +661,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1499551200000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company')))
 	,(SELECT id from players where first_name like 'Ruben' and last_name like 'Patterson')
 	,2,3,0,0,1,1,0,1,0,3,20,9,0,3,2,2,0);
-# 4 Week
+--  4 Week
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1500156000000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ghost Ballers')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ghost Ballers'))
@@ -695,7 +695,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1500156000000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Power')))
 	,(SELECT id from players where first_name like 'DeShawn' and last_name like 'Stevenson')
 	,9,0,3,0,0,0,4,1,0,2,20,11,2,7,3,7,2);
-#--
+-- --
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1500156000000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy'))
@@ -729,7 +729,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1500156000000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ball Hogs')))
 	,(SELECT id from players where first_name like 'Rasual' and last_name like 'Butler')
 	,4,0,4,0,5,2,1,1,0,1,20,2,0,7,4,1,0);
-#--
+-- --
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1500156000000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s'))
@@ -763,7 +763,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1500156000000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3 Headed Monsters')))
 	,(SELECT id from players where first_name like 'Mahmoud' and last_name like 'Abdul-Rauf')
 	,12,2,2,2,1,2,3,1,0,3,20,11,3,8,5,1,1);
-#--
+-- --
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1500156000000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company'))
@@ -797,7 +797,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1500156000000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State')))
 	,(SELECT id from players where first_name like 'Xavier' and last_name like 'Silas')
 	,15,2,4,5,0,1,0,0,1,0,20,20,5,1,0,6,5);
-# 5 Week
+--  5 Week
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1501365600000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s'))
@@ -831,7 +831,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1501365600000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ball Hogs')))
 	,(SELECT id from players where first_name like 'Rasual' and last_name like 'Butler')
 	,10,2,9,0,1,2,4,1,0,1,20,17,3,3,3,8,1);
-# --
+--  --
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1501365600000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company'))
@@ -865,7 +865,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1501365600000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Power')))
 	,(SELECT id from players where first_name like 'DeShawn' and last_name like 'Stevenson')
 	,16,5,2,1,2,2,4,0,1,3,20,9,6,6,3,2,1);
-#--
+-- --
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1501365600000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy'))
@@ -899,7 +899,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1501365600000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ghost Ballers')))
 	,(SELECT id from players where first_name like 'Mo' and last_name like 'Evans')
 	,8,2,7,0,4,2,5,1,0,1,20,6,1,10,5,4,1);
-#--
+-- --
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1501365600000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State'))
@@ -933,7 +933,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1501365600000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3 Headed Monsters')))
 	,(SELECT id from players where first_name like 'Mahmoud' and last_name like 'Abdul-Rauf')
 	,9,2,2,1,0,3,4,1,0,3,20,13,2,3,3,5,2);
-#6 Week
+-- 6 Week
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1501970400000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State'))
@@ -967,7 +967,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1501970400000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ghost Ballers')))
 	,(SELECT id from players where first_name like 'Ivan' and last_name like 'Johnson')
 	,1,2,3,0,2,2,0,1,0,4,20,3,0,2,1,1,0);
-#--2
+-- --2
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1501970400000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy'))
@@ -1001,7 +1001,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1501970400000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Power')))
 	,(SELECT id from players where first_name like 'Moochie' and last_name like 'Norris')
 	,17,2,5,3,0,1,2,1,1,4,20,14,7,2,1,3,2);
-#--3
+-- --3
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1501970400000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ball Hogs')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ball Hogs'))
@@ -1035,7 +1035,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1501970400000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3 Headed Monsters')))
 	,(SELECT id from players where first_name like 'Eddie' and last_name like 'Badsen')
 	,9,1,1,1,4,2,5,0,1,2,20,8,2,10,5,3,0);
-#--4
+-- --4
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1501970400000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s'))
@@ -1069,7 +1069,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1501970400000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company')))
 	,(SELECT id from players where first_name like 'Mike' and last_name like 'Sweetney')
 	,8,0,1,0,3,2,0,1,1,2,20,3,1,5,5,2,1);
-# 7 Week
+--  7 Week
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1502575200000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ghost Ballers')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ghost Ballers'))
@@ -1103,7 +1103,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1502575200000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3 Headed Monsters')))
 	,(SELECT id from players where first_name like 'Mahmoud' and last_name like 'Abdul-Rauf')
 	,2,5,5,0,5,2,3,1,1,3,20,10,0,5,2,3,0);
-#--2
+-- --2
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1502575200000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State'))
@@ -1137,7 +1137,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1502575200000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Power')))
 	,(SELECT id from players where first_name like 'DeShawn' and last_name like 'Stevenson')
 	,12,4,9,1,5,1,3,1,0,4,20,14,3,8,4,3,2);
-#--3
+-- --3
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1502575200000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company'))
@@ -1171,7 +1171,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1502575200000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ball Hogs')))
 	,(SELECT id from players where first_name like 'Rasual' and last_name like 'Butler')
 	,7,1,5,1,4,1,0,0,0,4,20,6,1,7,5,0,0);
-#--4
+-- --4
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1502575200000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s'))
@@ -1205,7 +1205,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1502575200000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy')))
 	,(SELECT id from players where first_name like 'James' and last_name like 'White')
 	,4,1,9,0,2,2,2,0,1,2,20,2,1,1,1,1,1);
-# Playoffs
+--  Playoffs
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1503180000000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company'))
@@ -1239,7 +1239,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1503180000000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ball Hogs')))
 	,(SELECT id from players where first_name like 'Rasual' and last_name like 'Butler')
 	,13,0,7,1,0,0,2,0,0,1,20,10,6,2,0,2,1);
-#--2
+-- --2
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1503180000000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3 Headed Monsters')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3 Headed Monsters'))
@@ -1273,7 +1273,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1503180000000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Ghost Ballers')))
 	,(SELECT id from players where first_name like 'Mo' and last_name like 'Evans')
 	,5,4,6,0,1,0,5,1,1,0,20,5,1,6,3,2,0);
-#--3
+-- --3
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1503180000000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Trilogy'))
@@ -1307,7 +1307,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1503180000000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Killer 3s')))
 	,(SELECT id from players where first_name like 'Larry' and last_name like 'Hughes')
 	,12,1,5,4,4,2,0,1,1,2,20,9,5,2,2,4,0);
-#--4
+-- --4
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1503180000000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Power')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Power'))
@@ -1341,7 +1341,7 @@ INSERT INTO player_stats (id_game,id_player,points,off_rebounds,def_rebounds,ass
 	(SELECT id from games WHERE date=1503180000000 and id_visitor in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like 'Tri State')))
 	,(SELECT id from players where first_name like 'Xavier' and last_name like 'Silas')
 	,5,1,2,1,0,1,0,1,1,3,20,6,2,2,0,1,1);
-# Finals
+--  Finals
 INSERT INTO team_stats (id_game,id_inscription,points,off_rebounds,def_rebounds,assists,blocks,steals,fouls,tech_fouls,flag_fouls,turnovers,minutes,fg_attemped,fg_made,ft_attemped,ft_made,t3_attemped,t3_made) VALUES (
 	(SELECT id from games WHERE date=1503698400000 and id_home in (SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company')))
 	,(SELECT id from inscriptions where id_team in (SELECT id from teams where name like '3´s Company'))

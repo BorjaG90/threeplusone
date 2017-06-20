@@ -5,9 +5,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import play.api.db.slick.DatabaseConfigProvider
 import slick.driver.JdbcProfile
 import javax.inject.Inject
-import  java.util.logging._
 import util.Page
-import mcgrady.model.{TeamStats, TeamStatsTable, Game, GameTable, Inscription, InscriptionTable,Team,TeamTable}
+import mcgrady.model._
 import mcgrady.dao.TeamStatsDAO
 
 /**
