@@ -11,7 +11,9 @@ function calculatePercentage(idMade,idAtt,min,max,idSvg){
     if(att !== null && att !== "" && parseInt(made) > parseInt(att)){
         document.getElementById(idAtt).value = "Err";
     }
+    /*global validateNumber*/
     validateNumber(idMade,"btn-submit2");
+    /*global validateNumber*/
     validateNumber(idAtt,"btn-submit2");
 
     var r = (made / att) * 100;
@@ -33,6 +35,7 @@ function calculatePercentage(idMade,idAtt,min,max,idSvg){
   * ShotChart
   **/
 function setInShotChart(id){
+    /*global validateNumber*/
     validateNumber(id+ "-down","btn-submit2");
     var value = document.getElementById(id+ "-down").value;
     document.getElementById(id).value=value;

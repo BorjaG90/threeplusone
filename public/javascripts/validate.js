@@ -82,8 +82,9 @@ function validateNumber(element, submit){
     var text=document.getElementById(element).value;
     var button=document.getElementById(submit);
     if(text !== null && text !== ""){
+    /*global isNumber*/
         if(!isNumber(text)){
-            alert('[ERROR] El campo debe tener un valor númerico valido');
+            alert("[ERROR] El campo debe tener un valor númerico valido");
             button.style.display = "none";
             button.classList.add("number");
             return false;
