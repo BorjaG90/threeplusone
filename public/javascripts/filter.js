@@ -1,29 +1,35 @@
 /**
   * Created by Borja Gete on 20/05/17.
   */
+
+/**
+  * Establece los valores de una Inscripción dependiendo de si involucra una
+  * Competición, un Grupo o un SubGrupo
+  **/
 function inscription(){
     var options = document.getElementById("asignation").options;
     var id = options[options.selectedIndex].id;
     var value = options[options.selectedIndex].value;
-    if(id.charAt(0)=="C"){
+    if(id.charAt(0)==="C"){
         document.getElementById("id_competition").value = value;
         document.getElementById("id_group").value = "";
         document.getElementById("id_subgroup").value = "";
-    }else if(id.charAt(0)=="G"){
-        var idG = id.substring(id.lastIndexOf("-")+1)
+    }else if(id.charAt(0)==="G"){
+        var idG = id.substring(id.lastIndexOf("-")+1);
         document.getElementById("id_competition").value = document.getElementById("CG-" + idG).value;
         document.getElementById("id_group").value = value;
         document.getElementById("id_subgroup").value = "";
-    }else if(id.charAt(0)=="S"){
-        var idS = id.substring(id.lastIndexOf("-")+1)
+    }else if(id.charAt(0)==="S"){
+        var idS = id.substring(id.lastIndexOf("-")+1);
         document.getElementById("id_competition").value = document.getElementById("CS-" + idS).value;
         document.getElementById("id_group").value = document.getElementById("GS-" + idS).value;
         document.getElementById("id_subgroup").value = value;
     }
 }
-/*
-Recibe una tabla y una columna y ordena los valores de esa columna en dicha tabla
-*/
+/**
+  * Recibe una tabla y una columna y ordena los valores de esa columna en
+  * dicha tabla
+  **/
 function sortTable(n, idTable) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
   table = document.getElementById(idTable);
@@ -47,7 +53,7 @@ function sortTable(n, idTable) {
       y = rows[i + 1].getElementsByTagName("TD")[n];
       /*check if the two rows should switch place,
       based on the direction, asc or desc:*/
-      if (dir == "asc") {
+      if (dir === "asc") {
         if(isNumber(x.innerHTML.toLowerCase()) && isNumber(y.innerHTML.toLowerCase())){
             if (parseFloat(x.innerHTML) > parseFloat(y.innerHTML)) {
                 //if so, mark as a switch and break the loop:
@@ -61,7 +67,7 @@ function sortTable(n, idTable) {
               break;
             }
         }
-      } else if (dir == "desc") {
+      } else if (dir === "desc") {
         if(isNumber(x.innerHTML.toLowerCase()) && isNumber(y.innerHTML.toLowerCase())){
             if (parseFloat(x.innerHTML) < parseFloat(y.innerHTML)) {
                 //if so, mark as a switch and break the loop:
@@ -87,16 +93,25 @@ function sortTable(n, idTable) {
     } else {
       /*If no switching has been done AND the direction is "asc",
       set the direction to "desc" and run the while loop again.*/
-      if (switchcount == 0 && dir == "asc") {
+      if (switchcount === 0 && dir === "asc") {
         dir = "desc";
         switching = true;
       }
     }
   }
 }
+
+/**
+  * Devuelve un booleano que indica si el parámetro pasado es numérico
+  **/
 function isNumber(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
+
+/**
+  * Recibe una tabla y una columna y ordena los valores de esa columna en
+  * dicha tabla de forma ascendente
+  **/
 function sortTableAsc(n, idTable) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
   table = document.getElementById(idTable);
@@ -131,6 +146,11 @@ function sortTableAsc(n, idTable) {
     }
   }
 }
+
+/**
+  * Recibe una tabla y una columna y ordena los valores de esa columna en
+  * dicha tabla de forma descendente
+  **/
 function sortTableDesc(n, idTable) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
   table = document.getElementById(idTable);
@@ -165,6 +185,10 @@ function sortTableDesc(n, idTable) {
     }
   }
 }
+
+/**
+  * Muestra los formularios ocultos dependiendo del botón pulsado
+  **/
 function openForm(evt, formul) {
     // Declare all variables
     var i, tabcontent, tablinks;
@@ -189,6 +213,10 @@ function openForm(evt, formul) {
     document.getElementById(formul).style.display = "block";
     evt.currentTarget.className += " active";
 }
+
+/**
+  * Muestra los formularios ocultos dependiendo del botón pulsado
+  **/
 function openForm2(evt, formul) {
     // Declare all variables
     var i, tabcontent, tablinks;
@@ -210,17 +238,32 @@ function openForm2(evt, formul) {
     evt.currentTarget.className += " active";
 }
 
+/**
+  * Muestra el div de ayuda
+  **/
 function openHelp(){
     document.getElementById("help").style.display = "inline";
     document.getElementById("legend").style.display = "none";
 }
+
+/**
+  * Cierra el div de ayuda
+  **/
 function closeHelp(){
     document.getElementById("help").style.display = "none";
 }
+
+/**
+  * Muestra el div de Leyenda
+  **/
 function openLegend(){
     document.getElementById("legend").style.display = "inline";
     document.getElementById("help").style.display = "none";
 }
+
+/**
+  * Cierra el div de leyenda
+  **/
 function closeLegend(){
     document.getElementById("legend").style.display = "none";
 }

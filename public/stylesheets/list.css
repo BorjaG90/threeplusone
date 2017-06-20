@@ -130,7 +130,7 @@ i{
     z-index:10;
  }
  /*Tablas con scroll horizontal*/
- {
+ /*{
     text-align: center;
      width:auto;
      overflow-x: scroll;
@@ -140,7 +140,7 @@ i{
      padding: 0.25em 0.25em;
      text-align: center;
      font-size: 12px;
- }
+ }*/
 
  /* Tooltip container */
  .tooltip {
