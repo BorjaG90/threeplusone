@@ -30,7 +30,7 @@ class leagueControllerSpec extends PlaySpec with OneAppPerSuite{
         )
       ).get
       status(leagueAddPage) mustEqual OK
-      contentAsString(leagueAddPage) must include ("Liga añadida satisfactoriamente")
+      contentAsString(leagueAddPage) must include ("Liga a&ntilde;adida satisfactoriamente")
     }
 
     "delete a league" in new App(){

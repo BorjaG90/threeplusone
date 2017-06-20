@@ -27,7 +27,7 @@ class Authentication @Inject()(val userService: UserService) extends Controller 
     */
   def logout = Action {
     Redirect(routes.Authentication.login).withNewSession.flashing(
-      "success" -> "Sesión cerrada"
+      "success" -> "Sesi&ocute;n cerrada"
     )
   }
 
