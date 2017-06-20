@@ -63,7 +63,7 @@ class SessionController @Inject()(val messagesApi: MessagesApi
         }
       }.recover {
         case ex: TimeoutException =>
-          Logger.error("Error editando una sesión")
+          Logger.error("Error editando una sesi&oacute;n")
           InternalServerError(ex.getMessage)
       }
     }
@@ -104,13 +104,13 @@ class SessionController @Inject()(val messagesApi: MessagesApi
         val futureSessionInsert = sessionService.add(newSession)
         futureSessionInsert.map { result =>
           if (request.session.get("email").isDefined) {
-            home.flashing("success" -> "La sesión %s ha sido creada".format(newSession.name))
+            home.flashing("success" -> "La sesi&oacute;n %s ha sido creada".format(newSession.name))
           } else {
             Ok(views.html.login(UserForm.loginForm))
           }
         }.recover {
           case ex: TimeoutException =>
-            Logger.error("Error guardando una sesión")
+            Logger.error("Error guardando una sesi&oacute;n")
             InternalServerError(ex.getMessage)
         }
       }
@@ -121,13 +121,13 @@ class SessionController @Inject()(val messagesApi: MessagesApi
     val futureSessionDel = sessionService.delete(id)
     futureSessionDel.map { result =>
       if (request.session.get("email").isDefined) {
-        home.flashing("success" -> "Sesión eliminada")
+        home.flashing("success" -> "Sesi&oacute;n eliminada")
       } else {
         Ok(views.html.login(UserForm.loginForm))
       }
     }.recover {
       case ex: TimeoutException =>
-        Logger.error("Error borrando una sesión")
+        Logger.error("Error borrando una sesi&oacute;n")
         InternalServerError(ex.getMessage)
     }
   }

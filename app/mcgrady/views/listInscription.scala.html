@@ -26,12 +26,12 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
 </div>
 <div id="legend" style="display:none;">
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
-    <br><b>Asignación</b> -> Competición / Grupo / Subgrupo al que esta asignado un equipo
+    <br><b>Asignaci&oacute;n</b> -> Competici&oacute;n / Grupo / Subgrupo al que esta asignado un equipo
 </div>
 <h3>Inscripciones</h3>
 <div id="actions">
     @helper.form(action=mcgrady.controllers.routes.InscriptionController.list()) {
-    <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por nombre de Inscripción">
+    <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por nombre de Inscripci&oacute;n">
     <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
     } <button type="submit" onclick="location.href='@mcgrady.controllers.routes.InscriptionController.add()'" class="btn-add">
         Nuevo</button>
@@ -39,7 +39,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
 <table class="table table-striped">
     <tr>
         <th>Temporada</th>
-        <th>Asignación <div class="tooltip"><span class="tooltiptext">Competición/Grupo-SubGrupo</span>
+        <th>Asignaci&oacute;n <div class="tooltip"><span class="tooltiptext">Competici&oacute;n/Grupo-SubGrupo</span>
             <img src=@routes.Assets.versioned("images/info.png") alt="Info"></div></th>
         <th>Equipo</th>
         <th>Arena</th>

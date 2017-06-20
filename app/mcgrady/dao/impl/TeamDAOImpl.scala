@@ -22,7 +22,7 @@ class TeamDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvid
   val teams = TableQuery[TeamTable]
 
   override def add(team: Team): Future[String] = {
-    db.run(teams += team).map(res => "Equipo añadido satisfactoriamente").recover {
+    db.run(teams += team).map(res => "Equipo a&ntilde;adido satisfactoriamente").recover {
       case ex : Exception => ex.getCause.getMessage
     }
   }

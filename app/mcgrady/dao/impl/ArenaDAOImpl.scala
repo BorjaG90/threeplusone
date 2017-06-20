@@ -22,7 +22,7 @@ class ArenaDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvi
   val arenas = TableQuery[ArenaTable]
 
   override def add(arena: Arena): Future[String] = {
-    db.run(arenas += arena).map(res => "Estadio añadido satisfactoriamente").recover {
+    db.run(arenas += arena).map(res => "Estadio a&ntilde;adido satisfactoriamente").recover {
       case ex : Exception => ex.getCause.getMessage
     }
   }

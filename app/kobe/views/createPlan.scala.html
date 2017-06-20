@@ -15,13 +15,13 @@
 }
 <div id="help" style="display:none;">
     <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
-    <br>En esta pantalla se pueden añadir Planes al sistema
+    <br>En esta pantalla se pueden a&ntilde;adir Planes al sistema
 </div>
 <div id="legend" style="display:none;">
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
     <br>No hay leyenda disponible
 </div>
-<h1>Añadir Plan</h1>
+<h1>A&ntilde;adir Plan</h1>
 <form id="arena-data-form" action=@kobe.controllers.routes.PlanController.save() method="post" autocomplete="off">
     <fieldset >
         <label>Plan</label>
@@ -30,7 +30,7 @@
             <tr>
                 <th>Nombre</th>
                 <th>Fecha</th>
-                <th>Descripción</th>
+                <th>Descripci&oacute;n</th>
                 <th>Notas</th>
             </tr>
             <tr>
@@ -41,7 +41,7 @@
                     <input type="date" id="date" name="date" step="1" min="2000-01-01" max="2050-12-31" value="2017-06-30" onchange="validateDate('date','btn-submit')">
                 </td>
                 <td>
-                    <textarea id="description" name="description" placeholder="Descripción"></textarea>
+                    <textarea id="description" name="description" placeholder="Descripci&oacute;n"></textarea>
                 </td>
                 <td>
                     <textarea id="notes" name="notes" placeholder="Notas"></textarea>
@@ -50,7 +50,7 @@
         </table>
         <br/>
         <div class="form-actions controls ynt-btn-xlarge">
-            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
+            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">A&ntilde;adir</button> o
             <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>

@@ -4,12 +4,12 @@
 <div id="help" style="display:none;">
     <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
     <p>En esta pantalla se puede consultar la plantilla actual del equipo elegido y las medias
-        en las cinco estadisticas principales realizadas en cada competición y en cada temporada
-        en la que se participó</p>
+        en las cinco estadisticas principales realizadas en cada competici&oacute;n y en cada temporada
+        en la que se particip&oacute;</p>
 </div>
 <div id="legend" style="display:none;">
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
-    <p><b>Récord</b> -> Victorias-Derrotas cosechadas en una competición</p>
+    <p><b>Récord</b> -> Victorias-Derrotas cosechadas en una competici&oacute;n</p>
     <p><b>PP</b> -> Por partido</p>
 </div>
 <h1>@team.name - @team.abrv</h1>
@@ -20,7 +20,7 @@
     <img src=@routes.Assets.versioned("images/info.png") alt="Info"></div>
     <table id="table-roster" class="table table-striped">
         <tr>
-            <th>Número</th>
+            <th>N&uacute;mero</th>
             <th>Jugador</th>
             <th>Contrato</th>
             <th></th>
@@ -40,7 +40,7 @@
 </div>
 <div id="standings">
     <h3>Temporadas</h3><div class="tooltip" style="top: -40px;left: 120px;"><span class="tooltiptext">Se puede seleccionar
-    de que competición y temporada ver las estadisticas que ha registrado el equipo</span>
+    de que competici&oacute;n y temporada ver las estadisticas que ha registrado el equipo</span>
     <img src=@routes.Assets.versioned("images/info.png") alt="Info"></div>
     <div class="tab">
         @for(season<-seasons.sortBy(x=> x.year)){

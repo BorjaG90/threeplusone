@@ -22,7 +22,7 @@ class EnviromentDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfig
   val enviroments = TableQuery[EnviromentTable]
 
   override def add(enviroment: Enviroment): Future[String] = {
-    db.run(enviroments += enviroment).map(res => "Entorno añadido satisfactoriamente").recover {
+    db.run(enviroments += enviroment).map(res => "Entorno a&ntilde;adido satisfactoriamente").recover {
       case ex : Exception => ex.getCause.getMessage
     }
   }

@@ -23,7 +23,7 @@ class SubGroupDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPr
   val groups = TableQuery[GroupTable]
 
   override def add(subGroup: SubGroup): Future[String] = {
-    db.run(subGroups += subGroup).map(res => "SubGrupo añadido satisfactoriamente").recover {
+    db.run(subGroups += subGroup).map(res => "SubGrupo a&ntilde;adido satisfactoriamente").recover {
       case ex : Exception => ex.getCause.getMessage
     }
   }

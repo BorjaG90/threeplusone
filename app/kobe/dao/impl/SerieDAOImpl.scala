@@ -25,7 +25,7 @@ class SerieDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvi
   val exercises = TableQuery[ExerciseTable]
 
   override def add(serie: kobe.model.Serie): Future[String] = {
-    db.run(series += serie).map(res => "Serie añadida satisfactoriamente").recover {
+    db.run(series += serie).map(res => "Serie a&ntilde;adida satisfactoriamente").recover {
       case ex : Exception => ex.getCause.getMessage
     }
   }

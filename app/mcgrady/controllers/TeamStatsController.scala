@@ -39,7 +39,7 @@ class TeamStatsController @Inject()(val messagesApi: MessagesApi
   }
     }.recover {
       case ex: TimeoutException =>
-        Logger.error("Error listando Líneas")
+        Logger.error("Error listando L&iacute;neas")
         InternalServerError(ex.getMessage)
     }
   }
@@ -72,7 +72,7 @@ class TeamStatsController @Inject()(val messagesApi: MessagesApi
         }
           }.recover {
             case ex: TimeoutException =>
-              Logger.error("Error editando una Línea")
+              Logger.error("Error editando una L&iacute;nea")
               InternalServerError(ex.getMessage)
           }
         }
@@ -110,13 +110,13 @@ class TeamStatsController @Inject()(val messagesApi: MessagesApi
           val futureTeamStatsUpdate = teamStatsService.update(id, newTeamStats.copy(id = Some(id)))
           futureTeamStatsUpdate.map { result =>
             if (request.session.get("email").isDefined) {
-              home.flashing("success" -> "La Línea ha sido actualizado")
+              home.flashing("success" -> "La L&iacute;nea ha sido actualizado")
           } else {
             Ok(views.html.login(UserForm.loginForm))
           }
           }.recover {
             case ex: TimeoutException =>
-              Logger.error("Error actualizando una Línea")
+              Logger.error("Error actualizando una L&iacute;nea")
               InternalServerError(ex.getMessage)
           }
         }
@@ -153,13 +153,13 @@ class TeamStatsController @Inject()(val messagesApi: MessagesApi
           val futureTeamStatsInsert = teamStatsService.add(newTeamStats)
           futureTeamStatsInsert.map { result =>
             if (request.session.get("email").isDefined) {
-              home.flashing("success" -> "La Línea ha sido creada")
+              home.flashing("success" -> "La L&iacute;nea ha sido creada")
           } else {
             Ok(views.html.login(UserForm.loginForm))
           }
           }.recover {
             case ex: TimeoutException =>
-              Logger.error("Error guardando una Línea")
+              Logger.error("Error guardando una L&iacute;nea")
               InternalServerError(ex.getMessage)
           }
         }
@@ -171,13 +171,13 @@ class TeamStatsController @Inject()(val messagesApi: MessagesApi
       val futureTeamStatsDel = teamStatsService.delete(id)
       futureTeamStatsDel.map { result =>
         if (request.session.get("email").isDefined) {
-        home.flashing("success" -> "Línea eliminada")
+        home.flashing("success" -> "L&iacute;nea eliminada")
       } else {
       Ok(views.html.login(UserForm.loginForm))
     }
       }.recover {
         case ex: TimeoutException =>
-          Logger.error("Error borrando una Línea")
+          Logger.error("Error borrando una L&iacute;nea")
           InternalServerError(ex.getMessage)
       }
   }

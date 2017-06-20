@@ -22,7 +22,7 @@ class SessionDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
   val sessions = TableQuery[SessionTable]
 
   override def add(session: kobe.model.Session): Future[String] = {
-    db.run(sessions += session).map(res => "Sesion añadida satisfactoriamente").recover {
+    db.run(sessions += session).map(res => "Sesion a&ntilde;adida satisfactoriamente").recover {
       case ex : Exception => ex.getCause.getMessage
     }
   }

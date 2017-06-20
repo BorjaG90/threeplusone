@@ -23,7 +23,7 @@ class UserDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvid
   import driver.api._
   
   override def add(user: User): Future[String] = {
-    db.run(users += user).map(res => "Usario añadido satisfactoriamente").recover {
+    db.run(users += user).map(res => "Usario a&ntilde;adido satisfactoriamente").recover {
       case ex : Exception => ex.getCause.getMessage
     }
   }

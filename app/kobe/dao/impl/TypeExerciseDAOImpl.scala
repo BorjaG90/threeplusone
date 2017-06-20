@@ -22,7 +22,7 @@ class TypeExerciseDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConf
   val typeExercises = TableQuery[TypeExerciseTable]
 
   override def add(typeExercise: TypeExercise): Future[String] = {
-    db.run(typeExercises += typeExercise).map(res => "Tipo añadido satisfactoriamente").recover {
+    db.run(typeExercises += typeExercise).map(res => "Tipo a&ntilde;adido satisfactoriamente").recover {
       case ex : Exception => ex.getCause.getMessage
     }
   }

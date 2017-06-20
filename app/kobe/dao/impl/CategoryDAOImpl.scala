@@ -22,7 +22,7 @@ class CategoryDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPr
   val categorys = TableQuery[CategoryTable]
 
   override def add(category: Category): Future[String] = {
-    db.run(categorys += category).map(res => "Tipo añadido satisfactoriamente").recover {
+    db.run(categorys += category).map(res => "Tipo a&ntilde;adido satisfactoriamente").recover {
       case ex : Exception => ex.getCause.getMessage
     }
   }

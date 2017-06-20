@@ -22,7 +22,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
 }
 <div id="help" style="display:none;">
     <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
-    <br>En esta pantalla se listan las Series creadas con su Sesión y Ejerecicio relacionados
+    <br>En esta pantalla se listan las Series creadas con su Sesi&oacute;n y Ejerecicio relacionados
 </div>
 <div id="legend" style="display:none;">
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
@@ -38,10 +38,10 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
 </div>
 <table class="table table-striped">
     <tr>
-        <th>Sesión</th>
+        <th>Sesi&oacute;n</th>
         <th>Ejercicio</th>
         <th class="tdnotes">Notas</th>
-        <th><div class="tooltip"><span class="tooltiptext">Añade volúmenes a la serie</span>
+        <th><div class="tooltip"><span class="tooltiptext">A&ntilde;ade vol&uacute;menes a la serie</span>
             <img src=@routes.Assets.versioned("images/info.png") alt="Info"></div></th>
     </tr>
     @for((serie,session,exercise,plan) <- currentPage.items){
@@ -51,7 +51,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
         <td class="tdnotes">@serie.notes</td>
         <td>
             <a href="@kobe.controllers.routes.RecordController.addVolume(plan.id.get)">
-                <img src=@routes.Assets.versioned("images/add.png") alt="Añadir Volúmen">
+                <img src=@routes.Assets.versioned("images/add.png") alt="A&ntilde;adir Vol&uacute;men">
             </a>
             <a href="@kobe.controllers.routes.SerieController.edit(serie.id.get)">
                 <img src=@routes.Assets.versioned("images/editar.png") alt="Modificar"></a>

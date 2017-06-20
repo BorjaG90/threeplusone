@@ -23,7 +23,7 @@ class ContractDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPr
   val teams = TableQuery[TeamTable]
 
   override def add(contract: Contract): Future[String] = {
-    db.run(contracts += contract).map(res => "Contrato añadido satisfactoriamente").recover {
+    db.run(contracts += contract).map(res => "Contrato a&ntilde;adido satisfactoriamente").recover {
       case ex : Exception => ex.getCause.getMessage
     }
   }

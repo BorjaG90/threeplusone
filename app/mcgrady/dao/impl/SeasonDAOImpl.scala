@@ -22,7 +22,7 @@ class SeasonDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProv
   val seasons = TableQuery[SeasonTable]
 
   override def add(season: Season): Future[String] = {
-    db.run(seasons += season).map(res => "Temporada añadida satisfactoriamente").recover {
+    db.run(seasons += season).map(res => "Temporada a&ntilde;adida satisfactoriamente").recover {
       case ex : Exception => ex.getCause.getMessage
     }
   }

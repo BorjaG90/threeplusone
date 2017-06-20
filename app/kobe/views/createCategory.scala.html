@@ -15,21 +15,21 @@
 }
 <div id="help" style="display:none;">
     <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
-    <br>En esta pantalla se pueden añadir Categorías al sistema
+    <br>En esta pantalla se pueden a&ntilde;adir Categor&iacute;as al sistema
 </div>
 <div id="legend" style="display:none;">
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
     <br>No hay leyenda disponible
 </div>
-<h1>Añadir Categoría</h1>
+<h1>A&ntilde;adir Categor&iacute;a</h1>
 <form id="arena-data-form" action=@kobe.controllers.routes.CategoryController.save() method="post" autocomplete="off">
     <fieldset >
-        <label>Categoría</label>
+        <label>Categor&iacute;a</label>
         <br/>
         <table>
             <tr>
                 <th>Nombre</th>
-                <th>Descripción</th>
+                <th>Descripci&oacute;n</th>
                 <th>Notas</th>
             </tr>
             <tr>
@@ -37,7 +37,7 @@
                     <input type="text" id="name" name="name" value="" placeholder="Nombre" required>
                 </td>
                 <td>
-                    <textarea id="description" name="description" placeholder="Descripción"></textarea>
+                    <textarea id="description" name="description" placeholder="Descripci&oacute;n"></textarea>
                 </td>
                 <td>
                     <textarea  id="notes" name="notes" placeholder="Notas"></textarea>
@@ -46,7 +46,7 @@
         </table>
         <br/>
         <div class="form-actions controls ynt-btn-xlarge">
-            <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
+            <button type="submit" class="btn btn-primary ynt-btn-orange">A&ntilde;adir</button> o
             <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>

@@ -31,14 +31,14 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
 <h3>Temporadas</h3>
 <div id="actions">
     @helper.form(action=mcgrady.controllers.routes.SeasonController.list()) {
-    <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por año">
+    <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por a&ntilde;o">
     <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
     } <button type="submit" onclick="location.href='@mcgrady.controllers.routes.SeasonController.add()'" class="btn-add">
     Nuevo</button>
 </div>
 <table class="table table-striped">
     <tr>
-        <th>Año</th>
+        <th>A&ntilde;o</th>
         <th class="tdnotes">Descripción</th>
         <th></th>
     </tr>

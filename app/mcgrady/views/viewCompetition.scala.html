@@ -5,18 +5,18 @@
 @main(Messages("competition.title")){
 <div id="help" style="display:none;">
     <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
-    <br>En esta pantalla se puede consultar la clasificación actual de la competición y las medias en las cinco
-    estadísticas principales de los jugadores participantes en la competición con un mínimo de partidos
+    <br>En esta pantalla se puede consultar la clasificaci&oacute;n actual de la competici&oacute;n y las medias en las cinco
+    estadísticas principales de los jugadores participantes en la competici&oacute;n con un mínimo de partidos
 </div>
 <div id="legend" style="display:none;">
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
-    <br><b>Récord</b> -> Victorias-Derrotas cosechadas en una competición
+    <br><b>Récord</b> -> Victorias-Derrotas cosechadas en una competici&oacute;n
     <br><b>PP</b> -> Por partido
 </div>
 <h1>@competition.name</h1>
 @for(season<-seasons.filter(_.id.get == competition.idSeason)){ <h3>Temporada @season.year</h3>}
 <div id="standings">
-    <h2>Clasificación</h2>
+    <h2>Clasificaci&oacute;n</h2>
     <table id="table-standings" class="table table-striped">
         <tr>
             <th>Nombre
@@ -55,8 +55,8 @@
 </div>
 <br>
 <div id="stats">
-    <h2>Tabla de máximos</h2><div class="tooltip" style="top: -40px;left: 220px;"><span class="tooltiptext">Medias de los mejores jugadores de la
-    competición en las 5 categorias estadisticas principales.<br>Necesitan haber jugado un mínimo de 5 partidos</span>
+    <h2>Tabla de m&aacute;ximos</h2><div class="tooltip" style="top: -40px;left: 220px;"><span class="tooltiptext">Medias de los mejores jugadores de la
+    competici&oacute;n en las 5 categorias estadisticas principales.<br>Necesitan haber jugado un mínimo de 5 partidos</span>
     <img src=@routes.Assets.versioned("images/info.png") alt="Info"></div>
     <table id="table-stats" class="table table-striped table-inline">
         <tr>

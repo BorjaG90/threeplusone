@@ -15,7 +15,7 @@
 }
 <div id="help" style="display:none;">
     <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
-    <br>En esta pantalla se pueden añadir Competiciones al sistema
+    <br>En esta pantalla se pueden a&ntilde;adir Competiciones al sistema
     <br>Se debe especificar Temporada y Tipo de Liga correspondiente p.e. (3x3, Eliminatoria, Liguilla + PlayOffs, etc.)
 </div>
 <div id="legend" style="display:none;">
@@ -23,12 +23,12 @@
     <br>No hay leyenda disponible
 </div>
 <form id="competition-data-form" action=@mcgrady.controllers.routes.CompetitionController.save() method="post" autocomplete="off">
-    <h2>Nueva Competición</h2>
+    <h2>Nueva Competici&oacute;n</h2>
     <fieldset>
         <table>
             <tr>
                 <th>Temporada<a href=@mcgrady.controllers.routes.SeasonController.add() class="btn">
-                    <img src=@routes.Assets.versioned("images/mas.png") alt="Añadir Temporada"></a></th>
+                    <img src=@routes.Assets.versioned("images/mas.png") alt="A&ntilde;adir Temporada"></a></th>
                 <th>Nombre</th>
                 <th>Abreviatura</th>
             </tr>
@@ -47,13 +47,13 @@
 
             </tr>
             <tr>
-                <th>División</th>
-                <th>País</th>
-                <th>Descripción</th>
+                <th>Divisi&oacute;n</th>
+                <th>Pa&iacute;s</th>
+                <th>Descripci&oacute;n</th>
             </tr>
             <tr>
                 <td>
-                    <input type="text" id="division" name="division" value="" placeholder="División" >
+                    <input type="text" id="division" name="division" value="" placeholder="Divisi&oacute;n" >
                 </td>
                 <td>
                     <select id="id_country" name="id_country">
@@ -64,7 +64,7 @@
                     </select>
                 </td>
                 <td>
-                    <textarea id="description" name="description" placeholder="Descripción"></textarea>
+                    <textarea id="description" name="description" placeholder="Descripci&oacute;n"></textarea>
                 </td>
             </tr>
             <tr>
@@ -86,7 +86,7 @@
         </table>
         <br/>
         <div class="form-actions controls ynt-btn-xlarge">
-            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
+            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">A&ntilde;adir</button> o
             <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>

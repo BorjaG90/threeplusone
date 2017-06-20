@@ -26,7 +26,7 @@ class PlayerStatsDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfi
   val players = TableQuery[PlayerTable]
 
   override def add(playerStat: PlayerStats): Future[String] = {
-    db.run(playerStats += playerStat).map(res => "Línea estadística añadida satisfactoriamente").recover {
+    db.run(playerStats += playerStat).map(res => "L&iacute;nea estad&iacute;stica a&ntilde;adida satisfactoriamente").recover {
       case ex : Exception => "" + ex.getCause.getMessage
       case ex : RuntimeException => "" + ex.getCause.getMessage
     }

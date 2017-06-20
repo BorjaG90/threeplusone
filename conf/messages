@@ -13,19 +13,19 @@ player.title = Jugadores
 contract.title = Contratos
 inscription.title = Inscripciones
 game.title = Partidos
-teamStats.title = Estadísticas de Equipos
-playerStats.title = Estadísticas de Jugadores
+teamStats.title = Estad&iacute;sticas de Equipos
+playerStats.title = Estad&iacute;sticas de Jugadores
 
 # Kobe
 enviroment.title = Entornos
-category.title = Categorías
+category.title = Categor&iacute;as
 plan.title = Planes
 exercise.title = Ejercicios
 session.title = Sesiones
 serie.title = Series
 unit.title = Unidades
 typeExercise.title = Tipos
-volume.title = Volúmenes
+volume.title = Vol&uacute;menes
 mark.title = Registros
 
 # Flash Scope

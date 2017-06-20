@@ -15,17 +15,17 @@
 }
 <div id="help" style="display:none;">
     <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
-    <br>En esta pantalla se pueden añadir Sesiones al sistema.
+    <br>En esta pantalla se pueden a&ntilde;adir Sesiones al sistema.
     <br>Se debe especificar el Plan al que pertenece
 </div>
 <div id="legend" style="display:none;">
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
     <br>No hay leyenda disponible
 </div>
-<h1>Añadir Sesión</h1>
+<h1>A&ntilde;adir Sesi&oacute;n</h1>
 <form id="session-data-form" action=@kobe.controllers.routes.SessionController.save() method="post" autocomplete="off">
     <fieldset >
-        <label>Sesión</label>
+        <label>Sesi&oacute;n</label>
         <br/>
         <table>
             <tr>
@@ -49,7 +49,7 @@
         </table>
         <br/>
         <div class="form-actions controls ynt-btn-xlarge">
-            <button type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
+            <button type="submit" class="btn btn-primary ynt-btn-orange">A&ntilde;adir</button> o
             <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>

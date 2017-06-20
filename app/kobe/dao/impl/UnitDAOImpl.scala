@@ -22,7 +22,7 @@ class UnitDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvid
   val units = TableQuery[UnitTable]
 
   override def add(unit: Unit): Future[String] = {
-    db.run(units += unit).map(res => "Unidad añadida satisfactoriamente").recover {
+    db.run(units += unit).map(res => "Unidad a&ntilde;adida satisfactoriamente").recover {
       case ex : Exception => ex.getCause.getMessage
     }
   }

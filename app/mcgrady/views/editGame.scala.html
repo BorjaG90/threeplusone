@@ -12,7 +12,7 @@
 <h2>Editando Partido</h2>
 <div id="actions">
     @helper.form(action=mcgrady.controllers.routes.GameController.edit(id,idComp)) {
-    Competición:<select id="competition" name="idComp">
+    Competici&oacute;n:<select id="competition" name="idComp">
     @for(comp <- competitions){ @if(idComp != "%" && comp.id.get == idComp){
     <option value=@id selected>@for(season <- seasons){@if(comp.idSeason == season.id.get ){@season.year-}}@comp.abrv</option>
     }else{<option value=@comp.id>@for(season <- seasons){@if(comp.idSeason == season.id.get ){@season.year-}}@comp.abrv</option>}
@@ -27,7 +27,7 @@
         <table>
             <tr>
                 <th>Fecha</th>
-                <th>Anfitrión</th>
+                <th>Anfitri&oacute;n</th>
                 <th>Visitante</th>
                 <th>Estadio</th>
             </tr>
@@ -79,19 +79,19 @@
             <tr>
                 <th>Ganador</th>
                 <th>MVP</th>
-                <th colspan="2">Descripción</th>
+                <th colspan="2">Descripci&oacute;n</th>
             </tr>
             <tr>
                 <td>
                     @defining(gameForm("winner").value) { winnerValue=>
                     @if("H" == winnerValue.toString){
-                    <input type="radio" id="winner1" name="winner" value="H" checked>Anfitrión<br>
+                    <input type="radio" id="winner1" name="winner" value="H" checked>Anfitri&oacute;n<br>
                     <input type="radio" id="winner2" name="winner" value="A">Visitante<br>
                     }else{ @if("V" == winnerValue.toString){
-                    <input type="radio" id="winner3" name="winner" value="H">Anfitrión<br>
+                    <input type="radio" id="winner3" name="winner" value="H">Anfitri&oacute;n<br>
                     <input type="radio" id="winner4" name="winner" value="A" checked>Visitante<br>
                     }else{
-                    <input type="radio" id="winner5" name="winner" value="H">Anfitrión<br>
+                    <input type="radio" id="winner5" name="winner" value="H">Anfitri&oacute;n<br>
                     <input type="radio" id="winner6" name="winner" value="A">Visitante<br>
                     }}}
                 </td>

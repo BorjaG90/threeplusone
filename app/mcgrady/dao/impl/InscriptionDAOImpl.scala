@@ -28,7 +28,7 @@ class InscriptionDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfi
   val seasons = TableQuery[SeasonTable]
 
   override def add(inscription: Inscription): Future[String] = {
-    db.run(inscriptions += inscription).map(res => "Inscripcion añadida satisfactoriamente").recover {
+    db.run(inscriptions += inscription).map(res => "Inscripcion a&ntilde;adida satisfactoriamente").recover {
       case ex : Exception => ex.getCause.getMessage
     }
   }

@@ -13,9 +13,9 @@
 }
 <div id="help" style="display:none;">
     <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
-    <br>En esta pantalla se pueden añadir Marcas de Ejercicios realizados
-    <br>Hay dos botones que permiten la adición de marcas de todo tipo (<b>General</b>) y la segundo abre el formulario
-    grafico de sesiones de tiro, el cual es un formulario especial que permite añadir los lanzamientos intentados y
+    <br>En esta pantalla se pueden a&ntilde;adir Marcas de Ejercicios realizados
+    <br>Hay dos botones que permiten la adici&oacute;n de marcas de todo tipo (<b>General</b>) y la segundo abre el formulario
+    grafico de sesiones de tiro, el cual es un formulario especial que permite a&ntilde;adir los lanzamientos intentados y
      conseguidos desde los distintos puntos de la cancha de baloncesto.
 </div>
 <div id="legend" style="display:none;">
@@ -26,14 +26,14 @@
     @for(plan <- plans){
     @if(session.idPlan == plan.id.get){
     <h1>Plan: <b>@plan.name</b></h1>
-    <h2>Sesión: <b>@session.name</b></h2>
+    <h2>Sesi&oacute;n: <b>@session.name</b></h2>
     @for(serie <- series){ @if(serie.idSession == session.id.get){
     @for(exercise <- exercises){ @if(serie.idExercise == exercise.id.get){
     <h3>Serie: <b>@serie.id-@exercise.name</b></h3>
     <table>
         <tr>
             <th>Valor</th>
-            <th>Ejecución <div class="tooltip"><span class="tooltiptext">Fecha en la que se ha relizado la serie</span>
+            <th>Ejecuci&oacute;n <div class="tooltip"><span class="tooltiptext">Fecha en la que se ha relizado la serie</span>
                 <img src=@routes.Assets.versioned("images/info.png") alt="Info"></div></th>
             <th class="tdnotes">Notas</th>
             <th></th>
@@ -53,7 +53,7 @@
         <br>
         <button class="tablinks" onclick="openFormSC(event, 'general-@serie.id.get')">General</button>
         <button class="tablinks" onclick="openFormSC(event, 'shot-chart-@serie.id.get', @serie.id)">Lanzamientos</button>
-        <div class="tooltip"><span class="tooltiptext">Elige entre los diferentes Formularios de inserción</span>
+        <div class="tooltip"><span class="tooltiptext">Elige entre los diferentes Formularios de inserci&oacute;n</span>
             <img src=@routes.Assets.versioned("images/info.png") alt="Info"></div>
     </div>
     <div id="general-@serie.id.get" class="tabcontent">
@@ -66,7 +66,7 @@
                     <tr>
                         <th>Valor</th>
                         <th>Unidad</th>
-                        <th>Ejecución</th>
+                        <th>Ejecuci&oacute;n</th>
                         <th class="tdnotes">Notas</th>
                         <th></th>
                     </tr>
@@ -89,7 +89,7 @@
                 </table>
                 <br/>
                 <div class="form-actions controls ynt-btn-xlarge">
-                    <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button>
+                    <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">A&ntilde;adir</button>
                 </div>
             </fieldset>
         </form>
@@ -157,10 +157,10 @@
             <input type="hidden" id="id_5" name="shots[5].notes" value="Intentos desde el poste bajo">
             <input type="hidden" id="id_6" name="shots[6].notes" value="Canastas desde la derecha del poste bajo">
             <input type="hidden" id="id_7" name="shots[7].notes" value="Intentos desde la derecha del poste bajo">
-            <input type="hidden" id="id_8" name="shots[8].notes" value="Canastas desde la línea de fondo izquierda">
-            <input type="hidden" id="id_9" name="shots[9].notes" value="Intentos desde la línea de fondo izquierda">
-            <input type="hidden" id="id_10" name="shots[10].notes" value="Canastas desde la línea de fondo derecha">
-            <input type="hidden" id="id_11" name="shots[11].notes" value="Intentos desde la línea de fondo derecha">
+            <input type="hidden" id="id_8" name="shots[8].notes" value="Canastas desde la l&iacute;nea de fondo izquierda">
+            <input type="hidden" id="id_9" name="shots[9].notes" value="Intentos desde la l&iacute;nea de fondo izquierda">
+            <input type="hidden" id="id_10" name="shots[10].notes" value="Canastas desde la l&iacute;nea de fondo derecha">
+            <input type="hidden" id="id_11" name="shots[11].notes" value="Intentos desde la l&iacute;nea de fondo derecha">
             <input type="hidden" id="id_12" name="shots[12].notes" value="Canastas desde la izquierda del poste alto">
             <input type="hidden" id="id_13" name="shots[13].notes" value="Intentos desde la izquierda del poste alto">
             <input type="hidden" id="id_14" name="shots[14].notes" value="Canastas desde el poste alto">

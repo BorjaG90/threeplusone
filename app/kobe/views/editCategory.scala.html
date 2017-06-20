@@ -5,13 +5,13 @@
 @main(Messages("category.title")){
 <div id="help" style="display:none;">
     <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
-    <br>En esta pantalla se pueden editar Categorías presentes en el sistema
+    <br>En esta pantalla se pueden editar Categor&iacute;as presentes en el sistema
 </div>
 <div id="legend" style="display:none;">
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
     <br>No hay leyenda disponible
 </div>
-<h2>Categorías</h2>
+<h2>Categor&iacute;as</h2>
 <form id="category-data-form" action=@kobe.controllers.routes.CategoryController.update(id) method="post" autocomplete="off">
     <fieldset>
 
@@ -19,7 +19,7 @@
         <table>
             <tr>
                 <th>Nombre</th>
-                <th>Descripción</th>
+                <th>Descripci&oacute;n</th>
                 <th>Notas</th>
             </tr>
             <tr>
@@ -42,7 +42,7 @@
         </table>
         <br/>
         <div>
-            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Categoría</button>
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Categor&iacute;a</button>
             o
             <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
@@ -50,7 +50,7 @@
 </form>
 
 @form(kobe.controllers.routes.CategoryController.delete(Some(id)), 'class -> "topRight") {
-<input type="submit" value="Eliminar Categoría" class="btn danger">
+<input type="submit" value="Eliminar Categor&iacute;a" class="btn danger">
 }
 
 }

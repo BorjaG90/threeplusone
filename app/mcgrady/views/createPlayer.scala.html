@@ -13,7 +13,7 @@
 }
 <div id="help" style="display:none;">
     <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
-    <br>En esta pantalla se pueden añadir Jugadores al sistema
+    <br>En esta pantalla se pueden a&ntilde;adir Jugadores al sistema
 </div>
 <div id="legend" style="display:none;">
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
@@ -43,7 +43,7 @@
             <tr>
                 <th>Altura</th>
                 <th>Peso</th>
-                <th>Descripción</th>
+                <th>Descripci&oacute;n</th>
             </tr>
             <tr>
                 <td>
@@ -53,13 +53,13 @@
                     <input type="text" id="weight" name="weight" value="" placeholder="Peso"  onchange="validateNumber('weight','btn-submit')">
                 </td>
                 <td>
-                    <textarea id="description" name="description" placeholder="Descripción"></textarea>
+                    <textarea id="description" name="description" placeholder="Descripci&oacute;n"></textarea>
                 </td>
             </tr>
         </table>
         <br/>
         <div class="form-actions controls ynt-btn-xlarge">
-            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
+            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">A&ntilde;adir</button> o
             <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>

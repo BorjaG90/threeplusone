@@ -22,7 +22,7 @@ class PlanDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvid
   val plans = TableQuery[PlanTable]
 
   override def add(plan: Plan): Future[String] = {
-    db.run(plans += plan).map(res => "Plan añadido satisfactoriamente").recover {
+    db.run(plans += plan).map(res => "Plan a&ntilde;adido satisfactoriamente").recover {
       case ex : Exception => ex.getCause.getMessage
     }
   }

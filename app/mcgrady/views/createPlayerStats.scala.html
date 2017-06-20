@@ -13,11 +13,11 @@
 }
 <div id="help" style="display:none;">
     <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
-    <br>En esta pantalla se pueden crear Líneas estadísticas de Jugadores
-    <br><b>ATENCIÓN!</b> Los Tiros de Campo son la suma de los Triples más los Tiros de Dos.
+    <br>En esta pantalla se pueden crear L&iacute;neas estad&iacute;sticas de Jugadores
+    <br><b>ATENCIÓN!</b> Los Tiros de Campo son la suma de los Triples m&aacute;s los Tiros de Dos.
     <br>En tiros de campo se debe introducir la suma de los tiros de 2 y los tiros de 3 (Anotados o Intentados en cada
     caso)
-    <br>En las pantallas de visualización el programa realiza el calculo automaticamente para mostrar adecuadamente
+    <br>En las pantallas de visualizaci&oacute;n el programa realiza el calculo automaticamente para mostrar adecuadamente
     los datos
 </div>
 <div id="legend" style="display:none;">
@@ -26,10 +26,10 @@
     <br><b>T3</b> -> Tiros de Tres
     <br><b>TL</b> -> Tiros Libres
 </div>
-<h2>Nueva Línea Estadística</h2>
+<h2>Nueva L&iacute;nea Estad&iacute;stica</h2>
 <div id="actions">
     @helper.form(action=mcgrady.controllers.routes.PlayerStatsController.add(id)) {
-    Competición:<select id="competition" name="id">
+    Competici&oacute;n:<select id="competition" name="id">
     @for(comp <- competitions){ @if(id != "%" && comp.id.get == id){
     <option value=@id selected>
         @for(season <- seasons.filter(_.id.get == comp.idSeason)){@season.year-}@comp.abrv</option>
@@ -121,7 +121,7 @@
         </table>
         <br/>
         <div class="form-actions controls ynt-btn-xlarge">
-            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
+            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">A&ntilde;adir</button> o
             <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>

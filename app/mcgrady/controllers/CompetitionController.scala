@@ -84,7 +84,7 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi
           }
         }.recover {
           case ex: TimeoutException =>
-            Logger.error("Error editando una competición")
+            Logger.error("Error editando una competici&oacute;n")
             InternalServerError(ex.getMessage)
         }
       }
@@ -105,13 +105,13 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi
             val futureCompetitionUpdate = competitionService.update(id, newCompetition.copy(id = Some(id)))
             futureCompetitionUpdate.map { result =>
               if (request.session.get("email").isDefined) {
-                home.flashing("success" -> "La Competición %s ha sido actualizada".format(newCompetition.name))
+                home.flashing("success" -> "La Competici&oacute;n %s ha sido actualizada".format(newCompetition.name))
               } else {
                 Ok(views.html.login(UserForm.loginForm))
               }
             }.recover {
               case ex: TimeoutException =>
-                Logger.error("Error actualizando una competición")
+                Logger.error("Error actualizando una competici&oacute;n")
                 InternalServerError(ex.getMessage)
             }
           }
@@ -133,14 +133,14 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi
           val futureCompetitionInsert = competitionService.add(newCompetition)
           futureCompetitionInsert.map { result =>
             if (request.session.get("email").isDefined) {
-              home.flashing("success" -> "La Competición %s ha sido creada".format(
+              home.flashing("success" -> "La Competici&oacute;n %s ha sido creada".format(
                 newCompetition.name))
             } else {
               Ok(views.html.login(UserForm.loginForm))
             }
           }.recover {
             case ex: TimeoutException =>
-              Logger.error("Error guardando una competición")
+              Logger.error("Error guardando una competici&oacute;n")
               InternalServerError(ex.getMessage)
           }
         }
@@ -152,14 +152,14 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi
     val futureCompetitionDel = competitionService.delete(id)
     futureCompetitionDel.map { result =>
       if (request.session.get("email").isDefined) {
-        home.flashing("success" -> "Competición eliminada")
+        home.flashing("success" -> "Competici&oacute;n eliminada")
       } else {
         Ok(views.html.login(UserForm.loginForm))
       }
 
     }.recover {
       case ex: TimeoutException =>
-        Logger.error("Error borrando una competición")
+        Logger.error("Error borrando una competici&oacute;n")
         InternalServerError(ex.getMessage)
     }
   }
@@ -192,7 +192,7 @@ class CompetitionController @Inject()(val messagesApi: MessagesApi
                                           }
                                       }.recover {
                                         case ex: TimeoutException =>
-                                          Logger.error("Error visualizando competición")
+                                          Logger.error("Error visualizando competici&oacute;n")
                                           InternalServerError(ex.getMessage)
                                       }
                                   }

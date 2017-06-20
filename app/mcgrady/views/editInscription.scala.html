@@ -11,12 +11,12 @@
     <br>No hay leyenda disponible
 </div>
 <form id="group-data-form" action=@mcgrady.controllers.routes.InscriptionController.update(id) method="post" autocomplete="off">
-    <h2>Editando Inscripción</h2>
+    <h2>Editando Inscripci&oacute;n</h2>
     <fieldset>
         <table>
             <tr>
                 <th>Equipo</th>
-                <th>Asignación</th>
+                <th>Asignaci&oacute;n</th>
                 <th>Arena</th>
             </tr>
             <tr>
@@ -95,7 +95,7 @@
         </table>
         <br/>
         <div>
-            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Inscripción</button>
+            <button type="submit" class="btn btn-primary ynt-btn-orange">Guardar Inscripci&oacute;n</button>
             o
             <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
@@ -103,7 +103,7 @@
 </form>
 
 @form(mcgrady.controllers.routes.InscriptionController.delete(Some(id)), 'class -> "topRight") {
-<input type="submit" value="Eliminar Inscripción" class="btn danger">
+<input type="submit" value="Eliminar Inscripci&oacute;n" class="btn danger">
 }
 
 }

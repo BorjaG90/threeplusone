@@ -93,7 +93,7 @@ class InscriptionController @Inject()(val messagesApi: MessagesApi
                   }
                 }.recover {
                   case ex: TimeoutException =>
-                    Logger.error("Error editando un inscripción")
+                    Logger.error("Error editando un inscripci&oacute;n")
                     InternalServerError(ex.getMessage)
                 }
               }
@@ -118,13 +118,13 @@ class InscriptionController @Inject()(val messagesApi: MessagesApi
           val futureInscriptionUpdate = inscriptionService.update(id, newInscription.copy(id = Some(id)))
           futureInscriptionUpdate.map { result =>
             if (request.session.get("email").isDefined) {
-              home.flashing("success" -> "La inscripción ha sido actualizada")
+              home.flashing("success" -> "La inscripci&oacute;n ha sido actualizada")
             } else {
               Ok(views.html.login(UserForm.loginForm))
             }
           }.recover {
             case ex: TimeoutException =>
-              Logger.error("Error actualizando una inscripción")
+              Logger.error("Error actualizando una inscripci&oacute;n")
               InternalServerError(ex.getMessage)
           }
         }
@@ -145,13 +145,13 @@ class InscriptionController @Inject()(val messagesApi: MessagesApi
         val futureInscriptionInsert = inscriptionService.add(newInscription)
         futureInscriptionInsert.map { result =>
           if (request.session.get("email").isDefined) {
-            home.flashing("success" -> "La inscripción ha sido creada")
+            home.flashing("success" -> "La inscripci&oacute;n ha sido creada")
           } else {
             Ok(views.html.login(UserForm.loginForm))
           }
         }.recover {
           case ex: TimeoutException =>
-            Logger.error("Error guardando una inscripción")
+            Logger.error("Error guardando una inscripci&oacute;n")
             InternalServerError(ex.getMessage)
         }
       }
@@ -162,13 +162,13 @@ class InscriptionController @Inject()(val messagesApi: MessagesApi
     val futureInscriptionDel = inscriptionService.delete(id)
     futureInscriptionDel.map { result =>
       if (request.session.get("email").isDefined) {
-        home.flashing("success" -> "Inscripción eliminada")
+        home.flashing("success" -> "Inscripci&oacute;n eliminada")
       } else {
         Ok(views.html.login(UserForm.loginForm))
       }
     }.recover {
       case ex: TimeoutException =>
-        Logger.error("Error borrando una inscripción")
+        Logger.error("Error borrando una inscripci&oacute;n")
         InternalServerError(ex.getMessage)
     }
   }

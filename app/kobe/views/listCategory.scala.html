@@ -22,16 +22,16 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
 }
 <div id="help" style="display:none;">
     <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
-    <br>En esta pantalla se pueden listar las Categorías creadas y sus detalles
+    <br>En esta pantalla se pueden listar las Categor&iacute;as creadas y sus detalles
 </div>
 <div id="legend" style="display:none;">
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
     <br>No hay leyenda disponible
 </div>
-<h3>Categorías</h3>
+<h3>Categor&iacute;as</h3>
 <div id="actions">
     @helper.form(action=kobe.controllers.routes.CategoryController.list()) {
-    <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por nombre de Categoría">
+    <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por nombre de Categor&iacute;a">
     <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
     } <button type="submit" onclick="location.href='@kobe.controllers.routes.CategoryController.add()'" class="btn-add">
     Nuevo</button>
@@ -40,7 +40,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
 <table class="table table-striped">
     <tr>
         <th>Nombre</th>
-        <th class="tdnotes">Descripción</th>
+        <th class="tdnotes">Descripci&oacute;n</th>
         <th class="tdnotes">Notas</th>
         <th></th>
     </tr>

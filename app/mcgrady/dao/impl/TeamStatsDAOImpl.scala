@@ -25,7 +25,7 @@ class TeamStatsDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigP
   val teams = TableQuery[TeamTable]
 
   override def add(teamStat: TeamStats): Future[String] = {
-    db.run(teamStats += teamStat).map(res => "Línea estadística añadida satisfactoriamente").recover {
+    db.run(teamStats += teamStat).map(res => "L&iacute;nea estad&iacute;stica a&ntilde;adida satisfactoriamente").recover {
       case ex : Exception => "" + ex.getCause.getMessage
       case ex : RuntimeException => "" + ex.getCause.getMessage
     }

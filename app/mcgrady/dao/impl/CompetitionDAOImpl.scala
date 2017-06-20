@@ -23,7 +23,7 @@ class CompetitionDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfi
   val competitions = TableQuery[CompetitionTable]
 
   override def add(competition: Competition): Future[String] = {
-    db.run(competitions += competition).map(res => "Competición añadida satisfactoriamente").recover {
+    db.run(competitions += competition).map(res => "Competici&oacute;n a&ntilde;adida satisfactoriamente").recover {
       case ex : Exception => ex.getCause.getMessage
     }
   }

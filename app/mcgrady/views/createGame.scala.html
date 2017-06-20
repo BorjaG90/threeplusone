@@ -15,7 +15,7 @@
 }
 <div id="help" style="display:none;">
     <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
-    <br>En esta pantalla se pueden añadir Partidos al sistema
+    <br>En esta pantalla se pueden a&ntilde;adir Partidos al sistema
 </div>
 <div id="legend" style="display:none;">
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
@@ -24,7 +24,7 @@
 <h2>Nuevo Partido</h2>
 <div id="actions">
     @helper.form(action=mcgrady.controllers.routes.GameController.add(id)) {
-    Competición:<select id="competition" name="id">
+    Competici&oacute;n:<select id="competition" name="id">
         @for(comp <- competitions){ @if(id != "%" && comp.id.get == id){
         <option value=@id selected>
             @for(season <- seasons){@if(comp.idSeason == season.id.get ){@season.year-}}@comp.abrv</option>
@@ -41,7 +41,7 @@
         <table>
             <tr>
                 <th>Fecha</th>
-                <th>Anfitrión</th>
+                <th>Anfitri&oacute;n</th>
                 <th>Visitante</th>
                 <th>Estadio</th>
             </tr>
@@ -71,11 +71,11 @@
             <tr>
                 <th>Ganador</th>
                 <th>MVP</th>
-                <th colspan="2">Descripción</th>
+                <th colspan="2">Descripci&oacute;n</th>
             </tr>
             <tr>
                 <td>
-                    <input type="radio" id="winner1" name="winner" value="H" >Anfitrión<br>
+                    <input type="radio" id="winner1" name="winner" value="H" >Anfitri&oacute;n<br>
                     <input type="radio" id="winner2" name="winner" value="A" >Visitante<br>
                 </td>
                 <td>
@@ -88,13 +88,13 @@
                     </select>
                 </td>
                 <td colspan="2">
-                    <textarea id="description" name="description" placeholder="Descripción" ></textarea>
+                    <textarea id="description" name="description" placeholder="Descripci&oacute;n" ></textarea>
                 </td>
             </tr>
         </table>
         <br/>
         <div class="form-actions controls ynt-btn-xlarge">
-            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button> o
+            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">A&ntilde;adir</button> o
             <a href="@request.headers.get("referer")" class="btn">Cancelar</a>
         </div>
     </fieldset>

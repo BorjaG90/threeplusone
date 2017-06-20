@@ -25,7 +25,7 @@ class ExerciseDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPr
   val categories = TableQuery[CategoryTable]
 
   override def add(exercise: kobe.model.Exercise): Future[String] = {
-    db.run(exercises += exercise).map(res => "Ejercicio añadido satisfactoriamente").recover {
+    db.run(exercises += exercise).map(res => "Ejercicio a&ntilde;adido satisfactoriamente").recover {
       case ex : Exception => ex.getCause.getMessage
     }
   }

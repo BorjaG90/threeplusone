@@ -25,7 +25,7 @@ class RecordDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProv
   val exercises = TableQuery[ExerciseTable]
 
   override def add(record: Record): Future[String] = {
-    db.run(records += record).map(res => "Record añadido satisfactoriamente").recover {
+    db.run(records += record).map(res => "Record a&ntilde;adido satisfactoriamente").recover {
       case ex : NoSuchElementException => "fallo"
       case ex : Exception => ex.getCause.getMessage
     }
