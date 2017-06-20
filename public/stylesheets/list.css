@@ -118,7 +118,7 @@ i{
  .alert{
  	/*float: right;*/
  	position: fixed;
- 	bottom: 0;
+ 	bottom: 35px;
  	right: 0;
  	text-align: center;
  	width: 250px;
@@ -127,6 +127,7 @@ i{
  	color: gold;
  	border: solid gold;
     border-width: 1px 1px 1px 1px;
+    z-index:10;
  }
  /*Tablas con scroll horizontal*/
  {

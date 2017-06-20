@@ -12,10 +12,10 @@
     <br>No hay leyenda disponible
 </div>
 <h3>Editar Entorno</h3>
-<form id="enviroment-data-form" role="form" action=@kobe.controllers.routes.EnviromentController.update(id) method="post" autocomplete="off">
+<form id="enviroment-data-form" action=@kobe.controllers.routes.EnviromentController.update(id) method="post" autocomplete="off">
     <fieldset>
         <br/>
-        <table align="center">
+        <table>
             <tr>
                 <th>Nombre</th>
                 <th>Descripción</th>
@@ -27,14 +27,14 @@
                     <input type="text" id="name" name="name" value="@nameValue" placeholder="Nombre" required>
                     }
                 </td>
-                <td align="center">
+                <td>
                     @defining(enviromentForm("description").value){ descriptionValue=>
-                    <textarea  id="description" name="description">@descriptionValue</textarea>
+                    <textarea id="description" name="description">@descriptionValue</textarea>
                     }
                 </td>
-                <td align="center">
+                <td>
                     @defining(enviromentForm("notes").value){ notesValue=>
-                    <textarea  id="notes" name="notes">@notesValue</textarea>
+                    <textarea id="notes" name="notes">@notesValue</textarea>
                     }
                 </td>
             </tr>

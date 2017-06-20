@@ -49,7 +49,7 @@
         </tr>
         }}
     </table>
-    <div class="tab" align="center">
+    <div class="tab" style="text-align: center;">
         <br>
         <button class="tablinks" onclick="openFormSC(event, 'general-@serie.id.get')">General</button>
         <button class="tablinks" onclick="openFormSC(event, 'shot-chart-@serie.id.get', @serie.id)">Lanzamientos</button>
@@ -58,7 +58,7 @@
     </div>
     <div id="general-@serie.id.get" class="tabcontent">
         <br>
-        <form id="@plan.name-@session.name-@serie.id-data-form" role="form" action=@kobe.controllers.routes.RecordController.saveMark(session.id.get) method="post" autocomplete="off">
+        <form id="@plan.id-@session.id-@serie.id-data-form" action=@kobe.controllers.routes.RecordController.saveMark(session.id.get) method="post" autocomplete="off">
             <fieldset>
                 <label>Nueva Marca</label>
                 <br/>
@@ -68,6 +68,7 @@
                         <th>Unidad</th>
                         <th>Ejecución</th>
                         <th class="tdnotes">Notas</th>
+                        <th></th>
                     </tr>
                     <tr>
                         <td><input type="text" id="value" name="value" value="" placeholder="Valor" onchange="validateNumber('value','btn-submit')"></td>
@@ -76,7 +77,7 @@
                                 @for(unit <- units){ <option value="@unit.id">@unit.name</option> }
                             </select>
                         </td>
-                        <td align="center">
+                        <td>
                             <input type="date" id="execution_date" name="execution_date" value="2017-06-30" onchange="validateDate('execution_date','btn-submit')">
                         </td>
                         <td class="tdnotes"><textarea id="notes" name="notes" placeholder="Notas"></textarea></td>
@@ -146,7 +147,7 @@
             <input id="triple-center-fgm" type="text" value="" onchange="calculatePercentage('triple-center-fgm','triple-center-fga',30,43,'triple-center')">
             <input id="triple-center-fga" type="text" value="" onchange="calculatePercentage('triple-center-fgm','triple-center-fga',30,43,'triple-center')">
         </form>
-        <form id="shot-form" role="form" action=@kobe.controllers.routes.RecordController.saveShotChart(session.id.get) method="post" autocomplete="off">
+        <form id="shot-form" action=@kobe.controllers.routes.RecordController.saveShotChart(session.id.get) method="post" autocomplete="off">
             <input type="hidden" id="id_serie_shot" name="id_serie" value="">
             <input type="hidden" id="id_0" name="shots[0].notes" value="Canastas bajo aro">
             <input type="hidden" id="id_1" name="shots[1].notes" value="Intentos bajo aro">

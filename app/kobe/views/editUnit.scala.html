@@ -12,10 +12,10 @@
     <br>No hay leyenda disponible
 </div>
 <h3>Editar Unidad</h3>
-<form id="unit-data-form" role="form" action=@kobe.controllers.routes.UnitController.update(id) method="post" autocomplete="off">
+<form id="unit-data-form" action=@kobe.controllers.routes.UnitController.update(id) method="post" autocomplete="off">
     <fieldset>
         <br/>
-        <table align="center">
+        <table>
             <tr>
                 <th>Nombre</th>
                 <th>Descripción</th>
@@ -27,7 +27,7 @@
                     <input type="text" id="name" name="name" value="@nameValue" placeholder="Nombre" required>
                     }
                 </td>
-                <td align="center">
+                <td>
                     @defining(unitForm("description").value){ descriptionValue=>
                     <textarea  id="description" name="description" >@descriptionValue</textarea>
                     }

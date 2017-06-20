@@ -10,10 +10,10 @@
     <br>No hay leyenda disponible
 </div>
 <h3>Editar Ejercicio</h3>
-<form id="exercise-data-form" role="form" action=@kobe.controllers.routes.ExerciseController.update(id) method="post" autocomplete="off">
+<form id="exercise-data-form" action=@kobe.controllers.routes.ExerciseController.update(id) method="post" autocomplete="off">
     <fieldset >
         <br/>
-        <table align="center">
+        <table>
             <tr>
                 <th>Nombre</th>
                 <th>Tipo</th>
@@ -22,7 +22,7 @@
                 <th>Notas</th>
             </tr>
             <tr>
-                <td align="center">
+                <td>
                     @defining(exerciseForm("name").value){ nameValue=>
                     <input type="text" id="name" name="name"  value="@nameValue">
                     }
@@ -31,8 +31,8 @@
                     @defining(exerciseForm("id_type").value) { typeExerciseValue=>
                     <select id="id_type" name="id_type">
                         @if(typeExerciseValue == None){
-                        <option selected="selected" value = ""></option>
-                        }else{ <option value = ""></option> }
+                        <option label=" " selected="selected" value = ""></option>
+                        }else{ <option label=" " value = ""></option> }
                         @for(typeExercise <- typeExercises){
                         @if(typeExerciseValue != None && typeExercise.id.get == typeExerciseValue.get.toLong){
                         <option selected="selected" value="@typeExercise.id">@typeExercise.name</option>
@@ -44,8 +44,8 @@
                     @defining(exerciseForm("id_category").value) { categoryValue=>
                     <select id="id_category" name="id_category">
                         @if(categoryValue == None){
-                        <option selected="selected" value = ""></option>
-                        }else{ <option value = ""></option>}
+                        <option label=" " selected="selected" value = ""></option>
+                        }else{ <option label=" " value = ""></option>}
                         @for(category <- categories){
                         @if(categoryValue != None && category.id.get == categoryValue.get.toLong){
                         <option selected="selected" value="@category.id">@category.name</option>
@@ -57,8 +57,8 @@
                     @defining(exerciseForm("id_enviroment").value) { enviromentValue=>
                     <select id="id_enviroment" name="id_enviroment">
                         @if(enviromentValue == None){
-                        <option selected="selected" value = ""></option>
-                        }else{ <option value = ""></option>}
+                        <option label=" " selected="selected" value = ""></option>
+                        }else{ <option label=" " value = ""></option>}
                         @for(enviroment <- enviroments){
                         @if(enviromentValue != None && enviroment.id.get == enviromentValue.get.toLong){
                         <option selected="selected" value="@enviroment.id">@enviroment.name</option>
@@ -66,9 +66,9 @@
                     </select>
                     }
                 </td>
-                <td align="center">
+                <td>
                     @defining(exerciseForm("notes").value){ notesValue=>
-                    <textarea  id="notes" name="notes">@notesValue</textarea>
+                    <textarea id="notes" name="notes">@notesValue</textarea>
                     }
                 </td>
             </tr>

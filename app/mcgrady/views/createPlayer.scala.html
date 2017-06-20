@@ -19,11 +19,11 @@
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
     <br>No hay leyenda disponible
 </div>
-<form id="player-data-form" role="form" action=@mcgrady.controllers.routes.PlayerController.save() method="post" autocomplete="off">
+<form id="player-data-form" action=@mcgrady.controllers.routes.PlayerController.save() method="post" autocomplete="off">
     <h2>Nuevo Jugador</h2>
     <fieldset >
         <br/>
-        <table align="center">
+        <table>
             <tr>
                 <th>Nombre</th>
                 <th>Apellido</th>
@@ -52,8 +52,8 @@
                 <td>
                     <input type="text" id="weight" name="weight" value="" placeholder="Peso"  onchange="validateNumber('weight','btn-submit')">
                 </td>
-                <td align="center">
-                    <textarea id="description" name="description" value="" placeholder="Descripción"></textarea>
+                <td>
+                    <textarea id="description" name="description" placeholder="Descripción"></textarea>
                 </td>
             </tr>
         </table>

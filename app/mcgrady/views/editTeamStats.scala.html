@@ -16,15 +16,17 @@
     <br><b>T3</b> -> Tiros de Tres
     <br><b>TL</b> -> Tiros Libres
 </div>
-<form id="teamStats-data-form" role="form" action=@mcgrady.controllers.routes.TeamStatsController.update(id) method="post" autocomplete="off">
+<form id="teamStats-data-form" action=@mcgrady.controllers.routes.TeamStatsController.update(id) method="post" autocomplete="off">
     <h2>Editando Estadisticas</h2>
     <fieldset >
-        <table align="center">
-            <th colspan="2">Partido</th>
-            <th>Equipo</th>
-            <th>Minutos</th>
+        <table>
             <tr>
-                <td colspan="2" align="center">
+                <th colspan="2">Partido</th>
+                <th>Equipo</th>
+                <th>Minutos</th>
+            </tr>
+            <tr>
+                <td colspan="2">
                     @defining(teamStatsForm("id_game").value){ gameValue=>
                     @for(game <- games){ @if(gameValue.isDefined && gameValue.get.toLong == game.id.get){
                     @for(homeI <- inscriptions.filter(_.id.get==game.idHome)){

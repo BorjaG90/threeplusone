@@ -38,8 +38,8 @@
     <p style="text-align:center">
     @if(game.mvp.isDefined){Mvp:
     @for(player<-players.filter(_.id.get == game.mvp.get)){@player.firstName @player.lastName
-    <td><a href="@mcgrady.controllers.routes.PlayerController.view(player.id.get)">
-        <img src=@routes.Assets.versioned("images/ver.png") alt="Visualizar"></a></td>
+    <span><a href="@mcgrady.controllers.routes.PlayerController.view(player.id.get)">
+        <img src=@routes.Assets.versioned("images/ver.png") alt="Visualizar"></a></span>
     }}</p>
 
 </div>

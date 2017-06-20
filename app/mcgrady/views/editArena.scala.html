@@ -9,7 +9,7 @@
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
     <br>No hay leyenda disponible
 </div>
-<form id="arena-data-form" role="form" action=@mcgrady.controllers.routes.ArenaController.update(id) method="post" autocomplete="off">
+<form id="arena-data-form" action=@mcgrady.controllers.routes.ArenaController.update(id) method="post" autocomplete="off">
     <h2>Editando Estadio</h2>
     <fieldset >
         <br/>
@@ -25,7 +25,7 @@
                     <input type="text" id="name" name="name" value="@nameValue" placeholder="Nombre" required>
                     }
                 </td>
-                <td align="center">
+                <td>
                     @defining(arenaForm("direction").value){ directionValue=>
                     <input type="text" id="direction" name="direction"  value="@directionValue">
                     }
@@ -34,9 +34,9 @@
                     @defining(arenaForm("id_country").value) { countryValue=>
                     <select id="id_country" name="id_country">
                         @if(countryValue == None){
-                        <option selected="selected" value = ""></option>
+                        <option label=" " selected="selected" value = ""></option>
                         }else{
-                        <option value = ""></option>
+                        <option label=" " value = ""></option>
                         }
                         @for(country <- countries){
                         @if(countryValue.isDefined && country.id == countryValue.get.toLong){

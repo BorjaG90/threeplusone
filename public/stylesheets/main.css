@@ -115,7 +115,7 @@ footer {
     background:#0f2c5b;
     width:100%;
     float:left;
-    height:54px;
+    height:34px;
     /*text-transform:uppercase;*/
     text-align: center;
     font-size:9px; color: #ffffff;
@@ -129,9 +129,15 @@ footer div#ico{
 }
 footer div#contact{
     text-align: left;
+    position:absolute;
 }
 footer div#font{
     text-align: right;
+}
+
+footer div#w3c{
+    position: absolute;
+    display: inline-block;
 }
 footer a:link { color: #afafaf;}
 footer a:visited { color: #dfaddd;}
@@ -179,7 +185,7 @@ div#statistics{
 #login-form {
   position: relative;
   /*z-index: 1;*/
-  background: #FFFFFF;
+  background-color: #FFFFFF;
   max-width: 300px;
   margin: 0 auto 25px;
   padding: 30px;
@@ -198,7 +204,7 @@ div#statistics{
 }
 #login-form input {
   outline: 0;
-  background: #f2f2f2;
+  background-color: #EFEFEF;
   width: 100%;
   border: 0;
   margin: 0 0 15px;

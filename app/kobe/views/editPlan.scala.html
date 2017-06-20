@@ -12,10 +12,10 @@
     <br>No hay leyenda disponible
 </div>
 <h3>Editar Plan</h3>
-<form id="plan-data-form" role="form" action=@kobe.controllers.routes.PlanController.update(id) method="post" autocomplete="off">
+<form id="plan-data-form" action=@kobe.controllers.routes.PlanController.update(id) method="post" autocomplete="off">
     <fieldset>
         <br/>
-        <table align="center">
+        <table>
             <tr>
                 <th>Nombre</th>
                 <th>Fecha</th>
@@ -28,19 +28,19 @@
                     <input type="text" id="name" name="name" value="@nameValue" placeholder="Nombre" required>
                     }
                 </td>
-                <td align="center">
+                <td>
                     @defining(planForm("date").value){ dateValue=>
                     <input type="date" id="date" name="date"  value="@dateValue" onchange="validateDate('date','btn-submit')">
                     }
                 </td>
-                <td align="center">
+                <td>
                     @defining(planForm("description").value){ descriptionValue=>
                     <textarea id="description" name="description">@descriptionValue</textarea>
                     }
                 </td>
-                <td align="center">
+                <td>
                     @defining(planForm("description").value){ notesValue=>
-                    <textarea  id="notes" name="notes">@notesValue</textarea>
+                    <textarea id="notes" name="notes">@notesValue</textarea>
                     }
                 </td>
             </tr>

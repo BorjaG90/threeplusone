@@ -21,11 +21,11 @@
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
     <br>No hay leyenda disponible
 </div>
-<form id="contract-data-form" role="form" action=@mcgrady.controllers.routes.ContractController.save() method="post" autocomplete="off">
+<form id="contract-data-form" action=@mcgrady.controllers.routes.ContractController.save() method="post" autocomplete="off">
     <h2>Nuevo Contrato</h2>
     <fieldset >
-        <br/>
-        <table align="center">
+        <br>
+        <table>
             <tr>
                 <th>Jugador</th>
                 <th>Equipo</th>
@@ -37,22 +37,23 @@
                 <td>
                     <select id="id_player" name="id_player">
                         @for(player <- players.sortBy(x=> x.firstName)){
-                        <option value="@player.id">@player.firstName @player.lastName</option>
+                        <option label="@player.firstName @player.lastName" value="@player.id">
+                            @player.firstName @player.lastName</option>
                         }
                     </select>
                 </td>
                 <td>
                     <select id="id_team" name="id_team">
                         @for(team <- teams){
-                        <option value="@team.id">@team.name</option>
+                        <option label="@team.name" value="@team.id">@team.name</option>
                         }
                     </select>
                 </td>
                 <td><input type="text" id="number" name="number" value ="" placeholder="00" onchange="validateNumber('number','btn-submit')"></td>
-                <td align="center">
+                <td>
                     <input type="date" id="init_date" name="init_date" step="1" min="2000-01-01" max="2050-12-31" value="2016-09-01" onchange="validateDate('init_date','btn-submit')">
                 </td>
-                <td align="center">
+                <td>
                     <input type="date" id="end_date" name="end_date" step="1" min="2000-01-01" max="2050-12-31" value="2017-06-30" onchange="validateDate('end_date','btn-submit')">
                 </td>
             </tr>

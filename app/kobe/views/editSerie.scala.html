@@ -12,10 +12,10 @@
     <br>No hay leyenda disponible
 </div>
 <h3>Editar Serie</h3>
-<form id="serie-data-form" role="form" action=@kobe.controllers.routes.SerieController.update(id) method="post" autocomplete="off">
+<form id="serie-data-form" action=@kobe.controllers.routes.SerieController.update(id) method="post" autocomplete="off">
     <fieldset>
         <br/>
-        <table align="center">
+        <table>
             <tr>
                 <th>Sesión</th>
                 <th>Ejercicio</th>
@@ -44,7 +44,7 @@
                     </select>
                     }
                 </td>
-                <td align="center">
+                <td>
                     @defining(serieForm("notes").value){ notesValue=>
                     <textarea  id="notes" name="notes">@notesValue</textarea>
                     }

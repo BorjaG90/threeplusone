@@ -12,10 +12,10 @@
     <br>No hay leyenda disponible
 </div>
 <h3>Editar Tipo</h3>
-<form id="typeExercise-data-form" role="form" action=@kobe.controllers.routes.TypeExerciseController.update(id) method="post" autocomplete="off">
+<form id="typeExercise-data-form" action=@kobe.controllers.routes.TypeExerciseController.update(id) method="post" autocomplete="off">
     <fieldset>
         <br/>
-        <table align="center">
+        <table>
             <tr>
                 <th>Nombre</th>
                 <th>Descripción</th>
@@ -27,14 +27,14 @@
                     <input type="text" id="name" name="name" value="@nameValue" placeholder="Nombre" required>
                     }
                 </td>
-                <td align="center">
+                <td>
                     @defining(typeExerciseForm("description").value){ descriptionValue=>
                     <textarea  id="description" name="description">@descriptionValue</textarea>
                     }
                 </td>
-                <td align="center">
+                <td>
                     @defining(typeExerciseForm("notes").value){ notesValue=>
-                    <textarea  id="notes" name="notes">@notesValue</textarea>
+                    <textarea id="notes" name="notes">@notesValue</textarea>
                     }
                 </td>
             </tr>

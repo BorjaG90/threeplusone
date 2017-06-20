@@ -2,7 +2,7 @@
 
 @import helper._
 
-@main(Messages("arena.title")){
+@main(Messages("typeExercise.title")){
 @request.flash.get(messages("flash.success")).map { msg =>
 <div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
     <a href="#" class="close" data-dismiss="alert">&times;</a> <strong>@msg</strong>
@@ -22,11 +22,11 @@
     <br>No hay leyenda disponible
 </div>
 <h1>Añadir Tipo</h1>
-<form id="arena-data-form" role="form" action=@kobe.controllers.routes.TypeExerciseController.save() method="post" autocomplete="off">
+<form id="arena-data-form" action=@kobe.controllers.routes.TypeExerciseController.save() method="post" autocomplete="off">
     <fieldset >
         <label>Tipo</label>
         <br/>
-        <table align="center">
+        <table>
             <tr>
                 <th>Nombre</th>
                 <th>Descripción</th>
@@ -36,10 +36,10 @@
                 <td>
                     <input type="text" id="name" name="name" value="" placeholder="Nombre" required>
                 </td>
-                <td align="center">
+                <td>
                     <textarea id="description" name="description" placeholder="Descripción"></textarea>
                 </td>
-                <td align="center">
+                <td>
                     <textarea  id="notes" name="notes" placeholder="Notas"></textarea>
                 </td>
             </tr>

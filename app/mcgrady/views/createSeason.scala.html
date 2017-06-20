@@ -19,11 +19,11 @@
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
     <br>No hay leyenda disponible
 </div>
-<form id="season-data-form" role="form" action=@mcgrady.controllers.routes.SeasonController.save() method="post" autocomplete="off">
+<form id="season-data-form" action=@mcgrady.controllers.routes.SeasonController.save() method="post" autocomplete="off">
     <h2>Nueva Temporada</h2>
     <fieldset >
         <br/>
-        <table align="center">
+        <table>
             <tr>
                 <th>Año</th>
                 <th>Descripción</th>
@@ -31,11 +31,11 @@
             <tr>
                 <td>
                     <select id="year" name="year">
-                        @for(year <- years){ <option value=@year>@year</option> }
+                        @for(year <- years){ <option label="@year" value=@year>@year</option> }
                     </select>
                 </td>
                 <td>
-                    <textarea id="description" name="description" value="" placeholder="Descripción" ></textarea>
+                    <textarea id="description" name="description" placeholder="Descripción" ></textarea>
                 </td>
             </tr>
         </table>

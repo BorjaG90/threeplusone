@@ -26,11 +26,11 @@
     <br><b>T3</b> -> Tiros de Tres
     <br><b>TL</b> -> Tiros Libres
 </div>
-<form id="teamStats-data-form" role="form" action=@mcgrady.controllers.routes.TeamStatsController.save() method="post" autocomplete="off">
+<form id="teamStats-data-form" action=@mcgrady.controllers.routes.TeamStatsController.save() method="post" autocomplete="off">
     <h2>Nueva Línea Estadística de Equipo</h2>
     <fieldset >
         <br/>
-        <table align="center">
+        <table>
             <tr>
                 <th colspan="2">Partido</th>
                 <th>Equipo</th>
@@ -51,7 +51,7 @@
                 <td>
                     <select id="id_inscription" name="id_inscription">
                         @for(team <- teams){@for(inscription <- inscriptions.filter(_.idTeam == team.id.get)){
-                        <option value="@inscription.id">@team.name</option>
+                        <option label="@team.name" value="@inscription.id">@team.name</option>
                         }}
                     </select>
                 </td>

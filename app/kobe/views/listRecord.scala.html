@@ -55,11 +55,13 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
 </table>
 <div id="pagination" class="pagination">
     <a>Mostrando del @(currentPage.offset + 1) al @(currentPage.offset + currentPage.items.size) de @currentPage.total</a>
-    </br>
+    <br>
     @currentPage.prev.map { page =>
-    <a href="@link(page)"><button>Anterior<i class="arrow_left"></i></button></a> }.getOrElse {|}
+    <button onclick="location.href='@link(page)'">Anterior<i class="arrow_left"></i></button>
+    }.getOrElse {|}
     @currentPage.next.map { page =>
-    <a href="@link(page)"><button>Siguiente<i class="arrow_right"></i></button></a> }.getOrElse {|}
+    <button onclick="location.href='@link(page)'">Siguiente<i class="arrow_right"></i></button>
+    }.getOrElse {|}
 </div>
 <div id="navigation-back"> <a href="@request.headers.get("referer")">
     <img src=@routes.Assets.versioned("images/volver24.png") alt="Volver"></a></div>

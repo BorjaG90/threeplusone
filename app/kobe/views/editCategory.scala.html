@@ -11,11 +11,12 @@
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
     <br>No hay leyenda disponible
 </div>
-<form id="category-data-form" role="form" action=@kobe.controllers.routes.CategoryController.update(id) method="post" autocomplete="off">
+<h2>Categorías</h2>
+<form id="category-data-form" action=@kobe.controllers.routes.CategoryController.update(id) method="post" autocomplete="off">
     <fieldset>
-        <label>Categorías</label>
+
         <br/>
-        <table align="center">
+        <table>
             <tr>
                 <th>Nombre</th>
                 <th>Descripción</th>
@@ -27,14 +28,14 @@
                     <input type="text" id="name" name="name" value="@nameValue" placeholder="Nombre" required>
                     }
                 </td>
-                <td align="center">
+                <td>
                     @defining(categoryForm("description").value){ descriptionValue=>
-                    <textarea  id="description" name="description">@descriptionValue</textarea>
+                    <textarea id="description" name="description">@descriptionValue</textarea>
                     }
                 </td>
-                <td align="center">
+                <td>
                     @defining(categoryForm("notes").value){ notesValue=>
-                    <textarea  id="notes" name="notes">@notesValue</textarea>
+                    <textarea id="notes" name="notes">@notesValue</textarea>
                     }
                 </td>
             </tr>

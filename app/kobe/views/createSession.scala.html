@@ -23,11 +23,11 @@
     <br>No hay leyenda disponible
 </div>
 <h1>Añadir Sesión</h1>
-<form id="session-data-form" role="form" action=@kobe.controllers.routes.SessionController.save() method="post" autocomplete="off">
+<form id="session-data-form" action=@kobe.controllers.routes.SessionController.save() method="post" autocomplete="off">
     <fieldset >
         <label>Sesión</label>
         <br/>
-        <table align="center">
+        <table>
             <tr>
                 <th>Nombre</th>
                 <th>Plan</th>
@@ -42,7 +42,7 @@
                         @for(plan <- plans){<option value="@plan.id">@plan.name</option>}
                     </select>
                 </td>
-                <td align="center">
+                <td>
                     <textarea  id="notes" name="notes" placeholder="Notas"></textarea>
                 </td>
             </tr>

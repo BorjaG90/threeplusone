@@ -22,11 +22,11 @@
     <br>No hay leyenda disponible
 </div>
 <h1>Añadir Entorno</h1>
-<form id="arena-data-form" role="form" action=@kobe.controllers.routes.EnviromentController.save() method="post" autocomplete="off">
+<form id="arena-data-form" action=@kobe.controllers.routes.EnviromentController.save() method="post" autocomplete="off">
     <fieldset >
         <label>Entorno</label>
         <br/>
-        <table align="center">
+        <table>
             <tr>
                 <th>Nombre</th>
                 <th>Descripción</th>
@@ -36,11 +36,11 @@
                 <td>
                     <input type="text" id="name" name="name" value="" placeholder="Nombre" required>
                 </td>
-                <td align="center">
-                    <textarea  id="description" name="description" placeholder="Descripción"></textarea>
+                <td>
+                    <textarea id="description" name="description" placeholder="Descripción"></textarea>
                 </td>
-                <td align="center">
-                    <textarea  id="notes" name="notes" placeholder="Notas"></textarea>
+                <td>
+                    <textarea id="notes" name="notes" placeholder="Notas"></textarea>
                 </td>
             </tr>
         </table>

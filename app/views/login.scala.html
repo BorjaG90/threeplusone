@@ -1,7 +1,7 @@
 @(form: Form[model.UserData])(implicit flash: Flash)
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <title>Login 3+1</title>
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
@@ -12,7 +12,7 @@
     <script src="@routes.Assets.versioned("javascripts/filter.js")" type="text/javascript"></script>
     <script src="@routes.Assets.versioned("javascripts/validate.js")" type="text/javascript"></script>
 </head>
-<body align="center">
+<body>
 
 <div id="help" style="display:none;">
     <a href='#' onClick="closeHelp()"><b>x</b></a> <b><i>Ayuda</i></b>
@@ -22,27 +22,24 @@
 
 @helper.form(routes.Authentication.authenticate) {
 
-<h3>Ingresar</h3>
+<h3 style="text-align:center;">Ingresar</h3>
 
 @form.globalError.map { error =>
-<p class="error"> @error.message </p>
+<p style="text-align:center;" class="error"> @error.message </p>
 }
 
 @flash.get("success").map { message =>
-<p class="success"> @message </p>
+<p style="text-align:center;" class="success"> @message </p>
 }
 <div id="login-form">
-<div id="login-thumbnail"><img src=@routes.Assets.versioned("images/logo2_400.png") alt="ThreePlusOne"></div>
-
-  <form class="login-form">
+    <div id="login-thumbnail"><img src=@routes.Assets.versioned("images/logo2_400.png") alt="ThreePlusOne"></div>
     <input type="email" name="email" placeholder="Email" id="email" value="@form("email").value">
     <input type="password" name="password" id="password" placeholder="Contraseña">
     <button type="submit" id="loginbutton">Log In</button>
-  </form>
 </div>
-<a href='#' onClick="openHelp()">
+<p style="text-align:center;"> <a href='#' onClick="openHelp()">
     <img src=@routes.Assets.versioned("images/informacion.png") alt="Ayuda">
-</a>
+</a></p>
 
 }
 

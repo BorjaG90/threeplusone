@@ -9,7 +9,7 @@
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
     <br>No hay leyenda disponible
 </div>
-<form id="contract-data-form" role="form" action=@mcgrady.controllers.routes.ContractController.update(id) method="post" autocomplete="off">
+<form id="contract-data-form" action=@mcgrady.controllers.routes.ContractController.update(id) method="post" autocomplete="off">
     <h2>Editando Contratos</h2>
     <fieldset >
         <table>
@@ -52,7 +52,7 @@
                     <input type="text" id="number" name="number" value="@numberValue" placeholder="Número" onchange="validateNumber('number','btn-submit')">
                     }
                 </td>
-                <td align="center">
+                <td>
                     @defining(contractForm("init_date").value){ initDateValue=>
                         @if(initDateValue.isDefined){
                     <input type="date" id="init_date" name="init_date" step="1" min="2000-01-01" max="2050-12-31" value="@initDateValue.get" onchange="validateDate('init_date','btn-submit')">

@@ -47,7 +47,7 @@
     </tr>
     }
 </table>
-<form id="@plan.name-@session.name-@serie.id-data-form" role="form" action=@kobe.controllers.routes.RecordController.saveVolume(plan.id.get) method="post" autocomplete="off">
+<form id="@plan.id-@session.id-@serie.id-data-form" action=@kobe.controllers.routes.RecordController.saveVolume(plan.id.get) method="post" autocomplete="off">
     <fieldset >
         <label>Volúmenes</label>
         <br/>
@@ -56,28 +56,30 @@
                 <th>Valor</th>
                 <th>Unidad</th>
                 <th>Notas</th>
+                <th></th>
             </tr>
             <tr>
                 <td>
-                    <input type="text" id="value" name="value" value="" placeholder="Valor" onchange="validateNumber('value','btn-submit')">
+                    <input type="text" id="@plan.id-@session.id-@serie.id-value" name="value" value="" placeholder="Valor" onchange="validateNumber('@plan.id-@session.id-@serie.id-value','btn-submit')">
                 </td>
                 <td>
-                    <select id="id_unit" name="id_unit">
+                    <select id="@plan.id-@session.id-@serie.id-id_unit" name="id_unit">
                         @for(unit <- units){<option value="@unit.id">@unit.name</option> }
                     </select>
                 </td>
                 <td>
-                    <textarea id="notes" name="notes" placeholder="Notas"></textarea>
+                    <textarea id="@plan.id-@session.id-@serie.id-notes" name="notes" placeholder="Notas"></textarea>
                 </td>
                 <td>
-                    <input type="hidden" id="id_serie" name="id_serie" value="@serie.id">
-                    <input type="hidden" id="type" name="type" value="V">
+                    <input type="hidden" id="@plan.id-@session.id-@serie.id-id_serie" name="id_serie" value="@serie.id">
+                    <input type="hidden" id="@plan.id-@session.id-@serie.id-type" name="type" value="V">
                 </td>
             </tr>
         </table>
         <br/>
         <div class="form-actions controls ynt-btn-xlarge">
-            <button id="btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">Añadir</button>
+            <button id="@plan.id-@session.id-@serie.id-btn-submit" type="submit" class="btn btn-primary ynt-btn-orange">
+                Añadir</button>
         </div>
     </fieldset>
 </form>

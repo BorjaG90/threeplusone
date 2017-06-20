@@ -21,11 +21,11 @@
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
     <br>No hay leyenda disponible
 </div>
-<form id="arena-data-form" role="form" action=@mcgrady.controllers.routes.ArenaController.save() method="post" autocomplete="off">
+<form id="arena-data-form" action=@mcgrady.controllers.routes.ArenaController.save() method="post" autocomplete="off">
     <h2>Nuevo Estadio</h2>
     <fieldset >
         <br/>
-        <table align="center">
+        <table>
             <tr>
                 <th>Nombre</th>
                 <th>Dirección</th>
@@ -35,13 +35,13 @@
                 <td>
                     <input type="text" id="name" name="name" value="" placeholder="Nombre" required>
                 </td>
-                <td align="center">
+                <td>
                     <input type="text" id="direction" name="direction" value="" placeholder="Dirección">
                 </td>
                 <td>
                     <select id="id_country" name="id_country">
-                        <option value=""></option>
-                        @for(country <- countries){ <option value="@country.id">@country.name</option> }
+                        <option label=" " value=""></option>
+                        @for(country <- countries){ <option label="@country.name" value="@country.id">@country.name</option> }
                     </select>
                 </td>
             </tr>

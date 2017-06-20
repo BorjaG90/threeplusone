@@ -26,6 +26,7 @@
     <br><b>T3</b> -> Tiros de Tres
     <br><b>TL</b> -> Tiros Libres
 </div>
+<h2>Nueva Línea Estadística</h2>
 <div id="actions">
     @helper.form(action=mcgrady.controllers.routes.PlayerStatsController.add(id)) {
     Competición:<select id="competition" name="id">
@@ -39,11 +40,10 @@
     <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
     }
 </div>
-<form id="playerStats-data-form" role="form" action=@mcgrady.controllers.routes.PlayerStatsController.save() method="post" autocomplete="off">
-    <h2>Nueva Línea Estadística</h2>
+<form id="playerStats-data-form" action=@mcgrady.controllers.routes.PlayerStatsController.save() method="post" autocomplete="off">
     <fieldset >
         <br/>
-        <table align="center">
+        <table>
             <tr>
                 <th colspan="2">Partido</th>
                 <th>Jugador</th>

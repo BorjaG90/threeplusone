@@ -22,11 +22,11 @@
     <br>No hay leyenda disponible
 </div>
 <h1>Añadir Categoría</h1>
-<form id="arena-data-form" role="form" action=@kobe.controllers.routes.CategoryController.save() method="post" autocomplete="off">
+<form id="arena-data-form" action=@kobe.controllers.routes.CategoryController.save() method="post" autocomplete="off">
     <fieldset >
         <label>Categoría</label>
         <br/>
-        <table align="center">
+        <table>
             <tr>
                 <th>Nombre</th>
                 <th>Descripción</th>
@@ -36,10 +36,10 @@
                 <td>
                     <input type="text" id="name" name="name" value="" placeholder="Nombre" required>
                 </td>
-                <td align="center">
+                <td>
                     <textarea id="description" name="description" placeholder="Descripción"></textarea>
                 </td>
-                <td align="center">
+                <td>
                     <textarea  id="notes" name="notes" placeholder="Notas"></textarea>
                 </td>
             </tr>

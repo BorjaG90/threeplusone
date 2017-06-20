@@ -34,8 +34,9 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por Equipo">
     <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
     }<input type="hidden" name="id" value="1">
-    <a class="btn success" id="add" href="@mcgrady.controllers.routes.GameController.add(1)">
-    <button type="submit" class="btn-add">Nuevo</button></a>
+    <button type="submit" onclick="location.href='@mcgrady.controllers.routes.GameController.add(1)'" class="btn-add">
+    Nuevo</button>
+
 </div>
 <table class="table table-striped">
     <tr>
@@ -52,7 +53,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     @for((game,home,teamH,visitor,teamV) <- currentPage.items){
     <tr>
         <td>@sf.format(game.dateGame)</td>
-        <td align="right"><a href="@mcgrady.controllers.routes.TeamController.view(home.idTeam)">@teamH</a></td>
+        <td><a href="@mcgrady.controllers.routes.TeamController.view(home.idTeam)">@teamH</a></td>
         <td><a href="@mcgrady.controllers.routes.TeamController.view(visitor.idTeam)">@teamV</a></td>
         <td>@if(game.idArena.isDefined){ @for(arena<-arenas.filter(_.id == game.idArena.get)){@arena.name}}</td>
         <td>
@@ -77,12 +78,12 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
 </table>
 <div id="pagination" class="pagination">
     <a>Mostrando del @(currentPage.offset + 1) al @(currentPage.offset + currentPage.items.size) de @currentPage.total</a>
-    </br>
+    <br>
     @currentPage.prev.map { page =>
-    <a href="@link(page)"><button>Anterior<i class="arrow_left"></i></button></a>
+    <button onclick="location.href='@link(page)'">Anterior<i class="arrow_left"></i></button>
     }.getOrElse {|}
     @currentPage.next.map { page =>
-    <a href="@link(page)"><button>Siguiente<i class="arrow_right"></i></button></a>
+    <button onclick="location.href='@link(page)'">Siguiente<i class="arrow_right"></i></button>
     }.getOrElse {|}
 </div>
 <div id="navigation-back"> <a href="@request.headers.get("referer")">

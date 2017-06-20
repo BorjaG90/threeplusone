@@ -23,11 +23,11 @@
     <br>No hay leyenda disponible
 </div>
 <h1>Añadir Serie</h1>
-<form id="serie-data-form" role="form" action=@kobe.controllers.routes.SerieController.save() method="post" autocomplete="off">
+<form id="serie-data-form" action=@kobe.controllers.routes.SerieController.save() method="post" autocomplete="off">
     <fieldset >
         <label>Serie</label>
         <br/>
-        <table align="center">
+        <table>
             <tr>
                 <th>Sesión</th>
                 <th>Ejercicio</th>
@@ -46,8 +46,8 @@
                         @for(exercise <- exercises){<option value="@exercise.id">@exercise.name</option>}
                     </select>
                 </td>
-                <td align="center">
-                    <textarea  id="notes" name="notes" placeholder="Notas"></textarea>
+                <td>
+                    <textarea id="notes" name="notes" placeholder="Notas"></textarea>
                 </td>
             </tr>
         </table>

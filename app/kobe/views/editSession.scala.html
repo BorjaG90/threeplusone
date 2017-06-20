@@ -12,10 +12,10 @@
     <br>No hay leyenda disponible
 </div>
 <h3>Editar Sesión</h3>
-<form id="session-data-form" role="form" action=@kobe.controllers.routes.SessionController.update(id) method="post" autocomplete="off">
+<form id="session-data-form" action=@kobe.controllers.routes.SessionController.update(id) method="post" autocomplete="off">
     <fieldset>
         <br/>
-        <table align="center">
+        <table>
             <tr>
                 <th>Nombre</th>
                 <th>Plan</th>
@@ -38,9 +38,9 @@
                    </select>
                     }
                 </td>
-                <td align="center">
+                <td>
                     @defining(sessionForm("notes").value){ notesValue=>
-                    <textarea  id="notes" name="notes">@notesValue</textarea>
+                    <textarea id="notes" name="notes">@notesValue</textarea>
                     }
                 </td>
             </tr>

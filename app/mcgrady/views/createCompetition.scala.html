@@ -22,12 +22,13 @@
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
     <br>No hay leyenda disponible
 </div>
-<form id="competition-data-form" role="form" action=@mcgrady.controllers.routes.CompetitionController.save() method="post" autocomplete="off">
+<form id="competition-data-form" action=@mcgrady.controllers.routes.CompetitionController.save() method="post" autocomplete="off">
     <h2>Nueva Competición</h2>
     <fieldset>
-        <table align="center">
+        <table>
             <tr>
-                <th>Temporada<a href=@mcgrady.controllers.routes.SeasonController.add() class="btn"><img src=@routes.Assets.versioned("images/mas.png")></a></th>
+                <th>Temporada<a href=@mcgrady.controllers.routes.SeasonController.add() class="btn">
+                    <img src=@routes.Assets.versioned("images/mas.png") alt="Añadir Temporada"></a></th>
                 <th>Nombre</th>
                 <th>Abreviatura</th>
             </tr>
@@ -35,7 +36,7 @@
                 <td>
                     <select id="id_season" name="id_season">
                         @for(season <- seasons.sortWith(_.year > _.year)){
-                        <option value="@season.id">@season.year</option>
+                        <option label="@season.year" value="@season.id">@season.year</option>
                         }
                     </select>
                 </td>
@@ -51,19 +52,19 @@
                 <th>Descripción</th>
             </tr>
             <tr>
-                <td align="center">
+                <td>
                     <input type="text" id="division" name="division" value="" placeholder="División" >
                 </td>
                 <td>
                     <select id="id_country" name="id_country">
-                        <option value = ""></option>
+                        <option label=" " value = ""></option>
                         @for(country <- countries){
-                        <option value="@country.id">@country.name</option>
+                        <option label="@country.name" value="@country.id">@country.name</option>
                         }
                     </select>
                 </td>
-                <td align="center">
-                    <textarea id="description" name="description" value="" placeholder="Descripción"></textarea>
+                <td>
+                    <textarea id="description" name="description" placeholder="Descripción"></textarea>
                 </td>
             </tr>
             <tr>
@@ -72,13 +73,13 @@
                 <th>Fin</th>
             </tr>
             <tr>
-                <td align="center">
+                <td>
                     <input type="text" id="type" name="type" value="" placeholder="Tipo" required>
                 </td>
-                <td align="center">
+                <td>
                     <input type="date" id="init_date" name="init_date" step="1" min="2000-01-01" max="2050-12-31" value="2016-09-01" onchange="validateDate('init_date','btn-submit')">
                 </td>
-                <td align="center">
+                <td>
                     <input type="date" id="end_date" name="end_date" step="1" min="2000-01-01" max="2050-12-31" value="2017-06-30" onchange="validateDate('end_date','btn-submit')">
                 </td>
             </tr>

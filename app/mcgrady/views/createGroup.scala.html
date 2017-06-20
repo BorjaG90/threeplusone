@@ -21,11 +21,11 @@
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
     <br>No hay leyenda disponible
 </div>
-<form id="group-data-form" role="form" action=@mcgrady.controllers.routes.GroupController.save() method="post" autocomplete="off">
+<form id="group-data-form" action=@mcgrady.controllers.routes.GroupController.save() method="post" autocomplete="off">
     <h2>Nuevo Grupo</h2>
     <fieldset >
         <br/>
-        <table align="center">
+        <table>
             <tr>
                 <th>Nombre</th>
                 <th>Competición</th>
@@ -39,12 +39,13 @@
                     <select id="id_competition" name="id_competition">
                         @for(season <- seasons.sortWith(_.year > _.year)){
                         @for(competition <- competitions.sortBy(_.abrv).filter(_.idSeason==season.id.get)){
-                        <option value="@competition.id">@season.year-@competition.abrv</option>
+                        <option label="@season.year-@competition.abrv" value="@competition.id">
+                            @season.year-@competition.abrv</option>
                         }}
                     </select>
                 </td>
-                <td align="center">
-                    <textarea id="notes" name="notes" value="" placeholder="Notas"></textarea>
+                <td>
+                    <textarea id="notes" name="notes" placeholder="Notas"></textarea>
                 </td>
             </tr>
         </table>

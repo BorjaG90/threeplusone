@@ -21,11 +21,11 @@
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
     <br>No hay leyenda disponible
 </div>
-<form id="inscription-data-form" role="form" action=@mcgrady.controllers.routes.InscriptionController.save() method="post" autocomplete="off">
+<form id="inscription-data-form" action=@mcgrady.controllers.routes.InscriptionController.save() method="post" autocomplete="off">
     <h2>Nueva Inscripción</h2>
     <fieldset >
         <br/>
-        <table align="center">
+        <table>
             <tr>
                 <th>Equipo</th>
                 <th>Asignación</th>
@@ -34,7 +34,7 @@
             <tr>
                 <td>
                     <select id="id_team" name="id_team">
-                        @for(team <- teams){ <option value="@team.id">@team.name</option> }
+                        @for(team <- teams){ <option label="@team.name" value="@team.id">@team.name</option> }
                     </select>
                 </td>
                 <td>
@@ -51,7 +51,7 @@
                     }
                     @if(groupCount==0){ <input type="hidden" id="CG-@group.id" value="@competition.id"> }}}}
                     <select id="asignation" onchange="inscription()">
-                        <option id="E" value="">-Seleccionar-</option>
+                        <option id="E" label="-Seleccionar-" value="">-Seleccionar-</option>
                         @for(season <- seasons.sortWith(_.year > _.year)){
                         @for(competition <- competitions.sortBy(_.abrv).filter(_.idSeason == season.id.get)){
                         @{compCount = 0}
@@ -59,20 +59,23 @@
                         @{compCount += 1} @{groupCount = 0}
                         @for(subGroup <- subGroups.filter(_.idGroup==group.id.get)){
                         @{groupCount += 1}
-                        <option id="S-@subGroup.id" value="@subGroup.id">@season.year-@competition.abrv/@group.name-@subGroup.name</option>
+                        <option id="S-@subGroup.id" label="@season.year-@competition.abrv/@group.name-@subGroup.name" value="@subGroup.id">
+                            @season.year-@competition.abrv/@group.name-@subGroup.name</option>
                         }
                         @if(groupCount==0){
-                        <option id="G-@group.id" value="@group.id">@season.year-@competition.abrv/@group.name</option>
+                        <option id="G-@group.id" label="@season.year-@competition.abrv/@group.name" value="@group.id">
+                            @season.year-@competition.abrv/@group.name</option>
                         }}
                         @if(compCount==0){
-                        <option id="C-@competition.id" value="@competition.id">@season.year-@competition.abrv</option>
+                        <option id="C-@competition.id" label="@season.year-@competition.abrv" value="@competition.id">
+                            @season.year-@competition.abrv</option>
                         }}}
                     </select>
                 </td>
                 <td>
                 <select id="id_arena" name="id_arena">
-                    <option value=""></option>
-                    @for(arena <- arenas){ <option value="@arena.id">@arena.name</option> }
+                    <option label=" " value=""></option>
+                    @for(arena <- arenas){ <option label="@arena.name" value="@arena.id">@arena.name</option> }
                 </select>
             </td>
             </tr>

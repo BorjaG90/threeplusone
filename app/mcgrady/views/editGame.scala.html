@@ -9,6 +9,7 @@
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
     <br>No hay leyenda disponible
 </div>
+<h2>Editando Partido</h2>
 <div id="actions">
     @helper.form(action=mcgrady.controllers.routes.GameController.edit(id,idComp)) {
     Competición:<select id="competition" name="idComp">
@@ -20,8 +21,8 @@
     <input type="submit" id="searchsubmit" value="Filtrar" class="btn primary">
     }
 </div>
-<form id="game-data-form" role="form" action=@mcgrady.controllers.routes.GameController.update(id) method="post" autocomplete="off">
-    <h2>Editando Partido</h2>
+<form id="game-data-form" action=@mcgrady.controllers.routes.GameController.update(id) method="post" autocomplete="off">
+
     <fieldset >
         <table>
             <tr>
@@ -31,7 +32,7 @@
                 <th>Estadio</th>
             </tr>
             <tr>
-                <td align="center">
+                <td>
                     @defining(gameForm("date").value){ dateValue=>
                     @if(dateValue.isDefined){
                     <input type="date" id="date" name="date" step="1" min="2000-01-01" max="2050-12-31" value="@dateValue.get" onchange="validateDate('date','btn-submit')">
@@ -66,8 +67,8 @@
                 <td>
                     @defining(gameForm("id_arena").value) { arenaValue=>
                     <select id="id_arena" name="id_arena">
-                        @if(arenaValue == None){ <option selected="selected" value = ""></option>
-                        }else{ <option value = ""></option> }
+                        @if(arenaValue == None){ <option selected="selected" label=" " value = ""></option>
+                        }else{ <option label=" " value=""></option> }
                         @for(arena <- arenas){ @if(arenaValue.isDefined && arena.id.get == arenaValue.get.toLong){
                         <option selected="selected" value="@arena.id">@arena.name</option>
                         }else{ <option value="@arena.id">@arena.name</option> }}
@@ -97,8 +98,8 @@
                 <td>
                     @defining(gameForm("mvp").value) { playerValue=>
                     <select id="mvp" name="mvp">
-                        @if(playerValue == None){ <option selected="selected" value = ""></option>
-                        }else{ <option value = ""></option> }
+                        @if(playerValue == None){ <option selected="selected" label=" " value = ""></option>
+                        }else{ <option label=" " value = ""></option> }
                         @for(inscription <- inscriptions){ @for(player<-players){
                         @for(contract<-contracts.filter(_.idTeam == inscription.idTeam).filter(_.idPlayer == player.id.get)){
                         @if(playerValue.isDefined && player.id.get == playerValue.get.toLong){
@@ -107,7 +108,7 @@
                     </select>
                     }
                 </td>
-                <td colspan="2" align="center">
+                <td colspan="2">
                     @defining(gameForm("description").value){ descriptionValue=>
                     <textarea id="description" name="description">@descriptionValue</textarea>
                     }

@@ -10,10 +10,10 @@
     <br>No hay leyenda disponible
 </div>
 <h3>Editar Marca</h3>
-<form id="record-data-form" role="form" action=@kobe.controllers.routes.RecordController.updateMark(id) method="post" autocomplete="off">
+<form id="record-data-form" action=@kobe.controllers.routes.RecordController.updateMark(id) method="post" autocomplete="off">
     <fieldset>
         <br/>
-        <table align="center">
+        <table>
             <tr>
                 <th>Serie</th>
                 <th>Valor</th>
@@ -34,7 +34,7 @@
                     }
                     <input type="hidden" id="type" name="type" value="M">
                 </td>
-                <td align="center">
+                <td>
                     @defining(recordForm("value").value){ valueValue=>
                     <input type="text" id="value" name="value" value="@valueValue"  onchange="validateNumber('value','btn-submit')">
                     }
@@ -55,7 +55,7 @@
                     <input type="date" id="execution_date" name="execution_date" value="@dateValue" onchange="validateDate('execution_date','btn-submit')">
                     }
                 </td>
-                <td align="center">
+                <td>
                     @defining(recordForm("notes").value){ notesValue=>
                     <textarea  id="notes" name="notes">@notesValue</textarea>
                     }
