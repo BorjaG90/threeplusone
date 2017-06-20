@@ -8,7 +8,7 @@
 function calculatePercentage(idMade,idAtt,min,max,idSvg){
     var made = document.getElementById(idMade).value;
     var att = document.getElementById(idAtt).value;
-    if(att != null && att != "" && parseInt(made) > parseInt(att)){
+    if(att !== null && att !== "" && parseInt(made) > parseInt(att)){
         document.getElementById(idAtt).value = "Err";
     }
     validateNumber(idMade,"btn-submit2");
@@ -44,17 +44,18 @@ function setInShotChart(id){
   **/
 function openFormSC(evt, formul, serieId) {
     document.getElementById("id_serie_shot").value = serieId;
-
+    var i;
     // Get all elements with class="tabcontent" and hide them
     var tabcontent = document.getElementsByClassName("tabcontent");
-    for (var i = 0; i < tabcontent.length; i++) {
+    for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
     }
 
     // Get all elements with class="tablinks" and remove the class "active"
     var tablinks = document.getElementsByClassName("tablinks");
-    for (var i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    for (i = 0; i < tablinks.length; i++) {
+        //tablinks[i].className = tablinks[i].className.replace(" active", "");
+        tablinks[i].className = tablinks[i].className -= " active";
     }
 
     // Show the current tab, and add an "active" class to the button that opened the tab

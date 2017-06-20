@@ -3,6 +3,13 @@
   */
 
 /**
+  * Devuelve un booleano que indica si el parámetro pasado es numérico
+  **/
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+/**
   * Establece los valores de una Inscripción dependiendo de si involucra una
   * Competición, un Grupo o un SubGrupo
   **/
@@ -31,11 +38,11 @@ function inscription(){
   * dicha tabla
   **/
 function sortTable(n, idTable) {
-  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-  table = document.getElementById(idTable);
-  switching = true;
+  var  rows, i, x, y, shouldSwitch, switchcount = 0;
+  var table = document.getElementById(idTable);
+  var switching = true;
   //Set the sorting direction to ascending:
-  dir = "asc";
+  var dir = "asc";
   /*Make a loop that will continue until
   no switching has been done:*/
   while (switching) {
@@ -101,21 +108,15 @@ function sortTable(n, idTable) {
   }
 }
 
-/**
-  * Devuelve un booleano que indica si el parámetro pasado es numérico
-  **/
-function isNumber(n) {
-  return !isNaN(parseFloat(n)) && isFinite(n);
-}
 
 /**
   * Recibe una tabla y una columna y ordena los valores de esa columna en
   * dicha tabla de forma ascendente
   **/
 function sortTableAsc(n, idTable) {
-  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-  table = document.getElementById(idTable);
-  switching = true;
+  var rows, i, x, y, shouldSwitch, dir, switchcount = 0;
+  var table = document.getElementById(idTable);
+  var switching = true;
   while (switching) {
     switching = false;
     rows = table.getElementsByTagName("TR");
@@ -140,7 +141,7 @@ function sortTableAsc(n, idTable) {
       switching = true;
       switchcount ++;
     } else {
-      if (switchcount == 0) {
+      if (switchcount === 0) {
         switching = true;
       }
     }
@@ -152,9 +153,9 @@ function sortTableAsc(n, idTable) {
   * dicha tabla de forma descendente
   **/
 function sortTableDesc(n, idTable) {
-  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-  table = document.getElementById(idTable);
-  switching = true;
+  var  rows, i, x, y, shouldSwitch, dir, switchcount = 0;
+  var table = document.getElementById(idTable);
+  var switching = true;
   while (switching) {
     switching = false;
     rows = table.getElementsByTagName("TR");
@@ -191,10 +192,9 @@ function sortTableDesc(n, idTable) {
   **/
 function openForm(evt, formul) {
     // Declare all variables
-    var i, tabcontent, tablinks;
-
+    var i;
     // Get all elements with class="tabcontent" and hide them
-    tabcontent = document.getElementsByClassName("tabcontent");
+    var tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
     }
@@ -204,9 +204,9 @@ function openForm(evt, formul) {
         }
 
     // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName("tablinks");
+    var tablinks = document.getElementsByClassName("tablinks");
     for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
+        tablinks[i].className = tablinks[i].className -= " active";
     }
 
     // Show the current tab, and add an "active" class to the button that opened the tab
@@ -219,18 +219,17 @@ function openForm(evt, formul) {
   **/
 function openForm2(evt, formul) {
     // Declare all variables
-    var i, tabcontent, tablinks;
-
+    var i;
     // Get all elements with class="tabcontent" and hide them
-    tabcontent = document.getElementsByClassName("tabcontent2");
+    var tabcontent = document.getElementsByClassName("tabcontent2");
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
     }
 
     // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName("tablinks");
+    var tablinks = document.getElementsByClassName("tablinks");
     for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
+        tablinks[i].className = tablinks[i].className -= " active";
     }
 
     // Show the current tab, and add an "active" class to the button that opened the tab

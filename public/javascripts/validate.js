@@ -3,6 +3,20 @@
   */
 
 /**
+  * Devuelve una cadena válida sin caracteres especiales
+  **/
+function escapeRegExp(str) {
+    return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+}
+
+/**
+  * Realiza un Replace en una subcadena que cumpla un patrón
+  **/
+function replaceAll(str, find, replace) {
+  return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+}
+
+/**
   * Devuelve un booleano que indica si el parámetro pasado es una fecha valida
   **/
 function isValidDate(text) {
@@ -58,20 +72,6 @@ function validateDate(element, submit){
     }
     document.getElementById(element).value = replaceAll(text,"/","-");
     return true;
-}
-
-/**
-  * Realiza un Replace en una subcadena que cumpla un patrón
-  **/
-function replaceAll(str, find, replace) {
-  return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
-}
-
-/**
-  * Devuelve una cadena válida sin caracteres especiales
-  **/
-function escapeRegExp(str) {
-    return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
 }
 
 /**
