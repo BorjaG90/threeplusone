@@ -73,7 +73,7 @@ class EnviromentController @Inject()(val messagesApi: MessagesApi,
           val futureEnviromentUpdate = enviromentService.update(id, newEnviroment.copy(id = Some(id)))
           futureEnviromentUpdate.map { result =>
             if (request.session.get("email").isDefined) {
-              home.flashing("success" -> "El entorno %s ha sido actualizada".format(newEnviroment.name))
+              home.flashing("success" -> "El entorno %s ha sido actualizado".format(newEnviroment.name))
             } else {
               Ok(views.html.login(UserForm.loginForm))
             }

@@ -118,7 +118,7 @@ class InscriptionController @Inject()(val messagesApi: MessagesApi
           val futureInscriptionUpdate = inscriptionService.update(id, newInscription.copy(id = Some(id)))
           futureInscriptionUpdate.map { result =>
             if (request.session.get("email").isDefined) {
-              home.flashing("success" -> "La inscripci&oacute;n ha sido actualizada")
+              home.flashing("success" -> "La inscripción ha sido actualizada")
             } else {
               Ok(views.html.login(UserForm.loginForm))
             }
@@ -145,7 +145,7 @@ class InscriptionController @Inject()(val messagesApi: MessagesApi
         val futureInscriptionInsert = inscriptionService.add(newInscription)
         futureInscriptionInsert.map { result =>
           if (request.session.get("email").isDefined) {
-            home.flashing("success" -> "La inscripci&oacute;n ha sido creada")
+            home.flashing("success" -> "La inscripción ha sido creada")
           } else {
             Ok(views.html.login(UserForm.loginForm))
           }
@@ -162,7 +162,7 @@ class InscriptionController @Inject()(val messagesApi: MessagesApi
     val futureInscriptionDel = inscriptionService.delete(id)
     futureInscriptionDel.map { result =>
       if (request.session.get("email").isDefined) {
-        home.flashing("success" -> "Inscripci&oacute;n eliminada")
+        home.flashing("success" -> "Inscripción eliminada")
       } else {
         Ok(views.html.login(UserForm.loginForm))
       }

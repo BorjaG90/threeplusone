@@ -72,13 +72,13 @@ class CategoryController @Inject()(val messagesApi: MessagesApi,
           val futureCategoryUpdate = categoryService.update(id, newCategory.copy(id = Some(id)))
           futureCategoryUpdate.map { result =>
             if (request.session.get("email").isDefined) {
-              home.flashing("success" -> "La categor&iacute;a %s ha sido actualizada".format(newCategory.name))
+              home.flashing("success" -> "La categoría %s ha sido actualizada".format(newCategory.name))
             } else {
               Ok(views.html.login(UserForm.loginForm))
             }
           }.recover {
             case ex: TimeoutException =>
-              Logger.error("Error actualizando una categor&iacute;a")
+              Logger.error("Error actualizando una categoría")
               InternalServerError(ex.getMessage)
           }
         }
@@ -94,7 +94,7 @@ class CategoryController @Inject()(val messagesApi: MessagesApi,
         val futureCategoryInsert = categoryService.add(newCategory)
         futureCategoryInsert.map { result =>
           if (request.session.get("email").isDefined) {
-            home.flashing("success" -> "La categor&iacute;a %s ha sido creado".format(newCategory.name))
+            home.flashing("success" -> "La categoría %s ha sido creado".format(newCategory.name))
           } else {
             Ok(views.html.login(UserForm.loginForm))
           }
@@ -111,7 +111,7 @@ class CategoryController @Inject()(val messagesApi: MessagesApi,
     val futureCategoryDel = categoryService.delete(id)
     futureCategoryDel.map { result =>
       if (request.session.get("email").isDefined) {
-        home.flashing("success" -> "Categor&iacute;a eliminada")
+        home.flashing("success" -> "Categoría eliminada")
       } else {
         Ok(views.html.login(UserForm.loginForm))
       }

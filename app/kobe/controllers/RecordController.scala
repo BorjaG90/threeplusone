@@ -183,7 +183,7 @@ class RecordController @Inject()(val messagesApi: MessagesApi
           val futureRecordUpdate = recordService.update(id, newSerie.copy(id = Some(id)))
           futureRecordUpdate.map { result =>
             if (request.session.get("email").isDefined) {
-              home.flashing("success" -> "El vol&uacute;men ha sido actualizado")
+              home.flashing("success" -> "El volumen ha sido actualizado")
             } else {
               Ok(views.html.login(UserForm.loginForm))
             }
@@ -329,7 +329,7 @@ class RecordController @Inject()(val messagesApi: MessagesApi
                 count = count + 1
               }
               Future.successful(Redirect(kobe.controllers.routes.RecordController.addMark(id))
-                .flashing("success" -> s"Los lanzamientos se han a&ntilde;adido (Actualice la p&aacute;gina en caso de no observar los cambios)"))
+                .flashing("success" -> s"Los lanzamientos se han añadido (Actualice la página en caso de no observar los cambios)"))
             }
           )
         }

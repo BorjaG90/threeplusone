@@ -80,7 +80,7 @@ class SessionController @Inject()(val messagesApi: MessagesApi
           val futureSessionUpdate = sessionService.update(id, newSession.copy(id = Some(id)))
           futureSessionUpdate.map { result =>
             if (request.session.get("email").isDefined) {
-              home.flashing("success" -> "La sesion %s ha sido actualizada".format(newSession.name))
+              home.flashing("success" -> "La sesión %s ha sido actualizada".format(newSession.name))
             } else {
               Ok(views.html.login(UserForm.loginForm))
             }
@@ -104,7 +104,7 @@ class SessionController @Inject()(val messagesApi: MessagesApi
         val futureSessionInsert = sessionService.add(newSession)
         futureSessionInsert.map { result =>
           if (request.session.get("email").isDefined) {
-            home.flashing("success" -> "La sesi&oacute;n %s ha sido creada".format(newSession.name))
+            home.flashing("success" -> "La sesión %s ha sido creada".format(newSession.name))
           } else {
             Ok(views.html.login(UserForm.loginForm))
           }
@@ -121,7 +121,7 @@ class SessionController @Inject()(val messagesApi: MessagesApi
     val futureSessionDel = sessionService.delete(id)
     futureSessionDel.map { result =>
       if (request.session.get("email").isDefined) {
-        home.flashing("success" -> "Sesi&oacute;n eliminada")
+        home.flashing("success" -> "Sesión eliminada")
       } else {
         Ok(views.html.login(UserForm.loginForm))
       }

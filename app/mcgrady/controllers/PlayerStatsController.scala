@@ -133,7 +133,7 @@ class PlayerStatsController @Inject()(val messagesApi: MessagesApi
           val futurePlayerStatsUpdate = playerStatsService.update(id, newPlayerStats.copy(id = Some(id)))
           futurePlayerStatsUpdate.map { result =>
             if (request.session.get("email").isDefined) {
-              home.flashing("success" -> "La L&iacute;nea ha sido actualizado")
+              home.flashing("success" -> "La Línea ha sido actualizado")
             } else {
               Ok(views.html.login(UserForm.loginForm))
             }
@@ -177,7 +177,7 @@ class PlayerStatsController @Inject()(val messagesApi: MessagesApi
           val futurePlayerStatsInsert = playerStatsService.add(newPlayerStats)
           futurePlayerStatsInsert.map { result =>
             if (request.session.get("email").isDefined) {
-              home.flashing("success" -> "La L&iacute;nea ha sido creada")
+              home.flashing("success" -> "La Línea ha sido creada")
             } else {
               Ok(views.html.login(UserForm.loginForm))
             }
@@ -195,7 +195,7 @@ class PlayerStatsController @Inject()(val messagesApi: MessagesApi
       val futurePlayerStatsDel = playerStatsService.delete(id)
       futurePlayerStatsDel.map { result =>
         if (request.session.get("email").isDefined) {
-          home.flashing("success" -> "L&iacute;nea eliminada")
+          home.flashing("success" -> "Línea eliminada")
         } else {
           Ok(views.html.login(UserForm.loginForm))
         }
