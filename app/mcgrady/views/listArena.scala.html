@@ -28,6 +28,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     <a href='#' onClick="closeLegend()"><b>x</b></a> <b><i>Leyenda</i></b>
     <br>No hay leyenda disponible
 </div>
+<h3>Estadios</h3>
 <div id="actions">
     @helper.form(action=mcgrady.controllers.routes.ArenaController.list()) {
     <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por nombre de Estadio">
@@ -36,6 +37,7 @@ if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
     Nuevo</button>
 
 </div>
+
 <table class="table table-striped">
     <tr>
         <th>Nombre</th>
