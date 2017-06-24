@@ -17,7 +17,7 @@
     <br><b>TL</b> -> Tiros Libres
 </div>
 <form id="teamStats-data-form" action=@mcgrady.controllers.routes.TeamStatsController.update(id) method="post" autocomplete="off">
-    <h2>Editando Estadisticas</h2>
+    <h2>Editando Estadísticas</h2>
     <fieldset >
         <table>
             <tr>
@@ -27,13 +27,15 @@
             </tr>
             <tr>
                 <td colspan="2">
+
                     @defining(teamStatsForm("id_game").value){ gameValue=>
                     @for(game <- games){ @if(gameValue.isDefined && gameValue.get.toLong == game.id.get){
                     @for(homeI <- inscriptions.filter(_.id.get==game.idHome)){
                     @for(awayI <- inscriptions.filter(_.id.get==game.idVisitor)){
                     @for(home <- teams.filter(_.id.get==homeI.idTeam)){
                     @for(away <- teams.filter(_.id.get==awayI.idTeam)){
-                    @sf.format(game.dateGame) <br> @home.abrv vs @away.abrv }}}}}}}
+                    @sf.format(game.dateGame) <br> @home.abrv vs @away.abrv <input type="hidden" id="id_game" name="id_game" value="@gameValue">}}}}}}}
+
                 </td>
                 <td>
                     @defining(teamStatsForm("id_inscription").value) { inscriptionValue=>

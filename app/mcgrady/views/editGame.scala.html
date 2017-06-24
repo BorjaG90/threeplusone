@@ -84,10 +84,10 @@
             <tr>
                 <td>
                     @defining(gameForm("winner").value) { winnerValue=>
-                    @if("H" == winnerValue.toString){
+                    @if(winnerValue.isDefined && "H" == winnerValue.get.toString){
                     <input type="radio" id="winner1" name="winner" value="H" checked>Anfitri&oacute;n<br>
                     <input type="radio" id="winner2" name="winner" value="A">Visitante<br>
-                    }else{ @if("V" == winnerValue.toString){
+                    }else{ @if(winnerValue.isDefined && "A" == winnerValue.get.toString){
                     <input type="radio" id="winner3" name="winner" value="H">Anfitri&oacute;n<br>
                     <input type="radio" id="winner4" name="winner" value="A" checked>Visitante<br>
                     }else{

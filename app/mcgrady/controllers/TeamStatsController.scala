@@ -85,7 +85,8 @@ class TeamStatsController @Inject()(val messagesApi: MessagesApi
     implicit request =>
       TeamStatsForm.form.bindFromRequest.fold(
         formWithErrors => Future.successful(
-          BadRequest(html.editTeamStats(id, formWithErrors, Seq.empty[Game], Seq.empty[Inscription],Seq.empty[Team], new SimpleDateFormat("dd/MM/yyyy")))),
+          BadRequest(html.editTeamStats(id, formWithErrors, Seq.empty[Game], Seq.empty[Inscription],Seq.empty[Team]
+            , new SimpleDateFormat("dd/MM/yyyy")))),
         data => {
           val newTeamStats = TeamStats(Some(0L), data.idGame
             , data.idInscription
@@ -111,9 +112,9 @@ class TeamStatsController @Inject()(val messagesApi: MessagesApi
           futureTeamStatsUpdate.map { result =>
             if (request.session.get("email").isDefined) {
               home.flashing("success" -> "La Línea ha sido actualizado")
-          } else {
-            Ok(views.html.login(UserForm.loginForm))
-          }
+            } else {
+              Ok(views.html.login(UserForm.loginForm))
+            }
           }.recover {
             case ex: TimeoutException =>
               Logger.error("Error actualizando una L&iacute;nea")

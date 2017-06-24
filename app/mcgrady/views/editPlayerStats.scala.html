@@ -33,7 +33,9 @@
                     @for(awayI <- inscriptions.filter(_.id.get==game.idVisitor)){
                     @for(home <- teams.filter(_.id.get==homeI.idTeam)){
                     @for(away <- teams.filter(_.id.get==awayI.idTeam)){
-                    @sf.format(game.dateGame) <br> @home.abrv vs @away.abrv }}}}}}}
+                    @sf.format(game.dateGame) <br> @home.abrv vs @away.abrv
+                    <input type="hidden" id="id_game" name="id_game" value="@gameValue">}}}}}}}
+
                 </td>
                 <td>
                     @defining(playerStatsForm("id_player").value) { playerValue=>
